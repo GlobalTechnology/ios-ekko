@@ -99,9 +99,7 @@
 		D3F2F02517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
 		D3F2F02D17EC904800F32F52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3F2F02B17EC904800F32F52 /* InfoPlist.strings */; };
 		D3F2F02F17EC904800F32F52 /* EkkoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F02E17EC904800F32F52 /* EkkoTests.m */; };
-		D3F9DA2217ECA0870039B0AC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2117ECA0870039B0AC /* Icon@2x.png */; };
-		D3F9DA2517ECA0DB0039B0AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2317ECA0DB0039B0AC /* Default-568h@2x.png */; };
-		D3F9DA2617ECA0DB0039B0AC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2417ECA0DB0039B0AC /* Default@2x.png */; };
+		D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2717ECB9620039B0AC /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,9 +279,7 @@
 		D3F2F02A17EC904800F32F52 /* EkkoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EkkoTests-Info.plist"; sourceTree = "<group>"; };
 		D3F2F02C17EC904800F32F52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3F2F02E17EC904800F32F52 /* EkkoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EkkoTests.m; sourceTree = "<group>"; };
-		D3F9DA2117ECA0870039B0AC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		D3F9DA2317ECA0DB0039B0AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D3F9DA2417ECA0DB0039B0AC /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		D3F9DA2717ECB9620039B0AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,9 +371,6 @@
 		D359FF1217EC96FE007A095B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				D3F9DA2317ECA0DB0039B0AC /* Default-568h@2x.png */,
-				D3F9DA2417ECA0DB0039B0AC /* Default@2x.png */,
-				D3F9DA2117ECA0870039B0AC /* Icon@2x.png */,
 				D359FF1317EC96FE007A095B /* chevron-left.png */,
 				D359FF1417EC96FE007A095B /* chevron-left@2x.png */,
 				D359FF1517EC96FE007A095B /* chevron-right.png */,
@@ -647,6 +640,7 @@
 				D3F2F00717EC904800F32F52 /* Supporting Files */,
 				D359FF5917EC96FE007A095B /* Utils */,
 				D359FF6417EC96FE007A095B /* Views */,
+				D3F9DA2717ECB9620039B0AC /* Images.xcassets */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -762,18 +756,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				D359FFA217EC96FE007A095B /* chevron-right.png in Resources */,
-				D3F9DA2217ECA0870039B0AC /* Icon@2x.png in Resources */,
 				D359FFA417EC96FE007A095B /* left_arrow.png in Resources */,
 				D359FFA517EC96FE007A095B /* left_arrow@2x.png in Resources */,
 				D359FFA117EC96FE007A095B /* chevron-left@2x.png in Resources */,
 				D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */,
+				D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */,
 				D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */,
 				D359FFA617EC96FE007A095B /* show_lines.png in Resources */,
 				D359FFA317EC96FE007A095B /* chevron-right@2x.png in Resources */,
-				D3F9DA2517ECA0DB0039B0AC /* Default-568h@2x.png in Resources */,
 				D3F2F00B17EC904800F32F52 /* InfoPlist.strings in Resources */,
 				D359FFA017EC96FE007A095B /* chevron-left.png in Resources */,
-				D3F9DA2617ECA0DB0039B0AC /* Default@2x.png in Resources */,
 				D359FFA717EC96FE007A095B /* show_lines@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1015,6 +1007,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7069383D156F4191A71889D9 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
@@ -1028,6 +1022,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7069383D156F4191A71889D9 /* Pods.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
