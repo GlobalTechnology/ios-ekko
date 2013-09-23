@@ -7,65 +7,12 @@
 //
 
 #import "ResourceService.h"
-#import "ResourceCache.h"
+#import "ResourceImageCache.h"
 #import "HubClient.h"
 
 #import "NSString+MD5.h"
-
-/*
-@interface ResourceKey : NSObject<NSCopying>
-@property (nonatomic, copy) NSString *courseId;
-@property (nonatomic, copy) NSString *sha1;
-@property (nonatomic, copy) NSString *uri;
-@property (nonatomic) EkkoResourceProvider provider;
-@end
-
-@implementation ResourceKey
-
--(id)initWithResource:(Resource *)resource {
-    self = [super init];
-    if (self) {
-        self.courseId = resource.courseId;
-        self.sha1 = resource.sha1 ?: nil;
-        self.uri = resource.uri ?: nil;;
-        self.provider = resource.provider;
-    }
-    return self;
-}
-
--(id)copyWithZone:(NSZone *)zone {
-    ResourceKey *key = [[ResourceKey allocWithZone:zone] init];
-    [key setCourseId:self.courseId];
-    [key setSha1:self.sha1];
-    [key setUri:self.uri];
-    [key setProvider:self.provider];
-    return key;
-}
-
--(BOOL)isEqual:(id)object {
-    if (self == object) {
-        return YES;
-    }
-    if ([object isKindOfClass:[self class]]) {
-        ResourceKey *key = (ResourceKey *)object;
-        return [self.courseId isEqual:key.courseId]
-            && ((self.sha1 == nil && key.sha1 == nil) || (self.sha1 != nil && [self.sha1 isEqual:key.sha1]))
-            && ((self.uri == nil && key.uri == nil) || (self.uri != nil && [self.uri isEqual:key.uri]))
-            && self.provider == key.provider;
-    }
-    return NO;
-}
-
--(NSUInteger)hash {
-    NSUInteger hash = 1;
-    hash = 31 * hash + [self.courseId hash];
-    hash = 31 * hash + (self.sha1 != nil ? [self.sha1 hash] : 0);
-    hash = 31 * hash + (self.uri != nil ? [self.uri hash] : 0);
-    hash = 31 * hash + self.provider;
-    return hash;
-}
-@end
-*/
+#import "UIImage+Ekko.h"
+#import <AFImageRequestOperation.h>
 
 @interface ResourceService ()
 @property (nonatomic, strong) NSMutableDictionary *courseCaches;
@@ -83,11 +30,11 @@
     return _service;
 }
 
--(ResourceCache *)cacheForCourseId:(NSString *)courseId {
-    ResourceCache *cache = nil;
+-(ResourceImageCache *)cacheForCourseId:(NSString *)courseId {
+    ResourceImageCache *cache = nil;
     cache = [self.courseCaches objectForKey:courseId];
     if (cache == nil) {
-        cache = [[ResourceCache alloc] initWithCourseId:courseId];
+        cache = [[ResourceImageCache alloc] initWithCourseId:courseId];
         [self.courseCaches setObject:cache forKey:courseId];
     }
     return cache;
@@ -106,32 +53,51 @@
         return;
     }
     NSString *key = [resource.sha1 copy];
-    ResourceCache *cache = [self cacheForCourseId:resource.courseId];
-    
-    [cache objectForKey:key withCallback:^(id object) {
-        if (object) {
-            UIImage *image = [UIImage imageWithData:object scale:[UIScreen mainScreen].scale];
-            dispatch_async(dispatch_get_main_queue(), ^{
+    ResourceImageCache *cache = [self cacheForCourseId:resource.courseId];
+
+    [cache imageForKey:key withCallback:^(UIImage *image) {
+        if (image) {
+            if (delegate) {
                 [delegate resourceService:resource image:image];
-            });
+            }
         }
         else {
             [[HubClient sharedClient] getCourseResource:resource.courseId sha1:resource.sha1 completionHandler:^(NSData *data) {
-                UIImage *image = [UIImage imageWithData:data scale:[UIScreen mainScreen].scale];
-                dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
+                if (delegate) {
                     [delegate resourceService:resource image:image];
-                });
-                
-                [cache setObject:UIImagePNGRepresentation(image) forKey:key];
+                }
+                [cache setImage:image forKey:key];
             }];
         }
     }];
 }
 
--(void)getUriResource:(Resource *)resource delegate:(id<ResourceServiceImageDelegate>)delegate {
+-(void)getUriResource:(Resource *)resource delegate:(__weak id<ResourceServiceImageDelegate>)delegate {
     if (![self isDownloadableUriResource:resource]) {
         return;
     }
+    NSString *key = [resource.uri MD5];
+    ResourceImageCache *cache = [self cacheForCourseId:resource.courseId];
+    
+    [cache imageForKey:key withCallback:^(UIImage *image) {
+        if (image) {
+            if (delegate) {
+                [delegate resourceService:resource image:image];
+            }
+        }
+        else {
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+            [[AFImageRequestOperation imageRequestOperationWithRequest:request success:^(UIImage *image) {
+                if (image) {
+                    if (delegate) {
+                        [delegate resourceService:resource image:image];
+                    }
+                    [cache setImage:image forKey:key];
+                }
+            }] start];
+        }
+    }];
 }
 
 -(void)getResource:(Resource *)resource delegate:(id<ResourceServiceImageDelegate>)delegate {

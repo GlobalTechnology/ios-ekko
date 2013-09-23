@@ -19,7 +19,7 @@
  */
 +(ResourceService *)sharedService;
 
--(void)getResource:(Resource *)resource delegate:(id<ResourceServiceImageDelegate>)delegate;
+-(void)getResource:(Resource *)resource delegate:(__weak id<ResourceServiceImageDelegate>)delegate;
 
 @end
 

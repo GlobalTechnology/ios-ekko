@@ -23,9 +23,13 @@
     //Activate Network Activity handling in AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor ekkoDarkBlue]];
-    [[UINavigationBar appearance] setTintColor:[UIColor ekkoDarkBlue]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor ekkoDarkBlue]];
+//    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    [[UINavigationBar appearance] setBackgroundColor:[UIColor ekkoDarkBlue]];
+//    [[UINavigationBar appearance] setTintColor:[UIColor ekkoDarkBlue]];
     
 //    [[TheKey theKey] signOut];
 

@@ -21,16 +21,21 @@
     [super viewWillAppear:animated];
     
     if ([self.media.mediaType isEqualToString:@"image"]) {
-        Resource *resource = [self.media resource];
-        if (resource) {
-            [self.mediaImage setImageWithURL:[resource imageUrl]];
-        }
+        [[ResourceService sharedService] getResource:[self.media resource] delegate:self];
     }
     else {
         Resource *thumbnail = [self.media thumbnail];
         if (thumbnail) {
-            [self.mediaImage setImageWithURL:[thumbnail imageUrl]];
+            [[ResourceService sharedService] getResource:[self.media thumbnail] delegate:self];
         }
+    }
+}
+
+-(void)resourceService:(Resource *)resource image:(UIImage *)image {
+    if (image) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.mediaImage setImage:image];
+        });
     }
 }
 

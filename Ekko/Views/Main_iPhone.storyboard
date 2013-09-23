@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="KLb-Bu-sl6">
     <dependencies>
-        <deployment defaultVersion="1536" identifier="iOS"/>
+        <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
@@ -33,10 +33,10 @@
             </objects>
             <point key="canvasLocation" x="959" y="320"/>
         </scene>
-        <!--View Controller-->
+        <!--Course Drawer-->
         <scene sceneID="efM-HE-wXf">
             <objects>
-                <viewController storyboardIdentifier="courseDrawer" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dfw-ZA-EUc" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="courseDrawer" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dfw-ZA-EUc" userLabel="Course Drawer" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vpd-lg-jeB"/>
                         <viewControllerLayoutGuide type="bottom" id="0Jd-2I-HVR"/>
@@ -64,11 +64,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="74f-tB-QG3" kind="custom" identifier="leftDrawerController" id="1XK-NR-pK1"/>
-                        <segue destination="vJO-dQ-RNS" kind="custom" identifier="centerDrawerController" customClass="" id="Sbk-Ft-2iX"/>
-                        <segue destination="dfw-ZA-EUc" kind="custom" identifier="rightDrawerController" id="zVv-AD-hdU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GzS-Wg-YXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,10 +73,10 @@
         <scene sceneID="pDC-xa-c6M">
             <objects>
                 <tableViewController id="Ely-BJ-5hT" customClass="CourseListViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="224" sectionHeaderHeight="22" sectionFooterHeight="22" id="HeQ-4S-GfH">
+                    <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="224" sectionHeaderHeight="22" sectionFooterHeight="22" id="HeQ-4S-GfH">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.91372549533843994" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="courseListCell" id="dBe-hw-eES" customClass="CourseListCell">
                                 <rect key="frame" x="0.0" y="22" width="320" height="224"/>
@@ -93,14 +88,6 @@
                                         <view opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDS-5R-6mU">
                                             <rect key="frame" x="10" y="10" width="300" height="203"/>
                                             <subviews>
-                                                <progressView opaque="NO" contentMode="scaleToFill" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eHx-T7-XYv">
-                                                    <rect key="frame" x="180" y="191" width="100" height="3"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="tQ7-Pv-Hyw"/>
-                                                    </constraints>
-                                                    <color key="progressTintColor" red="0.81176471709999998" green="0.42745098469999998" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="trackTintColor" red="0.90588235859999999" green="0.90588235859999999" blue="0.91372549530000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </progressView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Eu-O1-5Iw">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="169"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -108,8 +95,16 @@
                                                         <constraint firstAttribute="height" constant="169" id="mXK-us-Zmj"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nW-bW-KR3">
-                                                    <rect key="frame" x="20" y="179" width="152" height="26"/>
+                                                <progressView opaque="NO" contentMode="scaleToFill" misplaced="YES" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eHx-T7-XYv">
+                                                    <rect key="frame" x="180" y="189" width="100" height="3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="tQ7-Pv-Hyw"/>
+                                                    </constraints>
+                                                    <color key="progressTintColor" red="0.81176471709999998" green="0.42745098469999998" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="trackTintColor" red="0.90588235859999999" green="0.90588235859999999" blue="0.91372549530000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                </progressView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nW-bW-KR3">
+                                                    <rect key="frame" x="20" y="177" width="152" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="P5e-qz-yCw"/>
                                                     </constraints>
@@ -132,6 +127,7 @@
                                         </view>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.91372549533843994" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="EDS-5R-6mU" firstAttribute="top" secondItem="dBe-hw-eES" secondAttribute="top" constant="10" id="7oi-Ud-w7q"/>
                                     <constraint firstAttribute="bottom" secondItem="EDS-5R-6mU" secondAttribute="bottom" constant="11" id="YN3-gJ-tm7"/>
@@ -145,9 +141,13 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Ely-BJ-5hT" id="jqy-G4-iri"/>
+                            <outlet property="delegate" destination="Ely-BJ-5hT" id="Pnl-Cb-Pmx"/>
+                        </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Courses" id="SLI-yi-jNf"/>
+                    <navigationItem key="navigationItem" title="Courses" id="hbf-LU-DaK"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="B50-cR-s75">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
@@ -167,16 +167,12 @@
                         <viewControllerLayoutGuide type="bottom" id="E1e-fo-ApN"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Rlk-0o-IRk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="fbr-6W-3e6"/>
-                    <connections>
-                        <segue destination="86h-77-jNf" kind="custom" identifier="lessonContent" id="zyg-JM-1Cg"/>
-                        <segue destination="Qnd-Lm-uh1" kind="custom" identifier="quizContent" id="fsE-8p-6ev"/>
-                        <segue destination="yG9-Zq-rf9" kind="custom" id="fVx-W1-emf"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1eT-Mt-BnY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,10 +191,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="Qgs-wc-id2" kind="custom" id="lwQ-pd-8sr"/>
-                        <segue destination="hZo-Ok-DIW" kind="custom" id="hfL-63-Uf9"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n91-Qy-suP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -304,10 +296,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
-                    <connections>
-                        <segue destination="OvS-zx-DaF" kind="custom" id="2kM-Gd-bMB"/>
-                        <segue destination="vAf-q8-zhO" kind="custom" id="zTF-GT-OPU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bo0-NC-tbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -385,10 +373,15 @@
         <scene sceneID="KFF-0H-DWo">
             <objects>
                 <navigationController storyboardIdentifier="ekkoNavigation" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vJO-dQ-RNS" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="jfc-O8-zQu">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="jfc-O8-zQu">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.16470588235294117" green="0.31372549019607843" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1647058824" green="0.31372549020000001" blue="0.52941176469999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Ely-BJ-5hT" kind="relationship" relationship="rootViewController" id="U0c-SS-zyJ"/>

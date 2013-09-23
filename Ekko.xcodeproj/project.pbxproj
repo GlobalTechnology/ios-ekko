@@ -66,7 +66,7 @@
 		D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5617EC96FE007A095B /* HubSyncService.m */; };
 		D359FFC317EC96FE007A095B /* ResourceService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5817EC96FE007A095B /* ResourceService.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
-		D359FFC517EC96FE007A095B /* ResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceCache.m */; };
+		D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceImageCache.m */; };
 		D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */; };
 		D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF6117EC96FE007A095B /* UIImage+Ekko.m */; };
 		D359FFC817EC96FE007A095B /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF6317EC96FE007A095B /* URLUtils.m */; };
@@ -89,6 +89,7 @@
 		D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */; };
 		D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */; };
 		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
+		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
 		D3F2F00517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
@@ -221,8 +222,8 @@
 		D359FF5817EC96FE007A095B /* ResourceService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceService.m; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		D359FF5B17EC96FE007A095B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		D359FF5C17EC96FE007A095B /* ResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceCache.h; sourceTree = "<group>"; };
-		D359FF5D17EC96FE007A095B /* ResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceCache.m; sourceTree = "<group>"; };
+		D359FF5C17EC96FE007A095B /* ResourceImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceImageCache.h; sourceTree = "<group>"; };
+		D359FF5D17EC96FE007A095B /* ResourceImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceImageCache.m; sourceTree = "<group>"; };
 		D359FF5E17EC96FE007A095B /* UIColor+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Ekko.h"; sourceTree = "<group>"; };
 		D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Ekko.m"; sourceTree = "<group>"; };
 		D359FF6017EC96FE007A095B /* UIImage+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Ekko.h"; sourceTree = "<group>"; };
@@ -266,6 +267,8 @@
 		D359FFDE17EC9978007A095B /* Ekko.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ekko.xcdatamodel; sourceTree = "<group>"; };
 		D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
+		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -481,6 +484,8 @@
 				D359FF5617EC96FE007A095B /* HubSyncService.m */,
 				D359FF5717EC96FE007A095B /* ResourceService.h */,
 				D359FF5817EC96FE007A095B /* ResourceService.m */,
+				D36B176517F0929C00EFFD86 /* ProgressManager.h */,
+				D36B176617F0929C00EFFD86 /* ProgressManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -490,8 +495,8 @@
 			children = (
 				D359FF5A17EC96FE007A095B /* NSString+MD5.h */,
 				D359FF5B17EC96FE007A095B /* NSString+MD5.m */,
-				D359FF5C17EC96FE007A095B /* ResourceCache.h */,
-				D359FF5D17EC96FE007A095B /* ResourceCache.m */,
+				D359FF5C17EC96FE007A095B /* ResourceImageCache.h */,
+				D359FF5D17EC96FE007A095B /* ResourceImageCache.m */,
 				D359FF5E17EC96FE007A095B /* UIColor+Ekko.h */,
 				D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */,
 				D359FF6017EC96FE007A095B /* UIImage+Ekko.h */,
@@ -634,13 +639,13 @@
 				D359FF1017EC96FE007A095B /* AppDelegate.h */,
 				D359FF1117EC96FE007A095B /* AppDelegate.m */,
 				D359FF1217EC96FE007A095B /* Assets */,
+				D3F9DA2717ECB9620039B0AC /* Images.xcassets */,
 				D359FF1B17EC96FE007A095B /* Library */,
 				D359FF1E17EC96FE007A095B /* Models */,
 				D359FF5217EC96FE007A095B /* Services */,
 				D3F2F00717EC904800F32F52 /* Supporting Files */,
 				D359FF5917EC96FE007A095B /* Utils */,
 				D359FF6417EC96FE007A095B /* Views */,
-				D3F9DA2717ECB9620039B0AC /* Images.xcassets */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -822,7 +827,7 @@
 				D359FFB417EC96FE007A095B /* Resource.m in Sources */,
 				D359FFB917EC96FE007A095B /* Media+Ekko.m in Sources */,
 				D359FFB117EC96FE007A095B /* Page.m in Sources */,
-				D359FFC517EC96FE007A095B /* ResourceCache.m in Sources */,
+				D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */,
 				D359FF9617EC96FE007A095B /* HubManifest.m in Sources */,
 				D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
@@ -871,6 +876,7 @@
 				D359FFCE17EC96FE007A095B /* MediaViewController.m in Sources */,
 				D359FFBC17EC96FE007A095B /* Lesson+Hub.m in Sources */,
 				D359FFC817EC96FE007A095B /* URLUtils.m in Sources */,
+				D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */,
 				D359FF9517EC96FE007A095B /* HubLessonPage.m in Sources */,
 				D359FF9417EC96FE007A095B /* HubLessonMedia.m in Sources */,
 				D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */,

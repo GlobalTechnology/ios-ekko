@@ -177,7 +177,7 @@ static NSString *const kEkkoHubParamaterCoursesLimit = @"limit";
         NSData *body = [[URLUtils encodeQueryParamsForDictionary:@{@"ticket": ticket}] dataUsingEncoding:NSUTF8StringEncoding];
         [loginRequest setHTTPMethod:@"POST"];
         [loginRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [loginRequest setValue:[NSString stringWithFormat:@"%d", [body length]] forHTTPHeaderField:@"Content-Length"];
+        [loginRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
         [loginRequest setHTTPBody:body];
 
         NSHTTPURLResponse *response = nil;

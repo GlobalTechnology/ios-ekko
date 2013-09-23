@@ -12,4 +12,6 @@
 
 +(UIImage *)imageNamed:(NSString *)name withTint:(UIColor *)color;
 
++(UIImage *)inflatedImage:(NSData *)data scale:(CGFloat)scale;
+
 @end

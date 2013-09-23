@@ -1,14 +1,16 @@
 //
-//  ResourceCache.m
+//  ResourceImageCache.m
 //  Ekko
 //
 //  Created by Brian Zoetewey on 9/19/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "ResourceCache.h"
+#import "ResourceImageCache.h"
 
-@interface ResourceCache ()
+#import "UIImage+Ekko.h"
+
+@interface ResourceImageCache ()
 @property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSString *cacheDirectory;
 -(NSCache *)sharedCache;
@@ -16,7 +18,7 @@
 -(NSString *)_cacheKeyforKey:(NSString *)key;
 @end
 
-@implementation ResourceCache
+@implementation ResourceImageCache
 
 @synthesize courseId = _courseId;
 
@@ -43,21 +45,21 @@
     return [self.cacheDirectory stringByAppendingPathComponent:key];
 }
 
-
--(void)objectForKey:(NSString *)key withCallback:(void (^)(id))callback {
+-(void)imageForKey:(NSString *)key withCallback:(void (^)(UIImage *))callback {
     dispatch_async(self.sharedDispatchQueue, ^{
-        id object = [self.sharedCache objectForKey:[self _cacheKeyforKey:key]];
-        if (!object) {
-            object = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForKey:key]];
-            if (object) {
-                [self.sharedCache setObject:object forKey:[self _cacheKeyforKey:key]];
+        UIImage *image = (UIImage *)[self.sharedCache objectForKey:[self _cacheKeyforKey:key]];
+        if (!image) {
+            NSData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:[self pathForKey:key]];
+            image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
+            if (image) {
+                [self.sharedCache setObject:image forKey:[self _cacheKeyforKey:key]];
             }
         }
-        callback(object);
+        callback(image);
     });
 }
 
--(BOOL)objectExistsForKey:(NSString *)key {
+-(BOOL)imageExistsForKey:(NSString *)key {
     BOOL exists = ([self.sharedCache objectForKey:[self _cacheKeyforKey:key]] != nil);
     if (exists) {
         return YES;
@@ -65,27 +67,27 @@
     return [self.fileManager fileExistsAtPath:[self pathForKey:key]];
 }
 
--(void)setObject:(id)object forKey:(NSString *)key {
-    if (!object) {
+-(void)setImage:(UIImage *)image forKey:(NSString *)key {
+    if (!image) {
         return;
     }
     dispatch_async(self.sharedDispatchQueue, ^{
-        if ([self objectExistsForKey:key]) {
+        if ([self imageExistsForKey:key]) {
             return;
         }
-        [self.sharedCache setObject:object forKey:[self _cacheKeyforKey:key]];
-        [NSKeyedArchiver archiveRootObject:object toFile:[self pathForKey:key]];
+        [self.sharedCache setObject:image forKey:[self _cacheKeyforKey:key]];
+        [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:[self pathForKey:key]];
     });
 }
 
--(void)removeObjectForKey:(NSString *)key {
+-(void)removeImageForKey:(NSString *)key {
     [self.sharedCache removeObjectForKey:[self _cacheKeyforKey:key]];
     dispatch_async(self.sharedDispatchQueue, ^{
         [self.fileManager removeItemAtPath:[self pathForKey:key] error:nil];
     });
 }
 
--(void)removeAllObjects {
+-(void)removeAllImages {
     [self.sharedCache removeAllObjects];
     dispatch_async(self.sharedDispatchQueue, ^{
         for (NSString *path in [self.fileManager contentsOfDirectoryAtPath:self.cacheDirectory error:nil]) {

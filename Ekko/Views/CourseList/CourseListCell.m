@@ -40,7 +40,9 @@ static const int insetViewTag = 1;
 -(void)resourceService:(Resource *)resource image:(UIImage *)image {
     Resource *banner = [self.course bannerResource];
     if (image && resource == banner) {
-        [self.banner setImage:image];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.banner setImage:image];
+        });
     }
 }
 

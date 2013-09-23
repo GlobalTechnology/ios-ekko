@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ResourceService.h"
 
 #import "Media+Ekko.h"
 
-@interface MediaViewController : UIViewController
+@interface MediaViewController : UIViewController<ResourceServiceImageDelegate>
 
 @property (nonatomic, strong) Media *media;
 @property (nonatomic, weak) IBOutlet UIImageView *mediaImage;
