@@ -2,130 +2,126 @@
 //  HubClient.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 8/1/13.
+//  Created by Brian Zoetewey on 9/26/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
 #import "HubClient.h"
-#import "HubHTTPRequestOperation.h"
 #import <TheKey.h>
-#import "URLUtils.h"
+#import <AFHTTPRequestOperation.h>
+#import <AFXMLRequestOperation.h>
+#import <AFImageRequestOperation.h>
 #import "CoursesParser.h"
 #import "ManifestParser.h"
+#import "URLUtils.h"
 
 // Ekko Hub API URL key in Info.plist
-static NSString *const kEkkoHubURL = @"EkkoHubURL";
+static NSString *const kEkkoHubClientURL = @"EkkoHubURL";
 
 // NSUserDefaults keys
-static NSString *const kEkkoHubSessionId   = @"EkkoHubSessionId";
-static NSString *const kEkkoHubSessionGuid = @"EkkoHubSessionGuid";
+static NSString *const kEkkoHubClientSessionId   = @"EkkoHubClientSessionId";
+static NSString *const kEkkoHubClientSessionGuid = @"EkkoHubClientSessionGuid";
 
 // Ekko Hub API Endpoints
-static NSString *const kEkkoHubEndpointLogin    = @"auth/login";
-static NSString *const kEkkoHubEndpointService  = @"auth/service";
-static NSString *const kEkkoHubEndpointCourses  = @"courses";
-static NSString *const kEkkoHubEndpointManifest = @"courses/course/%@/manifest";
-static NSString *const kEkkoHubEndpointResource = @"courses/course/%@/resources/resource/%@";
+static NSString *const kEkkoHubClientEndpointLogin    = @"auth/login";
+static NSString *const kEkkoHubClientEndpointService  = @"auth/service";
+static NSString *const kEkkoHubClientEndpointCourses  = @"courses";
+static NSString *const kEkkoHubClientEndpointManifest = @"courses/course/%@/manifest";
+static NSString *const kEkkoHubClientEndpointResource = @"courses/course/%@/resources/resource/%@";
 
-//Ekko Hub Parameters
-static NSString *const kEkkoHubParamaterCoursesStart = @"start";
-static NSString *const kEkkoHubParamaterCoursesLimit = @"limit";
+// Ekko Hub XML processing queue
+const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
+
+static NSUInteger const kEkkoHubClientMaxAttepts = 3;
+
+@interface HubRequestParameters : NSObject
+
+@property (nonatomic) BOOL useSession;
+@property (nonatomic, copy) NSString *endpoint;
+@property (nonatomic, copy) NSDictionary *parameters;
+@property (nonatomic, copy) NSString *method;
+@property (nonatomic) NSUInteger attempts;
+@property (nonatomic, strong) NSOutputStream *outputStream;
+@property (nonatomic, copy) void (^response)(NSURLResponse *response, id responseObject);
+@property (nonatomic, copy) void (^progress)(float progress);
++(HubRequestParameters *)hubRequestParametersWithSession:(BOOL)useSession
+                                                endpoint:(NSString *)endpoint
+                                              parameters:(NSDictionary *)parameters
+                                                response:(void (^)(NSURLResponse *response, id responseObject))response;
+-(NSMutableURLRequest *)buildURLRequest;
+@end
 
 @interface HubClient ()
 
-@property (nonatomic, strong) dispatch_queue_t xmlQueue;
+@property (nonatomic, strong, readwrite) NSString *sessionId;
+@property (nonatomic, strong, readwrite) NSString *sessionGuid;
+
 @property (nonatomic) BOOL pendingSession;
-
--(void)setSessionId:(NSString *)sessionId;
--(void)setSessionGuid:(NSString *)sessionGuid;
-
--(void)establishSession;
+@property (nonatomic, strong, readonly) NSMutableArray *pendingHubRequests;
+@property (nonatomic, strong, readonly) dispatch_queue_t xmlDispatchQueue;
 
 @end
 
-
 @implementation HubClient
 
-@synthesize pendingOperations = _pendingOperations;
-@synthesize xmlQueue          = _xmlQueue;
-@synthesize pendingSession    = _pendingSession;
+@synthesize pendingSession     = _pendingSession;
+@synthesize pendingHubRequests = _pendingHubRequests;
 
-+(HubClient *)sharedClient {
-    __strong static HubClient *_client = nil;
-    static dispatch_once_t once_t;
-    dispatch_once(&once_t, ^{
-        _client = [[HubClient alloc] initWithBaseURL:[NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:kEkkoHubURL]]];
++(HubClient *)hubClient {
+    __strong static HubClient *_hubClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _hubClient = [[HubClient alloc] initWithBaseURL:[NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:kEkkoHubClientURL]]];
     });
-    return _client;
+    return _hubClient;
 }
 
 -(id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
-    if(!self) {
-        return nil;
+    if (self) {
+        _pendingSession = NO;
+
+        //DEBUG - Force invalid sessionId
+        //[self setSessionId:nil];
+        
+        //DEBUG - Force 401 sessionId
+        //[self setSessionId:@"abcdef1234567890"];
+        
+        [self registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+//        [self registerHTTPOperationClass:[AFXMLRequestOperation class]];
+//        [self registerHTTPOperationClass:[AFImageRequestOperation class]];
+//        [self setDefaultHeader:@"Accept" value:@"application/xml"];
     }
-
-    _pendingSession = NO;
-
-    //DEBUG - Force invalid sessionId
-    //[self setSessionId:nil];
-
-    //DEBUG - Force 401 sessionId
-    //[self setSessionId:@"abcdef1234567890"];
-
-    [self registerHTTPOperationClass:[HubHTTPRequestOperation class]];
-    [self setDefaultHeader:@"Accept" value:@"application/xml"];
-    
-    NSLog(@"Max Concurrent Operations: %ld", (long)self.operationQueue.maxConcurrentOperationCount);
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(HTTPOperationDidFinish:) name:AFNetworkingOperationDidFinishNotification object:nil];
-
     return self;
 }
 
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+-(NSMutableArray *)pendingHubRequests {
+    if (!_pendingHubRequests) {
+        _pendingHubRequests = [NSMutableArray array];
+    }
+    return _pendingHubRequests;
 }
 
--(NSMutableArray *)pendingOperations {
-    if(!_pendingOperations) {
-        _pendingOperations = [NSMutableArray array];
-    }
-    return _pendingOperations;
-}
-
--(dispatch_queue_t)xmlQueue {
-    if (!_xmlQueue) {
-        _xmlQueue = dispatch_queue_create("org.ekkoproject.ios.player.xml", DISPATCH_QUEUE_CONCURRENT);
-    }
-    return _xmlQueue;
+-(dispatch_queue_t)xmlDispatchQueue {
+    static dispatch_queue_t _dispatch_queue = nil;
+    static dispatch_once_t _dispatch_once_t;
+    dispatch_once(&_dispatch_once_t, ^{
+        _dispatch_queue = dispatch_queue_create(kEkkoHubClientDispatchQueue , DISPATCH_QUEUE_CONCURRENT);
+    });
+    return _dispatch_queue;
 }
 
 -(NSString *)sessionId {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kEkkoHubSessionId];
-}
-
--(NSString *)sessionGuid {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:kEkkoHubSessionGuid];
+    return [[NSUserDefaults standardUserDefaults] stringForKey:kEkkoHubClientSessionId];
 }
 
 -(void)setSessionId:(NSString *)sessionId {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if(sessionId) {
-        [defaults setObject:sessionId forKey:kEkkoHubSessionId];
+        [defaults setObject:sessionId forKey:kEkkoHubClientSessionId];
     }
     else {
-        [defaults removeObjectForKey:kEkkoHubSessionId];
-    }
-}
-
--(void)setSessionGuid:(NSString *)sessionGuid {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if(sessionGuid) {
-        [defaults setObject:sessionGuid forKey:kEkkoHubSessionGuid];
-    }
-    else {
-        [defaults removeObjectForKey:kEkkoHubSessionGuid];
+        [defaults removeObjectForKey:kEkkoHubClientSessionId];
     }
 }
 
@@ -135,25 +131,17 @@ static NSString *const kEkkoHubParamaterCoursesLimit = @"limit";
     return (sessionId && sessionGuid && [sessionGuid isEqualToString:[[TheKey theKey] getGuid]]);
 }
 
--(NSURL *)URLWithSession:(BOOL)useSession
-                endpoint:(NSString *)endpoint {
-    NSURL *url = useSession ? [[self baseURL] URLByAppendingPathComponent:[self sessionId] isDirectory:YES] : [self baseURL];
-    url = [url URLByAppendingPathComponent:endpoint];
-    return url;
+-(NSString *)sessionGuid {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:kEkkoHubClientSessionGuid];
 }
 
--(void)HTTPOperationDidFinish:(NSNotification *)notification {
-    if([[notification object] isKindOfClass:[HubHTTPRequestOperation class]]) {
-        HubHTTPRequestOperation *operation = (HubHTTPRequestOperation *)[notification object];
-        NSHTTPURLResponse *response = [operation response];
-        if([response statusCode] == 401) {
-            NSLog(@"401 Unauthorized: %@", [[operation.request URL] absoluteString]);
-            //TODO: Make sure this is a CAS auth redirect
-            [[self pendingOperations] addObject:operation];
-            if(![self pendingSession]) {
-                [self establishSession];
-            }
-        }
+-(void)setSessionGuid:(NSString *)sessionGuid {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if(sessionGuid) {
+        [defaults setObject:sessionGuid forKey:kEkkoHubClientSessionGuid];
+    }
+    else {
+        [defaults removeObjectForKey:kEkkoHubClientSessionGuid];
     }
 }
 
@@ -162,150 +150,197 @@ static NSString *const kEkkoHubParamaterCoursesLimit = @"limit";
     if([self pendingSession]) {
         return;
     }
-
+    
     //Make sure sessionId is invalid
     [self setSessionId:nil];
     [self setPendingSession:YES];
-
+    
     //TODO Fetch service url from Hub
-    NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
-
+    NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubClientEndpointLogin];
+    
     [[TheKey theKey] getTicketForService:serviceURL completionHandler:^(NSString *ticket, NSError *error) {
-        NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
+        NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubClientEndpointLogin];
         NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:loginURL];
-
+        
         NSData *body = [[URLUtils encodeQueryParamsForDictionary:@{@"ticket": ticket}] dataUsingEncoding:NSUTF8StringEncoding];
         [loginRequest setHTTPMethod:@"POST"];
         [loginRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [loginRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
         [loginRequest setHTTPBody:body];
-
+        
         NSHTTPURLResponse *response = nil;
         NSError *loginError = nil;
-
+        
         NSData *data = [NSURLConnection sendSynchronousRequest:loginRequest returningResponse:&response error:&loginError];
         if(data && [response statusCode] == 200) {
             NSString *sessionId = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             [self setSessionId:sessionId];
             [self setSessionGuid:[[TheKey theKey] getGuid]];
             [self setPendingSession:NO];
-            [self enqueuePendingOperations];
+            [self enqueuePendingHubRequests];
         }
     }];
 }
 
--(NSMutableURLRequest *)requestWithSession:(BOOL)useSession
-                                  endpoint:(NSString *)endpoint
-                                parameters:(NSDictionary *)parameters {
-    NSString *path = [endpoint copy];
-    if(useSession) {
-        NSString *sessionId = [self hasSession] ? [self sessionId] : @"0000";
-        path = [NSString stringWithFormat:@"%@/%@", sessionId, path];
+-(void)enqueuePendingHubRequests {
+    while ([self.pendingHubRequests count] > 0) {
+        HubRequestParameters *pending = (HubRequestParameters *)[self.pendingHubRequests objectAtIndex:0];
+        [self.pendingHubRequests removeObjectAtIndex:0];
+        
+        [self hubRequestWithHubRequestParameters:pending];
     }
-    return [self requestWithMethod:@"GET" path:path parameters:parameters];
 }
 
--(void)apiGetRequestWithSession:(BOOL)useSession
-                       endpoint:(NSString *)endpoint
-                     parameters:(NSDictionary *)parameters
-                        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    //Build the operation
-    HubHTTPRequestOperation *operation = [self hubRequestOperationWithSession:useSession endpoint:endpoint parameters:parameters success:success failure:failure];
-
-    if(useSession) {
-        //Request requires a session
-        if([self hasSession]) {
-            //Session exists so enqueue the request. This isn't a gurantee the session is valid, we may get a 401.
-            [self enqueueHTTPRequestOperation:operation];
-        }
-        else {
-            //Session does not exist, add operation to pending operations
-            [[self pendingOperations] addObject:operation];
-
-            //Begin establishing a session if it isn't already in progress
-            if(![self pendingSession]) {
-                [self establishSession];
-            }
+-(void)hubRequestWithHubRequestParameters:(HubRequestParameters *)requestParameters {
+    //Return NSError if max attempts exceeded
+    if (requestParameters.attempts > kEkkoHubClientMaxAttepts) {
+        //TODO: Create Max Attempts exceeded error code
+        requestParameters.response(nil, [NSError errorWithDomain:@"EkkoHubClient" code:0 userInfo:nil]);
+    }
+    
+    //Check if the request requires a session and if the session exists
+    else if (requestParameters.useSession && ![self hasSession]) {
+        //Add request to pending requests
+        [self.pendingHubRequests addObject:requestParameters];
+        
+        //Begin establishing a session if it isn't currently happening
+        if (!self.pendingSession) {
+            [self establishSession];
         }
     }
+    
+    //Enqueue the request
     else {
-        //Request doe not require a session so enqueue it
-        [self enqueueHTTPRequestOperation:operation];
+        AFHTTPRequestOperation *requestOperation = [self HTTPRequestOperationWithRequest:[requestParameters buildURLRequest] success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            requestParameters.response([operation response], responseObject);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            if ([[operation response] statusCode] == 401) {
+                //TODO: Make sure this is a 401 for CAS
+                [self.pendingHubRequests addObject:requestParameters];
+                if (!self.pendingSession) {
+                    [self establishSession];
+                }
+            }
+            else {
+                requestParameters.response([operation response], error);
+            }
+        }];
+        //Set the output stream if used
+        if (requestParameters.outputStream) {
+            requestOperation.outputStream = requestParameters.outputStream;
+        }
+        //Set download progress block if used
+        if (requestParameters.progress) {
+            [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                float progress = totalBytesRead / (float)totalBytesExpectedToRead;
+                requestParameters.progress(progress);
+            }];
+        }
+        [self enqueueHTTPRequestOperation:requestOperation];
     }
 }
 
--(HubHTTPRequestOperation *)hubRequestOperationWithSession:(BOOL)useSession
-                                              endpoint:(NSString *)endpoint
-                                            parameters:(NSDictionary *)parameters
-                                               success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
-                                               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
-    NSMutableURLRequest *request = [self requestWithSession:useSession endpoint:endpoint parameters:parameters];
-    HubHTTPRequestOperation *operation = (HubHTTPRequestOperation *)[self HTTPRequestOperationWithRequest:request success:success failure:failure];
-    [operation setHubParameters:useSession endpoint:endpoint parameters:parameters];
-    return operation;
+#pragma mark - Course List
+
+-(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit andCallback:(void (^)(NSArray *, BOOL, NSInteger, NSInteger))callback {
+    NSDictionary *parameters = @{@"start": [NSString stringWithFormat:@"%d", (int)start],
+                                 @"limit": [NSString stringWithFormat:@"%d", (int)limit]};
+    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:kEkkoHubClientEndpointCourses parameters:parameters response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
+            dispatch_async(self.xmlDispatchQueue, ^{
+                CoursesParser *coursesParser = [[CoursesParser alloc] initWithXMLParser:parser];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback(coursesParser.courses, coursesParser.hasMore, coursesParser.start, coursesParser.limit);
+                });
+            });
+        }
+    }]];
 }
 
--(void)enqueuePendingOperations {
-    while([[self pendingOperations] count] > 0) {
-        HubHTTPRequestOperation *pending = (HubHTTPRequestOperation *)[[self pendingOperations] objectAtIndex:0];
-        [[self pendingOperations] removeObjectAtIndex:0];
+#pragma mark - Manifest
 
-        HubHTTPRequestOperation *operation = [self hubRequestOperationWithSession:[pending useSession]
-                                                                     endpoint:[pending endpoint]
-                                                                   parameters:[pending parameters]
-                                                                      success:[pending success]
-                                                                      failure:[pending failure]];
-        [self enqueueHTTPRequestOperation:operation];
+-(void)getManifest:(NSString *)courseId callback:(void (^)(HubManifest *))callback {
+    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:[NSString stringWithFormat:kEkkoHubClientEndpointManifest, courseId] parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
+            dispatch_async(self.xmlDispatchQueue, ^{
+                ManifestParser *manifestParser = [[ManifestParser alloc] initWithXMLParser:parser];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback(manifestParser.manifest);
+                });
+            });
+        }
+    }]];
+}
+
+#pragma mark - Resource
+
+-(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 callback:(void (^)(NSData *))callback {
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubClientEndpointResource, courseId, sha1];
+    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            callback((NSData *)responseObject);
+        }
+    }]];
+}
+
+-(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 outputStream:(NSOutputStream *)outputStream progress:(void (^)(float))progress complete:(void (^)())complete {
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubClientEndpointResource, courseId, sha1];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        complete();
+    }];
+    [hubRequestParameters setOutputStream:outputStream];
+    if (progress) {
+        [hubRequestParameters setProgress:progress];
     }
-}
-
-#pragma mark - Courses
-
--(void)getCourses:(id<HubClientCoursesDelegate>)delegate {
-    [self getCoursesStartingAt:0 withLimit:50 delegate:delegate];
-}
-
--(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit delegate:(id<HubClientCoursesDelegate>)delegate {
-    NSDictionary *parameters = @{kEkkoHubParamaterCoursesStart: [NSString stringWithFormat:@"%d", (int)start],
-                                 kEkkoHubParamaterCoursesLimit: [NSString stringWithFormat:@"%d", (int)limit]};
-    [self apiGetRequestWithSession:YES endpoint:kEkkoHubEndpointCourses parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(self.xmlQueue, ^{
-            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseObject];
-            CoursesParser *coursesParser = [[CoursesParser alloc] initWithXMLParser:parser];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate hubClientCourses:[coursesParser courses] hasMore:[coursesParser hasMore] start:[coursesParser start] limit:[coursesParser limit]];
-            });
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //NSLog(@"getCourses Error: %@", error);
-    }];
-}
-
-#pragma mark - Course Manifest
-
--(void)getCourseManifest:(NSString *)courseId delegate:(id<HubClientManifestDelegate>)delegate {
-    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointManifest, courseId];
-    [self apiGetRequestWithSession:YES endpoint:endpoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        dispatch_async(self.xmlQueue, ^{
-            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:responseObject];
-            ManifestParser *manifestParser = [[ManifestParser alloc] initWithXMLParser:parser];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate hubClientManifest:[manifestParser manifest]];
-            });
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-}
-
--(void)getCourseResource:(NSString *)courseId sha1:(NSString *)sha1 completionHandler:(void (^)(NSData *data))complete {
-    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointResource, courseId, sha1];
-    [self apiGetRequestWithSession:YES endpoint:endpoint parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        complete(responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+    [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
 
 @end
+
+@implementation HubRequestParameters
+
++(HubRequestParameters *)hubRequestParametersWithSession:(BOOL)useSession
+                                                endpoint:(NSString *)endpoint
+                                              parameters:(NSDictionary *)parameters
+                                                response:(void (^)(NSURLResponse *response, id responseObject))response {
+    HubRequestParameters *requestParams = [[HubRequestParameters alloc] init];
+    [requestParams setUseSession:useSession];
+    [requestParams setEndpoint:endpoint];
+    [requestParams setParameters:parameters];
+    [requestParams setResponse:response];
+    return requestParams;
+}
+
+-(id)init {
+    self = [super init];
+    if (self) {
+        self.useSession = NO;
+        self.method = @"GET";
+        self.attempts = 0;
+    }
+    return self;
+}
+
+-(NSMutableURLRequest *)buildURLRequest {
+    HubClient *client = [HubClient hubClient];
+    NSString *path = [self.endpoint copy];
+    if(self.useSession) {
+        NSString *sessionId = [client hasSession] ? [client sessionId] : @"0000";
+        path = [NSString stringWithFormat:@"%@/%@", sessionId, path];
+    }
+    return [client requestWithMethod:self.method path:path parameters:self.parameters];
+}
+
+@end
+
+
+
+
+
+
+
+
+
+

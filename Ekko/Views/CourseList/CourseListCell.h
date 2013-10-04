@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "Course+Ekko.h"
-#import "ResourceService.h"
 
-@interface CourseListCell : UITableViewCell <ResourceServiceImageDelegate>
+@interface CourseListCell : UITableViewCell
 
 @property (weak, nonatomic) Course *course;
 @property (weak, nonatomic) IBOutlet UIImageView *banner;

@@ -228,6 +228,7 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="a7j-bw-xVf">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <gestureRecognizers/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235859999999" green="0.90588235859999999" blue="0.91372549530000002" alpha="1" colorSpace="calibratedRGB"/>

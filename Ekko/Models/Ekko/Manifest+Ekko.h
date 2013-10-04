@@ -9,8 +9,9 @@
 #import "Manifest.h"
 #import "SwipeViewController.h"
 #import "ContentItemProtocol.h"
+#import "ProgressManager.h"
 
-@interface Manifest (Ekko) <SwipeViewControllerDataSource>
+@interface Manifest (Ekko) <SwipeViewControllerDataSource, ProgressManagerDataSource>
 
 -(Resource *)resourceByResourceId:(NSString *)resourceId;
 

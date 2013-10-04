@@ -10,6 +10,8 @@
 #import "CoreDataService.h"
 #import "HubClient.h"
 
+#import "HubClient.h"
+
 #import "Course+Hub.h"
 #import "Manifest+Hub.h"
 
@@ -53,20 +55,48 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
     _coursesSyncInProgress = YES;
     _courses = [NSMutableArray array];
 
-    NSLog(@"%@", [[HubClient sharedClient] sessionId]);
+    NSLog(@"%@", [[HubClient hubClient] sessionId]);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:EkkoHubSyncServiceCoursesSyncBegin object:self];
     });
     
-    [[HubClient sharedClient] getCourses:self];
+    [self fetchCourseList:0 limit:50];
 }
 
 -(void)syncManifest:(NSString *)courseId {
     if (!courseId) {
         return;
     }
-    [[HubClient sharedClient] getCourseManifest:courseId delegate:self];
+    [[HubClient hubClient] getManifest:courseId callback:^(HubManifest *hubManifest) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            Manifest *manifest = [[CoreDataService sharedService] getManifestObjectByCourseId:[hubManifest courseId]];
+            if (manifest == nil) {
+                manifest = [[CoreDataService sharedService] newManifestObject];
+            }
+            [manifest updateWithHubManifest:hubManifest];
+            if ([manifest hasChanges]) {
+                [[CoreDataService sharedService] saveContext];
+            }
+        });
+    }];
+}
+
+-(void)fetchCourseList:(NSInteger)start limit:(NSInteger)limit {
+    [[HubClient hubClient] getCoursesStartingAt:start withLimit:limit andCallback:^(NSArray *courses, BOOL hasMore, NSInteger start, NSInteger limit) {
+        if (courses != nil) {
+            [_courses addObjectsFromArray:courses];
+        }
+        
+        if (hasMore) {
+            [self fetchCourseList:start limit:limit];
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self processCourses];
+            });
+        }
+    }];
 }
 
 -(void)processCourses {
@@ -85,10 +115,6 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
         }
         [course updateWithHubCourse:hubCourse];
         if ([course hasChanges]) {
-//            [[HubClient sharedClient] getCourseResource:course.courseId sha1:[[[course resources] anyObject] sha1] completionHandler:^(NSData *data) {
-//                UIImage *banner = [[UIImage alloc] initWithData:data scale:[[UIScreen mainScreen] scale]];
-//                [course setBanner:UIImagePNGRepresentation(banner)];
-//            }];
             [self syncManifest:[course courseId]];
         }
         [course setAccessible:YES];
@@ -101,38 +127,6 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:EkkoHubSyncServiceCoursesSyncEnd object:self];
     });
-}
-
-#pragma mark - HubClientCoursesDelegate
-
--(void)hubClientCourses:(NSArray *)courses hasMore:(BOOL)hasMore start:(NSInteger)start limit:(NSInteger)limit {
-    if (!_coursesSyncInProgress) {
-        return;
-    }
-
-    [_courses addObjectsFromArray:courses];
-
-    //If more courses are available, fetch the next batch
-    if (hasMore) {
-        [[HubClient sharedClient] getCoursesStartingAt:start+limit withLimit:limit delegate:self];
-    }
-    //otherwise, process the courses
-    else {
-        [self processCourses];
-    }
-}
-
-#pragma mark - HubClientManifestDelegate
-
--(void)hubClientManifest:(HubManifest *)hubManifest {
-    Manifest *manifest = [[CoreDataService sharedService] getManifestObjectByCourseId:[hubManifest courseId]];
-    if (manifest == nil) {
-        manifest = [[CoreDataService sharedService] newManifestObject];
-    }
-    [manifest updateWithHubManifest:hubManifest];
-    if ([manifest hasChanges]) {
-        [[CoreDataService sharedService] saveContext];
-    }
 }
 
 @end

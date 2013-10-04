@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
+		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
 		D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE717EC968C007A095B /* QuartzCore.framework */; };
-		D359FF8D17EC96FE007A095B /* HubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEEB17EC96FD007A095B /* HubClient.m */; };
-		D359FF8E17EC96FE007A095B /* HubHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEED17EC96FD007A095B /* HubHTTPRequestOperation.m */; };
 		D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEEF17EC96FD007A095B /* HubXMLConstants.m */; };
 		D359FF9017EC96FE007A095B /* HubXMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEF117EC96FD007A095B /* HubXMLModel.m */; };
 		D359FF9117EC96FE007A095B /* HubXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEF317EC96FD007A095B /* HubXMLParser.m */; };
@@ -64,7 +63,6 @@
 		D359FFC017EC96FE007A095B /* Resource+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5117EC96FE007A095B /* Resource+Hub.m */; };
 		D359FFC117EC96FE007A095B /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5417EC96FE007A095B /* CoreDataService.m */; };
 		D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5617EC96FE007A095B /* HubSyncService.m */; };
-		D359FFC317EC96FE007A095B /* ResourceService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5817EC96FE007A095B /* ResourceService.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
 		D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceImageCache.m */; };
 		D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */; };
@@ -90,6 +88,8 @@
 		D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */; };
 		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
 		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
+		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
+		D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D7B71817F4B6C00003C5EC /* HubClient.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
 		D3F2F00517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
@@ -116,12 +116,10 @@
 /* Begin PBXFileReference section */
 		7069383D156F4191A71889D9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8C61116E098E4028AABAEEC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
+		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		D359FEE517EC967D007A095B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D359FEE717EC968C007A095B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D359FEEA17EC96FD007A095B /* HubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubClient.h; sourceTree = "<group>"; };
-		D359FEEB17EC96FD007A095B /* HubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubClient.m; sourceTree = "<group>"; };
-		D359FEEC17EC96FD007A095B /* HubHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubHTTPRequestOperation.h; sourceTree = "<group>"; };
-		D359FEED17EC96FD007A095B /* HubHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubHTTPRequestOperation.m; sourceTree = "<group>"; };
 		D359FEEE17EC96FD007A095B /* HubXMLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubXMLConstants.h; sourceTree = "<group>"; };
 		D359FEEF17EC96FD007A095B /* HubXMLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubXMLConstants.m; sourceTree = "<group>"; };
 		D359FEF017EC96FD007A095B /* HubXMLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubXMLModel.h; sourceTree = "<group>"; };
@@ -218,8 +216,6 @@
 		D359FF5417EC96FE007A095B /* CoreDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
 		D359FF5517EC96FE007A095B /* HubSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubSyncService.h; sourceTree = "<group>"; };
 		D359FF5617EC96FE007A095B /* HubSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubSyncService.m; sourceTree = "<group>"; };
-		D359FF5717EC96FE007A095B /* ResourceService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceService.h; sourceTree = "<group>"; };
-		D359FF5817EC96FE007A095B /* ResourceService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceService.m; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		D359FF5B17EC96FE007A095B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		D359FF5C17EC96FE007A095B /* ResourceImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceImageCache.h; sourceTree = "<group>"; };
@@ -269,6 +265,9 @@
 		D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
+		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D3D7B71717F4B6C00003C5EC /* HubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubClient.h; sourceTree = "<group>"; };
+		D3D7B71817F4B6C00003C5EC /* HubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubClient.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -290,6 +289,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */,
 				D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */,
 				D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */,
 				D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */,
@@ -315,10 +315,8 @@
 		D359FEE917EC96FD007A095B /* API */ = {
 			isa = PBXGroup;
 			children = (
-				D359FEEA17EC96FD007A095B /* HubClient.h */,
-				D359FEEB17EC96FD007A095B /* HubClient.m */,
-				D359FEEC17EC96FD007A095B /* HubHTTPRequestOperation.h */,
-				D359FEED17EC96FD007A095B /* HubHTTPRequestOperation.m */,
+				D3D7B71717F4B6C00003C5EC /* HubClient.h */,
+				D3D7B71817F4B6C00003C5EC /* HubClient.m */,
 				D359FEEE17EC96FD007A095B /* HubXMLConstants.h */,
 				D359FEEF17EC96FD007A095B /* HubXMLConstants.m */,
 				D359FEF017EC96FD007A095B /* HubXMLModel.h */,
@@ -482,10 +480,10 @@
 				D359FF5417EC96FE007A095B /* CoreDataService.m */,
 				D359FF5517EC96FE007A095B /* HubSyncService.h */,
 				D359FF5617EC96FE007A095B /* HubSyncService.m */,
-				D359FF5717EC96FE007A095B /* ResourceService.h */,
-				D359FF5817EC96FE007A095B /* ResourceService.m */,
 				D36B176517F0929C00EFFD86 /* ProgressManager.h */,
 				D36B176617F0929C00EFFD86 /* ProgressManager.m */,
+				D325766317F375E200447A2D /* ResourceManager.h */,
+				D325766417F375E200447A2D /* ResourceManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -621,6 +619,7 @@
 		D3F2EFFF17EC904800F32F52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D36B176817F09A4500EFFD86 /* MediaPlayer.framework */,
 				D359FEE717EC968C007A095B /* QuartzCore.framework */,
 				D359FEE517EC967D007A095B /* CoreData.framework */,
 				D3F2F00017EC904800F32F52 /* Foundation.framework */,
@@ -831,7 +830,6 @@
 				D359FF9617EC96FE007A095B /* HubManifest.m in Sources */,
 				D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
-				D359FFC317EC96FE007A095B /* ResourceService.m in Sources */,
 				D359FF9817EC96FE007A095B /* HubOption.m in Sources */,
 				D359FF9C17EC96FE007A095B /* HubResource.m in Sources */,
 				D359FFBA17EC96FE007A095B /* Quiz+Ekko.m in Sources */,
@@ -854,6 +852,7 @@
 				D359FF9717EC96FE007A095B /* HubMeta.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
+				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
 				D359FFB017EC96FE007A095B /* MultipleChoiceOption.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
@@ -872,19 +871,18 @@
 				D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */,
 				D359FFB517EC96FE007A095B /* Course+Hub.m in Sources */,
 				D359FF9017EC96FE007A095B /* HubXMLModel.m in Sources */,
-				D359FF8E17EC96FE007A095B /* HubHTTPRequestOperation.m in Sources */,
 				D359FFCE17EC96FE007A095B /* MediaViewController.m in Sources */,
 				D359FFBC17EC96FE007A095B /* Lesson+Hub.m in Sources */,
 				D359FFC817EC96FE007A095B /* URLUtils.m in Sources */,
 				D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */,
 				D359FF9517EC96FE007A095B /* HubLessonPage.m in Sources */,
+				D325766517F375E200447A2D /* ResourceManager.m in Sources */,
 				D359FF9417EC96FE007A095B /* HubLessonMedia.m in Sources */,
 				D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */,
 				D359FFC917EC96FE007A095B /* AbstractCoreDataViewController.m in Sources */,
 				D359FFBB17EC96FE007A095B /* Resource+Ekko.m in Sources */,
 				D359FF9B17EC96FE007A095B /* HubQuiz.m in Sources */,
 				D359FF9217EC96FE007A095B /* HubCourse.m in Sources */,
-				D359FF8D17EC96FE007A095B /* HubClient.m in Sources */,
 				D359FFD417EC96FE007A095B /* CourseListViewController.m in Sources */,
 				D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */,
 				D359FFA917EC96FE007A095B /* AbstractCourse.m in Sources */,

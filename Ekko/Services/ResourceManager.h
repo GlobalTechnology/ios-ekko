@@ -1,0 +1,29 @@
+//
+//  ResourceManager.h
+//  Ekko
+//
+//  Created by Brian Zoetewey on 9/25/13.
+//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Resource+Ekko.h"
+
+@protocol ResourceManagerDelegate;
+
+@interface ResourceManager : NSObject
+
++(ResourceManager *)resourceManager;
+
+-(void)getImageResource:(Resource *)resource completeBlock:(void (^)(UIImage *image))completeBlock;
+-(void)getResource:(Resource *)resource progressBlock:(void (^)(float progress))progressBlock completeBlock:(void (^)(NSString *path))completeBlock;
+-(void)getResource:(Resource *)resource delegate:(__weak id<ResourceManagerDelegate>)delegate;
+
+@end
+
+@protocol ResourceManagerDelegate <NSObject>
+@required
+-(void)resource:(Resource *)resource complete:(NSString *)path;
+@optional
+-(void)resource:(Resource *)resource progress:(float)progress;
+@end

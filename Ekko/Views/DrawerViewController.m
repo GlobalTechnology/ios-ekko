@@ -39,4 +39,8 @@
     return self;
 }
 
+-(BOOL)shouldAutorotate {
+    return NO;
+}
+
 @end

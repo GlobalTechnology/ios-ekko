@@ -31,7 +31,6 @@
     [toggleCourseDrawer setImage:[UIImage imageNamed:@"show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleCourseDrawer addTarget:self action:@selector(toggleCourseDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleCourseDrawer]];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {

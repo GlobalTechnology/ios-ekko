@@ -2,43 +2,30 @@
 //  HubClient.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 8/1/13.
+//  Created by Brian Zoetewey on 9/26/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
 #import "AFHTTPClient.h"
 #import "HubManifest.h"
 
-@protocol HubClientCoursesDelegate;
-@protocol HubClientManifestDelegate;
-
 @interface HubClient : AFHTTPClient
 
-@property (readonly, strong, nonatomic) NSMutableArray *pendingOperations;
+@property (nonatomic, strong, readonly) NSString *sessionId;
+@property (nonatomic, strong, readonly) NSString *sessionGuid;
 
-+(HubClient *)sharedClient;
++(HubClient *)hubClient;
 
--(NSString *)sessionId;
--(NSString *)sessionGuid;
 -(BOOL)hasSession;
 
--(NSURL *)URLWithSession:(BOOL)useSession endpoint:(NSString *)endpoint;
+#pragma mark - Course List
+-(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit andCallback:(void (^)(NSArray *courses, BOOL hasMore, NSInteger start, NSInteger limit))callback;
 
--(void)getCourses:(id<HubClientCoursesDelegate>)delegate;
--(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit delegate:(id<HubClientCoursesDelegate>)delegate;
+#pragma mark - Manifest
+-(void)getManifest:(NSString *)courseId callback:(void (^)(HubManifest *hubManifest))callback;
 
--(void)getCourseManifest:(NSString *)courseId delegate:(id<HubClientManifestDelegate>)delegate;
+#pragma mark - Resource
+-(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 callback:(void (^)(NSData *data))callback;
+-(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 outputStream:(NSOutputStream *)outputStream progress:(void (^)(float progress))progress complete:(void (^)())complete;
 
--(void)getCourseResource:(NSString *)courseId sha1:(NSString *)sha1 completionHandler:(void (^)(NSData *data))complete;
-
-@end
-
-@protocol HubClientCoursesDelegate <NSObject>
-@required
--(void)hubClientCourses:(NSArray *)courses hasMore:(BOOL)hasMore start:(NSInteger)start limit:(NSInteger)limit;
-@end
-
-@protocol HubClientManifestDelegate <NSObject>
-@required
--(void)hubClientManifest:(HubManifest *)hubManifest;
 @end

@@ -7,10 +7,8 @@
 //
 
 #import "CourseListCell.h"
-#import "ResourceService.h"
 
-//#import "Resource+Ekko.h"
-//#import "UIColor+Ekko.h"
+#import "ResourceManager.h"
 
 static const int insetViewTag = 1;
 
@@ -32,18 +30,15 @@ static const int insetViewTag = 1;
     Resource *banner = [course bannerResource];
     [self.banner setImage:nil];
     if (banner) {
-        [[ResourceService sharedService] getResource:banner delegate:self];
+        [[ResourceManager resourceManager] getImageResource:banner completeBlock:^(UIImage *image) {
+            if (image) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.banner setImage:image];
+                });
+            }
+        }];
     }
     [self.courseTitle setText:[course courseTitle]];
-}
-
--(void)resourceService:(Resource *)resource image:(UIImage *)image {
-    Resource *banner = [self.course bannerResource];
-    if (image && resource == banner) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.banner setImage:image];
-        });
-    }
 }
 
 @end

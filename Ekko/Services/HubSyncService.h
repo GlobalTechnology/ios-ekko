@@ -12,7 +12,7 @@
 FOUNDATION_EXPORT NSString *const EkkoHubSyncServiceCoursesSyncBegin;
 FOUNDATION_EXPORT NSString *const EkkoHubSyncServiceCoursesSyncEnd;
 
-@interface HubSyncService : NSObject<HubClientCoursesDelegate, HubClientManifestDelegate>
+@interface HubSyncService : NSObject
 
 +(HubSyncService *)sharedService;
 

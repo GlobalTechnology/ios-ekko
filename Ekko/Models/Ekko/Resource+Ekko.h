@@ -28,9 +28,14 @@ typedef NS_ENUM(int16_t, EkkoResourceProvider) {
 @property (nonatomic) EkkoResourceProvider provider;
 @property (nonatomic, readonly) NSString *courseId;
 
--(NSURL *)imageUrl;
-
 -(BOOL)isFile;
 -(BOOL)isUri;
+
+/**
+ Returns the filename used to store or retrieve the resource from disk
+ */
+-(NSString *)filenameOnDisk;
+
+-(NSString *)youtTubeVideoId;
 
 @end
