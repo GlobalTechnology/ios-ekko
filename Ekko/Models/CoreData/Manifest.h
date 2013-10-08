@@ -2,7 +2,7 @@
 //  Manifest.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 9/18/13.
+//  Created by Brian Zoetewey on 10/8/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSString * courseTitle;
 @property (nonatomic) int64_t courseVersion;
 @property (nonatomic) NSTimeInterval lastSynced;
+@property (nonatomic, retain) NSString * completeMessage;
 @property (nonatomic, retain) NSOrderedSet *content;
 @end
 

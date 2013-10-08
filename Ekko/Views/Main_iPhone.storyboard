@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="2394" y="657"/>
         </scene>
-        <!--View Controller-->
+        <!--Course Complete View Controller-->
         <scene sceneID="I2V-iv-2Xs">
             <objects>
-                <viewController id="yG9-Zq-rf9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="courseCompleteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yG9-Zq-rf9" customClass="CourseCompleteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OHJ-l1-HYC"/>
                         <viewControllerLayoutGuide type="bottom" id="ctA-Eh-TQl"/>
@@ -209,8 +209,48 @@
                     <view key="view" contentMode="scaleToFill" id="386-rP-gLO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4n1-9i-Wa7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="PGu-bQ-3ne"/>
+                                </constraints>
+                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2f-Mj-fVd" customClass="CourseNavigationBar">
+                                <rect key="frame" x="0.0" y="180" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="Mve-qn-dsC"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ybQ-Or-7Zy">
+                                <rect key="frame" x="121" y="245" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Course List"/>
+                                <connections>
+                                    <action selector="courseListClicked:" destination="yG9-Zq-rf9" eventType="touchUpInside" id="dWL-Ic-UHl"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="T2f-Mj-fVd" firstAttribute="top" secondItem="4n1-9i-Wa7" secondAttribute="bottom" id="5oV-TW-G6R"/>
+                            <constraint firstItem="4n1-9i-Wa7" firstAttribute="leading" secondItem="386-rP-gLO" secondAttribute="leading" id="C2K-6F-5y7"/>
+                            <constraint firstAttribute="trailing" secondItem="T2f-Mj-fVd" secondAttribute="trailing" id="Pka-GR-ZEL"/>
+                            <constraint firstItem="ybQ-Or-7Zy" firstAttribute="top" secondItem="T2f-Mj-fVd" secondAttribute="bottom" constant="20" id="Psf-im-EQG"/>
+                            <constraint firstItem="ybQ-Or-7Zy" firstAttribute="centerX" secondItem="T2f-Mj-fVd" secondAttribute="centerX" id="Xyi-16-q05"/>
+                            <constraint firstAttribute="trailing" secondItem="4n1-9i-Wa7" secondAttribute="trailing" id="YIL-Xc-65M"/>
+                            <constraint firstItem="4n1-9i-Wa7" firstAttribute="top" secondItem="386-rP-gLO" secondAttribute="top" id="hHB-qu-9sq"/>
+                            <constraint firstItem="T2f-Mj-fVd" firstAttribute="leading" secondItem="386-rP-gLO" secondAttribute="leading" id="syD-79-EIV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="completeWebView" destination="4n1-9i-Wa7" id="ZTc-R6-6XG"/>
+                        <outlet property="navigationBar" destination="T2f-Mj-fVd" id="WiU-Su-6eH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z9g-pp-otp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

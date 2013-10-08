@@ -12,6 +12,7 @@
 
 #import "LessonViewController.h"
 #import "QuizViewController.h"
+#import "CourseCompleteViewController.h"
 
 @implementation Manifest (Ekko)
 
@@ -49,6 +50,11 @@
     return contentViewController;
 }
 
+-(CourseCompleteViewController *)courseCompleteViewControllerFromStoryboard:(UIStoryboard *)storyboard {
+    CourseCompleteViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"courseCompleteViewController"];
+    vc.course = self;
+    return vc;
+}
 
 #pragma mark - SwipeViewControllerDataSource
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerAfterViewController:(UIViewController *)viewController {
@@ -58,7 +64,10 @@
             return nil;
         }
         index++;
-        if (index >= [self.content count]) {
+        if (index == [self.content count]) {
+            return [self courseCompleteViewControllerFromStoryboard:viewController.storyboard];
+        }
+        else if (index >= [self.content count]) {
             return nil;
         }
         return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -75,7 +84,10 @@
         return NO;
     }
     index++;
-    if (index >= [self.content count]) {
+    if (index == [self.content count]) {
+        return YES;
+    }
+    else if (index >= [self.content count]) {
         return NO;
     }
     return YES;
@@ -90,18 +102,27 @@
         index--;
         return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
     }
+    else if ([viewController isKindOfClass:[CourseCompleteViewController class]]) {
+        NSUInteger index = [self.content count] - 1;
+        if (index <= 0) {
+            return nil;
+        }
+        return [self viewControllerAtIndex:index storyboard:viewController.storyboard];
+    }
     return nil;
 }
 
 -(BOOL)swipeViewController:(SwipeViewController *)swipeViewController hasViewControllerBeforeViewController:(UIViewController *)viewController {
-    if (![viewController conformsToProtocol:@protocol(ContentItemProtocol)]) {
+    if ([viewController isKindOfClass:[CourseCompleteViewController class]]) {
+        return YES;
+    }
+    else if (![viewController conformsToProtocol:@protocol(ContentItemProtocol)]) {
         return NO;
     }
     NSUInteger index = [self indexOfViewController:(UIViewController<ContentItemProtocol> *)viewController];
     if (index == NSNotFound || index == 0) {
         return NO;
     }
-    index--;
     return YES;
 }
 

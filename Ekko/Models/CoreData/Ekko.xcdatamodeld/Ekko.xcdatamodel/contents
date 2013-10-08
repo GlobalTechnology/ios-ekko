@@ -28,6 +28,7 @@
         <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="completeMessage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseCopyright" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>

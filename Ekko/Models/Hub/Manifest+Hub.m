@@ -39,6 +39,8 @@
         [self setAuthorEmail:[hubMeta authorEmail]];
         [self setAuthorUrl:[hubMeta authorUrl]];
         [self setCourseCopyright:[hubMeta courseCopyright]];
+        
+        [self setCompleteMessage:[hubManifest completeMessage]];
 
         [self setResources:[NSMutableSet set]];
         for (HubResource *hubResource in [hubManifest resources]) {

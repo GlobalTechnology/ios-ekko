@@ -15,6 +15,7 @@
 @synthesize courseMeta    = _courseMeta;
 @synthesize resources     = _resources;
 @synthesize content       = _content;
+@synthesize completeMessage = _completeMessage;
 
 -(NSMutableArray *)content {
     if (!_content) {
@@ -50,6 +51,16 @@
     else if ([elementName isEqualToString:kEkkoHubXMLElementContentQuiz]) {
         [[self content] addObject:[[HubQuiz alloc] initWithXMLParser:parser element:elementName attributes:attributeDict schemaVersion:self.schemaVersion]];
     }
+}
+
+-(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
+    if ([[self currentElement] isEqualToString:kEkkoHubXMLElementCompletionMessage]) {
+        [self setCompleteMessage:[self appendString:string toString:[self completeMessage]]];
+    }
+}
+
+-(void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock {
+    [self parser:parser foundCharacters:[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding]];
 }
 
 @end

@@ -21,4 +21,6 @@
 @property (nonatomic, strong, readonly) NSMutableArray *content;
 @property (nonatomic, strong, readonly) NSMutableArray *resources;
 
+@property (nonatomic, strong) NSString *completeMessage;
+
 @end

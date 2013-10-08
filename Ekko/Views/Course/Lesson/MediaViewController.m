@@ -24,6 +24,7 @@
     if (resource.provider == EkkoResourceProviderYouTube) {
         [self.mediaImage removeFromSuperview];
         UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        [webView.scrollView setBounces:NO];
         [self.view addSubview:webView];
         
         NSString *htmlString = @"<html><head><meta name = \"viewport\" content = \"initial-scale = 1.0, user-scalable = no, width = %1$d\"/></head>"\

@@ -16,8 +16,10 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
+    //Remove NavigationController default back button
     [self.navigationItem setLeftItemsSupplementBackButton:NO];
     
+    //Create custom Back Button
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0, 0, 34, 34)];
     [backButton setShowsTouchWhenHighlighted:YES];
@@ -25,6 +27,7 @@
     [backButton addTarget:self action:@selector(navigateBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];    
     
+    //Create course drawer toggle button (right side drawer)
     UIButton *toggleCourseDrawer = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleCourseDrawer setFrame:CGRectMake(0, 0, 34, 34)];
     [toggleCourseDrawer setShowsTouchWhenHighlighted:YES];
