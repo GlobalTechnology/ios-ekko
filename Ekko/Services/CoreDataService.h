@@ -16,6 +16,7 @@
 #import "Quiz+Hub.h"
 #import "MultipleChoice.h"
 #import "MultipleChoiceOption.h"
+#import "ProgressItem.h"
 
 typedef NS_ENUM(NSUInteger, EkkoCoreDataEntity) {
     EkkoCoreDataEntityCourse,
@@ -27,6 +28,7 @@ typedef NS_ENUM(NSUInteger, EkkoCoreDataEntity) {
     EkkoCoreDataEntityMedia,
     EkkoCoreDataEntityMultipleChoice,
     EkkoCoreDataEntityMultipleChoiceOption,
+    EkkoCoreDataEntityProgressItem,
 };
 
 @interface CoreDataService : NSObject
@@ -40,7 +42,10 @@ typedef NS_ENUM(NSUInteger, EkkoCoreDataEntity) {
 -(NSURL *)applicationDocumentsDirectory;
 -(void)saveContext;
 
+-(NSString *)nameForEntityType:(EkkoCoreDataEntity)entityType;
 -(NSManagedObject *)newObjectForEntityType:(EkkoCoreDataEntity)entityType;
+//-(NSManagedObject *)newObjectForEnyityType:(EkkoCoreDataEntity)entityType withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+-(NSFetchRequest *)fetchRequestForEntity:(EkkoCoreDataEntity)entityType;
 
 #pragma mark - Course
 -(Course *)newCourseObject;

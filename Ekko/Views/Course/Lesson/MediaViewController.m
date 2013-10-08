@@ -7,10 +7,11 @@
 //
 
 #import "MediaViewController.h"
-#import <UIImageView+AFNetworking.h>
 #import "Resource+Ekko.h"
 #import "HubClient.h"
 #import "ResourceManager.h"
+#import "ProgressManager.h"
+#import "Lesson+Ekko.h"
 
 @interface MediaViewController ()
 @end
@@ -61,6 +62,7 @@
             }
         }
     }
+    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

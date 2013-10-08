@@ -10,11 +10,6 @@
 #import "UIViewController+SwipeViewController.h"
 
 @implementation LessonViewController
-@synthesize contentItem = _contentItem;
-
-+(UIViewController<ContentItemProtocol> *)viewControllerWithStoryboard:(UIStoryboard *)storyboard {
-    return (UIViewController<ContentItemProtocol> *)[storyboard instantiateViewControllerWithIdentifier:@"lessonViewController"];
-}
 
 -(Lesson *)lesson {
     return (Lesson *)self.contentItem;
@@ -67,6 +62,23 @@
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[media][nav(==45)][pages]|" options:0 metrics:nil views:views]];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[ProgressManager progressManager] addProgressDelegate:self forDataSource:self.lesson];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [[ProgressManager progressManager] removeProgressDelegate:self];
+    [super viewDidDisappear:animated];
+}
+
+#pragma mark - ContentItemProtocol
+@synthesize contentItem = _contentItem;
++(UIViewController<ContentItemProtocol> *)viewControllerWithStoryboard:(UIStoryboard *)storyboard {
+    return (UIViewController<ContentItemProtocol> *)[storyboard instantiateViewControllerWithIdentifier:@"lessonViewController"];
+}
+
+#pragma mark - CourseNavigationBarDelegate
 -(void)navigateToPrevious {
     SwipeViewController *swipeViewController = self.swipeViewController;
     if (swipeViewController) {
@@ -79,6 +91,15 @@
     if (swipeViewController) {
         [swipeViewController swipeToNextViewController];
     }
+}
+
+#pragma mark - ProgressManagerDelegate
+-(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([dataSource isKindOfClass:[Lesson class]] && self.lesson == dataSource) {
+            [self.navigationBar setProgress:progress];
+        }
+    });
 }
 
 @end

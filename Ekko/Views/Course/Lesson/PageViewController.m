@@ -7,6 +7,8 @@
 //
 
 #import "PageViewController.h"
+#import "Lesson+Ekko.h"
+#import "ProgressManager.h"
 
 #import "UIColor+Ekko.h"
 
@@ -31,6 +33,11 @@
     [self.webView setOpaque:NO];
     [self.webView setBackgroundColor:[UIColor ekkoLightGrey]];
     [self.webView loadHTMLString:self.page.pageText baseURL:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [ProgressManager setItemComplete:self.page.pageId forCourse:[self.page.lesson courseId]];
 }
 
 @end

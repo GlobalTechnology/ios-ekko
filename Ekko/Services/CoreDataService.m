@@ -18,6 +18,7 @@ NSString *const EkkoCoreDataEntities[] = {
     [EkkoCoreDataEntityMedia]      = @"Media",
     [EkkoCoreDataEntityMultipleChoice] = @"MultipleChoice",
     [EkkoCoreDataEntityMultipleChoiceOption] = @"MultipleChoiceOption",
+    [EkkoCoreDataEntityProgressItem]   = @"ProgressItem",
 };
 
 @implementation CoreDataService
@@ -85,12 +86,16 @@ NSString *const EkkoCoreDataEntities[] = {
     }
 }
 
--(NSString *)nameFromEntityType:(EkkoCoreDataEntity)entityType {
+-(NSString *)nameForEntityType:(EkkoCoreDataEntity)entityType {
     return (NSString *)EkkoCoreDataEntities[entityType];
 }
 
 -(NSManagedObject *)newObjectForEntityType:(EkkoCoreDataEntity)entityType {
-    return [NSEntityDescription insertNewObjectForEntityForName:[self nameFromEntityType:entityType] inManagedObjectContext:[self managedObjectContext]];
+    return [NSEntityDescription insertNewObjectForEntityForName:[self nameForEntityType:entityType] inManagedObjectContext:[self managedObjectContext]];
+}
+
+-(NSFetchRequest *)fetchRequestForEntity:(EkkoCoreDataEntity)entityType {
+    return [NSFetchRequest fetchRequestWithEntityName:[self nameForEntityType:entityType]];
 }
 
 #pragma mark - Course
@@ -99,7 +104,7 @@ NSString *const EkkoCoreDataEntities[] = {
 }
 
 -(NSArray *)getAllCourseObjects {
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameFromEntityType:EkkoCoreDataEntityCourse]];
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameForEntityType:EkkoCoreDataEntityCourse]];
     NSError *error = nil;
     NSArray *courses = [[self managedObjectContext] executeFetchRequest:fetch error:&error];
     //TODO: handle error
@@ -107,7 +112,7 @@ NSString *const EkkoCoreDataEntities[] = {
 }
 
 -(NSFetchedResultsController *)courseFetchedResultsController {
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameFromEntityType:EkkoCoreDataEntityCourse]];
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameForEntityType:EkkoCoreDataEntityCourse]];
     [fetch setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[self managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
@@ -118,7 +123,7 @@ NSString *const EkkoCoreDataEntities[] = {
 }
 
 -(Manifest *)getManifestObjectByCourseId:(NSString *)courseId {
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameFromEntityType:EkkoCoreDataEntityManifest]];
+    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:[self nameForEntityType:EkkoCoreDataEntityManifest]];
     [fetch setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@", courseId]];
     NSError *error = nil;
     NSArray *results = [[self managedObjectContext] executeFetchRequest:fetch error:&error];

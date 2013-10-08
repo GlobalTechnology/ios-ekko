@@ -7,6 +7,7 @@
 //
 
 #import "Lesson+Ekko.h"
+#import "Manifest+Ekko.h"
 
 #import "LessonViewController.h"
 
@@ -28,6 +29,7 @@
     return [self itemTitle];
 }
 
+#pragma mark - SwipeViewControllerDataSource
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[PageViewController class]]) {
         return [self viewControllerBeforePageViewController:(PageViewController *)viewController];
@@ -49,7 +51,6 @@
 }
 
 #pragma mark - PageViewController
-
 -(UIViewController *)viewControllerBeforePageViewController:(PageViewController *)pageViewController {
     NSUInteger index = [self indexOfPageViewController:pageViewController];
     if (index == NSNotFound || index == 0) {
@@ -121,6 +122,22 @@
 
 -(NSUInteger)indexOfMediaViewController:(MediaViewController *)mediaViewController {
     return [self.media indexOfObject:mediaViewController.media];
+}
+
+#pragma mark - ProgressManagerDataSource
+-(NSSet *)progressItemIds {
+    NSMutableSet *ids = [NSMutableSet set];
+    for (Media *media in self.media) {
+        [ids addObject:[media.mediaId copy]];
+    }
+    for (Page *page in self.pages) {
+        [ids addObject:[page.pageId copy]];
+    }
+    return ids;
+}
+
+-(NSString *)courseId {
+    return [self.course courseId];
 }
 
 @end

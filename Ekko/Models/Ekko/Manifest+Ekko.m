@@ -51,7 +51,6 @@
 
 
 #pragma mark - SwipeViewControllerDataSource
-
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerAfterViewController:(UIViewController *)viewController {
     if ([viewController conformsToProtocol:@protocol(ContentItemProtocol)]) {
         NSUInteger index = [self indexOfViewController:(UIViewController<ContentItemProtocol> *)viewController];
@@ -104,6 +103,17 @@
     }
     index--;
     return YES;
+}
+
+#pragma mark - ProgressManagerDataSource
+-(NSSet *)progressItemIds {
+    NSSet *ids = [NSSet set];
+    for (ContentItem *item in self.content) {
+        if ([item conformsToProtocol:@protocol(ProgressManagerDataSource)]) {
+            ids = [ids setByAddingObjectsFromSet:[(ContentItem<ProgressManagerDataSource> *)item progressItemIds]];
+        }
+    }
+    return ids;
 }
 
 @end

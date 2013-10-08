@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "Course+Ekko.h"
+#import "ProgressManager.h"
 
-@interface CourseListCell : UITableViewCell
+@interface CourseListCell : UITableViewCell <ProgressManagerDelegate>
 
 @property (weak, nonatomic) Course *course;
-@property (weak, nonatomic) IBOutlet UIImageView *banner;
-@property (weak, nonatomic) IBOutlet UILabel *courseTitle;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
+@property (weak, nonatomic) IBOutlet UILabel *courseLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *courseProgress;
 
 @end

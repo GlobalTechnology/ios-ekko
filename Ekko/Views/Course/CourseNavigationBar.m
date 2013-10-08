@@ -32,7 +32,7 @@
         [self.progressBar setTranslatesAutoresizingMaskIntoConstraints:NO];
         [self.progressBar setProgressTintColor:[UIColor ekkoOrange]];
         [self.progressBar setTrackTintColor:[UIColor ekkoGrey]];
-        [self.progressBar setProgress:0.5f];
+        [self.progressBar setProgress:0.f];
         [self addSubview:self.progressBar];
         
         self.previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -64,7 +64,7 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[next]|" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[previous]-5-[progress]-5-[next]" options:0 metrics:nil views:views]];
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"[previous]-5-[title]-5-[next]" options:0 metrics:nil views:views]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[progress(==10)]-5-[title]-5-|" options:0 metrics:nil views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[progress(==4)]-5-[title]-5-|" options:0 metrics:nil views:views]];
     }
     return self;
 }

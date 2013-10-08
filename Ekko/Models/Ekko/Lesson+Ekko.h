@@ -10,9 +10,9 @@
 #import "SwipeViewController.h"
 #import "PageViewController.h"
 #import "MediaViewController.h"
+#import "ProgressManager.h"
 
-@interface Lesson (Ekko) <SwipeViewControllerDataSource>
-
+@interface Lesson (Ekko) <SwipeViewControllerDataSource, ProgressManagerDataSource>
 -(void)setLessonId:(NSString *)lessonId;
 -(NSString *)lessonId;
 
@@ -28,5 +28,4 @@
 -(UIViewController *)viewControllerAfterMediaViewController:(MediaViewController *)mediaViewController;
 -(MediaViewController *)mediaViewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 -(NSUInteger)indexOfMediaViewController:(MediaViewController *)mediaViewController;
-
 @end
