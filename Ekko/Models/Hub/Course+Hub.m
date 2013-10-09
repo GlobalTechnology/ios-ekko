@@ -7,8 +7,8 @@
 //
 
 #import "Course+Hub.h"
+#import "DataManager.h"
 #import "Resource+Hub.h"
-#import "CoreDataService.h"
 
 @implementation Course (Hub)
 
@@ -32,7 +32,7 @@
         [self setResources:[NSMutableSet set]];
         HubResource *hubResource = [hubCourse bannerResource];
         if (hubResource) {
-            Resource *resource = [[CoreDataService sharedService] newResourceObject];
+            Resource *resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoResourceEntity inManagedObjectContext:self.managedObjectContext];
             [resource updateFromHubResource:hubResource];
             [self addResourcesObject:resource];
         }

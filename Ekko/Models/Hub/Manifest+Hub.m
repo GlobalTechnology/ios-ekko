@@ -7,7 +7,7 @@
 //
 
 #import "Manifest+Hub.h"
-#import "CoreDataService.h"
+#import "DataManager.h"
 
 #import "Resource+Hub.h"
 #import "Lesson+Hub.h"
@@ -22,8 +22,6 @@
 }
 
 -(void)updateWithHubManifest:(HubManifest *)hubManifest {
-    CoreDataService *coreData = [CoreDataService sharedService];
-    
     //Update Manifest if it is a new object or version number has changed
     if ([[self objectID] isTemporaryID] || [hubManifest courseVersion] > [self courseVersion]) {
         //Update Last Synced to NOW
@@ -44,7 +42,7 @@
 
         [self setResources:[NSMutableSet set]];
         for (HubResource *hubResource in [hubManifest resources]) {
-            Resource *resource = [coreData newResourceObject];
+            Resource *resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoResourceEntity inManagedObjectContext:self.managedObjectContext];
             [resource updateFromHubResource:hubResource];
             [self addResourcesObject:resource];
         }
@@ -52,12 +50,12 @@
         [self setContent:[NSMutableOrderedSet orderedSet]];
         for (id contentItem in [hubManifest content]) {
             if ([contentItem isKindOfClass:[HubLesson class]]) {
-                Lesson *lesson = [coreData newLessonObject];
+                Lesson *lesson = (Lesson *)[[DataManager dataManager] insertNewObjectForEntity:EkkoLessonEntity inManagedObjectContext:self.managedObjectContext];
                 [lesson updateWithHubLesson:contentItem];
                 [self addContentObject:lesson];
             }
             else if ([contentItem isKindOfClass:[HubQuiz class]]) {
-                Quiz *quiz = [coreData newQuizObject];
+                Quiz *quiz = (Quiz *)[[DataManager dataManager] insertNewObjectForEntity:EkkoQuizEntity inManagedObjectContext:self.managedObjectContext];
                 [quiz updateWithHubQuiz:contentItem];
                 [self addContentObject:quiz];
             }

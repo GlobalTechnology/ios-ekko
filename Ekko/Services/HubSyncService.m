@@ -7,9 +7,7 @@
 //
 
 #import "HubSyncService.h"
-#import "CoreDataService.h"
-#import "HubClient.h"
-
+#import "DataManager.h"
 #import "HubClient.h"
 
 #import "Course+Hub.h"
@@ -69,16 +67,15 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
         return;
     }
     [[HubClient hubClient] getManifest:courseId callback:^(HubManifest *hubManifest) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            Manifest *manifest = [[CoreDataService sharedService] getManifestObjectByCourseId:[hubManifest courseId]];
+        NSManagedObjectContext *managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
+        [managedObjectContext performBlock:^{
+            Manifest *manifest = [[DataManager dataManager] getManifestByCourseId:hubManifest.courseId withManagedObjectContext:managedObjectContext];
             if (manifest == nil) {
-                manifest = [[CoreDataService sharedService] newManifestObject];
+                manifest = [[DataManager dataManager] insertNewManifestInManagedObjectContext:managedObjectContext];
             }
             [manifest updateWithHubManifest:hubManifest];
-            if ([manifest hasChanges]) {
-                [[CoreDataService sharedService] saveContext];
-            }
-        });
+            [[DataManager dataManager] saveManagedObjectContext:managedObjectContext];
+        }];
     }];
 }
 
@@ -92,35 +89,37 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
             [self fetchCourseList:start limit:limit];
         }
         else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self processCourses];
-            });
+            [self processCourses];
         }
     }];
 }
 
 -(void)processCourses {
-    NSMutableDictionary *existing = [NSMutableDictionary dictionary];
-
-    NSArray *courses = [[CoreDataService sharedService] getAllCourseObjects];
-    for (Course *course in courses) {
-        [course setAccessible:NO];
-        [existing setObject:course forKey:[course courseId]];
-    }
-
-    for (HubCourse *hubCourse in _courses) {
-        Course *course = [existing objectForKey:[hubCourse courseId]];
-        if (course == nil) {
-            course = [[CoreDataService sharedService] newCourseObject];
+    NSManagedObjectContext *managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
+    
+    [managedObjectContext performBlockAndWait:^{
+        NSMutableDictionary *existing = [NSMutableDictionary dictionary];
+        
+        NSArray *courses = [[DataManager dataManager] getAllCoursesWithManagedObjectContext:managedObjectContext];
+        for (Course *course in courses) {
+            [course setAccessible:NO];
+            [existing setObject:course forKey:[course courseId]];
         }
-        [course updateWithHubCourse:hubCourse];
-        if ([course hasChanges]) {
-            [self syncManifest:[course courseId]];
+        
+        for (HubCourse *hubCourse in _courses) {
+            Course *course = [existing objectForKey:[hubCourse courseId]];
+            if (course == nil) {
+                course = [[DataManager dataManager] insertNewCourseInManagedObjectContext:managedObjectContext];
+            }
+            [course updateWithHubCourse:hubCourse];
+            if ([course hasChanges]) {
+                [self syncManifest:[course courseId]];
+            }
+            [course setAccessible:YES];
         }
-        [course setAccessible:YES];
-    }
-
-    [[CoreDataService sharedService] saveContext];
+        
+        [[DataManager dataManager] saveManagedObjectContext:managedObjectContext];
+    }];
     _courses = nil;
     _coursesSyncInProgress = NO;
 

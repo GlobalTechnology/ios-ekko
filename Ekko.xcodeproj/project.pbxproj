@@ -61,7 +61,6 @@
 		D359FFBE17EC96FE007A095B /* Quiz+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF4D17EC96FE007A095B /* Quiz+Hub.m */; };
 		D359FFBF17EC96FE007A095B /* Manifest+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF4F17EC96FE007A095B /* Manifest+Hub.m */; };
 		D359FFC017EC96FE007A095B /* Resource+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5117EC96FE007A095B /* Resource+Hub.m */; };
-		D359FFC117EC96FE007A095B /* CoreDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5417EC96FE007A095B /* CoreDataService.m */; };
 		D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5617EC96FE007A095B /* HubSyncService.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
 		D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceImageCache.m */; };
@@ -100,7 +99,7 @@
 		D3F2F02D17EC904800F32F52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3F2F02B17EC904800F32F52 /* InfoPlist.strings */; };
 		D3F2F02F17EC904800F32F52 /* EkkoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F02E17EC904800F32F52 /* EkkoTests.m */; };
 		D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2717ECB9620039B0AC /* Images.xcassets */; };
-		D3FB3C9A180476F30051642F /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C99180476F30051642F /* CoreDataManager.m */; };
+		D3FB3C9A180476F30051642F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C99180476F30051642F /* DataManager.m */; };
 		D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */; };
 		D3FB3CA018049A0F0051642F /* Manifest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C9F18049A0F0051642F /* Manifest.m */; };
 		D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */; };
@@ -215,8 +214,6 @@
 		D359FF4F17EC96FE007A095B /* Manifest+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Manifest+Hub.m"; sourceTree = "<group>"; };
 		D359FF5017EC96FE007A095B /* Resource+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Resource+Hub.h"; sourceTree = "<group>"; };
 		D359FF5117EC96FE007A095B /* Resource+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Resource+Hub.m"; sourceTree = "<group>"; };
-		D359FF5317EC96FE007A095B /* CoreDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataService.h; sourceTree = "<group>"; };
-		D359FF5417EC96FE007A095B /* CoreDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataService.m; sourceTree = "<group>"; };
 		D359FF5517EC96FE007A095B /* HubSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubSyncService.h; sourceTree = "<group>"; };
 		D359FF5617EC96FE007A095B /* HubSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubSyncService.m; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -283,8 +280,8 @@
 		D3F2F02C17EC904800F32F52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3F2F02E17EC904800F32F52 /* EkkoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EkkoTests.m; sourceTree = "<group>"; };
 		D3F9DA2717ECB9620039B0AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D3FB3C98180476F30051642F /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
-		D3FB3C99180476F30051642F /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		D3FB3C98180476F30051642F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		D3FB3C99180476F30051642F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		D3FB3C9B180482A80051642F /* CourseCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCompleteViewController.h; sourceTree = "<group>"; };
 		D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCompleteViewController.m; sourceTree = "<group>"; };
 		D3FB3C9E18049A0F0051642F /* Manifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Manifest.h; sourceTree = "<group>"; };
@@ -487,10 +484,8 @@
 		D359FF5217EC96FE007A095B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D3FB3C98180476F30051642F /* CoreDataManager.h */,
-				D3FB3C99180476F30051642F /* CoreDataManager.m */,
-				D359FF5317EC96FE007A095B /* CoreDataService.h */,
-				D359FF5417EC96FE007A095B /* CoreDataService.m */,
+				D3FB3C98180476F30051642F /* DataManager.h */,
+				D3FB3C99180476F30051642F /* DataManager.m */,
 				D359FF5517EC96FE007A095B /* HubSyncService.h */,
 				D359FF5617EC96FE007A095B /* HubSyncService.m */,
 				D36B176517F0929C00EFFD86 /* ProgressManager.h */,
@@ -867,12 +862,11 @@
 				D359FF9717EC96FE007A095B /* HubMeta.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
-				D3FB3C9A180476F30051642F /* CoreDataManager.m in Sources */,
+				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
 				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
 				D359FFB017EC96FE007A095B /* MultipleChoiceOption.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
-				D359FFC117EC96FE007A095B /* CoreDataService.m in Sources */,
 				D359FF9E17EC96FE007A095B /* ManifestParser.m in Sources */,
 				D359FFD617EC96FE007A095B /* NavigationDrawerViewController.m in Sources */,
 				D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */,

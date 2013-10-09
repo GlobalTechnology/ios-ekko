@@ -8,7 +8,7 @@
 
 #import "CourseListViewController.h"
 #import <UIViewController+MMDrawerController.h>
-#import "CoreDataService.h"
+#import "DataManager.h"
 #import "HubSyncService.h"
 #import "CourseViewController.h"
 #import "UIImage+Ekko.h"
@@ -37,7 +37,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setFetchedResultsController:[[CoreDataService sharedService] courseFetchedResultsController]];
+    [self setFetchedResultsController:[[DataManager dataManager] coursesFetchedResultsController]];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncBegin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncEnd object:nil];
@@ -65,7 +65,8 @@
     if ([[segue identifier] isEqualToString:@"takeCourse"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [(CourseViewController *)[segue destinationViewController] setManifest:[[CoreDataService sharedService] getManifestObjectByCourseId:[course courseId]]];
+        Manifest *manifest = [[DataManager dataManager] getManifestByCourseId:course.courseId withManagedObjectContext:course.managedObjectContext];
+        [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
     }
 }
 

@@ -7,9 +7,10 @@
 //
 
 #import "Quiz+Hub.h"
+#import "DataManager.h"
 #import "HubQuestionMC.h"
-#import "CoreDataService.h"
 #import "MultipleChoice+Hub.h"
+#import "MultipleChoiceOption.h"
 
 @implementation Quiz (Hub)
 
@@ -26,13 +27,13 @@
     self.questions = [NSMutableOrderedSet orderedSet];
     for (HubQuestion *hubQuestion in hubQuiz.questions) {
         if ([hubQuestion isKindOfClass:[HubQuestionMC class]]) {
-            MultipleChoice *question = [[CoreDataService sharedService] newMultipleChoiceObject];
+            MultipleChoice *question = (MultipleChoice *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMultipleChoiceEntity inManagedObjectContext:self.managedObjectContext];
             [question setQuestionId:[hubQuestion questionId]];
             [question setQuestionText:[(HubQuestionMC *)hubQuestion questionText]];
             
             question.options = [NSMutableOrderedSet orderedSet];
             for (HubOption *hubOption in [(HubQuestionMC *)hubQuestion options]) {
-                MultipleChoiceOption *option = [[CoreDataService sharedService] newMultipleChoiceOptionObject];
+                MultipleChoiceOption *option = (MultipleChoiceOption *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMultipleChoiceOptionEntity inManagedObjectContext:self.managedObjectContext];
                 [option setOptionId:[hubOption optionId]];
                 [option setOptionText:[hubOption optionText]];
                 [option setIsAnswer:[hubOption isAnswer]];

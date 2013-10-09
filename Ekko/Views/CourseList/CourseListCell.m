@@ -9,7 +9,6 @@
 #import "CourseListCell.h"
 
 #import "ResourceManager.h"
-#import "CoreDataService.h"
 #import "Manifest+Ekko.h"
 
 static const int insetViewTag = 1;

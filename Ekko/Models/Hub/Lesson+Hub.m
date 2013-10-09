@@ -7,9 +7,9 @@
 //
 
 #import "Lesson+Hub.h"
+#import "DataManager.h"
 #import "HubLessonPage.h"
 #import "HubLessonMedia.h"
-#import "CoreDataService.h"
 #import "Page.h"
 #import "Media.h"
 
@@ -33,7 +33,7 @@
     
     self.pages = [NSMutableOrderedSet orderedSet];
     for (HubLessonPage *hubPage in hubLesson.pages) {
-        Page *page = [[CoreDataService sharedService] newPageObject];
+        Page *page = (Page *)[[DataManager dataManager] insertNewObjectForEntity:EkkoPageEntity inManagedObjectContext:self.managedObjectContext];
         [page setPageId:[hubPage pageId]];
         [page setPageText:[hubPage pageText]];
         [self addPagesObject:page];
@@ -41,7 +41,7 @@
     
     self.media = [NSMutableOrderedSet orderedSet];
     for (HubLessonMedia *hubMedia in hubLesson.media) {
-        Media *media = [[CoreDataService sharedService] newMediaObject];
+        Media *media = (Media *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMediaEntity inManagedObjectContext:self.managedObjectContext];
         [media setMediaId:[hubMedia mediaId]];
         [media setMediaType:[hubMedia mediaType]];
         [media setResourceId:[hubMedia resourceId]];
