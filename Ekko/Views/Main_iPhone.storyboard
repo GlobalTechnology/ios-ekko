@@ -215,7 +215,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="PGu-bQ-3ne"/>
+                                    <constraint firstAttribute="height" constant="180" placeholder="YES" id="PGu-bQ-3ne"/>
                                 </constraints>
                             </webView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2f-Mj-fVd" customClass="CourseNavigationBar">
@@ -231,7 +231,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Course List"/>
                                 <connections>
-                                    <action selector="courseListClicked:" destination="yG9-Zq-rf9" eventType="touchUpInside" id="dWL-Ic-UHl"/>
+                                    <action selector="handleCourseListButton:" destination="yG9-Zq-rf9" eventType="touchUpInside" id="gxg-6v-ZZs"/>
                                 </connections>
                             </button>
                         </subviews>

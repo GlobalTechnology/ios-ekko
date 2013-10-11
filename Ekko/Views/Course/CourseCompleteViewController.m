@@ -12,10 +12,18 @@
 #import "UIColor+Ekko.h"
 
 @interface CourseCompleteViewController ()
-
+@property (nonatomic, weak) NSLayoutConstraint *nineBySixteenConstraint;
 @end
 
 @implementation CourseCompleteViewController
+
+-(void)updateViewConstraints {
+    [super updateViewConstraints];
+    if (self.nineBySixteenConstraint == nil) {
+        self.nineBySixteenConstraint = [NSLayoutConstraint constraintWithItem:self.completeWebView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.completeWebView attribute:NSLayoutAttributeWidth multiplier:9.f/16.f constant:0];
+        [self.view addConstraint:self.nineBySixteenConstraint];
+    }
+}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -36,7 +44,7 @@
     [[ProgressManager progressManager] removeProgressDelegate:self];
 }
 
-- (IBAction)courseListClicked:(id)sender {
+- (IBAction)handleCourseListButton:(id)sender {
     [[self navigationController] popToRootViewControllerAnimated:YES];
 }
 
