@@ -11,7 +11,8 @@
 #import "UIImage+Ekko.h"
 
 @implementation CourseViewController
-@synthesize manifest = _manifest;
+
+@synthesize manifest    = _manifest;
 
 -(void)viewDidLoad {
     [super viewDidLoad];

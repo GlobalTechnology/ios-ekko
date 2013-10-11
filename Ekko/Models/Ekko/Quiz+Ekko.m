@@ -9,8 +9,12 @@
 #import "Quiz+Ekko.h"
 #import "QuizViewController.h"
 
+#import "QuizCompleteViewController.h"
 #import "MultipleChoice.h"
 #import "MultipleChoiceViewController.h"
+#import <objc/runtime.h>
+
+static NSString *const kEkkoQuizShowAnswersProperty = @"kEkkoQuizShowAnswersProperty";
 
 @implementation Quiz (Ekko)
 
@@ -30,6 +34,22 @@
     return [self itemTitle];
 }
 
+-(void)setShowAnswers:(BOOL)showAnswers {
+    NSNumber *number = [NSNumber numberWithBool:showAnswers];
+    objc_setAssociatedObject(self, &kEkkoQuizShowAnswersProperty, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(BOOL)showAnswers {
+    NSNumber *number = objc_getAssociatedObject(self, &kEkkoQuizShowAnswersProperty);
+    return [number boolValue];
+}
+
+-(QuizCompleteViewController *)quizCompleteViewControllerFromStoryboard:(UIStoryboard *)storyboard {
+    QuizCompleteViewController *quizCompleteViewController = [storyboard instantiateViewControllerWithIdentifier:@"quizCompleteViewController"];
+    [quizCompleteViewController setQuiz:self];
+    return quizCompleteViewController;
+}
+
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if ([viewController conformsToProtocol:@protocol(QuizProtocol)]) {
         NSUInteger index = [self indexOfQuestionViewController:(UIViewController<QuizProtocol> *)viewController];
@@ -39,9 +59,15 @@
         index--;
         return [self questionViewControllerAtIndex:index storyboard:viewController.storyboard];
     }
+    else if ([viewController isKindOfClass:[QuizCompleteViewController class]]) {
+        NSUInteger index = [self.questions count] - 1;
+        if (index <= 0) {
+            return nil;
+        }
+        return [self quizCompleteViewControllerFromStoryboard:viewController.storyboard];
+    }
     return nil;
 }
-
 
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerAfterViewController:(UIViewController *)viewController {
     if ([viewController conformsToProtocol:@protocol(QuizProtocol)]) {
@@ -50,7 +76,10 @@
             return nil;
         }
         index++;
-        if (index >= [self.questions count]) {
+        if (index == [self.questions count]) {
+            return [self quizCompleteViewControllerFromStoryboard:viewController.storyboard];
+        }
+        else if (index >= [self.questions count]) {
             return nil;
         }
         return [self questionViewControllerAtIndex:index storyboard:viewController.storyboard];
@@ -74,7 +103,6 @@
     }
     if (questionViewController) {
         [questionViewController setQuestion:question];
-        [questionViewController setTitle:self.quizTitle];
     }
     return questionViewController;
 }

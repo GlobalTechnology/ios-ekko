@@ -13,6 +13,8 @@
 
 @interface Quiz (Ekko) <SwipeViewControllerDataSource>
 
+@property (nonatomic) BOOL showAnswers;
+
 -(void)setQuizId:(NSString *)quizId;
 -(NSString *)quizId;
 

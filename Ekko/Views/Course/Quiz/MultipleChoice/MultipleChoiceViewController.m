@@ -11,8 +11,13 @@
 #import "MultipleChoiceOption.h"
 #import "MultipleChoiceOptionCell.h"
 #import "UIViewController+SwipeViewController.h"
-
+#import "Quiz+Ekko.h"
 #import "UIColor+Ekko.h"
+#import "QuizManager.h"
+
+@interface MultipleChoiceViewController ()
+@property (nonatomic, strong) NSLayoutConstraint *questionWebViewHeightConstraint;
+@end
 
 @implementation MultipleChoiceViewController
 @synthesize question = _question;
@@ -21,35 +26,36 @@
     return (UIViewController<QuizProtocol> *)[storyboard instantiateViewControllerWithIdentifier:@"multipleChoiceViewController"];
 }
 
+-(void)setQuestionWebView:(UIWebView *)questionWebView {
+    _questionWebView = questionWebView;
+    [questionWebView.scrollView setBounces:NO];
+    [questionWebView setBackgroundColor:[UIColor ekkoQuizBackground]];
+}
+
+-(void)updateViewConstraints {
+    [super updateViewConstraints];
+    if (self.questionWebViewHeightConstraint == nil) {
+        self.questionWebViewHeightConstraint = [NSLayoutConstraint constraintWithItem:self.questionWebView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.questionWebView attribute:NSLayoutAttributeWidth multiplier:9.f/16.f constant:0];
+        [self.view addConstraint:self.questionWebViewHeightConstraint];
+    }
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.questionWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 180.f)];
-    self.questionWebView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.view addSubview:self.questionWebView];
-    
-    self.navigationBar = [[CourseNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 45.f)];
-    self.navigationBar.delegate = self;
-    [self.view addSubview:self.navigationBar];
-    
-    NSDictionary *views = @{@"web":self.questionWebView, @"nav":self.navigationBar, @"table":self.optionsTable};
-    [self.optionsTable removeConstraint:self.tableHeightConstraint];
-    
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[web]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[nav]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[web][nav(==45)][table]" options:0 metrics:nil views:views]];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.questionWebView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.questionWebView attribute:NSLayoutAttributeWidth multiplier:9.f/16.f constant:0]];
+    self.selectedAnswer = [[QuizManager quizManager] selectedMultipleChoiceAnswer:self.question];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.questionWebView loadHTMLString:self.question.questionText baseURL:nil];
-    [self.questionWebView setOpaque:NO];
-    [self.questionWebView.scrollView setBounces:NO];
-    [self.questionWebView setBackgroundColor:[UIColor ekkoLightGrey]];
+    NSString *baseHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:20px;text-align:center;\">%@</body></html>";
+    [self.questionWebView loadHTMLString:[NSString stringWithFormat:baseHTML, self.question.questionText] baseURL:nil];
     
-    [self.navigationBar setTitle:self.title];
+    [self.navigationBar setTitle:self.question.quiz.quizTitle];
+    NSUInteger questionIndex = [self.question.quiz.questions indexOfObject:self.question];
+    if (questionIndex != NSNotFound) {
+        [self.navigationBar setProgress:(float)questionIndex/(float)self.question.quiz.questions.count];
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -61,8 +67,30 @@
     
     MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
     [cell.checkbox setTitle:option.optionText];
+    if (self.question.quiz.showAnswers && option.isAnswer) {
+        cell.backgroundColor = [UIColor ekkoAnswerGreen];
+    }
+    else {
+        cell.backgroundColor = nil;
+    }
     
+    if (self.selectedAnswer && [self.selectedAnswer isEqualToString:option.optionId]) {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [cell.checkbox setCheckState:M13CheckboxStateChecked];
+    }
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MultipleChoiceOptionCell *cell = (MultipleChoiceOptionCell *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell.checkbox setCheckState:M13CheckboxStateUnchecked];
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MultipleChoiceOptionCell *cell = (MultipleChoiceOptionCell *)[tableView cellForRowAtIndexPath:indexPath];
+    MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
+    [[QuizManager quizManager] saveMultipleChoiceAnswer:option];
+    [cell.checkbox setCheckState:M13CheckboxStateChecked];
 }
 
 -(void)navigateToNext {

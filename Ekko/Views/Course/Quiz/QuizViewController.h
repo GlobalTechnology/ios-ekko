@@ -14,7 +14,6 @@
 @interface QuizViewController : SwipeViewController <ContentItemProtocol>
 
 @property (nonatomic, strong) ContentItem *contentItem;
-
 -(Quiz *)quiz;
 
 @end

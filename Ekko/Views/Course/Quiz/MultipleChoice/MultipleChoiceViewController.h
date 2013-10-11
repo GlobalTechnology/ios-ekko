@@ -14,11 +14,10 @@
 @interface MultipleChoiceViewController : UIViewController <QuizProtocol, UITableViewDataSource, UITableViewDelegate, CourseNavigationBarDelegate>
 
 @property (nonatomic, strong) MultipleChoice *question;
+@property (nonatomic, strong) NSString *selectedAnswer;
 
-@property (nonatomic, strong) UIWebView *questionWebView;
-@property (nonatomic, strong) CourseNavigationBar *navigationBar;
-@property (weak, nonatomic) IBOutlet UITableView *optionsTable;
-
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *tableHeightConstraint;
+@property (nonatomic, weak) IBOutlet UIWebView *questionWebView;
+@property (nonatomic, weak) IBOutlet CourseNavigationBar *navigationBar;
+@property (nonatomic, weak) IBOutlet UITableView *optionsTableView;
 
 @end

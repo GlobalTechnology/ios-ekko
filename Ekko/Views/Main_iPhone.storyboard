@@ -207,7 +207,7 @@
                         <viewControllerLayoutGuide type="bottom" id="ctA-Eh-TQl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="386-rP-gLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4n1-9i-Wa7">
@@ -247,6 +247,9 @@
                             <constraint firstItem="T2f-Mj-fVd" firstAttribute="leading" secondItem="386-rP-gLO" secondAttribute="leading" id="syD-79-EIV"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="completeWebView" destination="4n1-9i-Wa7" id="ZTc-R6-6XG"/>
                         <outlet property="navigationBar" destination="T2f-Mj-fVd" id="WiU-Su-6eH"/>
@@ -335,10 +338,13 @@
                         <viewControllerLayoutGuide type="bottom" id="s5W-EF-WhW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dK9-Rf-myo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bo0-NC-tbq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -353,15 +359,31 @@
                         <viewControllerLayoutGuide type="bottom" id="6as-Vc-nQD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="lQs-5F-wtX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lyO-bd-040">
-                                <rect key="frame" x="0.0" y="308" width="320" height="260"/>
-                                <color key="backgroundColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t5t-3g-3qG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="260" id="BJq-lG-wnJ"/>
+                                    <constraint firstAttribute="height" constant="180" placeholder="YES" id="VHa-7Z-MCR"/>
                                 </constraints>
+                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hv-Jl-s7k" customClass="CourseNavigationBar">
+                                <rect key="frame" x="0.0" y="180" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="iiE-ks-hXl"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="OvS-zx-DaF" id="iA7-sw-zMl"/>
+                                </connections>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="lyO-bd-040">
+                                <rect key="frame" x="0.0" y="233" width="320" height="271"/>
+                                <color key="backgroundColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="multipleChoiceOptionCell" id="H9W-Ul-CWj" customClass="MultipleChoiceOptionCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -369,7 +391,24 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H9W-Ul-CWj" id="A4B-v7-4Nk">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KnY-Rk-S6Q" customClass="M13Checkbox">
+                                                    <rect key="frame" x="20" y="5" width="280" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="KnY-Rk-S6Q" secondAttribute="trailing" constant="20" id="Enx-Ua-vjb"/>
+                                                <constraint firstItem="KnY-Rk-S6Q" firstAttribute="top" secondItem="A4B-v7-4Nk" secondAttribute="top" constant="5" id="I9X-Uv-pq8"/>
+                                                <constraint firstItem="KnY-Rk-S6Q" firstAttribute="centerY" secondItem="A4B-v7-4Nk" secondAttribute="centerY" id="XNZ-S9-GZK"/>
+                                                <constraint firstItem="KnY-Rk-S6Q" firstAttribute="leading" secondItem="A4B-v7-4Nk" secondAttribute="leading" constant="20" id="ldO-pq-flm"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="checkbox" destination="KnY-Rk-S6Q" id="3fg-rg-Nbh"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -380,33 +419,103 @@
                         </subviews>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="lyO-bd-040" firstAttribute="bottom" secondItem="lQs-5F-wtX" secondAttribute="bottom" id="cLi-BX-qjd"/>
-                            <constraint firstItem="lyO-bd-040" firstAttribute="leading" secondItem="lQs-5F-wtX" secondAttribute="leading" id="gTP-jq-lNe"/>
-                            <constraint firstItem="lyO-bd-040" firstAttribute="trailing" secondItem="lQs-5F-wtX" secondAttribute="trailing" id="o6e-uX-2uR"/>
+                            <constraint firstAttribute="trailing" secondItem="t5t-3g-3qG" secondAttribute="trailing" id="92t-kM-qLI"/>
+                            <constraint firstAttribute="trailing" secondItem="lyO-bd-040" secondAttribute="trailing" id="A9l-OV-BC1"/>
+                            <constraint firstItem="3hv-Jl-s7k" firstAttribute="leading" secondItem="lQs-5F-wtX" secondAttribute="leading" id="CeM-hh-9Ik"/>
+                            <constraint firstItem="3hv-Jl-s7k" firstAttribute="top" secondItem="t5t-3g-3qG" secondAttribute="bottom" id="EYO-zW-Qcj"/>
+                            <constraint firstItem="lyO-bd-040" firstAttribute="top" secondItem="3hv-Jl-s7k" secondAttribute="bottom" constant="8" symbolic="YES" id="N8u-tw-Sii"/>
+                            <constraint firstItem="lyO-bd-040" firstAttribute="leading" secondItem="lQs-5F-wtX" secondAttribute="leading" id="Ujc-6r-HA0"/>
+                            <constraint firstItem="t5t-3g-3qG" firstAttribute="top" secondItem="lQs-5F-wtX" secondAttribute="top" id="cjE-V9-IYQ"/>
+                            <constraint firstAttribute="bottom" secondItem="lyO-bd-040" secondAttribute="bottom" id="dWZ-2N-hzZ"/>
+                            <constraint firstAttribute="trailing" secondItem="3hv-Jl-s7k" secondAttribute="trailing" id="vYx-Bc-iVR"/>
+                            <constraint firstItem="t5t-3g-3qG" firstAttribute="leading" secondItem="lQs-5F-wtX" secondAttribute="leading" id="vzK-IB-8hl"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="optionsTable" destination="lyO-bd-040" id="4GN-nO-3Yf"/>
-                        <outlet property="tableHeightConstraint" destination="BJq-lG-wnJ" id="fcv-5n-MlL"/>
+                        <outlet property="navigationBar" destination="3hv-Jl-s7k" id="Kaz-gL-Zf6"/>
+                        <outlet property="optionsTableView" destination="lyO-bd-040" id="aiG-fG-PE1"/>
+                        <outlet property="questionWebView" destination="t5t-3g-3qG" id="vbY-CV-WIH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="grd-sK-FtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2877" y="1345"/>
         </scene>
-        <!--View Controller-->
+        <!--Quiz Complete View Controller-->
         <scene sceneID="IKS-wl-A2L">
             <objects>
-                <viewController id="vAf-q8-zhO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="quizCompleteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vAf-q8-zhO" customClass="QuizCompleteViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fkN-mt-lVD"/>
                         <viewControllerLayoutGuide type="bottom" id="k5p-hW-qje"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Pi6-Bh-M3e">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2af-cy-Raf">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" placeholder="YES" id="dOt-eG-Zrj"/>
+                                </constraints>
+                            </webView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Gu-e8-z2v" customClass="CourseNavigationBar">
+                                <rect key="frame" x="0.0" y="180" width="320" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="50P-kj-kcU"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="vAf-q8-zhO" id="iB4-gs-fWG"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuF-DL-TQR">
+                                <rect key="frame" x="109" y="245" width="102" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Show Answers">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleShowAnswersButton:" destination="vAf-q8-zhO" eventType="touchUpInside" id="TzP-c7-Q7U"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y7y-9x-71D">
+                                <rect key="frame" x="129" y="283" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleContinueButton:" destination="vAf-q8-zhO" eventType="touchUpInside" id="X8A-3V-XpN"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="fuF-DL-TQR" firstAttribute="centerX" secondItem="6Gu-e8-z2v" secondAttribute="centerX" id="7X6-u6-oPB"/>
+                            <constraint firstItem="2af-cy-Raf" firstAttribute="leading" secondItem="Pi6-Bh-M3e" secondAttribute="leading" id="BZB-xC-qOG"/>
+                            <constraint firstItem="fuF-DL-TQR" firstAttribute="top" secondItem="6Gu-e8-z2v" secondAttribute="bottom" constant="20" id="Haa-HP-x9x"/>
+                            <constraint firstAttribute="trailing" secondItem="6Gu-e8-z2v" secondAttribute="trailing" id="Jcb-bf-EI9"/>
+                            <constraint firstItem="2af-cy-Raf" firstAttribute="top" secondItem="Pi6-Bh-M3e" secondAttribute="top" id="Jd9-hx-6x7"/>
+                            <constraint firstItem="y7y-9x-71D" firstAttribute="centerX" secondItem="fuF-DL-TQR" secondAttribute="centerX" id="VUc-5A-Juy"/>
+                            <constraint firstAttribute="trailing" secondItem="2af-cy-Raf" secondAttribute="trailing" id="amM-Tj-C2b"/>
+                            <constraint firstItem="y7y-9x-71D" firstAttribute="top" secondItem="fuF-DL-TQR" secondAttribute="bottom" constant="8" symbolic="YES" id="j58-Hk-NaP"/>
+                            <constraint firstItem="6Gu-e8-z2v" firstAttribute="top" secondItem="2af-cy-Raf" secondAttribute="bottom" id="xaq-bS-paz"/>
+                            <constraint firstItem="6Gu-e8-z2v" firstAttribute="leading" secondItem="Pi6-Bh-M3e" secondAttribute="leading" id="ygh-F9-1GC"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="completeWebView" destination="2af-cy-Raf" id="ip5-Oi-TH4"/>
+                        <outlet property="navigationBar" destination="6Gu-e8-z2v" id="KWP-70-uf4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kRZ-QR-bCn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

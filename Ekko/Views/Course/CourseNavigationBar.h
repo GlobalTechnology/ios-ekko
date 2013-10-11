@@ -12,7 +12,7 @@
 
 @interface CourseNavigationBar : UIView
 
-@property (nonatomic, weak) id<CourseNavigationBarDelegate> delegate;
+@property (nonatomic, weak) IBOutlet id<CourseNavigationBarDelegate> delegate;
 
 -(void)setProgress:(float)progress;
 -(void)setTitle:(NSString *)title;

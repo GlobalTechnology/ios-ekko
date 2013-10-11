@@ -378,7 +378,14 @@
 }
 
 #pragma mark - UIControl overrides
-
+-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *hitView = [super hitTest:point withEvent:event];
+    if (hitView == self) {
+        return self.superview;
+    }
+    return hitView;
+}
+/*
 - (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     [super beginTrackingWithTouch:touch withEvent:event];
@@ -408,6 +415,6 @@
     [checkView setNeedsDisplay];
     [super cancelTrackingWithEvent:event];
 }
-
+*/
 @end
 

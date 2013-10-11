@@ -19,6 +19,7 @@ NSString *const EkkoEntities[] = {
     [EkkoMultipleChoiceEntity]       = @"MultipleChoice",
     [EkkoMultipleChoiceOptionEntity] = @"MultipleChoiceOption",
     [EkkoProgressItemEntity]         = @"ProgressItem",
+    [EkkoAnswerEntity]               = @"Answer",
 };
 
 @interface DataManager ()
@@ -93,7 +94,6 @@ NSString *const EkkoEntities[] = {
 }
 
 -(void)handleContextDidSaveNotification:(NSNotification *)notification {
-    NSLog(@"Save Context");
     if ([notification.object isKindOfClass:[NSManagedObjectContext class]]) {
         NSManagedObjectContext *managedObjectContext = (NSManagedObjectContext *)notification.object;
         if (self.managedObjectContext != managedObjectContext) {

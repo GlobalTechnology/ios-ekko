@@ -19,6 +19,9 @@
 
     if ([elementName isEqualToString:kEkkoHubXMLElementQuizQuestionOption]) {
         [self setOptionId:[attributeDict objectForKey:kEkkoHubXMLAttrOptionId]];
+        if ([attributeDict objectForKey:kEkkoHubXMLAttrOptionAnswer] != nil) {
+            [self setIsAnswer:YES];
+        }
     }
 }
 

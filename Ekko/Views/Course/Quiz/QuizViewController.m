@@ -25,6 +25,7 @@
     self.propogateSwipeOnNil = YES;
     
     if (self.quiz) {
+        self.quiz.showAnswers = NO;
         UIViewController *questionViewController = [self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard];
         if (questionViewController) {
             self.viewController = questionViewController;

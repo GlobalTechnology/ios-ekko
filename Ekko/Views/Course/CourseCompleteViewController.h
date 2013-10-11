@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ContentItemProtocol.h"
 #import "CourseNavigationBar.h"
 #import "ProgressManager.h"
+#import "Manifest+Ekko.h"
 
 @interface CourseCompleteViewController : UIViewController <CourseNavigationBarDelegate, ProgressManagerDelegate>
 

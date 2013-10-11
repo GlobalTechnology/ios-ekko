@@ -11,6 +11,6 @@
 
 @interface MultipleChoiceOptionCell : UITableViewCell
 
-@property (strong, nonatomic) IBOutlet M13Checkbox *checkbox;
+@property (weak, nonatomic) IBOutlet M13Checkbox *checkbox;
 
 @end

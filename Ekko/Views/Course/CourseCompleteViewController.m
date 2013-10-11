@@ -9,6 +9,7 @@
 #import "CourseCompleteViewController.h"
 #import "Manifest+Ekko.h"
 #import "UIViewController+SwipeViewController.h"
+#import "UIColor+Ekko.h"
 
 @interface CourseCompleteViewController ()
 
@@ -21,13 +22,7 @@
     [self.navigationBar setDelegate:self];
     
     self.completeWebView.scrollView.bounces = NO;
-    UIImage *backgroundImage = [UIImage imageNamed:@"bg_ekko_quiz.png"];
-    CGRect backgroundRect = self.completeWebView.bounds;
-    UIGraphicsBeginImageContextWithOptions(backgroundRect.size, YES, [UIScreen mainScreen].scale);
-    [backgroundImage drawInRect:CGRectMake(0.f, 0.f, backgroundRect.size.width, backgroundRect.size.height)];
-    UIImage *backgroundResult = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.completeWebView.backgroundColor = [UIColor colorWithPatternImage:backgroundResult];
+    self.completeWebView.backgroundColor = [UIColor ekkoQuizBackground];
     
     NSString *completeHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:28px;text-align:center;\">%@</body></html>";
     NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:@"Congratulations! You finished %@.", self.course.courseTitle];

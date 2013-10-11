@@ -38,4 +38,20 @@
     return [UIColor colorWithWhite:0.961 alpha:1.000];
 }
 
++(UIColor *)ekkoAnswerGreen {
+    return [UIColor colorWithRed:0.561 green:0.773 blue:0.290 alpha:1.000];
+}
+
++(UIColor *)ekkoQuizBackground {
+    UIImage *backgroundImage = [UIImage imageNamed:@"bg_ekko_quiz.png"];
+/*
+    CGRect backgroundRect = self.completeWebView.bounds;
+    UIGraphicsBeginImageContextWithOptions(backgroundRect.size, YES, [UIScreen mainScreen].scale);
+    [backgroundImage drawInRect:CGRectMake(0.f, 0.f, backgroundRect.size.width, backgroundRect.size.height)];
+    UIImage *backgroundResult = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+*/
+    return [UIColor colorWithPatternImage:backgroundImage];
+}
+
 @end

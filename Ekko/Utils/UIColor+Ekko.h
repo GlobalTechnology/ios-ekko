@@ -17,5 +17,7 @@
 +(UIColor *)ekkoOrange;
 +(UIColor *)ekkoGrey;
 +(UIColor *)ekkoLightGrey;
++(UIColor *)ekkoAnswerGreen;
++(UIColor *)ekkoQuizBackground;
 
 @end

@@ -11,16 +11,10 @@
 
 @implementation MultipleChoiceOptionCell
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    
-    M13Checkbox *checkbox = [[M13Checkbox alloc] initWithFrame:CGRectInset(self.bounds, 20, 5)];
+-(void)setCheckbox:(M13Checkbox *)checkbox {
+    _checkbox = checkbox;
     [checkbox setCheckAlignment:M13CheckboxAlignmentLeft];
-    [checkbox setTintColor:[UIColor ekkoOrange]];
-    self.checkbox = checkbox;
-    [self addSubview:checkbox];
-    
-    return self;
+    [checkbox setTintColor:[UIColor ekkoLightBlue]];
 }
 
 @end

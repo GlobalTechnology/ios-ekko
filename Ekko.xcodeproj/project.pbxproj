@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
+		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
+		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
+		D330723B1807489400EDD036 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723A1807489400EDD036 /* Answer.m */; };
+		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
 		D3320ABF18032EEB004E13E0 /* ProgressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3320ABE18032EEB004E13E0 /* ProgressItem.m */; };
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
 		D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE717EC968C007A095B /* QuartzCore.framework */; };
@@ -87,6 +91,7 @@
 		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
 		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
+		D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */; };
 		D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D7B71817F4B6C00003C5EC /* HubClient.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
@@ -120,6 +125,15 @@
 		8C61116E098E4028AABAEEC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
+		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
+		D33072311807227E00EDD036 /* QuizCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizCompleteViewController.m; sourceTree = "<group>"; };
+		D33072331807349B00EDD036 /* QuizManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizManager.h; sourceTree = "<group>"; };
+		D33072341807349B00EDD036 /* QuizManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizManager.m; sourceTree = "<group>"; };
+		D33072391807489400EDD036 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
+		D330723A1807489400EDD036 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
+		D330723C18074A4500EDD036 /* Question+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Question+Ekko.h"; sourceTree = "<group>"; };
+		D330723D18074A4500EDD036 /* Question+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Question+Ekko.m"; sourceTree = "<group>"; };
+		D330724018074D1600EDD036 /* CourseIdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseIdProtocol.h; sourceTree = "<group>"; };
 		D3320ABD18032EEB004E13E0 /* ProgressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressItem.h; sourceTree = "<group>"; };
 		D3320ABE18032EEB004E13E0 /* ProgressItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressItem.m; sourceTree = "<group>"; };
 		D359FEE517EC967D007A095B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -264,6 +278,9 @@
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D3C51DE11808429300C7CB9F /* CourseItemProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseItemProtocol.h; sourceTree = "<group>"; };
+		D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MultipleChoice+Ekko.h"; sourceTree = "<group>"; };
+		D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoice+Ekko.m"; sourceTree = "<group>"; };
 		D3D7B71717F4B6C00003C5EC /* HubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubClient.h; sourceTree = "<group>"; };
 		D3D7B71817F4B6C00003C5EC /* HubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubClient.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -414,6 +431,8 @@
 			children = (
 				D359FF2017EC96FE007A095B /* AbstractCourse.h */,
 				D359FF2117EC96FE007A095B /* AbstractCourse.m */,
+				D33072391807489400EDD036 /* Answer.h */,
+				D330723A1807489400EDD036 /* Answer.m */,
 				D359FF2217EC96FE007A095B /* ContentItem.h */,
 				D359FF2317EC96FE007A095B /* ContentItem.m */,
 				D359FF2417EC96FE007A095B /* Course.h */,
@@ -446,6 +465,7 @@
 		D359FF3A17EC96FE007A095B /* Ekko */ = {
 			isa = PBXGroup;
 			children = (
+				D330724018074D1600EDD036 /* CourseIdProtocol.h */,
 				D359FF3B17EC96FE007A095B /* Course+Ekko.h */,
 				D359FF3C17EC96FE007A095B /* Course+Ekko.m */,
 				D359FF3D17EC96FE007A095B /* Lesson+Ekko.h */,
@@ -458,6 +478,10 @@
 				D359FF4417EC96FE007A095B /* Quiz+Ekko.m */,
 				D359FF4517EC96FE007A095B /* Resource+Ekko.h */,
 				D359FF4617EC96FE007A095B /* Resource+Ekko.m */,
+				D330723C18074A4500EDD036 /* Question+Ekko.h */,
+				D330723D18074A4500EDD036 /* Question+Ekko.m */,
+				D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */,
+				D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -490,6 +514,8 @@
 				D359FF5617EC96FE007A095B /* HubSyncService.m */,
 				D36B176517F0929C00EFFD86 /* ProgressManager.h */,
 				D36B176617F0929C00EFFD86 /* ProgressManager.m */,
+				D33072331807349B00EDD036 /* QuizManager.h */,
+				D33072341807349B00EDD036 /* QuizManager.m */,
 				D325766317F375E200447A2D /* ResourceManager.h */,
 				D325766417F375E200447A2D /* ResourceManager.m */,
 			);
@@ -539,6 +565,7 @@
 				D359FF6A17EC96FE007A095B /* ContentItemProtocol.h */,
 				D3FB3C9B180482A80051642F /* CourseCompleteViewController.h */,
 				D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */,
+				D3C51DE11808429300C7CB9F /* CourseItemProtocol.h */,
 				D359FF6B17EC96FE007A095B /* CourseNavigationBar.h */,
 				D359FF6C17EC96FE007A095B /* CourseNavigationBar.m */,
 				D359FF6D17EC96FE007A095B /* CourseViewController.h */,
@@ -566,6 +593,8 @@
 			isa = PBXGroup;
 			children = (
 				D359FF7717EC96FE007A095B /* MultipleChoice */,
+				D33072301807227E00EDD036 /* QuizCompleteViewController.h */,
+				D33072311807227E00EDD036 /* QuizCompleteViewController.m */,
 				D359FF7C17EC96FE007A095B /* QuizProtocol.h */,
 				D359FF7D17EC96FE007A095B /* QuizViewController.h */,
 				D359FF7E17EC96FE007A095B /* QuizViewController.m */,
@@ -849,20 +878,25 @@
 				D359FFAB17EC96FE007A095B /* Course.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
+				D330723B1807489400EDD036 /* Answer.m in Sources */,
 				D359FFD117EC96FE007A095B /* MultipleChoiceViewController.m in Sources */,
 				D359FFD717EC96FE007A095B /* SwipeViewController.m in Sources */,
 				D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */,
 				D3320ABF18032EEB004E13E0 /* ProgressItem.m in Sources */,
 				D359FFAE17EC96FE007A095B /* Media.m in Sources */,
 				D359FFCC17EC96FE007A095B /* CourseViewController.m in Sources */,
+				D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */,
 				D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */,
 				D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */,
 				D359FFB317EC96FE007A095B /* Quiz.m in Sources */,
 				D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */,
 				D359FF9717EC96FE007A095B /* HubMeta.m in Sources */,
+				D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
 				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
+				D33072351807349B00EDD036 /* QuizManager.m in Sources */,
+				D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */,
 				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
 				D359FFB017EC96FE007A095B /* MultipleChoiceOption.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
