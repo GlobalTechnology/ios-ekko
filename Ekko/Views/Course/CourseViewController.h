@@ -10,7 +10,7 @@
 #import "SwipeViewController.h"
 #import "Manifest+Ekko.h"
 
-@interface CourseViewController : SwipeViewController
+@interface CourseViewController : SwipeViewController <SwipeViewControllerDelegate>
 
 @property (nonatomic, strong) Manifest *manifest;
 

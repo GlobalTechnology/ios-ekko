@@ -8,6 +8,7 @@
 
 #import "CourseViewController.h"
 #import <UIViewController+MMDrawerController.h>
+#import "CourseDrawerViewController.h"
 #import "UIImage+Ekko.h"
 
 @implementation CourseViewController
@@ -16,6 +17,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    [self setDelegate:self];
     
     //Remove NavigationController default back button
     [self.navigationItem setLeftItemsSupplementBackButton:NO];
@@ -39,6 +41,9 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    CourseDrawerViewController *courseDrawer = [[self storyboard] instantiateViewControllerWithIdentifier:@"courseDrawerViewController"];
+    [courseDrawer setCourseViewController:self];
+    [[self mm_drawerController] setRightDrawerViewController:courseDrawer];
     
     if (self.manifest) {
         UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
@@ -49,8 +54,6 @@
         
         [self.navigationItem setTitle:[self.manifest courseTitle]];
     }
-    
-    [[self mm_drawerController] setRightDrawerViewController:[[self storyboard] instantiateViewControllerWithIdentifier:@"courseDrawer"]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
@@ -64,6 +67,15 @@
 
 -(void)navigateBack:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController {
+    if ([viewController conformsToProtocol:@protocol(ContentItemProtocol)]) {
+        UIViewController *rightViewController = [[self mm_drawerController] rightDrawerViewController];
+        if ([rightViewController isKindOfClass:[CourseDrawerViewController class]]) {
+            [(CourseDrawerViewController *)rightViewController setItem:[(UIViewController<ContentItemProtocol> *)viewController contentItem]];
+        }
+    }
 }
 
 @end

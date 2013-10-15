@@ -31,7 +31,7 @@
     [self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
     [self setMaximumLeftDrawerWidth:200.0f];
-    [self setMaximumRightDrawerWidth:280.0f];
+    [self setMaximumRightDrawerWidth:260.0f];
     
     [self setDrawerVisualStateBlock:[MMDrawerVisualState parallaxVisualStateBlockWithParallaxFactor:3.0f]];
     

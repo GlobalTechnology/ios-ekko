@@ -17,7 +17,7 @@
 @interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, ProgressManagerDelegate>
 
 @property (nonatomic, strong) ContentItem *contentItem;
-@property (nonatomic, strong) CourseNavigationBar *navigationBar;
+@property (nonatomic, weak) IBOutlet CourseNavigationBar *navigationBar;
 @property (nonatomic, strong) SwipeViewController *mediaSwipeViewController;
 @property (nonatomic, strong) SwipeViewController *pagesSwipeViewController;
 

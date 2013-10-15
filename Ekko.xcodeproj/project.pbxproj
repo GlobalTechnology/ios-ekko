@@ -93,6 +93,8 @@
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
 		D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */; };
 		D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D7B71817F4B6C00003C5EC /* HubClient.m */; };
+		D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */; };
+		D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
 		D3F2F00517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
@@ -278,11 +280,14 @@
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		D3C51DE11808429300C7CB9F /* CourseItemProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseItemProtocol.h; sourceTree = "<group>"; };
 		D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MultipleChoice+Ekko.h"; sourceTree = "<group>"; };
 		D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoice+Ekko.m"; sourceTree = "<group>"; };
 		D3D7B71717F4B6C00003C5EC /* HubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubClient.h; sourceTree = "<group>"; };
 		D3D7B71817F4B6C00003C5EC /* HubClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubClient.m; sourceTree = "<group>"; };
+		D3E61B2C180C5EDA00145E50 /* CourseDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDrawerViewController.h; sourceTree = "<group>"; };
+		D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerViewController.m; sourceTree = "<group>"; };
+		D3E61B32180C60C900145E50 /* CourseDrawerMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDrawerMediaCell.h; sourceTree = "<group>"; };
+		D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerMediaCell.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -565,7 +570,7 @@
 				D359FF6A17EC96FE007A095B /* ContentItemProtocol.h */,
 				D3FB3C9B180482A80051642F /* CourseCompleteViewController.h */,
 				D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */,
-				D3C51DE11808429300C7CB9F /* CourseItemProtocol.h */,
+				D3E61B2A180C5EB000145E50 /* CourseDrawer */,
 				D359FF6B17EC96FE007A095B /* CourseNavigationBar.h */,
 				D359FF6C17EC96FE007A095B /* CourseNavigationBar.m */,
 				D359FF6D17EC96FE007A095B /* CourseViewController.h */,
@@ -631,6 +636,17 @@
 				D359FF8817EC96FE007A095B /* NavigationDrawerViewController.m */,
 			);
 			path = NavigationDrawer;
+			sourceTree = "<group>";
+		};
+		D3E61B2A180C5EB000145E50 /* CourseDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				D3E61B2C180C5EDA00145E50 /* CourseDrawerViewController.h */,
+				D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */,
+				D3E61B32180C60C900145E50 /* CourseDrawerMediaCell.h */,
+				D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */,
+			);
+			path = CourseDrawer;
 			sourceTree = "<group>";
 		};
 		D3F2EFF417EC904800F32F52 = {
@@ -875,6 +891,7 @@
 				D359FFD017EC96FE007A095B /* MultipleChoiceOptionCell.m in Sources */,
 				D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */,
 				D359FFD517EC96FE007A095B /* DrawerViewController.m in Sources */,
+				D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */,
 				D359FFAB17EC96FE007A095B /* Course.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
@@ -923,6 +940,7 @@
 				D359FF9517EC96FE007A095B /* HubLessonPage.m in Sources */,
 				D325766517F375E200447A2D /* ResourceManager.m in Sources */,
 				D359FF9417EC96FE007A095B /* HubLessonMedia.m in Sources */,
+				D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */,
 				D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */,
 				D359FFBB17EC96FE007A095B /* Resource+Ekko.m in Sources */,
 				D359FF9B17EC96FE007A095B /* HubQuiz.m in Sources */,

@@ -45,21 +45,12 @@
     [self.view addSubview:self.pagesSwipeViewController.view];
     [self.pagesSwipeViewController didMoveToParentViewController:self];
     
-    
-    /* Navigation Bar */
-    self.navigationBar = [[CourseNavigationBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 45.f)];
-    [self.navigationBar setDelegate:self];
-    [self.navigationBar setTitle:self.lesson.lessonTitle];
-    [self.view addSubview:self.navigationBar];
-    
-    
     /* Layout Constraints */
     NSDictionary *views = @{@"media": self.mediaSwipeViewController.view, @"nav": self.navigationBar, @"pages": self.pagesSwipeViewController.view};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[media]|" options:0 metrics:nil views:views]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[nav]|" options:0 metrics:nil views:views]];
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[pages]|" options:0 metrics:nil views:views]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mediaSwipeViewController.view attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.mediaSwipeViewController.view attribute:NSLayoutAttributeWidth multiplier:9.f/16.f constant:0.f]];
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[media][nav(==45)][pages]|" options:0 metrics:nil views:views]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[media][nav][pages]|" options:0 metrics:nil views:views]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
