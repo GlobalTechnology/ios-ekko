@@ -43,7 +43,7 @@
     if (self.manifest) {
         UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
         if (viewController) {
-            [self setViewController:viewController];
+            [self setViewController:viewController direction:SwipeViewControllerSwipeDirectionNext];
             [self setDataSource:self.manifest];
         }
         

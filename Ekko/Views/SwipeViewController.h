@@ -9,14 +9,20 @@
 #import <UIKit/UIKit.h>
 
 @protocol SwipeViewControllerDataSource;
+@protocol SwipeViewControllerDelegate;
+
+typedef NS_ENUM(NSUInteger, SwipeViewControllerSwipeDirection) {
+    SwipeViewControllerSwipeDirectionNext,
+    SwipeViewControllerSwipeDirectionPrevious,
+};
 
 @interface SwipeViewController : UIViewController<UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) id <SwipeViewControllerDataSource> dataSource;
-
+@property (nonatomic, weak) IBOutlet id <SwipeViewControllerDataSource> dataSource;
+@property (nonatomic, weak) IBOutlet id <SwipeViewControllerDelegate> delegate;
 @property (nonatomic) BOOL propogateSwipeOnNil;
 
-@property (nonatomic, strong) UIViewController *viewController;
+-(void)setViewController:(UIViewController *)viewController direction:(SwipeViewControllerSwipeDirection)direction;
 
 -(BOOL)hasNextViewController;
 -(BOOL)hasPreviousViewController;
@@ -34,4 +40,9 @@
 @optional
 -(BOOL)swipeViewController:(SwipeViewController *)swipeViewController hasViewControllerBeforeViewController:(UIViewController *)viewController;
 -(BOOL)swipeViewController:(SwipeViewController *)swipeViewController hasViewControllerAfterViewController:(UIViewController *)viewController;
+@end
+
+@protocol SwipeViewControllerDelegate <NSObject>
+@optional
+-(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController;
 @end

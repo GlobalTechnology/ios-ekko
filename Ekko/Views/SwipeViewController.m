@@ -12,6 +12,7 @@
 @interface SwipeViewController ()
 
 @property (nonatomic, strong) UIViewController *previousViewController;
+@property (nonatomic, strong) UIViewController *centerViewController;
 @property (nonatomic, strong) UIViewController *nextViewController;
 
 @end
@@ -19,9 +20,9 @@
 @implementation SwipeViewController
 
 @synthesize previousViewController = _previousViewController;
-@synthesize viewController         = _viewController;
+@synthesize centerViewController   = _centerViewController;
 @synthesize nextViewController     = _nextViewController;
-@synthesize propogateSwipeOnNil   = _propogateSwipeOnNil;
+@synthesize propogateSwipeOnNil    = _propogateSwipeOnNil;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -39,9 +40,9 @@
 
 -(void)viewWillLayoutSubviews {
     CGRect bounds = self.view.bounds;
-    if (self.viewController) {
-        CGRect frame = self.viewController.view.frame;
-        self.viewController.view.frame = CGRectMake(frame.origin.x, 0, bounds.size.width, bounds.size.height);
+    if (self.centerViewController) {
+        CGRect frame = self.centerViewController.view.frame;
+        self.centerViewController.view.frame = CGRectMake(frame.origin.x, 0, bounds.size.width, bounds.size.height);
     }
 }
 
@@ -53,37 +54,44 @@
     [self swipeToPreviousViewController];
 }
 
--(void)setViewController:(UIViewController *)viewController {
-    if (viewController == _viewController) {
+-(void)setCenterViewController:(UIViewController *)centerViewController {
+    if (centerViewController == _centerViewController) {
         return;
     }
-    if (_viewController) {
+    if (_centerViewController) {
         //Remove Previous View Controller
-        [_viewController willMoveToParentViewController:nil];
-        [_viewController.view removeFromSuperview];
-        [_viewController removeFromParentViewController];
+        [_centerViewController willMoveToParentViewController:nil];
+        [_centerViewController.view removeFromSuperview];
+        [_centerViewController removeFromParentViewController];
         _previousViewController = nil;
         _nextViewController = nil;
     }
-    _viewController = viewController;
-    if (_viewController) {
-        [self addChildViewController:_viewController];
-        _viewController.view.frame = self.view.bounds;
-        [self.view addSubview:_viewController.view];
-        [_viewController didMoveToParentViewController:self];
+    _centerViewController = centerViewController;
+    if (_centerViewController) {
+        [self addChildViewController:_centerViewController];
+        _centerViewController.view.frame = self.view.bounds;
+        [self.view addSubview:_centerViewController.view];
+        [_centerViewController didMoveToParentViewController:self];
         if (self.dataSource) {
-            _previousViewController = [self.dataSource swipeViewController:self viewControllerBeforeViewController:_viewController];
-            _nextViewController = [self.dataSource swipeViewController:self viewControllerAfterViewController:_viewController];
+            _previousViewController = [self.dataSource swipeViewController:self viewControllerBeforeViewController:_centerViewController];
+            _nextViewController = [self.dataSource swipeViewController:self viewControllerAfterViewController:_centerViewController];
+        }
+        if (self.delegate && [self.delegate respondsToSelector:@selector(swipeViewController:didSwipeToViewController:)]) {
+            [self.delegate swipeViewController:self didSwipeToViewController:_centerViewController];
         }
     }
 }
 
 -(void)setDataSource:(id<SwipeViewControllerDataSource>)dataSource {
     _dataSource = dataSource;
-    if (self.viewController) {
-        _nextViewController     = [dataSource swipeViewController:self viewControllerAfterViewController:self.viewController];
-        _previousViewController = [dataSource swipeViewController:self viewControllerBeforeViewController:self.viewController];
+    if (self.centerViewController) {
+        _nextViewController     = [dataSource swipeViewController:self viewControllerAfterViewController:self.centerViewController];
+        _previousViewController = [dataSource swipeViewController:self viewControllerBeforeViewController:self.centerViewController];
     }
+}
+
+-(void)setViewController:(UIViewController *)viewController direction:(SwipeViewControllerSwipeDirection)direction {
+    [self setCenterViewController:viewController];
 }
 
 -(BOOL)hasNextViewController {
@@ -115,27 +123,30 @@
 -(void)swipeToNextViewController {
     if (self.nextViewController) {
         [self addChildViewController:self.nextViewController];
-        [self.viewController willMoveToParentViewController:nil];
+        [self.centerViewController willMoveToParentViewController:nil];
         
         CGFloat width = self.view.frame.size.width;
         CGFloat height = self.view.frame.size.height;
         
         self.nextViewController.view.frame = CGRectMake(width, 0, width, height);
         
-        [self transitionFromViewController:self.viewController
+        [self transitionFromViewController:self.centerViewController
                           toViewController:self.nextViewController
                                   duration:0.25f
                                    options:UIViewAnimationOptionTransitionNone
                                 animations:^{
-                                    self.viewController.view.frame = CGRectMake(0 - width, 0, width, height);
+                                    self.centerViewController.view.frame = CGRectMake(0 - width, 0, width, height);
                                     self.nextViewController.view.frame = CGRectMake(0, 0, width, height);
                                 }
                                 completion:^(BOOL finished) {
-                                    [self.viewController removeFromParentViewController];
-                                    self.previousViewController = self.viewController;
+                                    [self.centerViewController removeFromParentViewController];
+                                    self.previousViewController = self.centerViewController;
                                     [self.nextViewController didMoveToParentViewController:self];
-                                    _viewController = self.nextViewController;
-                                    self.nextViewController = [self.dataSource swipeViewController:self viewControllerAfterViewController:self.viewController];
+                                    _centerViewController = self.nextViewController;
+                                    self.nextViewController = [self.dataSource swipeViewController:self viewControllerAfterViewController:self.centerViewController];
+                                    if (self.delegate && [self.delegate respondsToSelector:@selector(swipeViewController:didSwipeToViewController:)]) {
+                                        [self.delegate swipeViewController:self didSwipeToViewController:self.centerViewController];
+                                    }
                                 }];
     }
     else if (self.propogateSwipeOnNil) {
@@ -149,27 +160,30 @@
 -(void)swipeToPreviousViewController {
     if (self.previousViewController) {
         [self addChildViewController:self.previousViewController];
-        [self.viewController willMoveToParentViewController:nil];
+        [self.centerViewController willMoveToParentViewController:nil];
 
         CGFloat width = self.view.frame.size.width;
         CGFloat height = self.view.frame.size.height;
         
         self.previousViewController.view.frame = CGRectMake(0 - width, 0, width, height);
         
-        [self transitionFromViewController:self.viewController
+        [self transitionFromViewController:self.centerViewController
                           toViewController:self.previousViewController
                                   duration:0.25f
                                    options:UIViewAnimationOptionTransitionNone
                                 animations:^{
-                                    self.viewController.view.frame = CGRectMake(width, 0, width, height);
+                                    self.centerViewController.view.frame = CGRectMake(width, 0, width, height);
                                     self.previousViewController.view.frame = CGRectMake(0, 0, width, height);
                                 }
                                 completion:^(BOOL finished) {
-                                    [self.viewController removeFromParentViewController];
-                                    self.nextViewController = self.viewController;
+                                    [self.centerViewController removeFromParentViewController];
+                                    self.nextViewController = self.centerViewController;
                                     [self.previousViewController didMoveToParentViewController:self];
-                                    _viewController = self.previousViewController;
-                                    self.previousViewController = [self.dataSource swipeViewController:self viewControllerBeforeViewController:self.viewController];
+                                    _centerViewController = self.previousViewController;
+                                    self.previousViewController = [self.dataSource swipeViewController:self viewControllerBeforeViewController:self.centerViewController];
+                                    if (self.delegate && [self.delegate respondsToSelector:@selector(swipeViewController:didSwipeToViewController:)]) {
+                                        [self.delegate swipeViewController:self didSwipeToViewController:self.centerViewController];
+                                    }
                                 }];
     }
     else if (self.propogateSwipeOnNil) {

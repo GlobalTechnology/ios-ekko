@@ -24,7 +24,7 @@
     [self.mediaSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *mediaViewController = [self.lesson mediaViewControllerAtIndex:0 storyboard:self.storyboard];
     if (mediaViewController) {
-        [self.mediaSwipeViewController setViewController:mediaViewController];
+        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerSwipeDirectionNext];
     }
     [self.mediaSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.mediaSwipeViewController];
@@ -38,7 +38,7 @@
     [self.pagesSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *pageViewController = [self.lesson pageViewControllerAtIndex:0 storyboard:self.storyboard];
     if (pageViewController) {
-        [self.pagesSwipeViewController setViewController:pageViewController];
+        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerSwipeDirectionNext];
     }
     [self.pagesSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.pagesSwipeViewController];
@@ -64,6 +64,8 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.view bringSubviewToFront:self.navigationBar];
+    [self.navigationBar setTitle:self.lesson.lessonTitle];
     [[ProgressManager progressManager] addProgressDelegate:self forDataSource:self.lesson];
 }
 
