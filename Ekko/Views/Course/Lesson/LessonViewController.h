@@ -14,10 +14,11 @@
 
 #import "Lesson+Ekko.h"
 
-@interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, ProgressManagerDelegate>
+@interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, ProgressManagerDelegate, SwipeViewControllerDelegate>
 
 @property (nonatomic, strong) ContentItem *contentItem;
 @property (nonatomic, weak) IBOutlet CourseNavigationBar *navigationBar;
+@property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) SwipeViewController *mediaSwipeViewController;
 @property (nonatomic, strong) SwipeViewController *pagesSwipeViewController;
 

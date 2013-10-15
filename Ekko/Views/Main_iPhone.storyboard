@@ -337,6 +337,12 @@
                                     <outlet property="delegate" destination="86h-77-jNf" id="bSw-Ml-R0n"/>
                                 </connections>
                             </view>
+                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="fck-kQ-u6v">
+                                <rect key="frame" x="141" y="145" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="pageIndicatorTintColor" red="0.90588235855102539" green="0.90588235855102539" blue="0.91372549533843994" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="currentPageIndicatorTintColor" red="0.81176471709999998" green="0.42745098469999998" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -350,6 +356,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="navigationBar" destination="98F-Gy-pLa" id="bqA-TP-abT"/>
+                        <outlet property="pageControl" destination="fck-kQ-u6v" id="G9s-fk-fbv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n91-Qy-suP" userLabel="First Responder" sceneMemberID="firstResponder"/>

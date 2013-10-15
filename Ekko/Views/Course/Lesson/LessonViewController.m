@@ -20,6 +20,7 @@
     
     /* Media */
     self.mediaSwipeViewController = [[SwipeViewController alloc] init];
+    [self.mediaSwipeViewController setDelegate:self];
     [self.mediaSwipeViewController setDataSource:self.lesson];
     [self.mediaSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *mediaViewController = [self.lesson mediaViewControllerAtIndex:0 storyboard:self.storyboard];
@@ -55,8 +56,10 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.view bringSubviewToFront:self.pageControl];
     [self.view bringSubviewToFront:self.navigationBar];
     [self.navigationBar setTitle:self.lesson.lessonTitle];
+    [self.pageControl setNumberOfPages:self.lesson.media.count];
     [[ProgressManager progressManager] addProgressDelegate:self forDataSource:self.lesson];
 }
 
@@ -93,6 +96,13 @@
             [self.navigationBar setProgress:progress];
         }
     });
+}
+
+-(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:[MediaViewController class]]) {
+        NSUInteger index = [self.lesson indexOfMediaViewController:(MediaViewController *)viewController];
+        [self.pageControl setCurrentPage:index];
+    }
 }
 
 @end
