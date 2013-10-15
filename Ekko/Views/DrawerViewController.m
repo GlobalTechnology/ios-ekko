@@ -26,6 +26,7 @@
     self = [super initWithCenterViewController:[storyboard instantiateViewControllerWithIdentifier:@"ekkoNavigation"]
                       leftDrawerViewController:[storyboard instantiateViewControllerWithIdentifier:@"navigationDrawer"]];
     
+    [self setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeNone];
     [self setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];
     [self setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
