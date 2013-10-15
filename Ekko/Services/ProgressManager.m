@@ -33,11 +33,14 @@
     return _manager;
 }
 
--(NSMapTable *)delegateMap {
-    if (_delegateMap == nil) {
-        _delegateMap = [NSMapTable weakToWeakObjectsMapTable];
+-(id)init {
+    self = [super init];
+    if (self) {
+        @synchronized(self) {
+            _delegateMap = [NSMapTable weakToWeakObjectsMapTable];
+        }
     }
-    return _delegateMap;
+    return self;
 }
 
 -(NSManagedObjectContext *)managedObjectContext {
@@ -52,31 +55,39 @@
 }
 
 -(void)addProgressDelegate:(id<ProgressManagerDelegate>)delegate forDataSource:(id<ProgressManagerDataSource>)dataSource {
-    [self.delegateMap setObject:dataSource forKey:delegate];
+    @synchronized(self) {
+        [self.delegateMap setObject:dataSource forKey:delegate];
+    }
     [self notifyDelgatesOfProgress:[dataSource courseId]];
 }
 
 -(void)removeProgressDelegate:(id<ProgressManagerDelegate>)delegate {
-    [self.delegateMap removeObjectForKey:delegate];
+    @synchronized(self) {
+        [self.delegateMap removeObjectForKey:delegate];
+    }
 }
 
 -(void)removeProgressDelegate:(id<ProgressManagerDelegate>)delegate andDataSource:(id<ProgressManagerDataSource>)dataSource {
-    id<ProgressManagerDataSource> currentDataSource = [self.delegateMap objectForKey:delegate];
-    if (currentDataSource && currentDataSource == dataSource) {
-        [self.delegateMap removeObjectForKey:delegate];
+    @synchronized(self) {
+        id<ProgressManagerDataSource> currentDataSource = [self.delegateMap objectForKey:delegate];
+        if (currentDataSource && currentDataSource == dataSource) {
+            [self.delegateMap removeObjectForKey:delegate];
+        }
     }
 }
 
 #pragma mark - private
 -(void)notifyDelgatesOfProgress:(NSString *)courseId {
-    for (id<ProgressManagerDelegate> delegate in self.delegateMap) {
-        id<ProgressManagerDataSource> dataSource = [self.delegateMap objectForKey:delegate];
-        if ([courseId isEqualToString:[dataSource courseId]]) {
-            [self progressOf:dataSource progressBlock:^(float progress) {
-                if (delegate && [delegate respondsToSelector:@selector(progressUpdateFor:currentProgress:)]) {
-                    [delegate progressUpdateFor:dataSource currentProgress:progress];
-                }
-            }];
+    @synchronized(self) {
+        for (id<ProgressManagerDelegate> delegate in self.delegateMap) {
+            id<ProgressManagerDataSource> dataSource = [self.delegateMap objectForKey:delegate];
+            if ([courseId isEqualToString:[dataSource courseId]]) {
+                [self progressOf:dataSource progressBlock:^(float progress) {
+                    if (delegate && [delegate respondsToSelector:@selector(progressUpdateFor:currentProgress:)]) {
+                        [delegate progressUpdateFor:dataSource currentProgress:progress];
+                    }
+                }];
+            }
         }
     }
 }
