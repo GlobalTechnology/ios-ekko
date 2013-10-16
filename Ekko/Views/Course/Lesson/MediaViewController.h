@@ -14,5 +14,12 @@
 
 @property (nonatomic, strong) Media *media;
 @property (nonatomic, weak) IBOutlet UIImageView *mediaImage;
+@property (weak, nonatomic) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
+
+@property (weak, nonatomic) IBOutlet UIView *progressView;
+@property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+@property (weak, nonatomic) IBOutlet UILabel *progressText;
+
+@property (nonatomic, getter = isDownloading) BOOL downloading;
 
 @end

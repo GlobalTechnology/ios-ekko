@@ -526,22 +526,75 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
                                 <gestureRecognizers/>
                             </imageView>
+                            <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E23-OT-1ge">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XUc-C4-pQp">
+                                        <rect key="frame" x="20" y="86" width="280" height="8"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="8" id="Iz6-vE-Osa"/>
+                                        </constraints>
+                                    </progressView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DOWNLOADING" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pi6-h2-C4s">
+                                        <rect key="frame" x="20" y="57" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ov-cO-myY">
+                                        <rect key="frame" x="20" y="102" width="280" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XUc-C4-pQp" secondAttribute="trailing" constant="20" id="Ruz-Uw-lev"/>
+                                    <constraint firstItem="XUc-C4-pQp" firstAttribute="leading" secondItem="E23-OT-1ge" secondAttribute="leading" constant="20" id="hFp-LM-k0y"/>
+                                    <constraint firstAttribute="centerY" secondItem="XUc-C4-pQp" secondAttribute="centerY" id="w11-aA-88T"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.90588235859999999" green="0.90588235859999999" blue="0.91372549530000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="a7j-bw-xVf" firstAttribute="leading" secondItem="2Af-3U-4Za" secondAttribute="leading" id="BTR-XS-T6C"/>
+                            <constraint firstItem="a7j-bw-xVf" firstAttribute="top" secondItem="SGE-lY-9EV" secondAttribute="bottom" id="Bd8-p8-Ies"/>
+                            <constraint firstItem="E23-OT-1ge" firstAttribute="leading" secondItem="2Af-3U-4Za" secondAttribute="leading" id="Bra-Yz-pXF"/>
+                            <constraint firstAttribute="trailing" secondItem="a7j-bw-xVf" secondAttribute="trailing" id="GBI-yq-BCC"/>
+                            <constraint firstItem="E23-OT-1ge" firstAttribute="top" secondItem="SGE-lY-9EV" secondAttribute="bottom" id="GUp-R6-ve8"/>
                             <constraint firstItem="a7j-bw-xVf" firstAttribute="trailing" secondItem="2Af-3U-4Za" secondAttribute="trailing" id="KhO-ii-Bmq"/>
+                            <constraint firstItem="qeh-Ur-VNx" firstAttribute="top" secondItem="E23-OT-1ge" secondAttribute="bottom" id="Mb8-Tm-KJz"/>
+                            <constraint firstAttribute="trailing" secondItem="E23-OT-1ge" secondAttribute="trailing" id="Nay-I0-6yU"/>
+                            <constraint firstItem="qeh-Ur-VNx" firstAttribute="top" secondItem="a7j-bw-xVf" secondAttribute="bottom" id="RV2-eG-sJg"/>
                             <constraint firstItem="a7j-bw-xVf" firstAttribute="leading" secondItem="2Af-3U-4Za" secondAttribute="leading" id="i1N-3O-pcU"/>
                             <constraint firstItem="a7j-bw-xVf" firstAttribute="bottom" secondItem="2Af-3U-4Za" secondAttribute="bottom" id="trM-mG-goq"/>
                             <constraint firstItem="a7j-bw-xVf" firstAttribute="top" secondItem="2Af-3U-4Za" secondAttribute="top" id="xum-tE-3bu"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Jtv-Ou-inl" appends="YES" id="3LO-R3-vlS"/>
+                        </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="mediaImage" destination="a7j-bw-xVf" id="7gY-Dx-1bW"/>
+                        <outlet property="progressBar" destination="XUc-C4-pQp" id="mvv-vY-IzS"/>
+                        <outlet property="progressText" destination="0ov-cO-myY" id="68M-PB-ARg"/>
+                        <outlet property="progressView" destination="E23-OT-1ge" id="Ro5-u8-tI6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UOf-oc-yCK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Jtv-Ou-inl">
+                    <connections>
+                        <action selector="handleTapGesture:" destination="Qgs-wc-id2" id="bQY-40-m4U"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2877" y="657"/>
         </scene>

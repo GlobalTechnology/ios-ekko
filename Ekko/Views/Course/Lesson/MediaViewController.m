@@ -13,15 +13,13 @@
 #import "ProgressManager.h"
 #import "Lesson+Ekko.h"
 
-@interface MediaViewController ()
-@end
-
 @implementation MediaViewController
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     Resource *resource = self.media.resource;
     if (resource.provider == EkkoResourceProviderYouTube) {
+        [self.tapGestureRecognizer setEnabled:NO];
         [self.mediaImage removeFromSuperview];
         UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         [webView.scrollView setBounces:NO];
@@ -37,10 +35,7 @@
         [webView loadHTMLString:finalHtml baseURL:nil];
     }
     else {
-        UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-        [tapGestureRecognizer setNumberOfTapsRequired:1];
-        [self.view addGestureRecognizer:tapGestureRecognizer];
-        
+        [self.tapGestureRecognizer setEnabled:YES];
         if ([self.media.mediaType isEqualToString:@"image"]) {
             [[ResourceManager resourceManager] getImageResource:[self.media resource] completeBlock:^(UIImage *image) {
                 if (image) {
@@ -66,13 +61,6 @@
     [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
 }
 
--(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    for (UIGestureRecognizer *rec in self.view.gestureRecognizers) {
-        [self.view removeGestureRecognizer:rec];
-    }
-}
-
 -(void)resourceService:(Resource *)resource image:(UIImage *)image {
     if (image) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -81,15 +69,31 @@
     }
 }
 
--(void)tapGesture:(id)sender {
+- (IBAction)handleTapGesture:(id)sender {
+    if (self.isDownloading) {
+        return;
+    }
     if ([self.media.mediaType isEqualToString:@"video"] || [self.media.mediaType isEqualToString:@"audio"]) {
         Resource *resource = [self.media resource];
         if ([resource isUri]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
         else if ([resource isFile]) {
-            [[ResourceManager resourceManager] getResource:resource progressBlock:^(float progress) {} completeBlock:^(NSString *path) {
+            [[ResourceManager resourceManager] getResource:resource progressBlock:^(float progress) {
+                self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.progressView.isHidden) {
+                        [self.progressView setHidden:NO];
+                    }
+                    [self.progressBar setProgress:progress];
+                    [self.progressText setText:[NSString stringWithFormat:@"%i%%", (int)(progress*100)]];
+                });
+            } completeBlock:^(NSString *path) {
+                self.downloading = NO;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!self.progressView.isHidden) {
+                        [self.progressView setHidden:YES];
+                    }
                     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:path]];
                     [self presentMoviePlayerViewControllerAnimated:movieController];
                     [movieController.moviePlayer prepareToPlay];
