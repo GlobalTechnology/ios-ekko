@@ -2,12 +2,17 @@
 //  NavigationDrawerViewController.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 8/21/13.
+//  Created by Brian Zoetewey on 10/15/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface NavigationDrawerViewController : UITableViewController
+typedef NS_ENUM(NSInteger, NavigationDrawerSection) {
+    NavigationDrawerSectionCourses = 0,
+    NavigationDrawerSectionSettings = 1,
+};
+
+@interface NavigationDrawerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

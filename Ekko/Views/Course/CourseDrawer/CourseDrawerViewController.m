@@ -39,6 +39,14 @@
     return cell;
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return @"LESSONS";
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.item) {
         Manifest *course = (Manifest *)[self.item course];
@@ -52,7 +60,6 @@
 
     Manifest *course = (Manifest *)[self.item course];
     ContentItem *item = [course.content objectAtIndex:indexPath.row];
-    [cell.textLabel setTextColor:[UIColor lightTextColor]];
     [cell.textLabel setText:item.itemTitle];
     return cell;
 }
