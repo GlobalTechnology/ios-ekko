@@ -37,23 +37,27 @@
     [toggleCourseDrawer setImage:[UIImage imageNamed:@"show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleCourseDrawer addTarget:self action:@selector(toggleCourseDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleCourseDrawer]];
-}
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    CourseDrawerViewController *courseDrawer = [[self storyboard] instantiateViewControllerWithIdentifier:@"courseDrawerViewController"];
-    [courseDrawer setCourseViewController:self];
-    [[self mm_drawerController] setRightDrawerViewController:courseDrawer];
-    
     if (self.manifest) {
         UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
         if (viewController) {
             [self setViewController:viewController direction:SwipeViewControllerSwipeDirectionNext];
             [self setDataSource:self.manifest];
         }
-        
-        [self.navigationItem setTitle:[self.manifest courseTitle]];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    CourseDrawerViewController *courseDrawer = [[self storyboard] instantiateViewControllerWithIdentifier:@"courseDrawerViewController"];
+    [courseDrawer setCourseViewController:self];
+    if ([self.currentViewController conformsToProtocol:@protocol(ContentItemProtocol) ]) {
+        [courseDrawer setItem:[(UIViewController<ContentItemProtocol> *)self.currentViewController contentItem]];
+    }
+    [[self mm_drawerController] setRightDrawerViewController:courseDrawer];
+    
+    [self.navigationItem setTitle:[self.manifest courseTitle]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

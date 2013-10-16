@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, SwipeViewControllerSwipeDirection) {
 @property (nonatomic, weak) IBOutlet id <SwipeViewControllerDelegate> delegate;
 @property (nonatomic) BOOL propogateSwipeOnNil;
 
+-(UIViewController *)currentViewController;
 -(void)setViewController:(UIViewController *)viewController direction:(SwipeViewControllerSwipeDirection)direction;
 
 -(BOOL)hasNextViewController;

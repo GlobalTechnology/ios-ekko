@@ -94,6 +94,10 @@
     [self setCenterViewController:viewController];
 }
 
+-(UIViewController *)currentViewController {
+    return self.centerViewController;
+}
+
 -(BOOL)hasNextViewController {
     if (_nextViewController) {
         return YES;

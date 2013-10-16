@@ -274,7 +274,7 @@
         <!--Drawer View Controller-->
         <scene sceneID="cQI-Mh-Gh1">
             <objects>
-                <viewController id="KLb-Bu-sl6" customClass="DrawerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="drawerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KLb-Bu-sl6" customClass="DrawerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WcG-uA-bsq"/>
                         <viewControllerLayoutGuide type="bottom" id="4gA-Jb-ymj"/>
@@ -292,7 +292,7 @@
         <!--Course List View Controller - Courses-->
         <scene sceneID="pDC-xa-c6M">
             <objects>
-                <tableViewController id="Ely-BJ-5hT" customClass="CourseListViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="courseListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ely-BJ-5hT" customClass="CourseListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="230" sectionHeaderHeight="22" sectionFooterHeight="22" id="HeQ-4S-GfH">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -383,7 +383,7 @@
         <!--Course View Controller-->
         <scene sceneID="URj-5S-RUO">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="dZn-mL-fDm" customClass="CourseViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="courseViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dZn-mL-fDm" customClass="CourseViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kNc-8t-M9X"/>
                         <viewControllerLayoutGuide type="bottom" id="E1e-fo-ApN"/>
