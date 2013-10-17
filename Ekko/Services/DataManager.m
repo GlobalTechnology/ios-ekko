@@ -79,11 +79,7 @@ NSString *const EkkoEntities[] = {
         NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         NSURL *persistenStorePath = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Ekko.sqlite"];
         
-        //Debug - Delete Previous Database
-        [[NSFileManager defaultManager] removeItemAtURL:persistenStorePath error:nil];
-        
         NSError *error = nil;
-        
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
         if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:persistenStorePath options:nil error:&error]) {
             NSLog(@"Unresolved Error: %@, %@", error, error.userInfo);
