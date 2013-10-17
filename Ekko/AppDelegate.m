@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import <AFNetworking.h>
-#import <AFHTTPRequestOperationLogger.h>
 #import "HubSyncService.h"
 
 #import "UIColor+Ekko.h"
@@ -23,7 +22,6 @@
 {
     //Activate Network Activity handling in AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
-//    [[AFHTTPRequestOperationLogger sharedLogger] startLogging];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
