@@ -193,6 +193,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
 -(void)hubRequestWithHubRequestParameters:(HubRequestParameters *)requestParameters {
     //Return NSError if max attempts exceeded
+    requestParameters.attempts++;
     if (requestParameters.attempts > kEkkoHubClientMaxAttepts) {
         //TODO: Create Max Attempts exceeded error code
         requestParameters.response(nil, [NSError errorWithDomain:@"EkkoHubClient" code:0 userInfo:nil]);
