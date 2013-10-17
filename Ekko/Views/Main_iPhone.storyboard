@@ -216,7 +216,7 @@
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="courseDrawerLessonCell" textLabel="sod-5Z-iAh" style="IBUITableViewCellStyleDefault" id="hWX-wt-zx3">
                                         <rect key="frame" x="0.0" y="55" width="260" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hWX-wt-zx3">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hWX-wt-zx3" id="Eqo-L8-oqC">
                                             <rect key="frame" x="0.0" y="0.0" width="260" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -289,7 +289,7 @@
             </objects>
             <point key="canvasLocation" x="506" y="709"/>
         </scene>
-        <!--Course List View Controller - Courses-->
+        <!--Course List View Controller - All Courses-->
         <scene sceneID="pDC-xa-c6M">
             <objects>
                 <tableViewController storyboardIdentifier="courseListViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ely-BJ-5hT" customClass="CourseListViewController" sceneMemberID="viewController">
@@ -369,7 +369,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Courses" id="hbf-LU-DaK"/>
+                    <navigationItem key="navigationItem" title="All Courses" id="hbf-LU-DaK"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="B50-cR-s75">
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>

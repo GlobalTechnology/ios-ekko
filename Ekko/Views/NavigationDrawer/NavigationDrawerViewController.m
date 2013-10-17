@@ -7,6 +7,7 @@
 //
 
 #import "NavigationDrawerViewController.h"
+#import "CourseListViewController.h"
 #import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
@@ -88,30 +89,44 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UINavigationController *rootNavigationController = (UINavigationController *)[[self mm_drawerController] centerViewController];
     switch (indexPath.section) {
-        case NavigationDrawerSectionCourses:
+        case NavigationDrawerSectionCourses: {
             switch (indexPath.row) {
-                case 0:
+                case 0: {
+                    CourseListViewController *courseListViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
+                    [rootNavigationController setViewControllers:@[courseListViewController] animated:NO];
                     break;
-                case 1:
+                }
+                case 1: {
                     break;
+                }
                 default:
                     break;
             }
             break;
-        case NavigationDrawerSectionSettings:
+        }
+        case NavigationDrawerSectionSettings: {
             switch (indexPath.row) {
-                case 0:
+                case 0: {
                     break;
-                case 1:
+                }
+                case 1: {
                     break;
+                }
                 default:
                     break;
             }
             break;
+        }
         default:
             break;
     }
+    [self toggleDrawer];
+}
+
+-(void)toggleDrawer {
+    [[self mm_drawerController] toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {}];
 }
 
 @end
