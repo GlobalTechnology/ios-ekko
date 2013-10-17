@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
+		D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */; };
+		D303D883180DCA160065B920 /* cogwheel.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D881180DCA160065B920 /* cogwheel.png */; };
+		D303D884180DCA160065B920 /* cogwheel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D882180DCA160065B920 /* cogwheel@2x.png */; };
+		D303D889180DE2550065B920 /* glyphicons_386_log_in.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D885180DE2550065B920 /* glyphicons_386_log_in.png */; };
+		D303D88A180DE2550065B920 /* glyphicons_386_log_in@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D886180DE2550065B920 /* glyphicons_386_log_in@2x.png */; };
+		D303D88B180DE2550065B920 /* glyphicons_387_log_out.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D887180DE2550065B920 /* glyphicons_387_log_out.png */; };
+		D303D88C180DE2550065B920 /* glyphicons_387_log_out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D888180DE2550065B920 /* glyphicons_387_log_out@2x.png */; };
+		D303D891180DE3CF0065B920 /* glyphicons_012_heart.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D88D180DE3CF0065B920 /* glyphicons_012_heart.png */; };
+		D303D892180DE3CF0065B920 /* glyphicons_012_heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D88E180DE3CF0065B920 /* glyphicons_012_heart@2x.png */; };
+		D303D893180DE3CF0065B920 /* glyphicons_071_book.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D88F180DE3CF0065B920 /* glyphicons_071_book.png */; };
+		D303D894180DE3CF0065B920 /* glyphicons_071_book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D890180DE3CF0065B920 /* glyphicons_071_book@2x.png */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
 		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
 		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
@@ -83,12 +94,12 @@
 		D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8117EC96FE007A095B /* CourseListCell.m */; };
 		D359FFD417EC96FE007A095B /* CourseListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8317EC96FE007A095B /* CourseListViewController.m */; };
 		D359FFD517EC96FE007A095B /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8517EC96FE007A095B /* DrawerViewController.m */; };
-		D359FFD617EC96FE007A095B /* NavigationDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8817EC96FE007A095B /* NavigationDrawerViewController.m */; };
 		D359FFD717EC96FE007A095B /* SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8A17EC96FE007A095B /* SwipeViewController.m */; };
 		D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8C17EC96FE007A095B /* UIViewController+SwipeViewController.m */; };
 		D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */; };
 		D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */; };
 		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
+		D35B6CC7180EECC200670090 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B6CC6180EECC200670090 /* CFNetwork.framework */; };
 		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
 		D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */; };
@@ -125,6 +136,18 @@
 /* Begin PBXFileReference section */
 		7069383D156F4191A71889D9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8C61116E098E4028AABAEEC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D303D87E180DB1130065B920 /* NavigationDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationDrawerViewController.h; sourceTree = "<group>"; };
+		D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDrawerViewController.m; sourceTree = "<group>"; };
+		D303D881180DCA160065B920 /* cogwheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cogwheel.png; sourceTree = "<group>"; };
+		D303D882180DCA160065B920 /* cogwheel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cogwheel@2x.png"; sourceTree = "<group>"; };
+		D303D885180DE2550065B920 /* glyphicons_386_log_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_386_log_in.png; sourceTree = "<group>"; };
+		D303D886180DE2550065B920 /* glyphicons_386_log_in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_386_log_in@2x.png"; sourceTree = "<group>"; };
+		D303D887180DE2550065B920 /* glyphicons_387_log_out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_387_log_out.png; sourceTree = "<group>"; };
+		D303D888180DE2550065B920 /* glyphicons_387_log_out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_387_log_out@2x.png"; sourceTree = "<group>"; };
+		D303D88D180DE3CF0065B920 /* glyphicons_012_heart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_012_heart.png; sourceTree = "<group>"; };
+		D303D88E180DE3CF0065B920 /* glyphicons_012_heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_012_heart@2x.png"; sourceTree = "<group>"; };
+		D303D88F180DE3CF0065B920 /* glyphicons_071_book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_071_book.png; sourceTree = "<group>"; };
+		D303D890180DE3CF0065B920 /* glyphicons_071_book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_071_book@2x.png"; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
@@ -268,8 +291,6 @@
 		D359FF8317EC96FE007A095B /* CourseListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseListViewController.m; sourceTree = "<group>"; };
 		D359FF8417EC96FE007A095B /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
 		D359FF8517EC96FE007A095B /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
-		D359FF8717EC96FE007A095B /* NavigationDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationDrawerViewController.h; sourceTree = "<group>"; };
-		D359FF8817EC96FE007A095B /* NavigationDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDrawerViewController.m; sourceTree = "<group>"; };
 		D359FF8917EC96FE007A095B /* SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeViewController.h; sourceTree = "<group>"; };
 		D359FF8A17EC96FE007A095B /* SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeViewController.m; sourceTree = "<group>"; };
 		D359FF8B17EC96FE007A095B /* UIViewController+SwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SwipeViewController.h"; sourceTree = "<group>"; };
@@ -277,6 +298,7 @@
 		D359FFDE17EC9978007A095B /* Ekko.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ekko.xcdatamodel; sourceTree = "<group>"; };
 		D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		D35B6CC6180EECC200670090 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -316,6 +338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D35B6CC7180EECC200670090 /* CFNetwork.framework in Frameworks */,
 				D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */,
 				D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */,
 				D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */,
@@ -339,6 +362,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D303D87D180DB0FE0065B920 /* NavigationDrawer */ = {
+			isa = PBXGroup;
+			children = (
+				D303D87E180DB1130065B920 /* NavigationDrawerViewController.h */,
+				D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */,
+			);
+			path = NavigationDrawer;
+			sourceTree = "<group>";
+		};
 		D359FEE917EC96FD007A095B /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +431,16 @@
 		D359FF1217EC96FE007A095B /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				D303D88D180DE3CF0065B920 /* glyphicons_012_heart.png */,
+				D303D88E180DE3CF0065B920 /* glyphicons_012_heart@2x.png */,
+				D303D88F180DE3CF0065B920 /* glyphicons_071_book.png */,
+				D303D890180DE3CF0065B920 /* glyphicons_071_book@2x.png */,
+				D303D885180DE2550065B920 /* glyphicons_386_log_in.png */,
+				D303D886180DE2550065B920 /* glyphicons_386_log_in@2x.png */,
+				D303D887180DE2550065B920 /* glyphicons_387_log_out.png */,
+				D303D888180DE2550065B920 /* glyphicons_387_log_out@2x.png */,
+				D303D881180DCA160065B920 /* cogwheel.png */,
+				D303D882180DCA160065B920 /* cogwheel@2x.png */,
 				D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */,
 				D359FF1317EC96FE007A095B /* chevron-left.png */,
 				D359FF1417EC96FE007A095B /* chevron-left@2x.png */,
@@ -555,7 +597,7 @@
 				D359FF8517EC96FE007A095B /* DrawerViewController.m */,
 				D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */,
 				D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */,
-				D359FF8617EC96FE007A095B /* NavigationDrawer */,
+				D303D87D180DB0FE0065B920 /* NavigationDrawer */,
 				D359FF8917EC96FE007A095B /* SwipeViewController.h */,
 				D359FF8A17EC96FE007A095B /* SwipeViewController.m */,
 				D359FF8B17EC96FE007A095B /* UIViewController+SwipeViewController.h */,
@@ -629,15 +671,6 @@
 			path = CourseList;
 			sourceTree = "<group>";
 		};
-		D359FF8617EC96FE007A095B /* NavigationDrawer */ = {
-			isa = PBXGroup;
-			children = (
-				D359FF8717EC96FE007A095B /* NavigationDrawerViewController.h */,
-				D359FF8817EC96FE007A095B /* NavigationDrawerViewController.m */,
-			);
-			path = NavigationDrawer;
-			sourceTree = "<group>";
-		};
 		D3E61B2A180C5EB000145E50 /* CourseDrawer */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +705,7 @@
 		D3F2EFFF17EC904800F32F52 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D35B6CC6180EECC200670090 /* CFNetwork.framework */,
 				D36B176817F09A4500EFFD86 /* MediaPlayer.framework */,
 				D359FEE717EC968C007A095B /* QuartzCore.framework */,
 				D359FEE517EC967D007A095B /* CoreData.framework */,
@@ -814,15 +848,25 @@
 			files = (
 				D359FFA217EC96FE007A095B /* chevron-right.png in Resources */,
 				D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */,
+				D303D892180DE3CF0065B920 /* glyphicons_012_heart@2x.png in Resources */,
 				D359FFA417EC96FE007A095B /* left_arrow.png in Resources */,
+				D303D889180DE2550065B920 /* glyphicons_386_log_in.png in Resources */,
+				D303D88B180DE2550065B920 /* glyphicons_387_log_out.png in Resources */,
+				D303D88C180DE2550065B920 /* glyphicons_387_log_out@2x.png in Resources */,
 				D359FFA517EC96FE007A095B /* left_arrow@2x.png in Resources */,
 				D359FFA117EC96FE007A095B /* chevron-left@2x.png in Resources */,
+				D303D891180DE3CF0065B920 /* glyphicons_012_heart.png in Resources */,
 				D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */,
 				D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */,
 				D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */,
+				D303D884180DCA160065B920 /* cogwheel@2x.png in Resources */,
+				D303D894180DE3CF0065B920 /* glyphicons_071_book@2x.png in Resources */,
+				D303D883180DCA160065B920 /* cogwheel.png in Resources */,
 				D359FFA617EC96FE007A095B /* show_lines.png in Resources */,
+				D303D88A180DE2550065B920 /* glyphicons_386_log_in@2x.png in Resources */,
 				D359FFA317EC96FE007A095B /* chevron-right@2x.png in Resources */,
 				D3F2F00B17EC904800F32F52 /* InfoPlist.strings in Resources */,
+				D303D893180DE3CF0065B920 /* glyphicons_071_book.png in Resources */,
 				D359FFA017EC96FE007A095B /* chevron-left.png in Resources */,
 				D359FFA717EC96FE007A095B /* show_lines@2x.png in Resources */,
 			);
@@ -896,6 +940,7 @@
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
 				D330723B1807489400EDD036 /* Answer.m in Sources */,
+				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
 				D359FFD117EC96FE007A095B /* MultipleChoiceViewController.m in Sources */,
 				D359FFD717EC96FE007A095B /* SwipeViewController.m in Sources */,
 				D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */,
@@ -919,7 +964,6 @@
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
 				D359FF9E17EC96FE007A095B /* ManifestParser.m in Sources */,
-				D359FFD617EC96FE007A095B /* NavigationDrawerViewController.m in Sources */,
 				D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */,
 				D359FF9A17EC96FE007A095B /* HubQuestionMC.m in Sources */,
 				D359FFBD17EC96FE007A095B /* MultipleChoice+Hub.m in Sources */,
@@ -1076,10 +1120,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/brian/src/ios/Ekko,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1091,10 +1141,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/brian/src/ios/Ekko,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
