@@ -7,6 +7,7 @@
 //
 
 #import "NavigationDrawerViewController.h"
+#import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
 #import <TheKey/TheKey.h>
@@ -37,10 +38,6 @@
         default:
             return 0;
     }
-}
-
--(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-//    [[(UITableViewHeaderFooterView *)view textLabel] setTextColor:[UIColor ekkoDarkBlue]];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -88,6 +85,33 @@
     }
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case NavigationDrawerSectionCourses:
+            switch (indexPath.row) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case NavigationDrawerSectionSettings:
+            switch (indexPath.row) {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    break;
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 @end
