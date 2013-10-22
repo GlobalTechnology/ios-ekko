@@ -15,8 +15,8 @@
 
 +(ResourceManager *)resourceManager;
 
--(void)getImageResource:(Resource *)resource completeBlock:(void (^)(UIImage *image))completeBlock;
--(void)getResource:(Resource *)resource progressBlock:(void (^)(float progress))progressBlock completeBlock:(void (^)(NSString *path))completeBlock;
+-(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *resource, UIImage *image))completeBlock;
+-(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *resource, float progress))progressBlock completeBlock:(void (^)(Resource *resource, NSString *path))completeBlock;
 -(void)getResource:(Resource *)resource delegate:(__weak id<ResourceManagerDelegate>)delegate;
 
 @end

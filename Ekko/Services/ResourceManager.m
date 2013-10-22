@@ -52,14 +52,14 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     return self;
 }
 
--(void)getImageResource:(Resource *)resource completeBlock:(void (^)(UIImage *))completeBlock {
+-(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *, UIImage *))completeBlock {
     dispatch_async(self.dispatchQueue, ^{
         NSString *cacheKey = [self cacheKeyForResource:resource];
 
         //Try to load image from cache
         UIImage *image = (UIImage *)[self.imageCache objectForKey:cacheKey];
         if (image) {
-            completeBlock(image);
+            completeBlock(resource, image);
             return;
         }
         
@@ -68,7 +68,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         if (data) {
             image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
-                completeBlock(image);
+                completeBlock(resource, image);
                 [self.imageCache setObject:image forKey:cacheKey];
                 return;
             }
@@ -79,7 +79,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             [[HubClient hubClient] getResource:resource.courseId sha1:resource.sha1 callback:^(NSData *data) {
                 UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
                 if (image) {
-                    completeBlock(image);
+                    completeBlock(resource, image);
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:[self pathForResource:resource]];
                 }
@@ -89,7 +89,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
             [[AFImageRequestOperation imageRequestOperationWithRequest:request success:^(UIImage *image) {
                 if (image) {
-                    completeBlock(image);
+                    completeBlock(resource, image);
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:[self pathForResource:resource]];
                 }
@@ -98,31 +98,31 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     });
 }
 
--(void)getResource:(Resource *)resource progressBlock:(void (^)(float))progressBlock completeBlock:(void (^)(NSString *))completeBlock {
+-(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
     dispatch_async(self.dispatchQueue, ^{
         NSString *path = [self pathForResource:resource];
         if ([self.fileManager fileExistsAtPath:path]) {
-            completeBlock([path copy]);
+            completeBlock(resource, [path copy]);
             return;
         }
         
         if ([resource isFile]) {
             NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
             [[HubClient hubClient] getResource:resource.courseId sha1:resource.sha1 outputStream:outputStream progress:^(float progress) {
-                progressBlock(progress);
+                progressBlock(resource, progress);
             } complete:^{
-                completeBlock(path);
+                completeBlock(resource, path);
             }];
         }
     });
 }
 
 -(void)getResource:(Resource *)resource delegate:(__weak id<ResourceManagerDelegate>)delegate {
-    [self getResource:resource progressBlock:^(float progress) {
+    [self getResource:resource progressBlock:^(Resource *resource, float progress) {
         if (delegate && [delegate respondsToSelector:@selector(resource:progress:)]) {
             [delegate resource:resource progress:progress];
         }
-    } completeBlock:^(NSString *path) {
+    } completeBlock:^(Resource *resource, NSString *path) {
         if (delegate && [delegate respondsToSelector:@selector(resource:complete:)]) {
             [delegate resource:resource complete:path];
         }

@@ -14,7 +14,7 @@
 -(void)setMedia:(Media *)media {
     _media = media;
     if ([self.media.mediaType isEqualToString:@"image"]) {
-        [[ResourceManager resourceManager] getImageResource:[self.media resource] completeBlock:^(UIImage *image) {
+        [[ResourceManager resourceManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
             if (image) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.mediaImageView setImage:image];
@@ -25,7 +25,7 @@
     else {
         Resource *thumbnail = [self.media thumbnail];
         if (thumbnail) {
-            [[ResourceManager resourceManager] getImageResource:thumbnail completeBlock:^(UIImage *image) {
+            [[ResourceManager resourceManager] getImageResource:thumbnail completeBlock:^(Resource *resource, UIImage *image) {
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.mediaImageView setImage:image];

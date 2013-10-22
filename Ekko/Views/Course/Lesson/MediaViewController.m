@@ -37,7 +37,7 @@
     else {
         [self.tapGestureRecognizer setEnabled:YES];
         if ([self.media.mediaType isEqualToString:@"image"]) {
-            [[ResourceManager resourceManager] getImageResource:[self.media resource] completeBlock:^(UIImage *image) {
+            [[ResourceManager resourceManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.mediaImage setImage:image];
@@ -48,7 +48,7 @@
         else {
             Resource *thumbnail = [self.media thumbnail];
             if (thumbnail) {
-                [[ResourceManager resourceManager] getImageResource:thumbnail completeBlock:^(UIImage *image) {
+                [[ResourceManager resourceManager] getImageResource:thumbnail completeBlock:^(Resource *resource, UIImage *image) {
                     if (image) {
                         dispatch_async(dispatch_get_main_queue(), ^{
                             [self.mediaImage setImage:image];
@@ -79,7 +79,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
         else if ([resource isFile]) {
-            [[ResourceManager resourceManager] getResource:resource progressBlock:^(float progress) {
+            [[ResourceManager resourceManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (self.progressView.isHidden) {
@@ -88,7 +88,7 @@
                     [self.progressBar setProgress:progress];
                     [self.progressText setText:[NSString stringWithFormat:@"%i%%", (int)(progress*100)]];
                 });
-            } completeBlock:^(NSString *path) {
+            } completeBlock:^(Resource *resource, NSString *path) {
                 self.downloading = NO;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (!self.progressView.isHidden) {

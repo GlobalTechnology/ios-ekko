@@ -37,8 +37,8 @@ static const int insetViewTag = 1;
     //Set banner image
     Resource *banner = [course bannerResource];
     if (banner) {
-        [[ResourceManager resourceManager] getImageResource:banner completeBlock:^(UIImage *image) {
-            if (image) {
+        [[ResourceManager resourceManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
+            if (image && [resource.resourceId isEqualToString:banner.resourceId]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.bannerImageView setImage:image];
                 });
