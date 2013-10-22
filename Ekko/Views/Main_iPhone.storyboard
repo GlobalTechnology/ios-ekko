@@ -380,6 +380,44 @@
             </objects>
             <point key="canvasLocation" x="1440" y="1039"/>
         </scene>
+        <!--About Ekko View Controller - About Ekko-->
+        <scene sceneID="03M-QZ-Ktg">
+            <objects>
+                <viewController storyboardIdentifier="aboutEkkoViewController" title="About Ekko" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M3V-6z-WWi" customClass="AboutEkkoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t2J-cd-j2T"/>
+                        <viewControllerLayoutGuide type="bottom" id="fab-D9-2gm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Kc9-WV-10C">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mwg-Bc-Ith">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="Mwg-Bc-Ith" firstAttribute="top" secondItem="t2J-cd-j2T" secondAttribute="bottom" id="GlU-vf-xDb"/>
+                            <constraint firstItem="fab-D9-2gm" firstAttribute="top" secondItem="Mwg-Bc-Ith" secondAttribute="bottom" id="bc5-de-b2A"/>
+                            <constraint firstItem="Mwg-Bc-Ith" firstAttribute="leading" secondItem="Kc9-WV-10C" secondAttribute="leading" id="fRS-fI-KJY"/>
+                            <constraint firstAttribute="trailing" secondItem="Mwg-Bc-Ith" secondAttribute="trailing" id="noA-eH-umJ"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="aboutWebView" destination="Mwg-Bc-Ith" id="fer-67-GrX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I4I-vI-qag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1440" y="1752"/>
+        </scene>
         <!--Course View Controller-->
         <scene sceneID="URj-5S-RUO">
             <objects>

@@ -112,6 +112,8 @@
                     break;
                 }
                 case 1: {
+                    UIViewController *aboutController = [self.storyboard instantiateViewControllerWithIdentifier:@"aboutEkkoViewController"];
+                    [rootNavigationController setViewControllers:@[aboutController] animated:NO];
                     break;
                 }
                 default:
