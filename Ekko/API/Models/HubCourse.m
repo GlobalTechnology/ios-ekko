@@ -10,10 +10,7 @@
 
 @implementation HubCourse
 
-@synthesize courseId      = _courseId;
-@synthesize courseVersion = _courseVersion;
-@synthesize courseMeta    = _courseMeta;
-@synthesize resources     = _resources;
+@synthesize resources = _resources;
 
 -(NSMutableArray *)resources {
     if (!_resources) {
@@ -41,6 +38,11 @@
         [self setSchemaVersion:[[attributeDict objectForKey:kEkkoHubXMLAttrSchemaVersion] integerValue]];
         [self setCourseId:[attributeDict objectForKey:kEkkoHubXMLAttrCourseId]];
         [self setCourseVersion:[[attributeDict objectForKey:kEkkoHubXMLAttrCourseVersion] integerValue]];
+        [self setCourseIsPublic:[[attributeDict objectForKey:kEkkoHubXMLAttrCoursePublic] boolValue]];
+        [self setEnrollmentType:[attributeDict objectForKey:kEkkoHubXMLAttrCourseEnrollmentType]];
+    }
+    else if ([elementName isEqualToString:kEkkoHubXMLElementPermission]) {
+        [self setPermission:[[HubPermission alloc] initWithXMLParser:parser element:elementName attributes:attributeDict schemaVersion:self.schemaVersion]];
     }
     else if ([elementName isEqualToString:kEkkoHubXMLElementMeta]) {
         [self setCourseMeta:[[HubMeta alloc] initWithXMLParser:parser element:elementName attributes:attributeDict schemaVersion:self.schemaVersion]];

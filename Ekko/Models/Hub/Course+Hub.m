@@ -7,7 +7,9 @@
 //
 
 #import "Course+Hub.h"
+#import "Course+Ekko.h"
 #import "DataManager.h"
+#import "Permission+Hub.h"
 #import "Resource+Hub.h"
 
 @implementation Course (Hub)
@@ -20,6 +22,16 @@
         
         [self setCourseId:[hubCourse courseId]];
         [self setCourseVersion:[hubCourse courseVersion]];
+        [self setPublicCourse:[hubCourse courseIsPublic]];
+        
+        if ([hubCourse.enrollmentType isEqualToString:kEkkoHubXMLValueEnrollmentTypeDisabled])
+            [self setEnrollmentType:CourseEnrollmentDisabled];
+        else if ([hubCourse.enrollmentType isEqualToString:kEkkoHubXMLValueEnrollmentTypeOpen])
+            [self setEnrollmentType:CourseEnrollmentOpen];
+        else if ([hubCourse.enrollmentType isEqualToString:kEkkoHubXMLValueEnrollmentTypeApproval])
+            [self setEnrollmentType:CourseEnrollmentApproval];
+        else
+            [self setEnrollmentType:CourseEnrollmentUnknown];
         
         HubMeta *hubMeta = [hubCourse courseMeta];
         [self setCourseTitle:[hubMeta courseTitle]];
@@ -28,6 +40,14 @@
         [self setAuthorEmail:[hubMeta authorEmail]];
         [self setAuthorUrl:[hubMeta authorUrl]];
         [self setCourseCopyright:[hubMeta courseCopyright]];
+        
+        HubPermission *hubPermission = [hubCourse permission];
+        if (hubPermission) {
+            if (self.permission == nil) {
+                [self setPermission:(Permission *)[[DataManager dataManager] insertNewObjectForEntity:EkkoPermissionEntity inManagedObjectContext:self.managedObjectContext]];
+            }
+            [self.permission syncFromHubPermission:hubPermission];
+        }
         
         [self setResources:[NSMutableSet set]];
         HubResource *hubResource = [hubCourse bannerResource];

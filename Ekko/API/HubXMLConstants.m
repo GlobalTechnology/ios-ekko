@@ -12,11 +12,12 @@
 NSString *const kEkkoHubXMLNSEkko = @"https://ekkoproject.org/manifest";
 NSString *const kEkkoHubXMLNSHub  = @"https://ekkoproject.org/hub";
 
-NSString *const kEkkoHubXMLElementCourses   = @"hub:courses";
-NSString *const kEkkoHubXMLElementCourse    = @"hub:course";
-NSString *const kEkkoHubXMLElementManifest  = @"ekko:course";
-NSString *const kEkkoHubXMLElementResources = @"ekko:resources";
-NSString *const kEkkoHubXMLElementResource  = @"ekko:resource";
+NSString *const kEkkoHubXMLElementCourses    = @"hub:courses";
+NSString *const kEkkoHubXMLElementCourse     = @"hub:course";
+NSString *const kEkkoHubXMLElementPermission = @"hub:permission";
+NSString *const kEkkoHubXMLElementManifest   = @"ekko:course";
+NSString *const kEkkoHubXMLElementResources  = @"ekko:resources";
+NSString *const kEkkoHubXMLElementResource   = @"ekko:resource";
 
 /** meta elements */
 NSString *const kEkkoHubXMLElementMeta            = @"ekko:meta";
@@ -57,8 +58,17 @@ NSString *const kEkkoHubXMLAttrCoursesLimit   = @"limit";
 NSString *const kEkkoHubXMLAttrCoursesHasMore = @"hasMore";
 
 /** course attributes */
-NSString *const kEkkoHubXMLAttrCourseId      = @"id";
-NSString *const kEkkoHubXMLAttrCourseVersion = @"version";
+NSString *const kEkkoHubXMLAttrCourseId             = @"id";
+NSString *const kEkkoHubXMLAttrCourseVersion        = @"version";
+NSString *const kEkkoHubXMLAttrCoursePublic         = @"public";
+NSString *const kEkkoHubXMLAttrCourseEnrollmentType = @"enrollmentType";
+
+/** permission attributes */
+NSString *const kEkkoHubXMLAttrPermissionGuid           = @"guid";
+NSString *const kEkkoHubXMLAttrPermissionEnrolled       = @"enrolled";
+NSString *const kEkkoHubXMLAttrPermissionAdmin          = @"admin";
+NSString *const kEkkoHubXMLAttrPermissionPending        = @"pending";
+NSString *const kEkkoHubXMLAttrPermissionContentVisible = @"contentVisible";
 
 /** lesson attributes */
 NSString *const kEkkoHubXMLAttrLessonId    = @"id";
@@ -90,3 +100,8 @@ NSString *const kEkkoHubXMLAttrResourceFile     = @"file";
 NSString *const kEkkoHubXMLAttrResourceMimeType = @"mimeType";
 NSString *const kEkkoHubXMLAttrResourceURI      = @"uri";
 NSString *const kEkkoHubXMLAttrResourceProvider = @"provider";
+
+/** course enrollment values */
+NSString *const kEkkoHubXMLValueEnrollmentTypeDisabled = @"disabled";
+NSString *const kEkkoHubXMLValueEnrollmentTypeOpen     = @"open";
+NSString *const kEkkoHubXMLValueEnrollmentTypeApproval = @"approval";

@@ -14,6 +14,7 @@ FOUNDATION_EXPORT NSString *const kEkkoHubXMLNSHub;
 
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementCourses;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementCourse;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementPermission;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementManifest;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementResources;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLElementResource;
@@ -59,6 +60,15 @@ FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrCoursesHasMore;
 /** course attributes */
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrCourseId;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrCourseVersion;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrCoursePublic;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrCourseEnrollmentType;
+
+/** permission attributes */
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrPermissionGuid;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrPermissionEnrolled;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrPermissionAdmin;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrPermissionPending;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrPermissionContentVisible;
 
 /** lesson attributes */
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrLessonId;
@@ -90,3 +100,8 @@ FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrResourceFile;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrResourceMimeType;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrResourceURI;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrResourceProvider;
+
+/** course enrollment values */
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeDisabled;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeOpen;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeApproval;

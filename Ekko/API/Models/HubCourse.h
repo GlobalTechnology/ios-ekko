@@ -8,11 +8,16 @@
 
 #import "HubXMLModel.h"
 #import "HubMeta.h"
+#import "HubPermission.h"
 
 @interface HubCourse : HubXMLModel
 
 @property (strong, nonatomic) NSString *courseId;
 @property (nonatomic) int64_t courseVersion;
+@property (nonatomic) BOOL courseIsPublic;
+@property (nonatomic, strong) NSString *enrollmentType;
+
+@property (nonatomic, strong) HubPermission *permission;
 @property (nonatomic, strong) HubMeta *courseMeta;
 @property (nonatomic, strong, readonly) NSMutableArray *resources;
 

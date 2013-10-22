@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AbstractCourse" representedClassName="AbstractCourse" isAbstract="YES" syncable="YES">
-        <attribute name="courseId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="resources" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="course" inverseEntity="Resource" syncable="YES"/>
     </entity>
     <entity name="Answer" representedClassName="Answer" syncable="YES">
@@ -15,7 +15,6 @@
         <relationship name="course" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Manifest" inverseName="content" inverseEntity="Manifest" syncable="YES"/>
     </entity>
     <entity name="Course" representedClassName="Course" parentEntity="AbstractCourse" syncable="YES">
-        <attribute name="accessible" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,7 +22,10 @@
         <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseVersion" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="internalEnrollmentType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="publicCourse" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="permission" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Permission" inverseName="course" inverseEntity="Permission" syncable="YES"/>
     </entity>
     <entity name="Lesson" representedClassName="Lesson" parentEntity="ContentItem" syncable="YES">
         <relationship name="media" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Media" inverseName="lesson" inverseEntity="Media" syncable="YES"/>
@@ -63,6 +65,14 @@
         <attribute name="pageText" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="lesson" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="pages" inverseEntity="Lesson" syncable="YES"/>
     </entity>
+    <entity name="Permission" representedClassName="Permission" syncable="YES">
+        <attribute name="admin" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="contentVisible" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="enrolled" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="pending" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="permission" inverseEntity="Course" syncable="YES"/>
+    </entity>
     <entity name="ProgressItem" representedClassName="ProgressItem" syncable="YES">
         <attribute name="courseId" attributeType="String" syncable="YES"/>
         <attribute name="itemId" attributeType="String" syncable="YES"/>
@@ -93,6 +103,7 @@
     </entity>
     <elements>
         <element name="AbstractCourse" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ContentItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Lesson" positionX="0" positionY="0" width="0" height="0"/>
@@ -101,10 +112,10 @@
         <element name="MultipleChoice" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MultipleChoiceOption" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Page" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Permission" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ProgressItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Quiz" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

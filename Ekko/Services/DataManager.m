@@ -20,6 +20,7 @@ NSString *const EkkoEntities[] = {
     [EkkoMultipleChoiceOptionEntity] = @"MultipleChoiceOption",
     [EkkoProgressItemEntity]         = @"ProgressItem",
     [EkkoAnswerEntity]               = @"Answer",
+    [EkkoPermissionEntity]           = @"Permission",
 };
 
 @interface DataManager ()

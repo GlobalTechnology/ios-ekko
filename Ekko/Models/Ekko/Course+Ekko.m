@@ -10,6 +10,18 @@
 
 @implementation Course (Ekko)
 
+-(CourseEnrollmentType)enrollmentType {
+    return (CourseEnrollmentType)[self internalEnrollmentType];
+}
+
+-(void)setEnrollmentType:(CourseEnrollmentType)enrollmentType {
+    [self setInternalEnrollmentType:(int16_t)enrollmentType];
+}
+
+//+(NSSet *)keyPathsForValuesAffectingEnrollmentType {
+//    return [NSSet setWithObject:@"enrollmentType"];
+//}
+
 -(Resource *)bannerResource {
     if ([self.resources count] > 0) {
         //Courses have only one resource, so anyObject will return the only object.

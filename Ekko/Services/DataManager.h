@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, EkkoEntity) {
     EkkoMultipleChoiceOptionEntity,
     EkkoProgressItemEntity,
     EkkoAnswerEntity,
+    EkkoPermissionEntity,
 };
 
 @interface DataManager : NSObject

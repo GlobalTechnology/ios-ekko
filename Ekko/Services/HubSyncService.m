@@ -102,7 +102,7 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
         
         NSArray *courses = [[DataManager dataManager] getAllCoursesWithManagedObjectContext:managedObjectContext];
         for (Course *course in courses) {
-            [course setAccessible:NO];
+//            [course setAccessible:NO];
             [existing setObject:course forKey:[course courseId]];
         }
         
@@ -115,7 +115,7 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
             if ([course hasChanges]) {
                 [self syncManifest:[course courseId]];
             }
-            [course setAccessible:YES];
+//            [course setAccessible:YES];
         }
         
         [[DataManager dataManager] saveManagedObjectContext:managedObjectContext];

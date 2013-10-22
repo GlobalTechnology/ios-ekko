@@ -8,7 +8,16 @@
 
 #import "Course.h"
 
+typedef NS_ENUM(int16_t, CourseEnrollmentType) {
+    CourseEnrollmentUnknown  = 0,
+    CourseEnrollmentDisabled = 1,
+    CourseEnrollmentOpen     = 2,
+    CourseEnrollmentApproval = 3,
+};
+
 @interface Course (Ekko)
+
+@property CourseEnrollmentType enrollmentType;
 
 -(Resource *)bannerResource;
 
