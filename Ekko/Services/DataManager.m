@@ -84,8 +84,11 @@ NSString *const EkkoEntities[] = {
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
         if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:persistenStorePath options:nil error:&error]) {
-            NSLog(@"Unresolved Error: %@, %@", error, error.userInfo);
-            abort();
+            [[NSFileManager defaultManager] removeItemAtURL:persistenStorePath error:nil];
+            if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:persistenStorePath options:nil error:&error]) {
+                NSLog(@"Unresolved Error: %@, %@", error, error.userInfo);
+                abort();
+            }
         }
     }
     return _persistentStoreCoordinator;
