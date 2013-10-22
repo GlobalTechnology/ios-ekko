@@ -9,9 +9,8 @@
 #import "HubClient.h"
 #import <TheKey.h>
 #import <AFHTTPRequestOperation.h>
-#import <AFXMLRequestOperation.h>
-#import <AFImageRequestOperation.h>
 #import "CoursesParser.h"
+#import "CourseParser.h"
 #import "ManifestParser.h"
 #import "URLUtils.h"
 
@@ -23,15 +22,25 @@ static NSString *const kEkkoHubClientSessionId   = @"EkkoHubClientSessionId";
 static NSString *const kEkkoHubClientSessionGuid = @"EkkoHubClientSessionGuid";
 
 // Ekko Hub API Endpoints
-static NSString *const kEkkoHubClientEndpointLogin    = @"auth/login";
-static NSString *const kEkkoHubClientEndpointService  = @"auth/service";
-static NSString *const kEkkoHubClientEndpointCourses  = @"courses";
-static NSString *const kEkkoHubClientEndpointManifest = @"courses/course/%@/manifest";
-static NSString *const kEkkoHubClientEndpointResource = @"courses/course/%@/resources/resource/%@";
+static NSString *const kEkkoHubEndpointLogin    = @"auth/login";
+static NSString *const kEkkoHubEndpointService  = @"auth/service";
+static NSString *const kEkkoHubEndpointCourses  = @"courses";
+static NSString *const kEkkoHubEndpointManifest = @"courses/course/%@/manifest";
+static NSString *const kEkkoHubEndpointResource = @"courses/course/%@/resources/resource/%@";
+static NSString *const kEkkoHubEndpointEnroll   = @"courses/course/%@/enroll";
+static NSString *const kEkkoHubEndpointUnenroll = @"courses/course/%@/unenroll";
+static NSString *const kEkkoHubEndpointCourse   = @"courses/course/%@";
 
 // Ekko Hub XML processing queue
 const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
 
+// Ekko Hub Request Mothods
+typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
+    EkkoRequestMethodGET,
+    EkkoRequestMethodPOST,
+};
+
+// Maximum request attempts
 static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
 @interface HubRequestParameters : NSObject
@@ -39,7 +48,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 @property (nonatomic) BOOL useSession;
 @property (nonatomic, copy) NSString *endpoint;
 @property (nonatomic, copy) NSDictionary *parameters;
-@property (nonatomic, copy) NSString *method;
+@property (nonatomic) EkkoRequestMethodType method;
 @property (nonatomic) NSUInteger attempts;
 @property (nonatomic, strong) NSOutputStream *outputStream;
 @property (nonatomic, copy) void (^response)(NSURLResponse *response, id responseObject);
@@ -88,9 +97,6 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         //[self setSessionId:@"abcdef1234567890"];
         
         [self registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-//        [self registerHTTPOperationClass:[AFXMLRequestOperation class]];
-//        [self registerHTTPOperationClass:[AFImageRequestOperation class]];
-//        [self setDefaultHeader:@"Accept" value:@"application/xml"];
     }
     return self;
 }
@@ -156,10 +162,10 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     [self setPendingSession:YES];
     
     //TODO Fetch service url from Hub
-    NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubClientEndpointLogin];
+    NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
     
     [[TheKey theKey] getTicketForService:serviceURL completionHandler:^(NSString *ticket, NSError *error) {
-        NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubClientEndpointLogin];
+        NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
         NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:loginURL];
         
         NSData *body = [[URLUtils encodeQueryParamsForDictionary:@{@"ticket": ticket}] dataUsingEncoding:NSUTF8StringEncoding];
@@ -246,7 +252,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 -(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit andCallback:(void (^)(NSArray *, BOOL, NSInteger, NSInteger))callback {
     NSDictionary *parameters = @{@"start": [NSString stringWithFormat:@"%d", (int)start],
                                  @"limit": [NSString stringWithFormat:@"%d", (int)limit]};
-    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:kEkkoHubClientEndpointCourses parameters:parameters response:^(NSURLResponse *response, id responseObject) {
+    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:kEkkoHubEndpointCourses parameters:parameters response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
             dispatch_async(self.xmlDispatchQueue, ^{
@@ -262,7 +268,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 #pragma mark - Manifest
 
 -(void)getManifest:(NSString *)courseId callback:(void (^)(HubManifest *))callback {
-    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:[NSString stringWithFormat:kEkkoHubClientEndpointManifest, courseId] parameters:nil response:^(NSURLResponse *response, id responseObject) {
+    [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:[NSString stringWithFormat:kEkkoHubEndpointManifest, courseId] parameters:nil response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
             dispatch_async(self.xmlDispatchQueue, ^{
@@ -278,7 +284,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 #pragma mark - Resource
 
 -(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 callback:(void (^)(NSData *))callback {
-    NSString *endpoint = [NSString stringWithFormat:kEkkoHubClientEndpointResource, courseId, sha1];
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointResource, courseId, sha1];
     [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
             callback((NSData *)responseObject);
@@ -287,7 +293,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 }
 
 -(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 outputStream:(NSOutputStream *)outputStream progress:(void (^)(float))progress complete:(void (^)())complete {
-    NSString *endpoint = [NSString stringWithFormat:kEkkoHubClientEndpointResource, courseId, sha1];
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointResource, courseId, sha1];
     HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
         complete();
     }];
@@ -295,6 +301,51 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     if (progress) {
         [hubRequestParameters setProgress:progress];
     }
+    [self hubRequestWithHubRequestParameters:hubRequestParameters];
+}
+
+#pragma mark - Course
+-(void)getCourse:(NSString *)courseId callback:(void (^)(HubCourse *))callback {
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointCourse, courseId];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
+            dispatch_async(self.xmlDispatchQueue, ^{
+                CourseParser *courseParser = [[CourseParser alloc] initWithXMLParser:parser];
+                callback(courseParser.course);
+            });
+        }
+    }];
+    [self hubRequestWithHubRequestParameters:hubRequestParameters];
+}
+
+#pragma mark - Course Permissions
+-(void)enrollInCourse:(NSString *)courseId callback:(void (^)(HubCourse *))callback {
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointEnroll, courseId];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
+            dispatch_async(self.xmlDispatchQueue, ^{
+                CourseParser *courseParser = [[CourseParser alloc] initWithXMLParser:parser];
+                callback(courseParser.course);
+            });
+        }
+    }];
+    [hubRequestParameters setMethod:EkkoRequestMethodPOST];
+    [self hubRequestWithHubRequestParameters:hubRequestParameters];
+}
+
+-(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(BOOL))callback {
+    NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointUnenroll, courseId];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if ([responseObject isKindOfClass:[NSError class]]) {
+            callback(NO);
+        }
+        else {
+            callback(YES);
+        }
+    }];
+    [hubRequestParameters setMethod:EkkoRequestMethodPOST];
     [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
 
@@ -318,7 +369,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     self = [super init];
     if (self) {
         self.useSession = NO;
-        self.method = @"GET";
+        self.method = EkkoRequestMethodGET;
         self.attempts = 0;
     }
     return self;
@@ -331,7 +382,19 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         NSString *sessionId = [client hasSession] ? [client sessionId] : @"0000";
         path = [NSString stringWithFormat:@"%@/%@", sessionId, path];
     }
-    return [client requestWithMethod:self.method path:path parameters:self.parameters];
+    
+    NSString *method;
+    switch (self.method) {
+        case EkkoRequestMethodPOST:
+            method = @"POST";
+            break;
+        case EkkoRequestMethodGET:
+        default:
+            method = @"GET";
+            break;
+    }
+    
+    return [client requestWithMethod:method path:path parameters:self.parameters];
 }
 
 @end

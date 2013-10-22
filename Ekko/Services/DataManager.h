@@ -48,6 +48,7 @@ typedef NS_ENUM(NSUInteger, EkkoEntity) {
 #pragma mark - Course
 -(Course *)insertNewCourseInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 -(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
--(NSFetchedResultsController *)coursesFetchedResultsController;
+-(NSFetchedResultsController *)fetchedResultsControllerForAllCourses;
+-(NSFetchedResultsController *)fetchedResultsControllerForMyCourses;
 
 @end

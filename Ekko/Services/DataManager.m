@@ -7,6 +7,7 @@
 //
 
 #import "DataManager.h"
+#import "HubClient.h"
 
 NSString *const EkkoEntities[] = {
     [EkkoCourseEntity]               = @"Course",
@@ -157,9 +158,19 @@ NSString *const EkkoEntities[] = {
     return [NSArray array];
 }
 
--(NSFetchedResultsController *)coursesFetchedResultsController {
+-(NSFetchedResultsController *)fetchedResultsControllerForAllCourses {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid]]];
+//    [request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@).@count != 0)", [[HubClient hubClient] sessionGuid]]];
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+}
+
+-(NSFetchedResultsController *)fetchedResultsControllerForMyCourses {
+    NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
+    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid]]];
+//    [request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@ AND $p.contentVisible == YES).@count != 0)", [[HubClient hubClient] sessionGuid]]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 

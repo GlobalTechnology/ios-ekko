@@ -21,6 +21,14 @@
 
 @implementation CourseListViewController
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.viewType = EkkoAllCourses;
+    }
+    return self;
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     
@@ -37,7 +45,18 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setFetchedResultsController:[[DataManager dataManager] coursesFetchedResultsController]];
+    switch (self.viewType) {
+        case EkkoAllCourses:
+            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
+            [self setTitle:@"All Courses"];
+            break;
+        case EkkoMyCourses:
+            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForMyCourses]];
+            [self setTitle:@"My Courses"];
+            break;
+        default:
+            break;
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncBegin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncEnd object:nil];
@@ -47,16 +66,13 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
+    [self setFetchedResultsController:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewWillDisappear:animated];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"courseListCell"];
-    if (cell == nil) {
-        cell = [[CourseListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"courseListCell"];
-    }
-    
     Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell setCourse:course];
     return cell;

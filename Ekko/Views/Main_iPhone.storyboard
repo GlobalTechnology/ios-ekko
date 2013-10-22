@@ -318,32 +318,50 @@
                                                     </constraints>
                                                 </imageView>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hFR-Ij-aaa">
-                                                    <rect key="frame" x="215" y="186" width="75" height="4"/>
+                                                    <rect key="frame" x="0.0" y="169" width="300" height="2"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="tintColor" red="0.81176471709999998" green="0.42745098469999998" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="75" id="5Hb-GF-FRM"/>
-                                                        <constraint firstAttribute="height" constant="4" id="uFb-9U-7yg"/>
+                                                        <constraint firstAttribute="height" constant="2" id="tDg-C6-PlI"/>
                                                     </constraints>
                                                 </progressView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKY-ht-jjD">
-                                                    <rect key="frame" x="10" y="178" width="197" height="18"/>
+                                                    <rect key="frame" x="20" y="182" width="228" height="18"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gj5-h5-lBd">
+                                                    <rect key="frame" x="256" y="169" width="44" height="41"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="mXZ-Dy-jf1"/>
+                                                    </constraints>
+                                                    <state key="normal">
+                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="handleCourseActionButton:" destination="dBe-hw-eES" eventType="touchUpInside" id="6On-oa-I0y"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="U7S-X6-86r" firstAttribute="top" secondItem="l8v-9R-P7N" secondAttribute="top" id="5pv-yg-HGF"/>
                                                 <constraint firstAttribute="trailing" secondItem="U7S-X6-86r" secondAttribute="trailing" id="9Qe-1K-7fR"/>
-                                                <constraint firstItem="cKY-ht-jjD" firstAttribute="top" secondItem="U7S-X6-86r" secondAttribute="bottom" constant="9" id="Bjd-Gq-bN0"/>
-                                                <constraint firstAttribute="bottom" secondItem="hFR-Ij-aaa" secondAttribute="bottom" constant="20" id="RSG-En-oEc"/>
-                                                <constraint firstItem="hFR-Ij-aaa" firstAttribute="leading" secondItem="cKY-ht-jjD" secondAttribute="trailing" constant="8" symbolic="YES" id="Wh0-p0-IEe"/>
+                                                <constraint firstAttribute="bottom" secondItem="cKY-ht-jjD" secondAttribute="bottom" constant="10" id="9da-cZ-oA4"/>
+                                                <constraint firstItem="Gj5-h5-lBd" firstAttribute="trailing" secondItem="hFR-Ij-aaa" secondAttribute="trailing" id="D43-21-8GM"/>
+                                                <constraint firstAttribute="trailing" secondItem="hFR-Ij-aaa" secondAttribute="trailing" id="EVn-Zw-thG"/>
+                                                <constraint firstItem="hFR-Ij-aaa" firstAttribute="leading" secondItem="l8v-9R-P7N" secondAttribute="leading" id="Ghf-lC-qMl"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gj5-h5-lBd" secondAttribute="bottom" id="JqI-yC-pk6"/>
+                                                <constraint firstItem="hFR-Ij-aaa" firstAttribute="top" secondItem="U7S-X6-86r" secondAttribute="bottom" id="Ouz-ud-OyH"/>
+                                                <constraint firstItem="cKY-ht-jjD" firstAttribute="top" secondItem="hFR-Ij-aaa" secondAttribute="bottom" constant="11" id="UR2-ob-LIy"/>
+                                                <constraint firstItem="cKY-ht-jjD" firstAttribute="leading" secondItem="l8v-9R-P7N" secondAttribute="leading" constant="20" symbolic="YES" id="buB-fu-SWe"/>
+                                                <constraint firstItem="Gj5-h5-lBd" firstAttribute="leading" secondItem="cKY-ht-jjD" secondAttribute="trailing" constant="8" symbolic="YES" id="bzO-xk-Vul"/>
+                                                <constraint firstItem="Gj5-h5-lBd" firstAttribute="top" secondItem="hFR-Ij-aaa" secondAttribute="top" id="lk8-Uj-MbP"/>
                                                 <constraint firstItem="U7S-X6-86r" firstAttribute="leading" secondItem="l8v-9R-P7N" secondAttribute="leading" id="onD-jv-4Fj"/>
-                                                <constraint firstItem="cKY-ht-jjD" firstAttribute="leading" secondItem="l8v-9R-P7N" secondAttribute="leading" constant="10" id="pQZ-cv-WCz"/>
-                                                <constraint firstAttribute="trailing" secondItem="hFR-Ij-aaa" secondAttribute="trailing" constant="10" id="sbs-In-JAm"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -357,6 +375,7 @@
                                 <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="bannerImageView" destination="U7S-X6-86r" id="3Ao-g4-Y1Q"/>
+                                    <outlet property="courseActionButton" destination="Gj5-h5-lBd" id="vl1-Gr-NfF"/>
                                     <outlet property="courseLabel" destination="cKY-ht-jjD" id="eMD-M2-9WT"/>
                                     <outlet property="courseProgress" destination="hFR-Ij-aaa" id="Z2j-JW-fkV"/>
                                     <segue destination="dZn-mL-fDm" kind="push" identifier="takeCourse" id="2Sc-Kq-jbl"/>
@@ -429,7 +448,7 @@
                     <view key="view" contentMode="scaleToFill" id="Rlk-0o-IRk">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.96078431610000004" green="0.96078431610000004" blue="0.96078431610000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96078431606292725" green="0.96078431606292725" blue="0.96078431606292725" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="fbr-6W-3e6"/>

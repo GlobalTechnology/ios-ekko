@@ -9,11 +9,20 @@
 #import "CourseListCell.h"
 
 #import "ResourceManager.h"
-#import "Manifest+Ekko.h"
+#import "Permission.h"
+#import "HubClient.h"
+
+#import "UIImage+Ekko.h"
+#import "UIColor+Ekko.h"
 
 static const int insetViewTag = 1;
 
 @implementation CourseListCell
+
+-(void)setCourseActionButton:(UIButton *)courseActionButton {
+    _courseActionButton = courseActionButton;
+    [courseActionButton setImage:[UIImage imageNamed:@"ic_action_overflow.png" withTint:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+}
 
 -(void)setCourse:(Course *)course {
     _course = course;
@@ -21,7 +30,6 @@ static const int insetViewTag = 1;
     //Reset Cell
     [self.bannerImageView setImage:nil];
     [self.courseProgress setProgress:0.f];
-//    [[ProgressManager progressManager] removeProgressDelegate:self];
 
     //Set course title
     [self.courseLabel setText:course.courseTitle];
@@ -37,19 +45,6 @@ static const int insetViewTag = 1;
             }
         }];
     }
-/*
-    //Set progress
-    id<ProgressManagerDataSource> progressDataSource = [[CoreDataService sharedService] getManifestObjectByCourseId:[course courseId]];
-    if (progressDataSource) {
-        [[ProgressManager progressManager] addProgressDelegate:self forDataSource:progressDataSource];
-    }
-*/
-}
-
--(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
-    if (self.course && [self.course.courseId isEqualToString:[dataSource courseId]]) {
-        [self.courseProgress setProgress:progress];
-    }
 }
 
 -(void)drawRect:(CGRect)rect {
@@ -64,4 +59,60 @@ static const int insetViewTag = 1;
     insetView.layer.shadowOpacity = 0.5f;
     insetView.layer.shadowPath = [UIBezierPath bezierPathWithRect:insetView.bounds].CGPath;
 }
+
+- (IBAction)handleCourseActionButton:(id)sender {
+    //Build ActionSheet
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    Permission *permission = self.course.permission;
+    
+    BOOL enroll = NO;
+    BOOL unenroll = NO;
+    
+    if (permission.enrolled) {
+        unenroll = YES;
+    }
+    else {
+        enroll = YES;
+    }
+
+    switch (self.course.enrollmentType) {
+        case CourseEnrollmentOpen:
+        case CourseEnrollmentApproval:
+            break;
+        case CourseEnrollmentDisabled:
+        default:
+            enroll = NO;
+            unenroll = NO;
+            break;
+    }
+    
+    if (enroll) {
+        [actionSheet addButtonWithTitle:@"Enroll in Course"];
+    }
+    else if (unenroll) {
+        [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:@"Unenroll from Course"]];
+    }
+    
+    [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:@"Cancel"]];
+    [actionSheet showInView:self];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [actionSheet cancelButtonIndex]) {
+        return;
+    }
+    
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Enroll in Course"]) {
+        [[HubClient hubClient] enrollInCourse:self.course.courseId callback:^(HubCourse *course) {
+            NSLog(@"Enrolled in Course: %@", [course.courseMeta courseTitle]);
+        }];
+    }
+    else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
+        [[HubClient hubClient] unenrollFromCourse:self.course.courseId callback:^(BOOL success) {
+            NSLog(@"Unenrolled from Course: %@", success ? @"YES" : @"NO");
+        }];
+    }
+}
+
 @end
