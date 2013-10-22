@@ -164,14 +164,14 @@ NSString *const EkkoEntities[] = {
 -(NSFetchedResultsController *)fetchedResultsControllerForAllCourses {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
 -(NSFetchedResultsController *)fetchedResultsControllerForMyCourses {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid]]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
