@@ -165,7 +165,6 @@ NSString *const EkkoEntities[] = {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid]]];
-//    [request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@).@count != 0)", [[HubClient hubClient] sessionGuid]]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
@@ -173,7 +172,6 @@ NSString *const EkkoEntities[] = {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid]]];
-//    [request setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@ AND $p.contentVisible == YES).@count != 0)", [[HubClient hubClient] sessionGuid]]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
