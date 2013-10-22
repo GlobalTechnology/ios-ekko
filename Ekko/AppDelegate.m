@@ -23,7 +23,8 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    if([[TheKey theKey] canAuthenticate]) {
+    TheKey *theKey = [TheKey theKey];
+    if([theKey canAuthenticate] && [theKey getGuid]) {
         [[HubSyncService sharedService] syncCourses];
     }
     else {
