@@ -21,13 +21,10 @@
 		D303D894180DE3CF0065B920 /* glyphicons_071_book@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D303D890180DE3CF0065B920 /* glyphicons_071_book@2x.png */; };
 		D304835218159DB200129733 /* ic_action_overflow.png in Resources */ = {isa = PBXBuildFile; fileRef = D304835118159DB200129733 /* ic_action_overflow.png */; };
 		D304835418159DFE00129733 /* ic_action_overflow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D304835318159DFE00129733 /* ic_action_overflow@2x.png */; };
-		D304835A1815ACC900129733 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D30483591815ACC900129733 /* Course.m */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
 		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
 		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
-		D330723B1807489400EDD036 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723A1807489400EDD036 /* Answer.m */; };
 		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
-		D3320ABF18032EEB004E13E0 /* ProgressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3320ABE18032EEB004E13E0 /* ProgressItem.m */; };
 		D3375AE318106BAC00BAB134 /* AboutEkkoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */; };
 		D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */ = {isa = PBXBuildFile; fileRef = D3375AE418106C9500BAB134 /* AboutEkko.html */; };
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
@@ -58,15 +55,6 @@
 		D359FFA617EC96FE007A095B /* show_lines.png in Resources */ = {isa = PBXBuildFile; fileRef = D359FF1917EC96FE007A095B /* show_lines.png */; };
 		D359FFA717EC96FE007A095B /* show_lines@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D359FF1A17EC96FE007A095B /* show_lines@2x.png */; };
 		D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF1D17EC96FE007A095B /* M13Checkbox.m */; };
-		D359FFAA17EC96FE007A095B /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF2317EC96FE007A095B /* ContentItem.m */; };
-		D359FFAC17EC96FE007A095B /* Lesson.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF2717EC96FE007A095B /* Lesson.m */; };
-		D359FFAE17EC96FE007A095B /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF2B17EC96FE007A095B /* Media.m */; };
-		D359FFAF17EC96FE007A095B /* MultipleChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF2D17EC96FE007A095B /* MultipleChoice.m */; };
-		D359FFB017EC96FE007A095B /* MultipleChoiceOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF2F17EC96FE007A095B /* MultipleChoiceOption.m */; };
-		D359FFB117EC96FE007A095B /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3117EC96FE007A095B /* Page.m */; };
-		D359FFB217EC96FE007A095B /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3317EC96FE007A095B /* Question.m */; };
-		D359FFB317EC96FE007A095B /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3517EC96FE007A095B /* Quiz.m */; };
-		D359FFB417EC96FE007A095B /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3717EC96FE007A095B /* Resource.m */; };
 		D359FFB517EC96FE007A095B /* Course+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3917EC96FE007A095B /* Course+Hub.m */; };
 		D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3C17EC96FE007A095B /* Course+Ekko.m */; };
 		D359FFB717EC96FE007A095B /* Lesson+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3E17EC96FE007A095B /* Lesson+Ekko.m */; };
@@ -103,6 +91,22 @@
 		D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */; };
 		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
 		D35B6CC7180EECC200670090 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B6CC6180EECC200670090 /* CFNetwork.framework */; };
+		D3622D6218184C5000CE2510 /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6118184C5000CE2510 /* Quiz.m */; };
+		D3622D6518184C5000CE2510 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6418184C5000CE2510 /* Course.m */; };
+		D3622D6818184C5000CE2510 /* ProgressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6718184C5000CE2510 /* ProgressItem.m */; };
+		D3622D6B18184C5000CE2510 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6A18184C5000CE2510 /* Question.m */; };
+		D3622D6E18184C5100CE2510 /* MultipleChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6D18184C5100CE2510 /* MultipleChoice.m */; };
+		D3622D7118184C5100CE2510 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7018184C5100CE2510 /* Media.m */; };
+		D3622D7418184C5100CE2510 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7318184C5100CE2510 /* Resource.m */; };
+		D3622D7718184C5100CE2510 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7618184C5100CE2510 /* Page.m */; };
+		D3622D7A18184C5100CE2510 /* ManifestResource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7918184C5100CE2510 /* ManifestResource.m */; };
+		D3622D7D18184C5100CE2510 /* CourseResource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7C18184C5100CE2510 /* CourseResource.m */; };
+		D3622D8018184C5100CE2510 /* ContentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7F18184C5100CE2510 /* ContentItem.m */; };
+		D3622D8318184C5100CE2510 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8218184C5100CE2510 /* Answer.m */; };
+		D3622D8618184C5100CE2510 /* Manifest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8518184C5100CE2510 /* Manifest.m */; };
+		D3622D8918184C5100CE2510 /* Lesson.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8818184C5100CE2510 /* Lesson.m */; };
+		D3622D8C18184C5100CE2510 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8B18184C5100CE2510 /* Permission.m */; };
+		D3622D8F18184C5100CE2510 /* MultipleChoiceOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8E18184C5100CE2510 /* MultipleChoiceOption.m */; };
 		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
 		D3AF1DBC1816D78E00EA1CE8 /* CourseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF1DBB1816D78E00EA1CE8 /* CourseParser.m */; };
@@ -111,8 +115,6 @@
 		D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */; };
 		D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */; };
 		D3EBCA911811A66A00152107 /* HubPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCA901811A66A00152107 /* HubPermission.m */; };
-		D3EBCA941811BFFC00152107 /* AbstractCourse.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCA931811BFFC00152107 /* AbstractCourse.m */; };
-		D3EBCA971811BFFC00152107 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCA961811BFFC00152107 /* Permission.m */; };
 		D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCAA51811C82800152107 /* Permission+Hub.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
@@ -127,7 +129,6 @@
 		D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2717ECB9620039B0AC /* Images.xcassets */; };
 		D3FB3C9A180476F30051642F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C99180476F30051642F /* DataManager.m */; };
 		D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */; };
-		D3FB3CA018049A0F0051642F /* Manifest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C9F18049A0F0051642F /* Manifest.m */; };
 		D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */; };
 /* End PBXBuildFile section */
 
@@ -158,21 +159,15 @@
 		D303D890180DE3CF0065B920 /* glyphicons_071_book@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_071_book@2x.png"; sourceTree = "<group>"; };
 		D304835118159DB200129733 /* ic_action_overflow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_action_overflow.png; sourceTree = "<group>"; };
 		D304835318159DFE00129733 /* ic_action_overflow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_overflow@2x.png"; sourceTree = "<group>"; };
-		D30483581815ACC900129733 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		D30483591815ACC900129733 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
 		D33072311807227E00EDD036 /* QuizCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizCompleteViewController.m; sourceTree = "<group>"; };
 		D33072331807349B00EDD036 /* QuizManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizManager.h; sourceTree = "<group>"; };
 		D33072341807349B00EDD036 /* QuizManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizManager.m; sourceTree = "<group>"; };
-		D33072391807489400EDD036 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
-		D330723A1807489400EDD036 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
 		D330723C18074A4500EDD036 /* Question+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Question+Ekko.h"; sourceTree = "<group>"; };
 		D330723D18074A4500EDD036 /* Question+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Question+Ekko.m"; sourceTree = "<group>"; };
 		D330724018074D1600EDD036 /* CourseIdProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseIdProtocol.h; sourceTree = "<group>"; };
-		D3320ABD18032EEB004E13E0 /* ProgressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressItem.h; sourceTree = "<group>"; };
-		D3320ABE18032EEB004E13E0 /* ProgressItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressItem.m; sourceTree = "<group>"; };
 		D3375AE118106BAC00BAB134 /* AboutEkkoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutEkkoViewController.h; sourceTree = "<group>"; };
 		D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutEkkoViewController.m; sourceTree = "<group>"; };
 		D3375AE418106C9500BAB134 /* AboutEkko.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AboutEkko.html; sourceTree = "<group>"; };
@@ -222,24 +217,6 @@
 		D359FF1A17EC96FE007A095B /* show_lines@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show_lines@2x.png"; sourceTree = "<group>"; };
 		D359FF1C17EC96FE007A095B /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
 		D359FF1D17EC96FE007A095B /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
-		D359FF2217EC96FE007A095B /* ContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentItem.h; sourceTree = "<group>"; };
-		D359FF2317EC96FE007A095B /* ContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentItem.m; sourceTree = "<group>"; };
-		D359FF2617EC96FE007A095B /* Lesson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lesson.h; sourceTree = "<group>"; };
-		D359FF2717EC96FE007A095B /* Lesson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lesson.m; sourceTree = "<group>"; };
-		D359FF2A17EC96FE007A095B /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
-		D359FF2B17EC96FE007A095B /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
-		D359FF2C17EC96FE007A095B /* MultipleChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoice.h; sourceTree = "<group>"; };
-		D359FF2D17EC96FE007A095B /* MultipleChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoice.m; sourceTree = "<group>"; };
-		D359FF2E17EC96FE007A095B /* MultipleChoiceOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoiceOption.h; sourceTree = "<group>"; };
-		D359FF2F17EC96FE007A095B /* MultipleChoiceOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceOption.m; sourceTree = "<group>"; };
-		D359FF3017EC96FE007A095B /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
-		D359FF3117EC96FE007A095B /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
-		D359FF3217EC96FE007A095B /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
-		D359FF3317EC96FE007A095B /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
-		D359FF3417EC96FE007A095B /* Quiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quiz.h; sourceTree = "<group>"; };
-		D359FF3517EC96FE007A095B /* Quiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Quiz.m; sourceTree = "<group>"; };
-		D359FF3617EC96FE007A095B /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
-		D359FF3717EC96FE007A095B /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		D359FF3817EC96FE007A095B /* Course+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+Hub.h"; sourceTree = "<group>"; };
 		D359FF3917EC96FE007A095B /* Course+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+Hub.m"; sourceTree = "<group>"; };
 		D359FF3B17EC96FE007A095B /* Course+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+Ekko.h"; sourceTree = "<group>"; };
@@ -310,6 +287,38 @@
 		D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D35B6CC6180EECC200670090 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D3622D6018184C5000CE2510 /* Quiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quiz.h; sourceTree = "<group>"; };
+		D3622D6118184C5000CE2510 /* Quiz.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Quiz.m; sourceTree = "<group>"; };
+		D3622D6318184C5000CE2510 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		D3622D6418184C5000CE2510 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		D3622D6618184C5000CE2510 /* ProgressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressItem.h; sourceTree = "<group>"; };
+		D3622D6718184C5000CE2510 /* ProgressItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressItem.m; sourceTree = "<group>"; };
+		D3622D6918184C5000CE2510 /* Question.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Question.h; sourceTree = "<group>"; };
+		D3622D6A18184C5000CE2510 /* Question.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Question.m; sourceTree = "<group>"; };
+		D3622D6C18184C5100CE2510 /* MultipleChoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoice.h; sourceTree = "<group>"; };
+		D3622D6D18184C5100CE2510 /* MultipleChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoice.m; sourceTree = "<group>"; };
+		D3622D6F18184C5100CE2510 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
+		D3622D7018184C5100CE2510 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
+		D3622D7218184C5100CE2510 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
+		D3622D7318184C5100CE2510 /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
+		D3622D7518184C5100CE2510 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
+		D3622D7618184C5100CE2510 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
+		D3622D7818184C5100CE2510 /* ManifestResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManifestResource.h; sourceTree = "<group>"; };
+		D3622D7918184C5100CE2510 /* ManifestResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManifestResource.m; sourceTree = "<group>"; };
+		D3622D7B18184C5100CE2510 /* CourseResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseResource.h; sourceTree = "<group>"; };
+		D3622D7C18184C5100CE2510 /* CourseResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseResource.m; sourceTree = "<group>"; };
+		D3622D7E18184C5100CE2510 /* ContentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentItem.h; sourceTree = "<group>"; };
+		D3622D7F18184C5100CE2510 /* ContentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentItem.m; sourceTree = "<group>"; };
+		D3622D8118184C5100CE2510 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
+		D3622D8218184C5100CE2510 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
+		D3622D8418184C5100CE2510 /* Manifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Manifest.h; sourceTree = "<group>"; };
+		D3622D8518184C5100CE2510 /* Manifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manifest.m; sourceTree = "<group>"; };
+		D3622D8718184C5100CE2510 /* Lesson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lesson.h; sourceTree = "<group>"; };
+		D3622D8818184C5100CE2510 /* Lesson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lesson.m; sourceTree = "<group>"; };
+		D3622D8A18184C5100CE2510 /* Permission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Permission.h; sourceTree = "<group>"; };
+		D3622D8B18184C5100CE2510 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
+		D3622D8D18184C5100CE2510 /* MultipleChoiceOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipleChoiceOption.h; sourceTree = "<group>"; };
+		D3622D8E18184C5100CE2510 /* MultipleChoiceOption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoiceOption.m; sourceTree = "<group>"; };
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -325,10 +334,6 @@
 		D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerMediaCell.m; sourceTree = "<group>"; };
 		D3EBCA8F1811A66A00152107 /* HubPermission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubPermission.h; sourceTree = "<group>"; };
 		D3EBCA901811A66A00152107 /* HubPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubPermission.m; sourceTree = "<group>"; };
-		D3EBCA921811BFFC00152107 /* AbstractCourse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractCourse.h; sourceTree = "<group>"; };
-		D3EBCA931811BFFC00152107 /* AbstractCourse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractCourse.m; sourceTree = "<group>"; };
-		D3EBCA951811BFFC00152107 /* Permission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Permission.h; sourceTree = "<group>"; };
-		D3EBCA961811BFFC00152107 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
 		D3EBCAA41811C82800152107 /* Permission+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Permission+Hub.h"; sourceTree = "<group>"; };
 		D3EBCAA51811C82800152107 /* Permission+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Permission+Hub.m"; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -349,8 +354,6 @@
 		D3FB3C99180476F30051642F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		D3FB3C9B180482A80051642F /* CourseCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCompleteViewController.h; sourceTree = "<group>"; };
 		D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCompleteViewController.m; sourceTree = "<group>"; };
-		D3FB3C9E18049A0F0051642F /* Manifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Manifest.h; sourceTree = "<group>"; };
-		D3FB3C9F18049A0F0051642F /* Manifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manifest.m; sourceTree = "<group>"; };
 		D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_ekko_quiz@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -513,37 +516,39 @@
 		D359FF1F17EC96FE007A095B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				D3EBCA921811BFFC00152107 /* AbstractCourse.h */,
-				D3EBCA931811BFFC00152107 /* AbstractCourse.m */,
-				D33072391807489400EDD036 /* Answer.h */,
-				D330723A1807489400EDD036 /* Answer.m */,
-				D359FF2217EC96FE007A095B /* ContentItem.h */,
-				D359FF2317EC96FE007A095B /* ContentItem.m */,
-				D30483581815ACC900129733 /* Course.h */,
-				D30483591815ACC900129733 /* Course.m */,
+				D3622D8D18184C5100CE2510 /* MultipleChoiceOption.h */,
+				D3622D8E18184C5100CE2510 /* MultipleChoiceOption.m */,
+				D3622D8A18184C5100CE2510 /* Permission.h */,
+				D3622D8B18184C5100CE2510 /* Permission.m */,
+				D3622D8718184C5100CE2510 /* Lesson.h */,
+				D3622D8818184C5100CE2510 /* Lesson.m */,
+				D3622D8418184C5100CE2510 /* Manifest.h */,
+				D3622D8518184C5100CE2510 /* Manifest.m */,
+				D3622D8118184C5100CE2510 /* Answer.h */,
+				D3622D8218184C5100CE2510 /* Answer.m */,
+				D3622D7E18184C5100CE2510 /* ContentItem.h */,
+				D3622D7F18184C5100CE2510 /* ContentItem.m */,
+				D3622D7B18184C5100CE2510 /* CourseResource.h */,
+				D3622D7C18184C5100CE2510 /* CourseResource.m */,
+				D3622D7818184C5100CE2510 /* ManifestResource.h */,
+				D3622D7918184C5100CE2510 /* ManifestResource.m */,
+				D3622D7518184C5100CE2510 /* Page.h */,
+				D3622D7618184C5100CE2510 /* Page.m */,
+				D3622D7218184C5100CE2510 /* Resource.h */,
+				D3622D7318184C5100CE2510 /* Resource.m */,
+				D3622D6F18184C5100CE2510 /* Media.h */,
+				D3622D7018184C5100CE2510 /* Media.m */,
+				D3622D6C18184C5100CE2510 /* MultipleChoice.h */,
+				D3622D6D18184C5100CE2510 /* MultipleChoice.m */,
+				D3622D6918184C5000CE2510 /* Question.h */,
+				D3622D6A18184C5000CE2510 /* Question.m */,
+				D3622D6618184C5000CE2510 /* ProgressItem.h */,
+				D3622D6718184C5000CE2510 /* ProgressItem.m */,
+				D3622D6318184C5000CE2510 /* Course.h */,
+				D3622D6418184C5000CE2510 /* Course.m */,
+				D3622D6018184C5000CE2510 /* Quiz.h */,
+				D3622D6118184C5000CE2510 /* Quiz.m */,
 				D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */,
-				D359FF2617EC96FE007A095B /* Lesson.h */,
-				D359FF2717EC96FE007A095B /* Lesson.m */,
-				D3FB3C9E18049A0F0051642F /* Manifest.h */,
-				D3FB3C9F18049A0F0051642F /* Manifest.m */,
-				D359FF2A17EC96FE007A095B /* Media.h */,
-				D359FF2B17EC96FE007A095B /* Media.m */,
-				D359FF2C17EC96FE007A095B /* MultipleChoice.h */,
-				D359FF2D17EC96FE007A095B /* MultipleChoice.m */,
-				D359FF2E17EC96FE007A095B /* MultipleChoiceOption.h */,
-				D359FF2F17EC96FE007A095B /* MultipleChoiceOption.m */,
-				D359FF3017EC96FE007A095B /* Page.h */,
-				D359FF3117EC96FE007A095B /* Page.m */,
-				D3EBCA951811BFFC00152107 /* Permission.h */,
-				D3EBCA961811BFFC00152107 /* Permission.m */,
-				D3320ABD18032EEB004E13E0 /* ProgressItem.h */,
-				D3320ABE18032EEB004E13E0 /* ProgressItem.m */,
-				D359FF3217EC96FE007A095B /* Question.h */,
-				D359FF3317EC96FE007A095B /* Question.m */,
-				D359FF3417EC96FE007A095B /* Quiz.h */,
-				D359FF3517EC96FE007A095B /* Quiz.m */,
-				D359FF3617EC96FE007A095B /* Resource.h */,
-				D359FF3717EC96FE007A095B /* Resource.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -965,41 +970,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D359FFB217EC96FE007A095B /* Question.m in Sources */,
-				D359FFB417EC96FE007A095B /* Resource.m in Sources */,
+				D3622D8C18184C5100CE2510 /* Permission.m in Sources */,
 				D359FFB917EC96FE007A095B /* Media+Ekko.m in Sources */,
-				D359FFB117EC96FE007A095B /* Page.m in Sources */,
+				D3622D6218184C5000CE2510 /* Quiz.m in Sources */,
 				D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */,
 				D359FF9617EC96FE007A095B /* HubManifest.m in Sources */,
 				D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
 				D359FF9817EC96FE007A095B /* HubOption.m in Sources */,
+				D3622D7418184C5100CE2510 /* Resource.m in Sources */,
 				D359FF9C17EC96FE007A095B /* HubResource.m in Sources */,
 				D359FFBA17EC96FE007A095B /* Quiz+Ekko.m in Sources */,
 				D359FF9117EC96FE007A095B /* HubXMLParser.m in Sources */,
 				D359FFD017EC96FE007A095B /* MultipleChoiceOptionCell.m in Sources */,
 				D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */,
 				D359FFD517EC96FE007A095B /* DrawerViewController.m in Sources */,
+				D3622D7718184C5100CE2510 /* Page.m in Sources */,
 				D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */,
+				D3622D7A18184C5100CE2510 /* ManifestResource.m in Sources */,
+				D3622D8018184C5100CE2510 /* ContentItem.m in Sources */,
+				D3622D6518184C5000CE2510 /* Course.m in Sources */,
+				D3622D8318184C5100CE2510 /* Answer.m in Sources */,
+				D3622D8F18184C5100CE2510 /* MultipleChoiceOption.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
-				D330723B1807489400EDD036 /* Answer.m in Sources */,
 				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
 				D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */,
 				D359FFD117EC96FE007A095B /* MultipleChoiceViewController.m in Sources */,
 				D359FFD717EC96FE007A095B /* SwipeViewController.m in Sources */,
 				D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */,
-				D3320ABF18032EEB004E13E0 /* ProgressItem.m in Sources */,
-				D359FFAE17EC96FE007A095B /* Media.m in Sources */,
 				D359FFCC17EC96FE007A095B /* CourseViewController.m in Sources */,
 				D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */,
+				D3622D7118184C5100CE2510 /* Media.m in Sources */,
 				D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */,
 				D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */,
-				D359FFB317EC96FE007A095B /* Quiz.m in Sources */,
 				D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */,
-				D3EBCA941811BFFC00152107 /* AbstractCourse.m in Sources */,
-				D3EBCA971811BFFC00152107 /* Permission.m in Sources */,
-				D304835A1815ACC900129733 /* Course.m in Sources */,
 				D359FF9717EC96FE007A095B /* HubMeta.m in Sources */,
 				D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
@@ -1009,7 +1014,6 @@
 				D33072351807349B00EDD036 /* QuizManager.m in Sources */,
 				D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */,
 				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
-				D359FFB017EC96FE007A095B /* MultipleChoiceOption.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
 				D359FF9E17EC96FE007A095B /* ManifestParser.m in Sources */,
@@ -1018,18 +1022,18 @@
 				D359FFBD17EC96FE007A095B /* MultipleChoice+Hub.m in Sources */,
 				D359FFCD17EC96FE007A095B /* LessonViewController.m in Sources */,
 				D359FFC017EC96FE007A095B /* Resource+Hub.m in Sources */,
-				D3FB3CA018049A0F0051642F /* Manifest.m in Sources */,
 				D3375AE318106BAC00BAB134 /* AboutEkkoViewController.m in Sources */,
-				D359FFAF17EC96FE007A095B /* MultipleChoice.m in Sources */,
 				D359FFD217EC96FE007A095B /* QuizViewController.m in Sources */,
-				D359FFAC17EC96FE007A095B /* Lesson.m in Sources */,
 				D359FF9917EC96FE007A095B /* HubQuestion.m in Sources */,
 				D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */,
+				D3622D6818184C5000CE2510 /* ProgressItem.m in Sources */,
 				D359FFB517EC96FE007A095B /* Course+Hub.m in Sources */,
 				D359FF9017EC96FE007A095B /* HubXMLModel.m in Sources */,
 				D359FFCE17EC96FE007A095B /* MediaViewController.m in Sources */,
 				D359FFBC17EC96FE007A095B /* Lesson+Hub.m in Sources */,
 				D359FFC817EC96FE007A095B /* URLUtils.m in Sources */,
+				D3622D6E18184C5100CE2510 /* MultipleChoice.m in Sources */,
+				D3622D8918184C5100CE2510 /* Lesson.m in Sources */,
 				D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */,
 				D359FF9517EC96FE007A095B /* HubLessonPage.m in Sources */,
 				D325766517F375E200447A2D /* ResourceManager.m in Sources */,
@@ -1037,6 +1041,7 @@
 				D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */,
 				D3EBCA911811A66A00152107 /* HubPermission.m in Sources */,
 				D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */,
+				D3622D7D18184C5100CE2510 /* CourseResource.m in Sources */,
 				D359FFBB17EC96FE007A095B /* Resource+Ekko.m in Sources */,
 				D359FF9B17EC96FE007A095B /* HubQuiz.m in Sources */,
 				D359FF9217EC96FE007A095B /* HubCourse.m in Sources */,
@@ -1044,10 +1049,11 @@
 				D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */,
 				D359FFB717EC96FE007A095B /* Lesson+Ekko.m in Sources */,
 				D359FFBE17EC96FE007A095B /* Quiz+Hub.m in Sources */,
-				D359FFAA17EC96FE007A095B /* ContentItem.m in Sources */,
 				D3F2F00D17EC904800F32F52 /* main.m in Sources */,
+				D3622D6B18184C5000CE2510 /* Question.m in Sources */,
 				D359FFBF17EC96FE007A095B /* Manifest+Hub.m in Sources */,
 				D359FFB817EC96FE007A095B /* Manifest+Ekko.m in Sources */,
+				D3622D8618184C5100CE2510 /* Manifest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

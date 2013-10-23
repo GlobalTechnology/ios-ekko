@@ -105,3 +105,12 @@ FOUNDATION_EXPORT NSString *const kEkkoHubXMLAttrResourceProvider;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeDisabled;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeOpen;
 FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueEnrollmentTypeApproval;
+
+/** resource type values */
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueResourceTypeFile;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueResourceTypeURI;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueResourceTypeDynamic;
+
+/** resource provider values */
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueResourceProviderYouTube;
+FOUNDATION_EXPORT NSString *const kEkkoHubXMLValueResourceProviderVimeo;

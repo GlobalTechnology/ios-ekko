@@ -11,6 +11,6 @@
 
 @interface Course (Hub)
 
--(void)updateWithHubCourse:(HubCourse *)hubCourse;
+-(void)syncWithHubCourse:(HubCourse *)hubCourse;
 
 @end

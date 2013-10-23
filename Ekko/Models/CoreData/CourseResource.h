@@ -1,5 +1,5 @@
 //
-//  ProgressItem.h
+//  CourseResource.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 10/23/13.
@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Resource.h"
 
+@class Course;
 
-@interface ProgressItem : NSManagedObject
+@interface CourseResource : Resource
 
-@property (nonatomic, retain) NSString * courseId;
-@property (nonatomic, retain) NSString * itemId;
+@property (nonatomic, retain) Course *course;
 
 @end

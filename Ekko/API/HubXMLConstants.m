@@ -105,3 +105,12 @@ NSString *const kEkkoHubXMLAttrResourceProvider = @"provider";
 NSString *const kEkkoHubXMLValueEnrollmentTypeDisabled = @"disabled";
 NSString *const kEkkoHubXMLValueEnrollmentTypeOpen     = @"open";
 NSString *const kEkkoHubXMLValueEnrollmentTypeApproval = @"approval";
+
+/** resource type values */
+NSString *const kEkkoHubXMLValueResourceTypeFile    = @"file";
+NSString *const kEkkoHubXMLValueResourceTypeURI     = @"uri";
+NSString *const kEkkoHubXMLValueResourceTypeDynamic = @"dynamic";
+
+/** resource provider values */
+NSString *const kEkkoHubXMLValueResourceProviderYouTube = @"youtube";
+NSString *const kEkkoHubXMLValueResourceProviderVimeo   = @"vimeo";

@@ -1,19 +1,17 @@
 //
-//  Lesson.m
+//  ManifestResource.m
 //  Ekko
 //
 //  Created by Brian Zoetewey on 10/23/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "Lesson.h"
-#import "Media.h"
-#import "Page.h"
+#import "ManifestResource.h"
+#import "Manifest.h"
 
 
-@implementation Lesson
+@implementation ManifestResource
 
-@dynamic media;
-@dynamic pages;
+@dynamic course;
 
 @end

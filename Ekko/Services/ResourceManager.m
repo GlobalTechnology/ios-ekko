@@ -7,7 +7,7 @@
 //
 
 #import "ResourceManager.h"
-#import "AbstractCourse.h"
+#import "CourseIdProtocol.h"
 #import "HubClient.h"
 #import <AFImageRequestOperation.h>
 
@@ -129,8 +129,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     }];
 }
 
--(NSString *)pathForCourse:(AbstractCourse *)course {
-    NSString *courseDirectory = [self.cacheDirectory stringByAppendingPathComponent:course.courseId];
+-(NSString *)pathForCourseId:(NSString *)courseId {
+    NSString *courseDirectory = [self.cacheDirectory stringByAppendingPathComponent:courseId];
     if (![self.fileManager fileExistsAtPath:courseDirectory]) {
         [self.fileManager createDirectoryAtPath:courseDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     }
@@ -138,7 +138,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 }
 
 -(NSString *)pathForResource:(Resource *)resource {
-    NSString *courseDirectory = [self pathForCourse:resource.course];
+    NSString *courseDirectory = [self pathForCourseId:resource.courseId];
     NSString *filename = [resource filenameOnDisk];
     if (filename) {
         return [courseDirectory stringByAppendingPathComponent:filename];

@@ -10,7 +10,7 @@
 
 @implementation Permission (Hub)
 
--(void)syncFromHubPermission:(HubPermission *)hubPermission {
+-(void)syncWithHubPermission:(HubPermission *)hubPermission {
     [self setGuid:hubPermission.guid];
     [self setEnrolled:hubPermission.enrolled];
     [self setAdmin:hubPermission.admin];

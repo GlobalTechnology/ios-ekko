@@ -38,7 +38,7 @@
     NSUInteger total = self.quiz.questions.count;
     
     NSString *completeHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:28px;text-align:center;\">%@</body></html>";
-    NSString *resultsMessage = [NSString stringWithFormat:@"Results:<div style=\"font-size:34px;\">%u/%u</div>", correct, total];
+    NSString *resultsMessage = [NSString stringWithFormat:@"Results:<div style=\"font-size:34px;\">%lu/%lu</div>", (unsigned long)correct, (unsigned long)total];
     [self.completeWebView loadHTMLString:[NSString stringWithFormat:completeHTML, resultsMessage] baseURL:nil];
     
     //Quiz Complete always shows progress of 100%

@@ -1,5 +1,5 @@
 //
-//  ContentItem.h
+//  ManifestResource.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 10/23/13.
@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "Resource.h"
 
 @class Manifest;
 
-@interface ContentItem : NSManagedObject
+@interface ManifestResource : Resource
 
-@property (nonatomic, retain) NSString * itemId;
-@property (nonatomic, retain) NSString * itemTitle;
 @property (nonatomic, retain) Manifest *course;
 
 @end

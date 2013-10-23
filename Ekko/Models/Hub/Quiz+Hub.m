@@ -20,20 +20,20 @@
     self.questions = orderedSet;
 }
 
--(void)updateWithHubQuiz:(HubQuiz *)hubQuiz {
+-(void)syncWithHubQuiz:(HubQuiz *)hubQuiz {
     [self setItemId:[hubQuiz quizId]];
     [self setItemTitle:[hubQuiz quizTitle]];
     
     self.questions = [NSMutableOrderedSet orderedSet];
     for (HubQuestion *hubQuestion in hubQuiz.questions) {
         if ([hubQuestion isKindOfClass:[HubQuestionMC class]]) {
-            MultipleChoice *question = (MultipleChoice *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMultipleChoiceEntity inManagedObjectContext:self.managedObjectContext];
+            MultipleChoice *question = (MultipleChoice *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityMultipleChoice inManagedObjectContext:self.managedObjectContext];
             [question setQuestionId:[hubQuestion questionId]];
             [question setQuestionText:[(HubQuestionMC *)hubQuestion questionText]];
             
             question.options = [NSMutableOrderedSet orderedSet];
             for (HubOption *hubOption in [(HubQuestionMC *)hubQuestion options]) {
-                MultipleChoiceOption *option = (MultipleChoiceOption *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMultipleChoiceOptionEntity inManagedObjectContext:self.managedObjectContext];
+                MultipleChoiceOption *option = (MultipleChoiceOption *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityMultipleChoiceOption inManagedObjectContext:self.managedObjectContext];
                 [option setOptionId:[hubOption optionId]];
                 [option setOptionText:[hubOption optionText]];
                 [option setIsAnswer:[hubOption isAnswer]];

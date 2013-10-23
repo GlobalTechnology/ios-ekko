@@ -42,7 +42,7 @@
 -(void)saveMultipleChoiceAnswer:(MultipleChoiceOption *)option {
     NSManagedObjectContext *managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
     [managedObjectContext performBlock:^{
-        NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoAnswerEntity];
+        NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoEntityAnswer];
         [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [option.question courseId], option.question.questionId]];
         NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
         if (results && results.count > 0) {
@@ -52,7 +52,7 @@
             }
         }
         else {
-            Answer *answer = (Answer *)[[DataManager dataManager] insertNewObjectForEntity:EkkoAnswerEntity inManagedObjectContext:managedObjectContext];
+            Answer *answer = (Answer *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityAnswer inManagedObjectContext:managedObjectContext];
             [answer setCourseId:[option.question courseId]];
             [answer setQuestionId:option.question.questionId];
             [answer setAnswer:option.optionId];
@@ -64,7 +64,7 @@
 }
 
 -(NSString *)selectedMultipleChoiceAnswer:(MultipleChoice *)question {
-    NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoAnswerEntity];
+    NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoEntityAnswer];
     [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [question courseId], question.questionId]];
     NSArray *results = [question.managedObjectContext executeFetchRequest:request error:nil];
     if (results && results.count > 0) {

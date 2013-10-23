@@ -7,6 +7,7 @@
 //
 
 #import "Manifest.h"
+#import "Resource+Ekko.h"
 #import "SwipeViewController.h"
 #import "ContentItemProtocol.h"
 #import "ProgressManager.h"

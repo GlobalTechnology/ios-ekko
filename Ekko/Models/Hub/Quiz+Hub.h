@@ -11,6 +11,6 @@
 
 @interface Quiz (Hub)
 
--(void)updateWithHubQuiz:(HubQuiz *)hubQuiz;
+-(void)syncWithHubQuiz:(HubQuiz *)hubQuiz;
 
 @end

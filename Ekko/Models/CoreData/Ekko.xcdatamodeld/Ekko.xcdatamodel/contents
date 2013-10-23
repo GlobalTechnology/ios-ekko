@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="AbstractCourse" representedClassName="AbstractCourse" isAbstract="YES" syncable="YES">
-        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="resources" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Resource" inverseName="course" inverseEntity="Resource" syncable="YES"/>
-    </entity>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="answer" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
@@ -14,34 +10,42 @@
         <attribute name="itemTitle" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="course" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Manifest" inverseName="content" inverseEntity="Manifest" syncable="YES"/>
     </entity>
-    <entity name="Course" representedClassName="Course" parentEntity="AbstractCourse" syncable="YES">
+    <entity name="Course" representedClassName="Course" syncable="YES">
         <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseCopyright" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseVersion" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="internalEnrollmentType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="publicCourse" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <relationship name="banner" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CourseResource" inverseName="course" inverseEntity="CourseResource" syncable="YES"/>
         <relationship name="permission" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Permission" inverseName="course" inverseEntity="Permission" syncable="YES"/>
+    </entity>
+    <entity name="CourseResource" representedClassName="CourseResource" parentEntity="Resource" syncable="YES">
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="banner" inverseEntity="Course" syncable="YES"/>
     </entity>
     <entity name="Lesson" representedClassName="Lesson" parentEntity="ContentItem" syncable="YES">
         <relationship name="media" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Media" inverseName="lesson" inverseEntity="Media" syncable="YES"/>
         <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="lesson" inverseEntity="Page" syncable="YES"/>
     </entity>
-    <entity name="Manifest" representedClassName="Manifest" parentEntity="AbstractCourse" syncable="YES">
+    <entity name="Manifest" representedClassName="Manifest" syncable="YES">
         <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="completeMessage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseCopyright" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseVersion" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="lastSynced" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="content" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ContentItem" inverseName="course" inverseEntity="ContentItem" syncable="YES"/>
+        <relationship name="resources" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ManifestResource" inverseName="course" inverseEntity="ManifestResource" syncable="YES"/>
+    </entity>
+    <entity name="ManifestResource" representedClassName="ManifestResource" parentEntity="Resource" syncable="YES">
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Manifest" inverseName="resources" inverseEntity="Manifest" syncable="YES"/>
     </entity>
     <entity name="Media" representedClassName="Media" syncable="YES">
         <attribute name="mediaId" attributeType="String" syncable="YES"/>
@@ -91,18 +95,16 @@
     <entity name="Quiz" representedClassName="Quiz" parentEntity="ContentItem" syncable="YES">
         <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Question" inverseName="quiz" inverseEntity="Question" syncable="YES"/>
     </entity>
-    <entity name="Resource" representedClassName="Resource" syncable="YES">
+    <entity name="Resource" representedClassName="Resource" isAbstract="YES" syncable="YES">
+        <attribute name="internalProvider" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="internalType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="resourceId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="resourceProvider" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="resourceType" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="resourceId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="sha1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="course" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="AbstractCourse" inverseName="resources" inverseEntity="AbstractCourse" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AbstractCourse" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ContentItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
@@ -117,5 +119,7 @@
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Quiz" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CourseResource" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ManifestResource" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

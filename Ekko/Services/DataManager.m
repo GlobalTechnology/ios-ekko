@@ -9,19 +9,20 @@
 #import "DataManager.h"
 #import "HubClient.h"
 
-NSString *const EkkoEntities[] = {
-    [EkkoCourseEntity]               = @"Course",
-    [EkkoManifestEntity]             = @"Manifest",
-    [EkkoResourceEntity]             = @"Resource",
-    [EkkoLessonEntity]               = @"Lesson",
-    [EkkoQuizEntity]                 = @"Quiz",
-    [EkkoPageEntity]                 = @"Page",
-    [EkkoMediaEntity]                = @"Media",
-    [EkkoMultipleChoiceEntity]       = @"MultipleChoice",
-    [EkkoMultipleChoiceOptionEntity] = @"MultipleChoiceOption",
-    [EkkoProgressItemEntity]         = @"ProgressItem",
-    [EkkoAnswerEntity]               = @"Answer",
-    [EkkoPermissionEntity]           = @"Permission",
+NSString *const EkkoEntityTypes[] = {
+    [EkkoEntityCourse]               = @"Course",
+    [EkkoEntityManifest]             = @"Manifest",
+    [EkkoEntityCourseResource]       = @"CourseResource",
+    [EkkoEntityManifestResource]     = @"ManifestResource",
+    [EkkoEntityLesson]               = @"Lesson",
+    [EkkoEntityQuiz]                 = @"Quiz",
+    [EkkoEntityPage]                 = @"Page",
+    [EkkoEntityMedia]                = @"Media",
+    [EkkoEntityMultipleChoice]       = @"MultipleChoice",
+    [EkkoEntityMultipleChoiceOption] = @"MultipleChoiceOption",
+    [EkkoEntityProgressItem]         = @"ProgressItem",
+    [EkkoEntityAnswer]               = @"Answer",
+    [EkkoEntityPermission]           = @"Permission",
 };
 
 @interface DataManager ()
@@ -113,19 +114,19 @@ NSString *const EkkoEntities[] = {
     return privateManagedObjectContext;
 }
 
--(NSString *)nameForEntity:(EkkoEntity)entity {
-    return (NSString *)EkkoEntities[entity];
+-(NSString *)nameForEntity:(EkkoEntityType)entity {
+    return (NSString *)EkkoEntityTypes[entity];
 }
 
--(NSEntityDescription *)entityDescriptionForEntity:(EkkoEntity)entity {
+-(NSEntityDescription *)entityDescriptionForEntity:(EkkoEntityType)entity {
     return (NSEntityDescription *)[[self.managedObjectModel entitiesByName] objectForKey:[self nameForEntity:entity]];
 }
 
--(NSManagedObject *)insertNewObjectForEntity:(EkkoEntity)entity inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+-(NSManagedObject *)insertNewObjectForEntity:(EkkoEntityType)entity inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     return [NSEntityDescription insertNewObjectForEntityForName:[self nameForEntity:entity] inManagedObjectContext:managedObjectContext];
 }
 
--(NSFetchRequest *)fetchRequestForEntity:(EkkoEntity)entity {
+-(NSFetchRequest *)fetchRequestForEntity:(EkkoEntityType)entity {
     return [NSFetchRequest fetchRequestWithEntityName:[self nameForEntity:entity]];
 }
 
@@ -135,11 +136,11 @@ NSString *const EkkoEntities[] = {
 }
 
 -(Manifest *)insertNewManifestInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    return (Manifest *)[self insertNewObjectForEntity:EkkoManifestEntity inManagedObjectContext:managedObjectContext];
+    return (Manifest *)[self insertNewObjectForEntity:EkkoEntityManifest inManagedObjectContext:managedObjectContext];
 }
 
 -(Manifest *)getManifestByCourseId:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoManifestEntity];
+    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityManifest];
     [request setPredicate:[NSPredicate predicateWithFormat:@"courseId == %@", courseId]];
     NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
     if (results != nil && [results count] > 0) {
@@ -149,11 +150,11 @@ NSString *const EkkoEntities[] = {
 }
 
 -(Course *)insertNewCourseInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    return (Course *)[self insertNewObjectForEntity:EkkoCourseEntity inManagedObjectContext:managedObjectContext];
+    return (Course *)[self insertNewObjectForEntity:EkkoEntityCourse inManagedObjectContext:managedObjectContext];
 }
 
 -(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
+    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
     NSArray *courses = [managedObjectContext executeFetchRequest:request error:nil];
     if (courses != nil) {
         return courses;
@@ -162,15 +163,15 @@ NSString *const EkkoEntities[] = {
 }
 
 -(NSFetchedResultsController *)fetchedResultsControllerForAllCourses {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
-    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
+    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
+    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
 -(NSFetchedResultsController *)fetchedResultsControllerForMyCourses {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoCourseEntity];
-    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES]]];
+    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
+    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
     [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }

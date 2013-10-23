@@ -11,6 +11,6 @@
 
 @interface Permission (Hub)
 
--(void)syncFromHubPermission:(HubPermission *)hubPermission;
+-(void)syncWithHubPermission:(HubPermission *)hubPermission;
 
 @end

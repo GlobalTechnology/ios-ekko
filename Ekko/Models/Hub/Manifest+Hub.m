@@ -7,11 +7,13 @@
 //
 
 #import "Manifest+Hub.h"
-#import "DataManager.h"
+#import "Manifest+Ekko.h"
 
 #import "Resource+Hub.h"
 #import "Lesson+Hub.h"
 #import "Quiz+Hub.h"
+
+#import "DataManager.h"
 
 @implementation Manifest (Hub)
 
@@ -21,12 +23,9 @@
     self.content = orderedSet;
 }
 
--(void)updateWithHubManifest:(HubManifest *)hubManifest {
+-(void)syncWithHubManifest:(HubManifest *)hubManifest {
     //Update Manifest if it is a new object or version number has changed
     if ([[self objectID] isTemporaryID] || [hubManifest courseVersion] > [self courseVersion]) {
-        //Update Last Synced to NOW
-        [self setLastSynced:[[NSDate date] timeIntervalSince1970]];
-        
         [self setCourseId:[hubManifest courseId]];
         [self setCourseVersion:[hubManifest courseVersion]];
         
@@ -39,24 +38,28 @@
         [self setCourseCopyright:[hubMeta courseCopyright]];
         
         [self setCompleteMessage:[hubManifest completeMessage]];
-
-        [self setResources:[NSMutableSet set]];
-        for (HubResource *hubResource in [hubManifest resources]) {
-            Resource *resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoResourceEntity inManagedObjectContext:self.managedObjectContext];
-            [resource updateFromHubResource:hubResource];
-            [self addResourcesObject:resource];
+        
+        NSMutableSet *resources = [NSMutableSet set];
+        for (HubResource *hubResource in hubManifest.resources) {
+            Resource *resource = [self resourceByResourceId:hubResource.resourceId];
+            if (resource == nil) {
+                resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityManifestResource inManagedObjectContext:self.managedObjectContext];
+            }
+            [resource syncWithHubResource:hubResource];
+            [resources addObject:resource];
         }
+        [self setResources:resources];
         
         [self setContent:[NSMutableOrderedSet orderedSet]];
         for (id contentItem in [hubManifest content]) {
             if ([contentItem isKindOfClass:[HubLesson class]]) {
-                Lesson *lesson = (Lesson *)[[DataManager dataManager] insertNewObjectForEntity:EkkoLessonEntity inManagedObjectContext:self.managedObjectContext];
-                [lesson updateWithHubLesson:contentItem];
+                Lesson *lesson = (Lesson *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityLesson inManagedObjectContext:self.managedObjectContext];
+                [lesson syncWithHubLesson:contentItem];
                 [self addContentObject:lesson];
             }
             else if ([contentItem isKindOfClass:[HubQuiz class]]) {
-                Quiz *quiz = (Quiz *)[[DataManager dataManager] insertNewObjectForEntity:EkkoQuizEntity inManagedObjectContext:self.managedObjectContext];
-                [quiz updateWithHubQuiz:contentItem];
+                Quiz *quiz = (Quiz *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityQuiz inManagedObjectContext:self.managedObjectContext];
+                [quiz syncWithHubQuiz:contentItem];
                 [self addContentObject:quiz];
             }
         }

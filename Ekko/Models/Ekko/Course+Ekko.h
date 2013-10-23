@@ -7,6 +7,7 @@
 //
 
 #import "Course.h"
+#import "CourseIdProtocol.h"
 
 typedef NS_ENUM(int16_t, CourseEnrollmentType) {
     CourseEnrollmentUnknown  = 0,
@@ -15,10 +16,8 @@ typedef NS_ENUM(int16_t, CourseEnrollmentType) {
     CourseEnrollmentApproval = 3,
 };
 
-@interface Course (Ekko)
+@interface Course (Ekko) <CourseIdProtocol>
 
 @property CourseEnrollmentType enrollmentType;
-
--(Resource *)bannerResource;
 
 @end

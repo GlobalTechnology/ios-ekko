@@ -11,6 +11,6 @@
 
 @interface Resource (Hub)
 
--(void)updateFromHubResource:(HubResource *)hubResource;
+-(void)syncWithHubResource:(HubResource *)hubResource;
 
 @end

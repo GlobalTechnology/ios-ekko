@@ -11,6 +11,6 @@
 
 @interface Lesson (Hub)
 
--(void)updateWithHubLesson:(HubLesson *)hubLesson;
+-(void)syncWithHubLesson:(HubLesson *)hubLesson;
 
 @end

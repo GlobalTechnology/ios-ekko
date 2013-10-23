@@ -2,11 +2,12 @@
 //  Course.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/21/13.
+//  Created by Brian Zoetewey on 10/23/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
 #import "Course.h"
+#import "CourseResource.h"
 #import "Permission.h"
 
 
@@ -20,8 +21,9 @@
 @dynamic courseTitle;
 @dynamic courseVersion;
 @dynamic internalEnrollmentType;
-@dynamic lastSynced;
 @dynamic publicCourse;
+@dynamic courseId;
 @dynamic permission;
+@dynamic banner;
 
 @end

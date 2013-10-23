@@ -11,35 +11,30 @@
 
 @implementation Resource (Hub)
 
--(void)updateFromHubResource:(HubResource *)hubResource {
+-(void)syncWithHubResource:(HubResource *)hubResource {
     [self setResourceId:[hubResource resourceId]];
     
-    if ([[hubResource resourceType] isEqualToString:@"file"]) {
+    if ([hubResource.resourceType isEqualToString:kEkkoHubXMLValueResourceTypeFile])
         [self setType:EkkoResourceTypeFile];
-    }
-    else if ([[hubResource resourceType] isEqualToString:@"uri"]) {
+    else if ([hubResource.resourceType isEqualToString:kEkkoHubXMLValueResourceTypeURI])
         [self setType:EkkoResourceTypeURI];
-    }
-    else if ([[hubResource resourceType] isEqualToString:@"dynamic"]) {
+    else if ([hubResource.resourceType isEqualToString:kEkkoHubXMLValueResourceTypeDynamic])
         [self setType:EkkoResourceTypeDynamic];
-    }
-    else {
+    else
         [self setType:EkkoResourceTypeUnknown];
-    }
     
     [self setSha1:[hubResource sha1]];
     [self setMimeType:[hubResource mimeType]];
     [self setSize:[hubResource size]];
 
-    if ([[hubResource provider] isEqualToString:@"youtube"]) {
-        [self setProvider:EkkoResourceProviderYouTube];
-    }
-    else if ([[hubResource provider] isEqualToString:@"vimeo"]) {
-        [self setProvider:EkkoResourceProviderVimeo];
-    }
-    else {
+    if (hubResource.provider == nil)
         [self setProvider:EkkoResourceProviderNone];
-    }
+    else if ([hubResource.provider isEqualToString:kEkkoHubXMLValueResourceProviderYouTube])
+        [self setProvider:EkkoResourceProviderYouTube];
+    else if ([hubResource.provider isEqualToString:kEkkoHubXMLValueResourceProviderVimeo])
+        [self setProvider:EkkoResourceProviderVimeo];
+    else
+        [self setProvider:EkkoResourceProviderUnknown];
     
     [self setUri:[hubResource uri]];
 }

@@ -17,12 +17,8 @@
 @implementation Manifest (Ekko)
 
 -(Resource *)resourceByResourceId:(NSString *)resourceId {
-    for (Resource *resource in self.resources) {
-        if ([resource.resourceId isEqualToString:resourceId]) {
-            return resource;
-        }
-    }
-    return nil;
+    NSSet *filteredResources = [self.resources filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"resourceId LIKE[c] %@", resourceId]];
+    return (Resource *)[filteredResources anyObject];
 }
 
 -(NSUInteger)indexOfViewController:(UIViewController<ContentItemProtocol> *)viewController {

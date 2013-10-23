@@ -12,19 +12,20 @@
 #import "Manifest.h"
 #import "Course.h"
 
-typedef NS_ENUM(NSUInteger, EkkoEntity) {
-    EkkoCourseEntity,
-    EkkoManifestEntity,
-    EkkoResourceEntity,
-    EkkoLessonEntity,
-    EkkoQuizEntity,
-    EkkoPageEntity,
-    EkkoMediaEntity,
-    EkkoMultipleChoiceEntity,
-    EkkoMultipleChoiceOptionEntity,
-    EkkoProgressItemEntity,
-    EkkoAnswerEntity,
-    EkkoPermissionEntity,
+typedef NS_ENUM(NSUInteger, EkkoEntityType) {
+    EkkoEntityCourse,
+    EkkoEntityManifest,
+    EkkoEntityCourseResource,
+    EkkoEntityManifestResource,
+    EkkoEntityLesson,
+    EkkoEntityQuiz,
+    EkkoEntityPage,
+    EkkoEntityMedia,
+    EkkoEntityMultipleChoice,
+    EkkoEntityMultipleChoiceOption,
+    EkkoEntityProgressItem,
+    EkkoEntityAnswer,
+    EkkoEntityPermission,
 };
 
 @interface DataManager : NSObject
@@ -34,10 +35,10 @@ typedef NS_ENUM(NSUInteger, EkkoEntity) {
 -(NSManagedObjectContext *)mainQueueManagedObjectContext;
 -(NSManagedObjectContext *)newPrivateQueueManagedObjectContext;
 
--(NSString *)nameForEntity:(EkkoEntity)entity;
--(NSEntityDescription *)entityDescriptionForEntity:(EkkoEntity)entity;
--(NSManagedObject *)insertNewObjectForEntity:(EkkoEntity)entity inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
--(NSFetchRequest *)fetchRequestForEntity:(EkkoEntity)entity;
+-(NSString *)nameForEntity:(EkkoEntityType)entity;
+-(NSEntityDescription *)entityDescriptionForEntity:(EkkoEntityType)entity;
+-(NSManagedObject *)insertNewObjectForEntity:(EkkoEntityType)entity inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+-(NSFetchRequest *)fetchRequestForEntity:(EkkoEntityType)entity;
 
 -(void)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 

@@ -11,6 +11,6 @@
 
 @interface Manifest (Hub)
 
--(void)updateWithHubManifest:(HubManifest *)hubManifest;
+-(void)syncWithHubManifest:(HubManifest *)hubManifest;
 
 @end

@@ -27,13 +27,13 @@
     self.media = orderedSet;
 }
 
--(void)updateWithHubLesson:(HubLesson *)hubLesson {
+-(void)syncWithHubLesson:(HubLesson *)hubLesson {
     [self setItemId:[hubLesson lessonId]];
     [self setItemTitle:[hubLesson lessonTitle]];
     
     self.pages = [NSMutableOrderedSet orderedSet];
     for (HubLessonPage *hubPage in hubLesson.pages) {
-        Page *page = (Page *)[[DataManager dataManager] insertNewObjectForEntity:EkkoPageEntity inManagedObjectContext:self.managedObjectContext];
+        Page *page = (Page *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityPage inManagedObjectContext:self.managedObjectContext];
         [page setPageId:[hubPage pageId]];
         [page setPageText:[hubPage pageText]];
         [self addPagesObject:page];
@@ -41,7 +41,7 @@
     
     self.media = [NSMutableOrderedSet orderedSet];
     for (HubLessonMedia *hubMedia in hubLesson.media) {
-        Media *media = (Media *)[[DataManager dataManager] insertNewObjectForEntity:EkkoMediaEntity inManagedObjectContext:self.managedObjectContext];
+        Media *media = (Media *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityMedia inManagedObjectContext:self.managedObjectContext];
         [media setMediaId:[hubMedia mediaId]];
         [media setMediaType:[hubMedia mediaType]];
         [media setResourceId:[hubMedia resourceId]];

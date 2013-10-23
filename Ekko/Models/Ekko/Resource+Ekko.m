@@ -7,9 +7,14 @@
 //
 
 #import "Resource+Ekko.h"
-#import "Manifest+Ekko.h"
-#import "HubClient.h"
 
+#import "CourseResource.h"
+#import "Course+Ekko.h"
+
+#import "ManifestResource.h"
+#import "Manifest+Ekko.h"
+
+#import "HubClient.h"
 #import "NSString+MD5.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -18,23 +23,19 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
 @implementation Resource (Ekko)
 
 -(EkkoResourceType)type {
-    return (EkkoResourceType)[self resourceType];
+    return (EkkoResourceType)[self internalType];
 }
 
 -(void)setType:(EkkoResourceType)type {
-    [self setResourceType:type];
+    [self setInternalType:(int16_t)type];
 }
 
 -(EkkoResourceProvider)provider {
-    return (EkkoResourceProvider)[self resourceProvider];
+    return (EkkoResourceProvider)[self internalProvider];
 }
 
 -(void)setProvider:(EkkoResourceProvider)provider {
-    [self setResourceProvider:provider];
-}
-
--(NSString *)courseId {
-    return [self.course courseId];
+    [self setInternalProvider:(int16_t)provider];
 }
 
 -(BOOL)isFile {
@@ -82,6 +83,16 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
             return video_id;
         }
     }
+    return nil;
+}
+
+#pragma mark - CourseIdProtocol
+
+-(NSString *)courseId {
+    if ([self isKindOfClass:[CourseResource class]])
+        return [[(CourseResource *)self course] courseId];
+    else if ([self isKindOfClass:[ManifestResource class]])
+        return [[(ManifestResource *)self course] courseId];
     return nil;
 }
 

@@ -8,18 +8,16 @@
 
 #import "Course+Hub.h"
 #import "Course+Ekko.h"
-#import "DataManager.h"
 #import "Permission+Hub.h"
 #import "Resource+Hub.h"
 
+#import "DataManager.h"
+
 @implementation Course (Hub)
 
--(void)updateWithHubCourse:(HubCourse *)hubCourse {
+-(void)syncWithHubCourse:(HubCourse *)hubCourse {
     //Update Course if it is a new object or version number has changed
     if ([[self objectID] isTemporaryID] || [hubCourse courseVersion] > [self courseVersion]) {
-        //Update Last Synced to NOW
-        [self setLastSynced:[[NSDate date] timeIntervalSince1970]];
-        
         [self setCourseId:[hubCourse courseId]];
         [self setCourseVersion:[hubCourse courseVersion]];
         [self setPublicCourse:[hubCourse courseIsPublic]];
@@ -44,18 +42,22 @@
         HubPermission *hubPermission = [hubCourse permission];
         if (hubPermission) {
             if (self.permission == nil) {
-                [self setPermission:(Permission *)[[DataManager dataManager] insertNewObjectForEntity:EkkoPermissionEntity inManagedObjectContext:self.managedObjectContext]];
+                [self setPermission:(Permission *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext]];
             }
-            [self.permission syncFromHubPermission:hubPermission];
+            [self.permission syncWithHubPermission:hubPermission];
         }
+        else
+            [self setPermission:nil];
         
-        [self setResources:[NSMutableSet set]];
         HubResource *hubResource = [hubCourse bannerResource];
         if (hubResource) {
-            Resource *resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoResourceEntity inManagedObjectContext:self.managedObjectContext];
-            [resource updateFromHubResource:hubResource];
-            [self addResourcesObject:resource];
+            if (self.banner == nil) {
+                [self setBanner:(CourseResource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityCourseResource inManagedObjectContext:self.managedObjectContext]];
+            }
+            [(Resource *)self.banner syncWithHubResource:hubResource];
         }
+        else
+            [self setBanner:nil];
     }
 }
 
