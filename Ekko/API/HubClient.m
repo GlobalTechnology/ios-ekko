@@ -34,6 +34,8 @@ static NSString *const kEkkoHubEndpointCourse   = @"courses/course/%@";
 // Ekko Hub XML processing queue
 const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
 
+NSString *const kEkkoHubClientSessionEstablished = @"org.ekkoproject.ios.player.HubClientSessionEstablished";
+
 // Ekko Hub Request Mothods
 typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
     EkkoRequestMethodGET,
@@ -184,6 +186,9 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             [self setSessionGuid:[[TheKey theKey] getGuid]];
             [self setPendingSession:NO];
             [self enqueuePendingHubRequests];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kEkkoHubClientSessionEstablished object:self];
+            });
         }
     }];
 }

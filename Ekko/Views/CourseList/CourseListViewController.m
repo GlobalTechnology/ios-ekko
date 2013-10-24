@@ -58,6 +58,7 @@
             break;
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablishedNotification:) name:kEkkoHubClientSessionEstablished object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncBegin object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncEnd object:nil];
     if ([[HubSyncService sharedService] coursesSyncInProgress]) {
@@ -84,6 +85,19 @@
         Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         Manifest *manifest = [[DataManager dataManager] getManifestByCourseId:course.courseId withManagedObjectContext:course.managedObjectContext];
         [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
+    }
+}
+
+-(void)hubClientSessionEstablishedNotification:(NSNotification *)notification {
+    switch (self.viewType) {
+        case EkkoAllCourses:
+            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
+            break;
+        case EkkoMyCourses:
+            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForMyCourses]];
+            break;
+        default:
+            break;
     }
 }
 

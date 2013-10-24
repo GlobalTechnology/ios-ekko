@@ -10,6 +10,8 @@
 #import "HubCourse.h"
 #import "HubManifest.h"
 
+FOUNDATION_EXPORT NSString *const kEkkoHubClientSessionEstablished;
+
 @interface HubClient : AFHTTPClient
 
 @property (nonatomic, strong, readonly) NSString *sessionId;
