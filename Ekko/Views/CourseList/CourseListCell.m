@@ -11,6 +11,7 @@
 #import "ResourceManager.h"
 #import "Permission.h"
 #import "HubClient.h"
+#import "DataManager.h"
 
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
@@ -93,8 +94,18 @@ static const int insetViewTag = 1;
         [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:@"Unenroll from Course"]];
     }
     
+    if (self.courseListType == EkkoAllCourses && permission.hidden) {
+        [actionSheet addButtonWithTitle:@"Show in My Courses"];
+    }
+    else if (self.courseListType == EkkoMyCourses && !permission.hidden) {
+        [actionSheet addButtonWithTitle:@"Hide from My Courses"];
+    }
+    
     [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:@"Cancel"]];
-    [actionSheet showInView:self];
+    
+    if ([actionSheet numberOfButtons] > 1) {
+        [actionSheet showInView:self];
+    }
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -111,6 +122,17 @@ static const int insetViewTag = 1;
     else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
         [[HubClient hubClient] unenrollFromCourse:self.course.courseId callback:^(BOOL success) {
             NSLog(@"Unenrolled from Course: %@", success ? @"YES" : @"NO");
+        }];
+    }
+    else if ([buttonTitle isEqualToString:@"Hide from My Courses"] || [buttonTitle isEqualToString:@"Show in My Courses"]) {
+        BOOL hidden = [buttonTitle isEqualToString:@"Hide from My Courses"];
+        NSManagedObjectID *courseId = self.course.objectID;
+        NSManagedObjectContext *managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
+        [managedObjectContext performBlock:^{
+            Course *course = (Course *)[managedObjectContext objectWithID:courseId];
+            [course.permission setHidden:hidden];
+            course.permission = course.permission;
+            [[DataManager dataManager] saveManagedObjectContext:managedObjectContext];
         }];
     }
 }

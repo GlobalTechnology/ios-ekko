@@ -74,6 +74,7 @@
         <attribute name="contentVisible" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="enrolled" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pending" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="permission" inverseEntity="Course" syncable="YES"/>
     </entity>
@@ -108,8 +109,10 @@
         <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
         <element name="ContentItem" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="CourseResource" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Lesson" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Manifest" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="ManifestResource" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Media" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MultipleChoice" positionX="0" positionY="0" width="0" height="0"/>
         <element name="MultipleChoiceOption" positionX="0" positionY="0" width="0" height="0"/>
@@ -119,7 +122,5 @@
         <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Quiz" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="CourseResource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ManifestResource" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

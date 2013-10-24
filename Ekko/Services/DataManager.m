@@ -172,7 +172,7 @@ NSString *const EkkoEntityTypes[] = {
 -(NSFetchedResultsController *)fetchedResultsControllerForMyCourses {
     NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
+    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES AND permission.hidden == NO", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 

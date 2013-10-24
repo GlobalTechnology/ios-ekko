@@ -15,6 +15,6 @@ typedef NS_ENUM(NSUInteger, EkkoCourseListViewType) {
 
 @interface CourseListViewController : CoreDataTableViewController
 
-@property (nonatomic) EkkoCourseListViewType viewType;
+@property (nonatomic) EkkoCourseListViewType courseListType;
 
 @end

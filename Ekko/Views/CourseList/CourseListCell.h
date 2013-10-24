@@ -10,10 +10,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Course+Ekko.h"
 #import "ProgressManager.h"
+#import "CourseListViewController.h"
 
 @interface CourseListCell : UITableViewCell <UIActionSheetDelegate>
 
 @property (weak, nonatomic) Course *course;
+@property (nonatomic) EkkoCourseListViewType courseListType;
 @property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *courseLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *courseProgress;

@@ -2,7 +2,7 @@
 //  Permission.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/23/13.
+//  Created by Brian Zoetewey on 10/24/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @property (nonatomic) BOOL enrolled;
 @property (nonatomic, retain) NSString * guid;
 @property (nonatomic) BOOL pending;
+@property (nonatomic) BOOL hidden;
 @property (nonatomic, retain) Course *course;
 
 @end

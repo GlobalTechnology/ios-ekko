@@ -24,7 +24,7 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.viewType = EkkoAllCourses;
+        self.courseListType = EkkoAllCourses;
     }
     return self;
 }
@@ -45,7 +45,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    switch (self.viewType) {
+    switch (self.courseListType) {
         case EkkoAllCourses:
             [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
             [self setTitle:@"All Courses"];
@@ -76,6 +76,7 @@
     CourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"courseListCell"];
     Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [cell setCourse:course];
+    [cell setCourseListType:self.courseListType];
     return cell;
 }
 
@@ -89,7 +90,7 @@
 }
 
 -(void)hubClientSessionEstablishedNotification:(NSNotification *)notification {
-    switch (self.viewType) {
+    switch (self.courseListType) {
         case EkkoAllCourses:
             [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
             break;
