@@ -104,9 +104,11 @@ NSString *const EkkoHubSyncServiceCoursesSyncEnd = @"org.ekkoproject.ios.player.
         for (Course *course in existingCourses) {
             HubCourse *hubCourse = [_courses objectForKey:course.courseId];
             if (hubCourse) {
-                [course syncWithHubCourse:hubCourse];
                 [_courses removeObjectForKey:course.courseId];
-                [self syncManifest:[course courseId]];
+                if (hubCourse.courseVersion > course.courseVersion) {
+                    [self syncManifest:[course courseId]];
+                }
+                [course syncWithHubCourse:hubCourse];
             }
             else {
                 [managedObjectContext deleteObject:course];
