@@ -12,5 +12,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, TheKeyLoginDialogDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+-(void)showLoginDialog;
 
 @end

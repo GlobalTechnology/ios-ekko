@@ -15,4 +15,5 @@ typedef NS_ENUM(NSInteger, NavigationDrawerSection) {
 
 @interface NavigationDrawerViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *navigationTableView;
 @end

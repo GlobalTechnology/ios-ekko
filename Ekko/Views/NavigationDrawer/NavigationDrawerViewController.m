@@ -12,8 +12,14 @@
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
 #import <TheKey/TheKey.h>
+#import "AppDelegate.h"
 
 @implementation NavigationDrawerViewController
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationTableView reloadData];
+}
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -113,6 +119,8 @@
         case NavigationDrawerSectionSettings: {
             switch (indexPath.row) {
                 case 0: {
+                    [[TheKey theKey] signOut];
+                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showLoginDialog];
                     break;
                 }
                 case 1: {
