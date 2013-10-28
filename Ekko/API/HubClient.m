@@ -42,6 +42,8 @@ typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
     EkkoRequestMethodPOST,
 };
 
+static NSString *const kEkkoHubHTTPHeaderAuthenticate = @"WWW-Authenticate";
+
 // Maximum request attempts
 static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
@@ -227,15 +229,17 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             requestParameters.response([operation response], responseObject);
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             if ([[operation response] statusCode] == 401) {
-                //TODO: Make sure this is a 401 for CAS
-                [self.pendingHubRequests addObject:requestParameters];
-                if (!self.pendingSession) {
-                    [self establishSession];
+                NSDictionary *headers = [[operation response] allHeaderFields];
+                NSString *authHeader = [headers objectForKey:kEkkoHubHTTPHeaderAuthenticate];
+                if (authHeader && [authHeader rangeOfString:@"CAS"].location != NSNotFound) {
+                    [self.pendingHubRequests addObject:requestParameters];
+                    if (!self.pendingSession) {
+                        [self establishSession];
+                    }
+                    return;
                 }
             }
-            else {
-                requestParameters.response([operation response], error);
-            }
+            requestParameters.response([operation response], error);
         }];
         //Set the output stream if used
         if (requestParameters.outputStream) {
