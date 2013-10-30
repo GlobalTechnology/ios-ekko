@@ -86,6 +86,10 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [(CourseListCell *)cell buildActionSheet];
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     if ([course.permission pending]) {

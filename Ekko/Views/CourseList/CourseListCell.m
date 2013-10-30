@@ -64,7 +64,7 @@ static const int insetViewTag = 1;
     insetView.layer.shadowPath = [UIBezierPath bezierPathWithRect:insetView.bounds].CGPath;
 }
 
-- (IBAction)handleCourseActionButton:(id)sender {
+-(void)buildActionSheet {
     //Build ActionSheet
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     Permission *permission = self.course.permission;
@@ -78,7 +78,7 @@ static const int insetViewTag = 1;
     else {
         enroll = YES;
     }
-
+    
     switch (self.course.enrollmentType) {
         case CourseEnrollmentOpen:
         case CourseEnrollmentApproval:
@@ -105,9 +105,13 @@ static const int insetViewTag = 1;
     }
     
     [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:@"Cancel"]];
-    
-    if ([actionSheet numberOfButtons] > 1) {
-        [actionSheet showInView:self];
+    self.actionSheet = actionSheet;
+    [self.courseActionButton setHidden:([self.actionSheet numberOfButtons] <= 1)];
+}
+
+- (IBAction)handleCourseActionButton:(id)sender {
+    if ([self.actionSheet numberOfButtons] > 1) {
+        [self.actionSheet showInView:self];
     }
 }
 

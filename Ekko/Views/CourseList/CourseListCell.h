@@ -21,4 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIProgressView *courseProgress;
 @property (weak, nonatomic) IBOutlet UIButton *courseActionButton;
 
+@property (nonatomic, strong) UIActionSheet *actionSheet;
+
+-(void)buildActionSheet;
+
 @end
