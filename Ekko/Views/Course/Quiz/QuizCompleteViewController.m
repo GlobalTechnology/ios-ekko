@@ -34,7 +34,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSUInteger correct = [[QuizManager quizManager] quizResults:self.quiz];
+    NSUInteger correct = [[QuizManager sharedManager] quizResults:self.quiz];
     NSUInteger total = self.quiz.questions.count;
     
     NSString *completeHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:28px;text-align:center;\">%@</body></html>";

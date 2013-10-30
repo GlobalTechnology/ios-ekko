@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, EkkoEntityType) {
 
 @interface DataManager : NSObject
 
-+(DataManager *)dataManager;
++(DataManager *)sharedManager;
 
 -(NSManagedObjectContext *)mainQueueManagedObjectContext;
 -(NSManagedObjectContext *)newPrivateQueueManagedObjectContext;
@@ -41,15 +41,5 @@ typedef NS_ENUM(NSUInteger, EkkoEntityType) {
 -(NSFetchRequest *)fetchRequestForEntity:(EkkoEntityType)entity;
 
 -(void)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-
-#pragma mark - Manifest
--(Manifest *)insertNewManifestInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
--(Manifest *)getManifestByCourseId:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
-
-#pragma mark - Course
--(Course *)insertNewCourseInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
--(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
--(NSFetchedResultsController *)fetchedResultsControllerForAllCourses;
--(NSFetchedResultsController *)fetchedResultsControllerForMyCourses;
 
 @end

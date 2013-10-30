@@ -12,7 +12,7 @@
 
 @interface QuizManager : NSObject
 
-+(QuizManager *)quizManager;
++(QuizManager *)sharedManager;
 
 -(NSUInteger)quizResults:(Quiz *)quiz;
 -(void)saveMultipleChoiceAnswer:(MultipleChoiceOption *)option;

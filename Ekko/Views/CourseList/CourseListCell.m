@@ -7,11 +7,14 @@
 //
 
 #import "CourseListCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 #import "ResourceManager.h"
 #import "Permission.h"
 #import "HubClient.h"
 #import "DataManager.h"
+
+#import "Course+Hub.h"
 
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
@@ -38,7 +41,7 @@ static const int insetViewTag = 1;
     //Set banner image
     Resource *banner = (Resource *)[course banner];
     if (banner) {
-        [[ResourceManager resourceManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
+        [[ResourceManager sharedManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
             if (image && [resource.resourceId isEqualToString:banner.resourceId]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.bannerImageView setImage:image];
@@ -94,10 +97,10 @@ static const int insetViewTag = 1;
         [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:@"Unenroll from Course"]];
     }
     
-    if (self.courseListType == EkkoAllCourses && permission.hidden) {
+    if (self.courseListViewController.coursesFetchType == EkkoAllCoursesFetchType && permission.hidden) {
         [actionSheet addButtonWithTitle:@"Show in My Courses"];
     }
-    else if (self.courseListType == EkkoMyCourses && !permission.hidden) {
+    else if (self.courseListViewController.coursesFetchType == EkkoMyCoursesFetchType && !permission.hidden) {
         [actionSheet addButtonWithTitle:@"Hide from My Courses"];
     }
     
@@ -115,25 +118,20 @@ static const int insetViewTag = 1;
     
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"Enroll in Course"]) {
-        [[HubClient hubClient] enrollInCourse:self.course.courseId callback:^(HubCourse *course) {
-            NSLog(@"Enrolled in Course: %@", [course.courseMeta courseTitle]);
+        [[CourseManager sharedManager] enrollInCourse:self.course.courseId complete:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.courseListViewController performSegueWithIdentifier:@"courseSegue" sender:self.course];
+            });
         }];
     }
     else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
-        [[HubClient hubClient] unenrollFromCourse:self.course.courseId callback:^(BOOL success) {
-            NSLog(@"Unenrolled from Course: %@", success ? @"YES" : @"NO");
-        }];
+        [[CourseManager sharedManager] unenrollFromCourse:self.course.courseId complete:nil];
     }
-    else if ([buttonTitle isEqualToString:@"Hide from My Courses"] || [buttonTitle isEqualToString:@"Show in My Courses"]) {
-        BOOL hidden = [buttonTitle isEqualToString:@"Hide from My Courses"];
-        NSManagedObjectID *courseId = self.course.objectID;
-        NSManagedObjectContext *managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
-        [managedObjectContext performBlock:^{
-            Course *course = (Course *)[managedObjectContext objectWithID:courseId];
-            [course.permission setHidden:hidden];
-            course.permission = course.permission;
-            [[DataManager dataManager] saveManagedObjectContext:managedObjectContext];
-        }];
+    else if ([buttonTitle isEqualToString:@"Hide from My Courses"]) {
+        [[CourseManager sharedManager] hideCourseFromMyCourses:self.course.courseId complete:nil];
+    }
+    else if ([buttonTitle isEqualToString:@"Show in My Courses"]) {
+        [[CourseManager sharedManager] showCourseInMyCourses:self.course.courseId complete:nil];
     }
 }
 

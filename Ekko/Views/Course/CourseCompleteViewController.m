@@ -36,12 +36,12 @@
     NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:@"Congratulations! You finished %@.", self.course.courseTitle];
     [self.completeWebView loadHTMLString:[NSString stringWithFormat:completeHTML, completeMessage] baseURL:nil];
     
-    [[ProgressManager progressManager] addProgressDelegate:self forDataSource:self.course];
+    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.course];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[ProgressManager progressManager] removeProgressDelegate:self];
+    [[ProgressManager sharedManager] removeProgressDelegate:self];
 }
 
 - (IBAction)handleCourseListButton:(id)sender {

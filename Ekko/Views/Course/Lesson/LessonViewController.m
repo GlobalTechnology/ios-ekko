@@ -60,11 +60,11 @@
     [self.view bringSubviewToFront:self.navigationBar];
     [self.navigationBar setTitle:self.lesson.lessonTitle];
     [self.pageControl setNumberOfPages:self.lesson.media.count];
-    [[ProgressManager progressManager] addProgressDelegate:self forDataSource:self.lesson];
+    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.lesson];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [[ProgressManager progressManager] removeProgressDelegate:self];
+    [[ProgressManager sharedManager] removeProgressDelegate:self];
     [super viewDidDisappear:animated];
 }
 

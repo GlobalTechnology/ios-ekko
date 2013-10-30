@@ -37,7 +37,7 @@ NSString *const EkkoEntityTypes[] = {
 @synthesize managedObjectModel         = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-+(DataManager *)dataManager {
++(DataManager *)sharedManager {
     __strong static DataManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
@@ -49,7 +49,7 @@ NSString *const EkkoEntityTypes[] = {
 -(id)init {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleContextDidSaveNotification:) name:NSManagedObjectContextDidSaveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
     }
     return self;
 }
@@ -82,6 +82,8 @@ NSString *const EkkoEntityTypes[] = {
         NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         NSURL *persistenStorePath = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Ekko.sqlite"];
         
+        [[NSFileManager defaultManager] removeItemAtURL:persistenStorePath error:nil];
+
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
         if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:persistenStorePath options:nil error:&error]) {
@@ -95,7 +97,7 @@ NSString *const EkkoEntityTypes[] = {
     return _persistentStoreCoordinator;
 }
 
--(void)handleContextDidSaveNotification:(NSNotification *)notification {
+-(void)managedObjectContextDidSave:(NSNotification *)notification {
     if ([notification.object isKindOfClass:[NSManagedObjectContext class]]) {
         NSManagedObjectContext *managedObjectContext = (NSManagedObjectContext *)notification.object;
         if (self.managedObjectContext != managedObjectContext) {
@@ -133,47 +135,6 @@ NSString *const EkkoEntityTypes[] = {
 -(void)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     NSError *error = nil;
     [managedObjectContext save:&error];
-}
-
--(Manifest *)insertNewManifestInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    return (Manifest *)[self insertNewObjectForEntity:EkkoEntityManifest inManagedObjectContext:managedObjectContext];
-}
-
--(Manifest *)getManifestByCourseId:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityManifest];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"courseId == %@", courseId]];
-    NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
-    if (results != nil && [results count] > 0) {
-        return (Manifest *)[results firstObject];
-    }
-    return nil;
-}
-
--(Course *)insertNewCourseInManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    return (Course *)[self insertNewObjectForEntity:EkkoEntityCourse inManagedObjectContext:managedObjectContext];
-}
-
--(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
-    NSArray *courses = [managedObjectContext executeFetchRequest:request error:nil];
-    if (courses != nil) {
-        return courses;
-    }
-    return [NSArray array];
-}
-
--(NSFetchedResultsController *)fetchedResultsControllerForAllCourses {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
-    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
-    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
-}
-
--(NSFetchedResultsController *)fetchedResultsControllerForMyCourses {
-    NSFetchRequest *request = [self fetchRequestForEntity:EkkoEntityCourse];
-    [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"permission.guid LIKE[c] %@ AND permission.contentVisible == YES AND permission.hidden == NO", [[HubClient hubClient] sessionGuid] ?: @"GUEST" ]];
-    return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:[self mainQueueManagedObjectContext] sectionNameKeyPath:nil cacheName:nil];
 }
 
 @end

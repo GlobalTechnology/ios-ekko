@@ -12,7 +12,8 @@
 @protocol ProgressManagerDelegate;
 
 @interface ProgressManager : NSObject
-+(ProgressManager *)progressManager;
+
++(ProgressManager *)sharedManager;
 +(void)setItemComplete:(NSString *)itemId forCourse:(NSString *)courseId;
 
 -(void)addProgressDelegate:(id<ProgressManagerDelegate>)delegate forDataSource:(id<ProgressManagerDataSource>)dataSource;

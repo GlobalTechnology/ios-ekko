@@ -19,7 +19,7 @@
         [self.mediaCollectionView reloadData];
         [self.lessonTableView reloadData];
         
-        [[ProgressManager progressManager] addProgressDelegate:self forDataSource:item.course];
+        [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:item.course];
     }
 }
 

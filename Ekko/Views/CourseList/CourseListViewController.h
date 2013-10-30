@@ -8,13 +8,10 @@
 
 #import "CoreDataTableViewController.h"
 
-typedef NS_ENUM(NSUInteger, EkkoCourseListViewType) {
-    EkkoAllCourses,
-    EkkoMyCourses,
-};
+#import "CourseManager.h"
 
-@interface CourseListViewController : CoreDataTableViewController
+@interface CourseListViewController : CoreDataTableViewController <UIAlertViewDelegate>
 
-@property (nonatomic) EkkoCourseListViewType courseListType;
+@property (nonatomic) EkkoCoursesFetchType coursesFetchType;
 
 @end

@@ -10,19 +10,19 @@
 #import "HubCourse.h"
 #import "HubManifest.h"
 
-FOUNDATION_EXPORT NSString *const kEkkoHubClientSessionEstablished;
+FOUNDATION_EXPORT NSString *const EkkoHubClientDidEstablishSessionNotification;
 
 @interface HubClient : AFHTTPClient
 
 @property (nonatomic, strong, readonly) NSString *sessionId;
 @property (nonatomic, strong, readonly) NSString *sessionGuid;
 
-+(HubClient *)hubClient;
++(HubClient *)sharedClient;
 
 -(BOOL)hasSession;
 
 #pragma mark - Course List
--(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit andCallback:(void (^)(NSArray *courses, BOOL hasMore, NSInteger start, NSInteger limit))callback;
+-(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit callback:(void (^)(NSArray *courses, BOOL hasMore, NSInteger start, NSInteger limit))callback;
 
 #pragma mark - Manifest
 -(void)getManifest:(NSString *)courseId callback:(void (^)(HubManifest *hubManifest))callback;
@@ -32,10 +32,10 @@ FOUNDATION_EXPORT NSString *const kEkkoHubClientSessionEstablished;
 -(void)getResource:(NSString *)courseId sha1:(NSString *)sha1 outputStream:(NSOutputStream *)outputStream progress:(void (^)(float progress))progress complete:(void (^)())complete;
 
 #pragma mark - Course
--(void)getCourse:(NSString *)courseId callback:(void (^)(HubCourse *course))callback;
+-(void)getCourse:(NSString *)courseId callback:(void (^)(HubCourse *hubCourse))callback;
 
 #pragma mark - Course Permissions
--(void)enrollInCourse:(NSString *)courseId callback:(void (^)(HubCourse *course))callback;
--(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(BOOL success))callback;
+-(void)enrollInCourse:(NSString *)courseId callback:(void (^)(HubCourse *hubCourse))callback;
+-(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(HubCourse *hubCourse))callback;
 
 @end

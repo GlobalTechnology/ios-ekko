@@ -26,7 +26,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 
 @implementation ResourceManager
 
-+(ResourceManager *)resourceManager {
++(ResourceManager *)sharedManager {
     __strong static ResourceManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
@@ -76,7 +76,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         
         //Download image if not in cache or disk
         if ([resource isFile]) {
-            [[HubClient hubClient] getResource:resource.courseId sha1:resource.sha1 callback:^(NSData *data) {
+            [[HubClient sharedClient] getResource:resource.courseId sha1:resource.sha1 callback:^(NSData *data) {
                 UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
                 if (image) {
                     completeBlock(resource, image);
@@ -108,7 +108,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         
         if ([resource isFile]) {
             NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-            [[HubClient hubClient] getResource:resource.courseId sha1:resource.sha1 outputStream:outputStream progress:^(float progress) {
+            [[HubClient sharedClient] getResource:resource.courseId sha1:resource.sha1 outputStream:outputStream progress:^(float progress) {
                 progressBlock(resource, progress);
             } complete:^{
                 completeBlock(resource, path);

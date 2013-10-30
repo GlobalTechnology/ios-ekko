@@ -40,7 +40,7 @@
     HubPermission *hubPermission = [hubCourse permission];
     if (hubPermission) {
         if (self.permission == nil) {
-            [self setPermission:(Permission *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext]];
+            [self setPermission:(Permission *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext]];
         }
         [self.permission syncWithHubPermission:hubPermission];
     }
@@ -50,7 +50,7 @@
     HubResource *hubResource = [hubCourse bannerResource];
     if (hubResource) {
         if (self.banner == nil) {
-            [self setBanner:(CourseResource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityCourseResource inManagedObjectContext:self.managedObjectContext]];
+            [self setBanner:(CourseResource *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityCourseResource inManagedObjectContext:self.managedObjectContext]];
         }
         [(Resource *)self.banner syncWithHubResource:hubResource];
     }

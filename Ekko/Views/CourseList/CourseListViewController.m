@@ -7,13 +7,19 @@
 //
 
 #import "CourseListViewController.h"
-#import <UIViewController+MMDrawerController.h>
+
+#import "ManifestManager.h"
 #import "DataManager.h"
-#import "HubSyncService.h"
+#import "HubClient.h"
+
+
 #import "CourseViewController.h"
+#import "CourseListCell.h"
+
+#import "Permission.h"
 #import "UIImage+Ekko.h"
 
-#import "CourseListCell.h"
+#import <UIViewController+MMDrawerController.h>
 
 @interface CourseListViewController ()
 
@@ -24,7 +30,8 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.courseListType = EkkoAllCourses;
+        //Default to All Courses view
+        self.coursesFetchType = EkkoAllCoursesFetchType;
     }
     return self;
 }
@@ -45,23 +52,22 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    switch (self.courseListType) {
-        case EkkoAllCourses:
-            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
-            [self setTitle:@"All Courses"];
-            break;
-        case EkkoMyCourses:
-            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForMyCourses]];
+    [self setFetchedResultsController:[[CourseManager sharedManager] fetchedResultsControllerForType:self.coursesFetchType]];
+    switch (self.coursesFetchType) {
+        case EkkoMyCoursesFetchType:
             [self setTitle:@"My Courses"];
             break;
+        case EkkoAllCoursesFetchType:
         default:
+            [self setTitle:@"All Courses"];
             break;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablishedNotification:) name:kEkkoHubClientSessionEstablished object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncBegin object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncCoursesNotification:) name:EkkoHubSyncServiceCoursesSyncEnd object:nil];
-    if ([[HubSyncService sharedService] coursesSyncInProgress]) {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablished:) name:EkkoHubClientDidEstablishSessionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerWillSyncCourses:) name:EkkoCourseManagerWillSyncCoursesNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerDidSyncCourses:) name:EkkoCourseManagerDidSyncCoursesNotification object:nil];
+    
+    if ([[CourseManager sharedManager] isSyncInProgress]) {
         [self.refreshControl beginRefreshing];
     }
 }
@@ -75,48 +81,82 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"courseListCell"];
     Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [cell setCourseListViewController:self];
     [cell setCourse:course];
-    [cell setCourseListType:self.courseListType];
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    if ([course.permission pending]) {
+        //Course is awaiting Instructor Approval
+        [[[UIAlertView alloc] initWithTitle:course.courseTitle message:@"Pending Instructor Approval." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    } else if (![course.permission contentVisible]) {
+        //Must enroll in Course
+        [[[UIAlertView alloc] initWithTitle:course.courseTitle message:course.courseDescription delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enroll", nil] show];
+    }
+    else if (![[ManifestManager sharedManager] hasManifestWithCourseId:course.courseId]) {
+        [[ManifestManager sharedManager] syncManifest:course.courseId complete:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSegueWithIdentifier:@"courseSegue" sender:course];
+            });
+        }];
+    }
+    else {
+        [self performSegueWithIdentifier:@"courseSegue" sender:course];
+    }
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"takeCourse"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-        Manifest *manifest = [[DataManager dataManager] getManifestByCourseId:course.courseId withManagedObjectContext:course.managedObjectContext];
+    if ([[segue identifier] isEqualToString:@"courseSegue"]) {
+        Course *course = nil;
+        if ([sender isKindOfClass:[Course class]]) {
+            course = (Course *)sender;
+        }
+        else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+        }
+        Manifest *manifest = [[ManifestManager sharedManager] getManifestByCourseId:course.courseId withManagedObjectContext:[[DataManager sharedManager] mainQueueManagedObjectContext]];
         [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
     }
 }
 
--(void)hubClientSessionEstablishedNotification:(NSNotification *)notification {
-    switch (self.courseListType) {
-        case EkkoAllCourses:
-            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForAllCourses]];
-            break;
-        case EkkoMyCourses:
-            [self setFetchedResultsController:[[DataManager dataManager] fetchedResultsControllerForMyCourses]];
-            break;
-        default:
-            break;
-    }
+-(void)hubClientSessionEstablished:(NSNotification *)notification {
+    [self setFetchedResultsController:[[CourseManager sharedManager] fetchedResultsControllerForType:self.coursesFetchType]];
 }
 
--(void)syncCoursesNotification:(NSNotification *)notification {
-    if ([EkkoHubSyncServiceCoursesSyncBegin isEqualToString:[notification name]]) {
-        [self.refreshControl beginRefreshing];
-    }
-    else if ([EkkoHubSyncServiceCoursesSyncEnd isEqualToString:[notification name]]) {
-        [self.refreshControl endRefreshing];
-    }
+-(void)courseManagerWillSyncCourses:(NSNotification *)notification {
+    [self.refreshControl beginRefreshing];
+}
+
+-(void)courseManagerDidSyncCourses:(NSNotification *)notification {
+    [self.refreshControl endRefreshing];
 }
 
 -(IBAction)refresh:(UIRefreshControl *)refreshControl {
-    [[HubSyncService sharedService] syncCourses];
+    [[CourseManager sharedManager] syncAllCoursesFromHub];
 }
 
 - (IBAction)toggleNavigationDrawer:(id)sender {
     [[self mm_drawerController] toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == [alertView cancelButtonIndex]) {
+        return;
+    }
+    
+    NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Enroll"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+        [[CourseManager sharedManager] enrollInCourse:course.courseId complete:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self performSegueWithIdentifier:@"courseSegue" sender:course];
+            });
+        }];
+    }
 }
 
 @end

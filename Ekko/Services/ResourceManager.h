@@ -13,7 +13,7 @@
 
 @interface ResourceManager : NSObject
 
-+(ResourceManager *)resourceManager;
++(ResourceManager *)sharedManager;
 
 -(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *resource, UIImage *image))completeBlock;
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *resource, float progress))progressBlock completeBlock:(void (^)(Resource *resource, NSString *path))completeBlock;

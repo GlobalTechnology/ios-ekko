@@ -43,7 +43,7 @@
         for (HubResource *hubResource in hubManifest.resources) {
             Resource *resource = [self resourceByResourceId:hubResource.resourceId];
             if (resource == nil) {
-                resource = (Resource *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityManifestResource inManagedObjectContext:self.managedObjectContext];
+                resource = (Resource *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityManifestResource inManagedObjectContext:self.managedObjectContext];
             }
             [resource syncWithHubResource:hubResource];
             [resources addObject:resource];
@@ -53,12 +53,12 @@
         [self setContent:[NSMutableOrderedSet orderedSet]];
         for (id contentItem in [hubManifest content]) {
             if ([contentItem isKindOfClass:[HubLesson class]]) {
-                Lesson *lesson = (Lesson *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityLesson inManagedObjectContext:self.managedObjectContext];
+                Lesson *lesson = (Lesson *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityLesson inManagedObjectContext:self.managedObjectContext];
                 [lesson syncWithHubLesson:contentItem];
                 [self addContentObject:lesson];
             }
             else if ([contentItem isKindOfClass:[HubQuiz class]]) {
-                Quiz *quiz = (Quiz *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityQuiz inManagedObjectContext:self.managedObjectContext];
+                Quiz *quiz = (Quiz *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityQuiz inManagedObjectContext:self.managedObjectContext];
                 [quiz syncWithHubQuiz:contentItem];
                 [self addContentObject:quiz];
             }

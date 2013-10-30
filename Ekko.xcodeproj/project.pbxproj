@@ -22,6 +22,8 @@
 		D304835218159DB200129733 /* ic_action_overflow.png in Resources */ = {isa = PBXBuildFile; fileRef = D304835118159DB200129733 /* ic_action_overflow.png */; };
 		D304835418159DFE00129733 /* ic_action_overflow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D304835318159DFE00129733 /* ic_action_overflow@2x.png */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
+		D32E8032181FFEEB0081B6C2 /* ManifestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8031181FFEEB0081B6C2 /* ManifestManager.m */; };
+		D32E8035181FFFEA0081B6C2 /* CourseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D32E8034181FFFEA0081B6C2 /* CourseManager.m */; };
 		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
 		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
 		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
@@ -67,7 +69,6 @@
 		D359FFBE17EC96FE007A095B /* Quiz+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF4D17EC96FE007A095B /* Quiz+Hub.m */; };
 		D359FFBF17EC96FE007A095B /* Manifest+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF4F17EC96FE007A095B /* Manifest+Hub.m */; };
 		D359FFC017EC96FE007A095B /* Resource+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5117EC96FE007A095B /* Resource+Hub.m */; };
-		D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5617EC96FE007A095B /* HubSyncService.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
 		D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceImageCache.m */; };
 		D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */; };
@@ -161,6 +162,10 @@
 		D304835318159DFE00129733 /* ic_action_overflow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_action_overflow@2x.png"; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
+		D32E8030181FFEEB0081B6C2 /* ManifestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManifestManager.h; sourceTree = "<group>"; };
+		D32E8031181FFEEB0081B6C2 /* ManifestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManifestManager.m; sourceTree = "<group>"; };
+		D32E8033181FFFEA0081B6C2 /* CourseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseManager.h; sourceTree = "<group>"; };
+		D32E8034181FFFEA0081B6C2 /* CourseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseManager.m; sourceTree = "<group>"; };
 		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
 		D33072311807227E00EDD036 /* QuizCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizCompleteViewController.m; sourceTree = "<group>"; };
 		D33072331807349B00EDD036 /* QuizManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizManager.h; sourceTree = "<group>"; };
@@ -241,8 +246,6 @@
 		D359FF4F17EC96FE007A095B /* Manifest+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Manifest+Hub.m"; sourceTree = "<group>"; };
 		D359FF5017EC96FE007A095B /* Resource+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Resource+Hub.h"; sourceTree = "<group>"; };
 		D359FF5117EC96FE007A095B /* Resource+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Resource+Hub.m"; sourceTree = "<group>"; };
-		D359FF5517EC96FE007A095B /* HubSyncService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubSyncService.h; sourceTree = "<group>"; };
-		D359FF5617EC96FE007A095B /* HubSyncService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubSyncService.m; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		D359FF5B17EC96FE007A095B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		D359FF5C17EC96FE007A095B /* ResourceImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceImageCache.h; sourceTree = "<group>"; };
@@ -601,10 +604,12 @@
 		D359FF5217EC96FE007A095B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D32E8033181FFFEA0081B6C2 /* CourseManager.h */,
+				D32E8034181FFFEA0081B6C2 /* CourseManager.m */,
 				D3FB3C98180476F30051642F /* DataManager.h */,
 				D3FB3C99180476F30051642F /* DataManager.m */,
-				D359FF5517EC96FE007A095B /* HubSyncService.h */,
-				D359FF5617EC96FE007A095B /* HubSyncService.m */,
+				D32E8030181FFEEB0081B6C2 /* ManifestManager.h */,
+				D32E8031181FFEEB0081B6C2 /* ManifestManager.m */,
 				D36B176517F0929C00EFFD86 /* ProgressManager.h */,
 				D36B176617F0929C00EFFD86 /* ProgressManager.m */,
 				D33072331807349B00EDD036 /* QuizManager.h */,
@@ -1017,7 +1022,6 @@
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
 				D359FF9E17EC96FE007A095B /* ManifestParser.m in Sources */,
-				D359FFC217EC96FE007A095B /* HubSyncService.m in Sources */,
 				D359FF9A17EC96FE007A095B /* HubQuestionMC.m in Sources */,
 				D359FFBD17EC96FE007A095B /* MultipleChoice+Hub.m in Sources */,
 				D359FFCD17EC96FE007A095B /* LessonViewController.m in Sources */,
@@ -1046,12 +1050,14 @@
 				D359FF9B17EC96FE007A095B /* HubQuiz.m in Sources */,
 				D359FF9217EC96FE007A095B /* HubCourse.m in Sources */,
 				D359FFD417EC96FE007A095B /* CourseListViewController.m in Sources */,
+				D32E8035181FFFEA0081B6C2 /* CourseManager.m in Sources */,
 				D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */,
 				D359FFB717EC96FE007A095B /* Lesson+Ekko.m in Sources */,
 				D359FFBE17EC96FE007A095B /* Quiz+Hub.m in Sources */,
 				D3F2F00D17EC904800F32F52 /* main.m in Sources */,
 				D3622D6B18184C5000CE2510 /* Question.m in Sources */,
 				D359FFBF17EC96FE007A095B /* Manifest+Hub.m in Sources */,
+				D32E8032181FFEEB0081B6C2 /* ManifestManager.m in Sources */,
 				D359FFB817EC96FE007A095B /* Manifest+Ekko.m in Sources */,
 				D3622D8618184C5100CE2510 /* Manifest.m in Sources */,
 			);
@@ -1176,6 +1182,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/brian/src/ios/Ekko,
@@ -1185,6 +1192,7 @@
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1197,6 +1205,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/brian/src/ios/Ekko,
@@ -1206,6 +1215,7 @@
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

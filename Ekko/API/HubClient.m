@@ -34,7 +34,7 @@ static NSString *const kEkkoHubEndpointCourse   = @"courses/course/%@";
 // Ekko Hub XML processing queue
 const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
 
-NSString *const kEkkoHubClientSessionEstablished = @"org.ekkoproject.ios.player.HubClientSessionEstablished";
+NSString *const EkkoHubClientDidEstablishSessionNotification = @"EkkoHubClientDidEstablishSessionNotification";
 
 // Ekko Hub Request Mothods
 typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
@@ -80,7 +80,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 @synthesize pendingSession     = _pendingSession;
 @synthesize pendingHubRequests = _pendingHubRequests;
 
-+(HubClient *)hubClient {
++(HubClient *)sharedClient {
     __strong static HubClient *_hubClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -189,7 +189,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             [self setPendingSession:NO];
             [self enqueuePendingHubRequests];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kEkkoHubClientSessionEstablished object:self];
+                [[NSNotificationCenter defaultCenter] postNotificationName:EkkoHubClientDidEstablishSessionNotification object:self];
             });
         }
     }];
@@ -258,7 +258,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
 #pragma mark - Course List
 
--(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit andCallback:(void (^)(NSArray *, BOOL, NSInteger, NSInteger))callback {
+-(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit callback:(void (^)(NSArray *, BOOL, NSInteger, NSInteger))callback {
     NSDictionary *parameters = @{@"start": [NSString stringWithFormat:@"%d", (int)start],
                                  @"limit": [NSString stringWithFormat:@"%d", (int)limit]};
     [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:kEkkoHubEndpointCourses parameters:parameters response:^(NSURLResponse *response, id responseObject) {
@@ -324,6 +324,9 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
                 callback(courseParser.course);
             });
         }
+        else {
+            callback(nil);
+        }
     }];
     [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
@@ -339,19 +342,26 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
                 callback(courseParser.course);
             });
         }
+        else {
+            callback(nil);
+        }
     }];
     [hubRequestParameters setMethod:EkkoRequestMethodPOST];
     [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
 
--(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(BOOL))callback {
+-(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(HubCourse *))callback {
     NSString *endpoint = [NSString stringWithFormat:kEkkoHubEndpointUnenroll, courseId];
     HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
-        if ([responseObject isKindOfClass:[NSError class]]) {
-            callback(NO);
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
+            dispatch_async(self.xmlDispatchQueue, ^{
+                CourseParser *courseParser = [[CourseParser alloc] initWithXMLParser:parser];
+                callback(courseParser.course);
+            });
         }
         else {
-            callback(YES);
+            callback(nil);
         }
     }];
     [hubRequestParameters setMethod:EkkoRequestMethodPOST];
@@ -385,7 +395,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 }
 
 -(NSMutableURLRequest *)buildURLRequest {
-    HubClient *client = [HubClient hubClient];
+    HubClient *client = [HubClient sharedClient];
     NSString *path = [self.endpoint copy];
     if(self.useSession) {
         NSString *sessionId = [client hasSession] ? [client sessionId] : @"0000";

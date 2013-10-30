@@ -24,7 +24,7 @@
 @synthesize delegateMap = _delegateMap;
 @synthesize managedObjectContext = _managedObjectContext;
 
-+(ProgressManager *)progressManager {
++(ProgressManager *)sharedManager {
     __strong static ProgressManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
@@ -45,13 +45,13 @@
 
 -(NSManagedObjectContext *)managedObjectContext {
     if(_managedObjectContext == nil) {
-        _managedObjectContext = [[DataManager dataManager] newPrivateQueueManagedObjectContext];
+        _managedObjectContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
     }
     return _managedObjectContext;
 }
 
 +(void)setItemComplete:(NSString *)itemId forCourse:(NSString *)courseId {
-    [[ProgressManager progressManager] setItemComplete:itemId forCourse:courseId];
+    [[ProgressManager sharedManager] setItemComplete:itemId forCourse:courseId];
 }
 
 -(void)addProgressDelegate:(id<ProgressManagerDelegate>)delegate forDataSource:(id<ProgressManagerDataSource>)dataSource {
@@ -94,14 +94,14 @@
 
 -(void)setItemComplete:(NSString *)itemId forCourse:(NSString *)courseId {
     [self.managedObjectContext performBlock:^{
-        NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoEntityProgressItem];
+        NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityProgressItem];
         [request setPredicate:[NSPredicate predicateWithFormat:@"courseId == %@ AND itemId == %@", courseId, itemId]];
         NSUInteger count = [self.managedObjectContext countForFetchRequest:request error:nil];
         if (count == 0) {
-            ProgressItem *progressItem = (ProgressItem *)[[DataManager dataManager] insertNewObjectForEntity:EkkoEntityProgressItem inManagedObjectContext:self.managedObjectContext];
+            ProgressItem *progressItem = (ProgressItem *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityProgressItem inManagedObjectContext:self.managedObjectContext];
             progressItem.courseId = courseId;
             progressItem.itemId = itemId;
-            [[DataManager dataManager] saveManagedObjectContext:self.managedObjectContext];
+            [[DataManager sharedManager] saveManagedObjectContext:self.managedObjectContext];
             [self notifyDelgatesOfProgress:courseId];
         }
     }];
@@ -111,7 +111,7 @@
     NSSet *progressItemIds = [dataSource progressItemIds];
     float total = [[NSNumber numberWithUnsignedInteger:[progressItemIds count]] floatValue];
     if (total > 0.f) {
-        NSFetchRequest *request = [[DataManager dataManager] fetchRequestForEntity:EkkoEntityProgressItem];
+        NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityProgressItem];
         NSPredicate *predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[[NSPredicate predicateWithFormat:@"courseId == %@", [dataSource courseId]], [NSPredicate predicateWithFormat:@"itemId IN %@", progressItemIds]]];
         [request setPredicate:predicate];
         

@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import <AFNetworking.h>
-#import "HubSyncService.h"
+#import "CourseManager.h"
 
 @interface AppDelegate ()
 -(void)showLoginDialog;
@@ -25,7 +25,7 @@
     
     TheKey *theKey = [TheKey theKey];
     if([theKey canAuthenticate] && [theKey getGuid]) {
-        [[HubSyncService sharedService] syncCourses];
+        [[CourseManager sharedManager] syncAllCoursesFromHub];
     }
     else {
         [self performSelector:@selector(showLoginDialog) withObject:nil afterDelay:0.1];
@@ -42,7 +42,7 @@
 
 -(void)loginSuccess {
     [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-    [[HubSyncService sharedService] syncCourses];
+    [[CourseManager sharedManager] syncAllCoursesFromHub];
 }
 
 -(void)loginFailure {

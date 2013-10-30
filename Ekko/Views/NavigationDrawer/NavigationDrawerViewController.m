@@ -101,13 +101,13 @@
             switch (indexPath.row) {
                 case 0: {
                     CourseListViewController *courseListViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
-                    [courseListViewController setCourseListType:EkkoAllCourses];
+                    [courseListViewController setCoursesFetchType:EkkoAllCoursesFetchType];
                     [rootNavigationController setViewControllers:@[courseListViewController] animated:NO];
                     break;
                 }
                 case 1: {
                     CourseListViewController *courseListViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
-                    [courseListViewController setCourseListType:EkkoMyCourses];
+                    [courseListViewController setCoursesFetchType:EkkoMyCoursesFetchType];
                     [rootNavigationController setViewControllers:@[courseListViewController] animated:NO];
                     break;
                 }

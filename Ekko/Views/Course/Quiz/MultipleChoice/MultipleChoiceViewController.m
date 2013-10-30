@@ -42,7 +42,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.selectedAnswer = [[QuizManager quizManager] selectedMultipleChoiceAnswer:self.question];
+    self.selectedAnswer = [[QuizManager sharedManager] selectedMultipleChoiceAnswer:self.question];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -89,7 +89,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MultipleChoiceOptionCell *cell = (MultipleChoiceOptionCell *)[tableView cellForRowAtIndexPath:indexPath];
     MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
-    [[QuizManager quizManager] saveMultipleChoiceAnswer:option];
+    [[QuizManager sharedManager] saveMultipleChoiceAnswer:option];
     [cell.checkbox setCheckState:M13CheckboxStateChecked];
 }
 

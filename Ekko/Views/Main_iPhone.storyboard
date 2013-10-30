@@ -381,7 +381,6 @@
                                     <outlet property="courseActionButton" destination="Gj5-h5-lBd" id="vl1-Gr-NfF"/>
                                     <outlet property="courseLabel" destination="cKY-ht-jjD" id="eMD-M2-9WT"/>
                                     <outlet property="courseProgress" destination="hFR-Ij-aaa" id="Z2j-JW-fkV"/>
-                                    <segue destination="dZn-mL-fDm" kind="push" identifier="takeCourse" id="2Sc-Kq-jbl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -397,6 +396,9 @@
                         <attributedString key="attributedTitle"/>
                         <color key="tintColor" red="0.81176471709999998" green="0.42745098469999998" blue="0.17254902420000001" alpha="1" colorSpace="calibratedRGB"/>
                     </refreshControl>
+                    <connections>
+                        <segue destination="dZn-mL-fDm" kind="push" identifier="courseSegue" id="ioV-AT-qP2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pWk-vL-nvp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
