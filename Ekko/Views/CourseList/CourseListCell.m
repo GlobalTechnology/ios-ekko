@@ -81,8 +81,8 @@ static const int insetViewTag = 1;
     
     switch (self.course.enrollmentType) {
         case CourseEnrollmentOpen:
-        case CourseEnrollmentApproval:
             break;
+        case CourseEnrollmentApproval:
         case CourseEnrollmentDisabled:
         default:
             enroll = NO;
