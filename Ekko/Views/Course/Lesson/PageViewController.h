@@ -10,7 +10,7 @@
 
 #import "Page.h"
 
-@interface PageViewController : UIViewController
+@interface PageViewController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) Page *page;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;

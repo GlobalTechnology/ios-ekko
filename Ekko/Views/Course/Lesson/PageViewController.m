@@ -23,13 +23,6 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self.webView.scrollView setBounces:NO];
-    
-    for (UIView *view in self.webView.scrollView.subviews) {
-        if ([view isKindOfClass:[UIImageView class]]) {
-            [view setHidden:YES];
-        }
-    }
-    
     [self.webView setOpaque:NO];
     [self.webView setBackgroundColor:[UIColor ekkoLightGrey]];
     [self.webView loadHTMLString:self.page.pageText baseURL:nil];
@@ -38,6 +31,14 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [ProgressManager setItemComplete:self.page.pageId forCourse:[self.page.lesson courseId]];
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        [[UIApplication sharedApplication] openURL:[request URL]];
+        return NO;
+    }
+    return YES;
 }
 
 @end
