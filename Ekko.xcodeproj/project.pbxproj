@@ -109,6 +109,7 @@
 		D3622D8F18184C5100CE2510 /* MultipleChoiceOption.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D8E18184C5100CE2510 /* MultipleChoiceOption.m */; };
 		D36B176717F0929C00EFFD86 /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D36B176617F0929C00EFFD86 /* ProgressManager.m */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
+		D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */; };
 		D3A13D541819AFD700F71A62 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A13D531819AFD700F71A62 /* Permission.m */; };
 		D3AF1DBC1816D78E00EA1CE8 /* CourseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF1DBB1816D78E00EA1CE8 /* CourseParser.m */; };
 		D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */; };
@@ -323,6 +324,8 @@
 		D36B176517F0929C00EFFD86 /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D36B176617F0929C00EFFD86 /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		D397E56F1822CDE500D9FFF3 /* UIWebView+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Ekko.h"; sourceTree = "<group>"; };
+		D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Ekko.m"; sourceTree = "<group>"; };
 		D3A13D521819AFD700F71A62 /* Permission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Permission.h; sourceTree = "<group>"; };
 		D3A13D531819AFD700F71A62 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
 		D3AF1DBA1816D78E00EA1CE8 /* CourseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseParser.h; sourceTree = "<group>"; };
@@ -631,6 +634,8 @@
 				D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */,
 				D359FF6017EC96FE007A095B /* UIImage+Ekko.h */,
 				D359FF6117EC96FE007A095B /* UIImage+Ekko.m */,
+				D397E56F1822CDE500D9FFF3 /* UIWebView+Ekko.h */,
+				D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */,
 				D359FF6217EC96FE007A095B /* URLUtils.h */,
 				D359FF6317EC96FE007A095B /* URLUtils.m */,
 			);
@@ -1014,6 +1019,7 @@
 				D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D3AF1DBC1816D78E00EA1CE8 /* CourseParser.m in Sources */,
+				D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */,
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
 				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
 				D33072351807349B00EDD036 /* QuizManager.m in Sources */,

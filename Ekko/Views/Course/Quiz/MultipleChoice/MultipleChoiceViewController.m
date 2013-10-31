@@ -13,6 +13,7 @@
 #import "UIViewController+SwipeViewController.h"
 #import "Quiz+Ekko.h"
 #import "UIColor+Ekko.h"
+#import "UIWebView+Ekko.h"
 #import "QuizManager.h"
 
 @interface MultipleChoiceViewController ()
@@ -48,8 +49,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSString *baseHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:20px;text-align:center;\">%@</body></html>";
-    [self.questionWebView loadHTMLString:[NSString stringWithFormat:baseHTML, self.question.questionText] baseURL:nil];
+    [self.questionWebView loadQuizQuestionString:self.question.questionText];
     
     [self.navigationBar setTitle:self.question.quiz.quizTitle];
     NSUInteger questionIndex = [self.question.quiz.questions indexOfObject:self.question];

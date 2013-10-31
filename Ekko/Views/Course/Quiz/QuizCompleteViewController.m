@@ -11,6 +11,7 @@
 #import "QuizManager.h"
 #import "UIViewController+SwipeViewController.h"
 #import "UIColor+Ekko.h"
+#import "UIWebView+Ekko.h"
 
 @interface QuizCompleteViewController ()
 @property (nonatomic, weak) NSLayoutConstraint *heightConstraint;
@@ -34,12 +35,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    NSUInteger correct = [[QuizManager sharedManager] quizResults:self.quiz];
-    NSUInteger total = self.quiz.questions.count;
-    
-    NSString *completeHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:28px;text-align:center;\">%@</body></html>";
-    NSString *resultsMessage = [NSString stringWithFormat:@"Results:<div style=\"font-size:34px;\">%lu/%lu</div>", (unsigned long)correct, (unsigned long)total];
-    [self.completeWebView loadHTMLString:[NSString stringWithFormat:completeHTML, resultsMessage] baseURL:nil];
+    [self.completeWebView loadQuizResultsString:@"Results" total:self.quiz.questions.count correct:[[QuizManager sharedManager] quizResults:self.quiz]];
     
     //Quiz Complete always shows progress of 100%
     [self.navigationBar setProgress:1.f];

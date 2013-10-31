@@ -11,6 +11,7 @@
 #import "ProgressManager.h"
 
 #import "UIColor+Ekko.h"
+#import "UIWebView+Ekko.h"
 
 @interface PageViewController ()
 
@@ -25,7 +26,7 @@
     [self.webView.scrollView setBounces:NO];
     [self.webView setOpaque:NO];
     [self.webView setBackgroundColor:[UIColor ekkoLightGrey]];
-    [self.webView loadHTMLString:self.page.pageText baseURL:nil];
+    [self.webView loadLessonPageString:self.page.pageText];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

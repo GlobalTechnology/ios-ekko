@@ -10,6 +10,7 @@
 #import "Manifest+Ekko.h"
 #import "UIViewController+SwipeViewController.h"
 #import "UIColor+Ekko.h"
+#import "UIWebView+Ekko.h"
 
 @interface CourseCompleteViewController ()
 @property (nonatomic, weak) NSLayoutConstraint *nineBySixteenConstraint;
@@ -32,9 +33,8 @@
     self.completeWebView.scrollView.bounces = NO;
     self.completeWebView.backgroundColor = [UIColor ekkoQuizBackground];
     
-    NSString *completeHTML = @"<html><body style=\"color:#CF6D2C;font-family:helvetica;font-size:28px;text-align:center;\">%@</body></html>";
     NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:@"Congratulations! You finished %@.", self.course.courseTitle];
-    [self.completeWebView loadHTMLString:[NSString stringWithFormat:completeHTML, completeMessage] baseURL:nil];
+    [self.completeWebView loadCourseCompleteString:completeMessage];
     
     [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.course];
 }

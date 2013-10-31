@@ -18,8 +18,6 @@
         _item = item;
         [self.mediaCollectionView reloadData];
         [self.lessonTableView reloadData];
-        
-        [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:item.course];
     }
 }
 
@@ -67,10 +65,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.courseViewController setViewController:[self.item.course viewControllerAtIndex:indexPath.row storyboard:self.storyboard] direction:SwipeViewControllerSwipeDirectionNext];
     [[self mm_drawerController] toggleDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {}];
-}
-
--(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
-    [self.courseProgressView setProgress:progress];
 }
 
 @end
