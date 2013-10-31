@@ -66,7 +66,7 @@ static const int insetViewTag = 1;
 
 -(void)buildActionSheet {
     //Build ActionSheet
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.course.courseTitle delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     Permission *permission = self.course.permission;
     
     BOOL enroll = NO;
