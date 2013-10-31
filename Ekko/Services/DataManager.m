@@ -81,8 +81,6 @@ NSString *const EkkoEntityTypes[] = {
     if (_persistentStoreCoordinator == nil) {
         NSURL *applicationDocumentsDirectory = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         NSURL *persistenStorePath = [applicationDocumentsDirectory URLByAppendingPathComponent:@"Ekko.sqlite"];
-        
-        [[NSFileManager defaultManager] removeItemAtURL:persistenStorePath error:nil];
 
         NSError *error = nil;
         _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:self.managedObjectModel];
