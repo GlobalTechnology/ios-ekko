@@ -24,44 +24,54 @@
 }
 
 -(void)syncWithHubManifest:(HubManifest *)hubManifest {
-    //Update Manifest if it is a new object or version number has changed
-    if ([[self objectID] isTemporaryID] || [hubManifest courseVersion] > [self courseVersion]) {
-        [self setCourseId:[hubManifest courseId]];
-        [self setCourseVersion:[hubManifest courseVersion]];
-        
-        HubMeta *hubMeta = [hubManifest courseMeta];
-        [self setCourseTitle:[hubMeta courseTitle]];
-        [self setCourseDescription:[hubMeta courseDescription]];
-        [self setAuthorName:[hubMeta authorName]];
-        [self setAuthorEmail:[hubMeta authorEmail]];
-        [self setAuthorUrl:[hubMeta authorUrl]];
-        [self setCourseCopyright:[hubMeta courseCopyright]];
-        
-        [self setCompleteMessage:[hubManifest completeMessage]];
-        
-        NSMutableSet *resources = [NSMutableSet set];
-        for (HubResource *hubResource in hubManifest.resources) {
-            Resource *resource = [self resourceByResourceId:hubResource.resourceId];
-            if (resource == nil) {
-                resource = (Resource *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityManifestResource inManagedObjectContext:self.managedObjectContext];
-            }
-            [resource syncWithHubResource:hubResource];
-            [resources addObject:resource];
+    [self setCourseId:[hubManifest courseId]];
+    [self setCourseVersion:[hubManifest courseVersion]];
+    
+    HubMeta *hubMeta = [hubManifest courseMeta];
+    [self setCourseTitle:[hubMeta courseTitle]];
+    [self setCourseDescription:[hubMeta courseDescription]];
+    [self setAuthorName:[hubMeta authorName]];
+    [self setAuthorEmail:[hubMeta authorEmail]];
+    [self setAuthorUrl:[hubMeta authorUrl]];
+    [self setCourseCopyright:[hubMeta courseCopyright]];
+    
+    [self setCompleteMessage:[hubManifest completeMessage]];
+    
+    //Update Resources, update existing resources by resourceId, otherwise create new Resource
+    NSMutableSet *resources = [NSMutableSet set];
+    for (HubResource *hubResource in hubManifest.resources) {
+        Resource *resource = [self resourceByResourceId:hubResource.resourceId];
+        if (resource == nil) {
+            resource = (Resource *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityManifestResource inManagedObjectContext:self.managedObjectContext];
         }
-        [self setResources:resources];
-        
-        [self setContent:[NSMutableOrderedSet orderedSet]];
-        for (id contentItem in [hubManifest content]) {
-            if ([contentItem isKindOfClass:[HubLesson class]]) {
-                Lesson *lesson = (Lesson *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityLesson inManagedObjectContext:self.managedObjectContext];
-                [lesson syncWithHubLesson:contentItem];
-                [self addContentObject:lesson];
-            }
-            else if ([contentItem isKindOfClass:[HubQuiz class]]) {
-                Quiz *quiz = (Quiz *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityQuiz inManagedObjectContext:self.managedObjectContext];
-                [quiz syncWithHubQuiz:contentItem];
-                [self addContentObject:quiz];
-            }
+        [resource syncWithHubResource:hubResource];
+        [resources addObject:resource];
+    }
+    //Delete any existing Resources not found in the new set of Resources
+    NSMutableSet *oldResources = [NSMutableSet setWithSet:self.resources];
+    [oldResources minusSet:resources];
+    for (Resource *resource in oldResources) {
+        [self.managedObjectContext deleteObject:resource];
+    }
+    [self setResources:resources];
+    
+    
+    //Delete all existing Content
+    for (ContentItem *item in self.content) {
+        [self.managedObjectContext deleteObject:item];
+    }
+    //Create Lesson/Quiz content items
+    [self setContent:[NSMutableOrderedSet orderedSet]];
+    for (id contentItem in [hubManifest content]) {
+        if ([contentItem isKindOfClass:[HubLesson class]]) {
+            Lesson *lesson = (Lesson *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityLesson inManagedObjectContext:self.managedObjectContext];
+            [lesson syncWithHubLesson:contentItem];
+            [self addContentObject:lesson];
+        }
+        else if ([contentItem isKindOfClass:[HubQuiz class]]) {
+            Quiz *quiz = (Quiz *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityQuiz inManagedObjectContext:self.managedObjectContext];
+            [quiz syncWithHubQuiz:contentItem];
+            [self addContentObject:quiz];
         }
     }
 }
