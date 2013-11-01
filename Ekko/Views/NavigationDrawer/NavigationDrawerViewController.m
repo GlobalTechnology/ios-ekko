@@ -49,13 +49,13 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"navigationDrawerCell"];
-    
+
     switch (indexPath.section) {
         case NavigationDrawerSectionCourses:
             switch (indexPath.row) {
                 case 0:
                     [cell.textLabel setText:@"All Courses"];
-                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_071_book.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_157_show_thumbnails_with_lines.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
                     break;
                 case 1:
                     [cell.textLabel setText:@"My Courses"];
@@ -80,7 +80,7 @@
                     break;
                 case 1:
                     [cell.textLabel setText:@"About Ekko"];
-                    [cell.imageView setImage:[UIImage imageNamed:@"cogwheel.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_136_cogwheel.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
                     break;
                 default:
                     break;

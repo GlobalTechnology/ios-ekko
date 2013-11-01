@@ -42,7 +42,7 @@
     UIButton *toggleDrawer = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleDrawer setFrame:CGRectMake(0, 0, 34, 34)];
     [toggleDrawer setShowsTouchWhenHighlighted:YES];
-    [toggleDrawer setImage:[UIImage imageNamed:@"show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [toggleDrawer setImage:[UIImage imageNamed:@"glyphicons_158_show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleDrawer addTarget:self action:@selector(toggleNavigationDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleDrawer]];
     

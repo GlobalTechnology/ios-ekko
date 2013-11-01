@@ -26,7 +26,7 @@
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [backButton setFrame:CGRectMake(0, 0, 34, 34)];
     [backButton setShowsTouchWhenHighlighted:YES];
-    [backButton setImage:[UIImage imageNamed:@"left_arrow.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"glyphicons_210_left_arrow.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(navigateBack:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];    
     
@@ -34,7 +34,7 @@
     UIButton *toggleCourseDrawer = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleCourseDrawer setFrame:CGRectMake(0, 0, 34, 34)];
     [toggleCourseDrawer setShowsTouchWhenHighlighted:YES];
-    [toggleCourseDrawer setImage:[UIImage imageNamed:@"show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
+    [toggleCourseDrawer setImage:[UIImage imageNamed:@"glyphicons_158_show_lines.png" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleCourseDrawer addTarget:self action:@selector(toggleCourseDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleCourseDrawer]];
 
