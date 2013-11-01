@@ -8,6 +8,7 @@
 
 #import "NavigationDrawerViewController.h"
 #import "CourseListViewController.h"
+#import "AboutEkkoViewController.h"
 #import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
@@ -49,17 +50,29 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"navigationDrawerCell"];
-
+    
+    UIViewController *rootViewController = [[(UINavigationController *)[[self mm_drawerController] centerViewController] viewControllers] firstObject];
+    
+    BOOL highlighted = NO;
+    NSString *label;
+    NSString *image;
+    
     switch (indexPath.section) {
         case NavigationDrawerSectionCourses:
             switch (indexPath.row) {
                 case 0:
-                    [cell.textLabel setText:@"All Courses"];
-                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_157_show_thumbnails_with_lines.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                    if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoAllCoursesFetchType) {
+                        highlighted = YES;
+                    }
+                    label = @"All Courses";
+                    image = @"glyphicons_157_show_thumbnails_with_lines.png";
                     break;
                 case 1:
-                    [cell.textLabel setText:@"My Courses"];
-                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_012_heart.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                    if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoMyCoursesFetchType) {
+                        highlighted = YES;
+                    }
+                    label = @"My Courses";
+                    image = @"glyphicons_012_heart.png";
                     break;
                 default:
                     break;
@@ -70,17 +83,20 @@
             switch (indexPath.row) {
                 case 0:
                     if ([[TheKey theKey] canAuthenticate]) {
-                        [cell.textLabel setText:@"Logout"];
-                        [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_387_log_out.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                        label = @"Logout";
+                        image = @"glyphicons_387_log_out.png";
                     }
                     else {
-                        [cell.textLabel setText:@"Login"];
-                        [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_386_log_in.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                        label = @"Login";
+                        image = @"glyphicons_386_log_in.png";
                     }
                     break;
                 case 1:
-                    [cell.textLabel setText:@"About Ekko"];
-                    [cell.imageView setImage:[UIImage imageNamed:@"glyphicons_136_cogwheel.png" withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
+                    if ([rootViewController isKindOfClass:[AboutEkkoViewController class]]) {
+                        highlighted = YES;
+                    }
+                    label = @"About Ekko";
+                    image = @"glyphicons_136_cogwheel.png";
                     break;
                 default:
                     break;
@@ -89,6 +105,16 @@
             
         default:
             break;
+    }
+    
+    [cell.textLabel setText:label];
+    if (highlighted) {
+        [cell.textLabel setTextColor:[UIColor ekkoLightBlue]];
+        [cell.imageView setImage:[UIImage imageNamed:image withTint:[[UIColor ekkoLightBlue] colorWithAlphaComponent:1.f]]];
+    }
+    else {
+        [cell.textLabel setTextColor:[UIColor darkTextColor]];
+        [cell.imageView setImage:[UIImage imageNamed:image withTint:[[UIColor darkTextColor] colorWithAlphaComponent:0.5f]]];
     }
     
     return cell;
@@ -136,6 +162,7 @@
         default:
             break;
     }
+    [self.navigationTableView reloadData];
     [self toggleDrawer];
 }
 
