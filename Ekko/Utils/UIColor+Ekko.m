@@ -44,13 +44,6 @@
 
 +(UIColor *)ekkoQuizBackground {
     UIImage *backgroundImage = [UIImage imageNamed:@"bg_ekko_quiz.png"];
-/*
-    CGRect backgroundRect = self.completeWebView.bounds;
-    UIGraphicsBeginImageContextWithOptions(backgroundRect.size, YES, [UIScreen mainScreen].scale);
-    [backgroundImage drawInRect:CGRectMake(0.f, 0.f, backgroundRect.size.width, backgroundRect.size.height)];
-    UIImage *backgroundResult = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-*/
     return [UIColor colorWithPatternImage:backgroundImage];
 }
 

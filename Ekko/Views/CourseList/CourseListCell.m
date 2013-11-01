@@ -25,7 +25,7 @@ static const int insetViewTag = 1;
 
 -(void)setCourseActionButton:(UIButton *)courseActionButton {
     _courseActionButton = courseActionButton;
-    [courseActionButton setImage:[UIImage imageNamed:@"ic_action_overflow.png" withTint:[UIColor lightGrayColor]] forState:UIControlStateNormal];
+    [courseActionButton setImage:[UIImage imageNamed:@"ActionOverflow" withTint:[UIColor lightGrayColor]] forState:UIControlStateNormal];
 }
 
 -(void)setCourse:(Course *)course {

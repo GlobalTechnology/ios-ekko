@@ -51,14 +51,14 @@
     self.previousButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.previousButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.previousButton setShowsTouchWhenHighlighted:YES];
-    [self.previousButton setImage:[UIImage imageNamed:@"glyphicons_224_chevron-left.png" withTint:[UIColor grayColor]] forState:UIControlStateNormal];
+    [self.previousButton setImage:[UIImage imageNamed:@"ChevronLeft" withTint:[UIColor grayColor]] forState:UIControlStateNormal];
     [self.previousButton addTarget:self action:@selector(previous:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.previousButton];
     
     self.nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.nextButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self.nextButton setShowsTouchWhenHighlighted:YES];
-    [self.nextButton setImage:[UIImage imageNamed:@"glyphicons_223_chevron-right.png" withTint:[UIColor grayColor]] forState:UIControlStateNormal];
+    [self.nextButton setImage:[UIImage imageNamed:@"ChevronRight" withTint:[UIColor grayColor]] forState:UIControlStateNormal];
     [self.nextButton addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:self.nextButton];
     

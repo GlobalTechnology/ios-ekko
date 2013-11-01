@@ -65,14 +65,14 @@
                         highlighted = YES;
                     }
                     label = @"All Courses";
-                    image = @"glyphicons_157_show_thumbnails_with_lines.png";
+                    image = @"ShowThumbnailsWithLines";
                     break;
                 case 1:
                     if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoMyCoursesFetchType) {
                         highlighted = YES;
                     }
                     label = @"My Courses";
-                    image = @"glyphicons_012_heart.png";
+                    image = @"Heart";
                     break;
                 default:
                     break;
@@ -84,11 +84,11 @@
                 case 0:
                     if ([[TheKey theKey] canAuthenticate]) {
                         label = @"Logout";
-                        image = @"glyphicons_387_log_out.png";
+                        image = @"LogOut";
                     }
                     else {
                         label = @"Login";
-                        image = @"glyphicons_386_log_in.png";
+                        image = @"LogIn";
                     }
                     break;
                 case 1:
@@ -96,7 +96,7 @@
                         highlighted = YES;
                     }
                     label = @"About Ekko";
-                    image = @"glyphicons_136_cogwheel.png";
+                    image = @"Cogwheel";
                     break;
                 default:
                     break;
