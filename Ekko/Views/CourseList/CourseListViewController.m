@@ -30,8 +30,8 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        //Default to All Courses view
-        self.coursesFetchType = EkkoAllCoursesFetchType;
+        //Default to My Courses view
+        self.coursesFetchType = EkkoMyCoursesFetchType;
     }
     return self;
 }
