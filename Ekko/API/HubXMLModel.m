@@ -72,16 +72,10 @@
 #pragma mark - NSXMLParserDelegate
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-#ifdef DEBUG
-//    NSLog(@" + %@::%@", [[self class] description], elementName);
-#endif
     [[self elements] addObject:elementName];
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-#ifdef DEBUG
-//    NSLog(@" - %@::%@", [[self class] description], elementName);
-#endif
     if ([[self currentElement] isEqualToString:elementName]) {
         [[self elements] removeLastObject];
 
@@ -93,7 +87,6 @@
     }
     else {
         //Something happened
-        NSLog(@"Parsing Aborted: %@", elementName);
         [parser abortParsing];
     }
 }
