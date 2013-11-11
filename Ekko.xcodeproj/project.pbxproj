@@ -770,6 +770,7 @@
 			buildConfigurationList = D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekko" */;
 			buildPhases = (
 				7C2417094C734B38BFB383E9 /* Check Pods Manifest.lock */,
+				D312368F1831670400EE3907 /* Increment Build Number */,
 				D3F2EFF917EC904800F32F52 /* Sources */,
 				D3F2EFFA17EC904800F32F52 /* Frameworks */,
 				D3F2EFFB17EC904800F32F52 /* Resources */,
@@ -875,7 +876,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi";
 			showEnvVarsInLog = 0;
 		};
 		BF37EE882C88445B95ACF033 /* Copy Pods Resources */ = {
@@ -891,6 +892,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D312368F1831670400EE3907 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PROJECT_DIR}/tools/incrementBuild.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
