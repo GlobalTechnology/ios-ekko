@@ -7,7 +7,7 @@
 //
 
 #import "HubClient.h"
-#import <TheKey.h>
+#import <TheKeyOAuth2Client.h>
 #import <AFHTTPRequestOperation.h>
 #import "CoursesParser.h"
 #import "CourseParser.h"
@@ -138,7 +138,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 -(BOOL)hasSession {
     NSString *sessionId = [self sessionId];
     NSString *sessionGuid = [self sessionGuid];
-    return (sessionId && sessionGuid && [sessionGuid isEqualToString:[[TheKey theKey] getGuid]]);
+    return (sessionId && sessionGuid && [sessionGuid isEqualToString:[[TheKeyOAuth2Client sharedOAuth2Client] guid]]);
 }
 
 -(NSString *)sessionGuid {
@@ -167,7 +167,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     
     //TODO Fetch service url from Hub
     NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
-    
+/*
     [[TheKey theKey] getTicketForService:serviceURL completionHandler:^(NSString *ticket, NSError *error) {
         NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
         NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:loginURL];
@@ -193,6 +193,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             });
         }
     }];
+*/
 }
 
 -(void)enqueuePendingHubRequests {

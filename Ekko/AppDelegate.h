@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TheKey.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, TheKeyLoginDialogDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 -(void)showLoginDialog;
