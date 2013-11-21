@@ -10,7 +10,6 @@
 #import <TheKeyOAuth2Client.h>
 #import <AFNetworking.h>
 #import "CourseManager.h"
-#import "EkkoLoginViewController.h"
 
 @interface AppDelegate ()
 -(void)showLoginDialog;
@@ -26,30 +25,9 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     //Sync Courses
-    TheKeyOAuth2Client *theKey = [TheKeyOAuth2Client sharedOAuth2Client];
-    NSLog(@"GUID: %@", [theKey guid]);
-    [theKey logout];
-    if([theKey isAuthenticated]) {
-        [[CourseManager sharedManager] syncAllCoursesFromHub];
-    }
-    else {
-        [self performSelector:@selector(showLoginDialog) withObject:nil afterDelay:0.1f];
-    }
-
+    [[CourseManager sharedManager] syncCourses];
+    
     return YES;
-}
-							
--(void)showLoginDialog {
-    [[TheKeyOAuth2Client sharedOAuth2Client] presentLoginViewController:[EkkoLoginViewController class] fromViewController:self.window.rootViewController loginDelegate:nil];
-}
-
--(void)loginSuccess {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-    [[CourseManager sharedManager] syncAllCoursesFromHub];
-}
-
--(void)loginFailure {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end

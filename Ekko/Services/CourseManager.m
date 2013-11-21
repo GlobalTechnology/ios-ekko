@@ -7,6 +7,7 @@
 //
 
 #import "CourseManager.h"
+#import <TheKeyOAuth2Client.h>
 
 #import "HubClient.h"
 #import "DataManager.h"
@@ -19,6 +20,7 @@ NSString *const EkkoCourseManagerWillSyncCoursesNotification = @"EkkoCourseManag
 NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManagerDidSyncCoursesNotification";
 
 @interface CourseManager () {
+    @private
     BOOL _coursesSyncInProgress;
     NSMutableDictionary *_pendingHubCourses;
 }
@@ -39,22 +41,25 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
     self = [super init];
     if (self) {
         _coursesSyncInProgress = NO;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(theKeyOAuth2ClientDidChangeGuid:) name:TheKeyOAuth2ClientDidChangeGuidNotification object:[TheKeyOAuth2Client sharedOAuth2Client]];
     }
     return self;
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(BOOL)isSyncInProgress {
     return _coursesSyncInProgress;
 }
 
--(void)syncAllCoursesFromHub {
+-(void)syncCourses {
     if (_coursesSyncInProgress) {
         return;
     }
     _coursesSyncInProgress = YES;
     _pendingHubCourses = [NSMutableDictionary dictionary];
-    
-    NSLog(@"%@", [[HubClient sharedClient] sessionId]);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [[NSNotificationCenter defaultCenter] postNotificationName:EkkoCourseManagerWillSyncCoursesNotification object:self];
@@ -156,6 +161,10 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 }
 
 #pragma mark - private
+
+-(void)theKeyOAuth2ClientDidChangeGuid:(NSNotification *)notification {
+    [self syncCourses];
+}
 
 -(void)getCoursesStaringAt:(NSInteger)start limit:(NSInteger)limit {
     [[HubClient sharedClient] getCoursesStartingAt:start withLimit:limit callback:^(NSArray *courses, BOOL hasMore, NSInteger start, NSInteger limit) {

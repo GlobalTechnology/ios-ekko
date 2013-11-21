@@ -12,7 +12,6 @@
 #import "DataManager.h"
 #import "HubClient.h"
 
-
 #import "CourseViewController.h"
 #import "CourseListCell.h"
 
@@ -139,7 +138,7 @@
 }
 
 -(IBAction)refresh:(UIRefreshControl *)refreshControl {
-    [[CourseManager sharedManager] syncAllCoursesFromHub];
+    [[CourseManager sharedManager] syncCourses];
 }
 
 - (IBAction)toggleNavigationDrawer:(id)sender {

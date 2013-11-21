@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "GTMOAuth2ViewControllerTouch.h"
+#import <TheKeyOAuth2LoginViewController.h>
 
-@interface EkkoLoginViewController : GTMOAuth2ViewControllerTouch
+@interface EkkoLoginViewController : TheKeyOAuth2LoginViewController
 
 @end

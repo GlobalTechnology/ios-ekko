@@ -7,13 +7,12 @@
 //
 
 #import "NavigationDrawerViewController.h"
+#import "DrawerViewController.h"
 #import "CourseListViewController.h"
 #import "AboutEkkoViewController.h"
 #import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
-#import <TheKeyOAuth2Client.h>
-#import "AppDelegate.h"
 
 @implementation NavigationDrawerViewController
 
@@ -145,8 +144,12 @@
         case NavigationDrawerSectionSettings: {
             switch (indexPath.row) {
                 case 0: {
-                    [[TheKeyOAuth2Client sharedOAuth2Client] logout];
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showLoginDialog];
+                    if ([[TheKeyOAuth2Client sharedOAuth2Client] isAuthenticated]) {
+                        [[TheKeyOAuth2Client sharedOAuth2Client] logout];
+                    }
+                    else {
+                        [(DrawerViewController *)[self mm_drawerController] presentLoginDialog];
+                    }
                     break;
                 }
                 case 1: {

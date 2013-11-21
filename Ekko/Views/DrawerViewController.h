@@ -7,7 +7,10 @@
 //
 
 #import "MMDrawerController.h"
+#import <TheKeyOAuth2Client.h>
 
-@interface DrawerViewController : MMDrawerController
+@interface DrawerViewController : MMDrawerController<TheKeyOAuth2ClientLoginDelegate>
+
+-(void)presentLoginDialog;
 
 @end
