@@ -8,11 +8,11 @@
 
 #import "AppDelegate.h"
 #import <TheKeyOAuth2Client.h>
-#import <AFNetworking.h>
+#import <AFNetworkActivityIndicatorManager.h>
 #import "CourseManager.h"
 
 @interface AppDelegate ()
--(void)showLoginDialog;
+
 @end
 
 @implementation AppDelegate
