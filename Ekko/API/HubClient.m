@@ -197,12 +197,14 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 }
 
 -(void)enqueuePendingHubRequests {
-    while ([self.pendingHubRequests count] > 0) {
-        HubRequestParameters *pending = (HubRequestParameters *)[self.pendingHubRequests objectAtIndex:0];
-        [self.pendingHubRequests removeObjectAtIndex:0];
-        
-        if ([pending.guid isEqualToString:self.sessionGuid]) {
-            [self hubRequestWithHubRequestParameters:pending];
+    @synchronized(self.pendingHubRequests) {
+        while ([self.pendingHubRequests count] > 0) {
+            HubRequestParameters *pending = (HubRequestParameters *)[self.pendingHubRequests objectAtIndex:0];
+            [self.pendingHubRequests removeObjectAtIndex:0];
+
+            if ([pending.guid isEqualToString:self.sessionGuid]) {
+                [self hubRequestWithHubRequestParameters:pending];
+            }
         }
     }
 }
@@ -217,13 +219,13 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     
     //Check if the request requires a session and if the session exists
     else if (requestParameters.useSession && ![self hasSession]) {
-        //Add request to pending requests
-        [self.pendingHubRequests addObject:requestParameters];
+        @synchronized(self.pendingHubRequests) {
+            //Add request to pending requests
+            [self.pendingHubRequests addObject:requestParameters];
+        }
         
         //Begin establishing a session if it isn't currently happening
-        if (!self.pendingSession) {
-            [self establishSession];
-        }
+        [self establishSession];
     }
     
     //Enqueue the request
@@ -235,10 +237,11 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
                 NSDictionary *headers = [[operation response] allHeaderFields];
                 NSString *authHeader = [headers objectForKey:kEkkoHubHTTPHeaderAuthenticate];
                 if (authHeader && [authHeader rangeOfString:@"CAS"].location != NSNotFound) {
-                    [self.pendingHubRequests addObject:requestParameters];
-                    if (!self.pendingSession) {
-                        [self establishSession];
+                    @synchronized(self.pendingHubRequests) {
+                        //Add request to pending requests
+                        [self.pendingHubRequests addObject:requestParameters];
                     }
+                    [self establishSession];
                     return;
                 }
             }
