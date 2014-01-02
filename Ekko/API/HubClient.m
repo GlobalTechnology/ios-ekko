@@ -7,7 +7,7 @@
 //
 
 #import "HubClient.h"
-#import <TheKey.h>
+#import <TheKeyOAuth2Client.h>
 #import <AFHTTPRequestOperation.h>
 #import "CoursesParser.h"
 #import "CourseParser.h"
@@ -48,15 +48,16 @@ static NSString *const kEkkoHubHTTPHeaderAuthenticate = @"WWW-Authenticate";
 static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
 @interface HubRequestParameters : NSObject
-
 @property (nonatomic) BOOL useSession;
 @property (nonatomic, copy) NSString *endpoint;
 @property (nonatomic, copy) NSDictionary *parameters;
 @property (nonatomic) EkkoRequestMethodType method;
 @property (nonatomic) NSUInteger attempts;
+@property (nonatomic, copy) NSString *guid;
 @property (nonatomic, strong) NSOutputStream *outputStream;
 @property (nonatomic, copy) void (^response)(NSURLResponse *response, id responseObject);
 @property (nonatomic, copy) void (^progress)(float progress);
+@property (nonatomic, copy) void (^constructingBodyWithBlock)(id <AFMultipartFormData> formData);
 +(HubRequestParameters *)hubRequestParametersWithSession:(BOOL)useSession
                                                 endpoint:(NSString *)endpoint
                                               parameters:(NSDictionary *)parameters
@@ -138,7 +139,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 -(BOOL)hasSession {
     NSString *sessionId = [self sessionId];
     NSString *sessionGuid = [self sessionGuid];
-    return (sessionId && sessionGuid && [sessionGuid isEqualToString:[[TheKey theKey] getGuid]]);
+    return (sessionId && sessionGuid && [sessionGuid isEqualToString:[[TheKeyOAuth2Client sharedOAuth2Client] guid]]);
 }
 
 -(NSString *)sessionGuid {
@@ -165,27 +166,11 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     [self setSessionId:nil];
     [self setPendingSession:YES];
     
-    //TODO Fetch service url from Hub
-    NSURL *serviceURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
-    
-    [[TheKey theKey] getTicketForService:serviceURL completionHandler:^(NSString *ticket, NSError *error) {
-        NSURL *loginURL = [[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin];
-        NSMutableURLRequest *loginRequest = [NSMutableURLRequest requestWithURL:loginURL];
-        
-        NSData *body = [[URLUtils encodeQueryParamsForDictionary:@{@"ticket": ticket}] dataUsingEncoding:NSUTF8StringEncoding];
-        [loginRequest setHTTPMethod:@"POST"];
-        [loginRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [loginRequest setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
-        [loginRequest setHTTPBody:body];
-        
-        NSHTTPURLResponse *response = nil;
-        NSError *loginError = nil;
-        
-        NSData *data = [NSURLConnection sendSynchronousRequest:loginRequest returningResponse:&response error:&loginError];
-        if(data && [response statusCode] == 200) {
-            NSString *sessionId = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    HubRequestParameters *request = [HubRequestParameters hubRequestParametersWithSession:NO endpoint:kEkkoHubEndpointLogin parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+            NSString *sessionId = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
             [self setSessionId:sessionId];
-            [self setSessionGuid:[[TheKey theKey] getGuid]];
+            [self setSessionGuid:[[TheKeyOAuth2Client sharedOAuth2Client] guid]];
             [self setPendingSession:NO];
             [self enqueuePendingHubRequests];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -193,6 +178,23 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             });
         }
     }];
+    [request setMethod:EkkoRequestMethodPOST];
+    if ([[TheKeyOAuth2Client sharedOAuth2Client].guid isEqualToString:TheKeyOAuth2GuestGUID]) {
+        [request setConstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFormData:[@"true" dataUsingEncoding:NSUTF8StringEncoding] name:@"guest"];
+        }];
+        [self hubRequestWithHubRequestParameters:request];
+    }
+    else {
+        [[TheKeyOAuth2Client sharedOAuth2Client] ticketForServiceURL:[[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin] complete:^(NSString *ticket) {
+            if (ticket) {
+                [request setConstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                    [formData appendPartWithFormData:[ticket dataUsingEncoding:NSUTF8StringEncoding] name:@"ticket"];
+                }];
+                [self hubRequestWithHubRequestParameters:request];
+            }
+        }];
+    }
 }
 
 -(void)enqueuePendingHubRequests {
@@ -200,7 +202,9 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         HubRequestParameters *pending = (HubRequestParameters *)[self.pendingHubRequests objectAtIndex:0];
         [self.pendingHubRequests removeObjectAtIndex:0];
         
-        [self hubRequestWithHubRequestParameters:pending];
+        if ([pending.guid isEqualToString:self.sessionGuid]) {
+            [self hubRequestWithHubRequestParameters:pending];
+        }
     }
 }
 
@@ -390,6 +394,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         self.useSession = NO;
         self.method = EkkoRequestMethodGET;
         self.attempts = 0;
+        self.guid = [[TheKeyOAuth2Client sharedOAuth2Client] guid];
     }
     return self;
 }
@@ -413,6 +418,10 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             break;
     }
     
+    // Build Multipart form if constructingBodyWithBlock is set
+    if (self.constructingBodyWithBlock) {
+        return [client multipartFormRequestWithMethod:method path:path parameters:self.parameters constructingBodyWithBlock:self.constructingBodyWithBlock];
+    }
     return [client requestWithMethod:method path:path parameters:self.parameters];
 }
 

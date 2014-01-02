@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <TheKeyOAuth2Client.h>
 #import <AFNetworking.h>
 #import "CourseManager.h"
 
@@ -23,30 +24,10 @@
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    TheKey *theKey = [TheKey theKey];
-    if([theKey canAuthenticate] && [theKey getGuid]) {
-        [[CourseManager sharedManager] syncAllCoursesFromHub];
-    }
-    else {
-        [self performSelector:@selector(showLoginDialog) withObject:nil afterDelay:0.1];
-    }
-
+    //Sync Courses
+    [[CourseManager sharedManager] syncCourses];
+    
     return YES;
-}
-							
--(void)showLoginDialog {
-    UIViewController *loginDialog = [[TheKey theKey] showDialog:self];
-    [loginDialog setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-    [self.window.rootViewController presentViewController:loginDialog animated:YES completion:^{}];
-}
-
--(void)loginSuccess {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-    [[CourseManager sharedManager] syncAllCoursesFromHub];
-}
-
--(void)loginFailure {
-    [self.window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
 }
 
 @end

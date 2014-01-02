@@ -92,6 +92,8 @@
 		D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */; };
 		D3A13D541819AFD700F71A62 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3A13D531819AFD700F71A62 /* Permission.m */; };
 		D3AF1DBC1816D78E00EA1CE8 /* CourseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3AF1DBB1816D78E00EA1CE8 /* CourseParser.m */; };
+		D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */; };
+		D3BAC3DB1836C2E400EDE24A /* EkkoLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */; };
 		D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */; };
 		D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D7B71817F4B6C00003C5EC /* HubClient.m */; };
 		D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */; };
@@ -290,6 +292,9 @@
 		D3A13D531819AFD700F71A62 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
 		D3AF1DBA1816D78E00EA1CE8 /* CourseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseParser.h; sourceTree = "<group>"; };
 		D3AF1DBB1816D78E00EA1CE8 /* CourseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseParser.m; sourceTree = "<group>"; };
+		D3BAC3D71836C2E400EDE24A /* EkkoLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EkkoLoginViewController.h; sourceTree = "<group>"; };
+		D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EkkoLoginViewController.m; sourceTree = "<group>"; };
+		D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EkkoLoginViewController.xib; sourceTree = "<group>"; };
 		D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MultipleChoice+Ekko.h"; sourceTree = "<group>"; };
 		D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoice+Ekko.m"; sourceTree = "<group>"; };
 		D3D7B71717F4B6C00003C5EC /* HubClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubClient.h; sourceTree = "<group>"; };
@@ -591,6 +596,9 @@
 				D359FF7F17EC96FE007A095B /* CourseList */,
 				D359FF8417EC96FE007A095B /* DrawerViewController.h */,
 				D359FF8517EC96FE007A095B /* DrawerViewController.m */,
+				D3BAC3D71836C2E400EDE24A /* EkkoLoginViewController.h */,
+				D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */,
+				D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */,
 				D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */,
 				D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */,
 				D303D87D180DB0FE0065B920 /* NavigationDrawer */,
@@ -845,6 +853,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */,
+				D3BAC3DB1836C2E400EDE24A /* EkkoLoginViewController.xib in Resources */,
 				D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */,
 				D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */,
 				D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */,
@@ -959,6 +968,7 @@
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
 				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
 				D33072351807349B00EDD036 /* QuizManager.m in Sources */,
+				D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */,
 				D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */,
 				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,

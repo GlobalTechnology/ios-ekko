@@ -24,7 +24,7 @@ FOUNDATION_EXPORT NSString *const EkkoCourseManagerDidSyncCoursesNotification;
 
 #pragma mark - Hub
 -(BOOL)isSyncInProgress;
--(void)syncAllCoursesFromHub;
+-(void)syncCourses;
 -(void)syncCourse:(NSString *)courseId complete:(void (^)())complete;
 
 #pragma mark - CoreData
