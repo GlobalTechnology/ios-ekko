@@ -6,13 +6,13 @@
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "AFHTTPClient.h"
+#import <AFNetworking.h>
 #import "HubCourse.h"
 #import "HubManifest.h"
 
 FOUNDATION_EXPORT NSString *const EkkoHubClientDidEstablishSessionNotification;
 
-@interface HubClient : AFHTTPClient
+@interface HubClient : AFHTTPRequestOperationManager
 
 @property (nonatomic, strong, readonly) NSString *sessionId;
 @property (nonatomic, strong, readonly) NSString *sessionGuid;

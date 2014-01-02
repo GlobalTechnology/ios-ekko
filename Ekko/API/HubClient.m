@@ -100,8 +100,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         
         //DEBUG - Force 401 sessionId
         //[self setSessionId:@"abcdef1234567890"];
-        
-        [self registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+        self.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
     return self;
 }
@@ -256,7 +255,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
                 requestParameters.progress(progress);
             }];
         }
-        [self enqueueHTTPRequestOperation:requestOperation];
+        [self.operationQueue addOperation:requestOperation];
     }
 }
 
@@ -406,6 +405,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         NSString *sessionId = [client hasSession] ? [client sessionId] : @"0000";
         path = [NSString stringWithFormat:@"%@/%@", sessionId, path];
     }
+    NSString *url = [[NSURL URLWithString:path relativeToURL:client.baseURL] absoluteString];
     
     NSString *method;
     switch (self.method) {
@@ -420,9 +420,9 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     
     // Build Multipart form if constructingBodyWithBlock is set
     if (self.constructingBodyWithBlock) {
-        return [client multipartFormRequestWithMethod:method path:path parameters:self.parameters constructingBodyWithBlock:self.constructingBodyWithBlock];
+        return [client.requestSerializer multipartFormRequestWithMethod:method URLString:url parameters:self.parameters constructingBodyWithBlock:self.constructingBodyWithBlock];
     }
-    return [client requestWithMethod:method path:path parameters:self.parameters];
+    return [client.requestSerializer requestWithMethod:method URLString:url parameters:self.parameters];
 }
 
 @end

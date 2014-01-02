@@ -9,7 +9,7 @@
 #import "ResourceManager.h"
 #import "CourseIdProtocol.h"
 #import "HubClient.h"
-#import <AFImageRequestOperation.h>
+#import <AFHTTPRequestOperation.h>
 
 #import "UIImage+Ekko.h"
 
@@ -87,13 +87,17 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         }
         else if ([resource isUri]) {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-            [[AFImageRequestOperation imageRequestOperationWithRequest:request success:^(UIImage *image) {
-                if (image) {
+            AFHTTPRequestOperation * operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
+                    UIImage *image = (UIImage *)responseObject;
                     completeBlock(resource, image);
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:[self pathForResource:resource]];
                 }
-            }] start];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            }];
+            [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+            [operation start];
         }
     });
 }
