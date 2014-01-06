@@ -46,6 +46,10 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     return self.type == EkkoResourceTypeURI;
 }
 
+-(BOOL)isEkkoCloudVideo {
+    return self.type == EkkoResourceTypeECV;
+}
+
 -(NSString *)filenameOnDisk {
     NSString *filename = nil;
     if ([self isFile] && self.sha1) {

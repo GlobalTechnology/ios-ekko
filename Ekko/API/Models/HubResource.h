@@ -17,5 +17,6 @@
 @property (nonatomic, strong) NSString *mimeType;
 @property (nonatomic, strong) NSString *provider;
 @property (nonatomic, strong) NSString *uri;
+@property (nonatomic, strong) NSString *videoId;
 
 @end

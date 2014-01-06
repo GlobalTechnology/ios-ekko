@@ -14,6 +14,7 @@ typedef NS_ENUM(int16_t, EkkoResourceType) {
     EkkoResourceTypeFile    = 1,
     EkkoResourceTypeURI     = 2,
     EkkoResourceTypeDynamic = 3,
+    EkkoResourceTypeECV     = 4,
 };
 
 typedef NS_ENUM(int16_t, EkkoResourceProvider) {
@@ -30,6 +31,7 @@ typedef NS_ENUM(int16_t, EkkoResourceProvider) {
 
 -(BOOL)isFile;
 -(BOOL)isUri;
+-(BOOL)isEkkoCloudVideo;
 
 /**
  Returns the filename used to store or retrieve the resource from disk
