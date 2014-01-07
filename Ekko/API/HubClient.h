@@ -10,6 +10,12 @@
 #import "HubCourse.h"
 #import "HubManifest.h"
 
+typedef NS_ENUM(int16_t, EkkoCloudVideoURLType) {
+    EkkoCloudVideoURLTypeDownload  = 0,
+    EkkoCloudVideoURLTypeStream    = 1,
+    EkkoCloudVideoURLTypeThumbnail = 2,
+};
+
 FOUNDATION_EXPORT NSString *const EkkoHubClientDidEstablishSessionNotification;
 
 @interface HubClient : AFHTTPRequestOperationManager
@@ -37,5 +43,8 @@ FOUNDATION_EXPORT NSString *const EkkoHubClientDidEstablishSessionNotification;
 #pragma mark - Course Permissions
 -(void)enrollInCourse:(NSString *)courseId callback:(void (^)(HubCourse *hubCourse))callback;
 -(void)unenrollFromCourse:(NSString *)courseId callback:(void (^)(HubCourse *hubCourse))callback;
+
+#pragma mark - Ekko Cloud Video
+-(void)getECVResourceURL:(NSString *)courseId videoId:(NSString *)videoId urlType:(EkkoCloudVideoURLType)urlType complete:(void(^)(NSURL *videoURL))complete;
 
 @end

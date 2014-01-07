@@ -58,6 +58,9 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     else if ([self isUri]) {
         filename = [NSString stringWithFormat:@"uri-%@", [[self.uri lowercaseString] MD5]];
     }
+    else if ([self isEkkoCloudVideo]) {
+        filename = [NSString stringWithFormat:@"ecv-%@", [self.videoId lowercaseString]];
+    }
     
     if (filename && self.mimeType) {
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)self.mimeType, NULL);
