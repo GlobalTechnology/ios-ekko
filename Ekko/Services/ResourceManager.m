@@ -18,7 +18,6 @@ const char * kEkkoResourceManagerDispatchQueue = "org.ekkoproject.ios.player.res
 NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.player";
 
 @interface ResourceManager ()
-@property (nonatomic, strong) NSFileManager *fileManager;
 @property (nonatomic, strong) NSString *cacheDirectory;
 @property (nonatomic, strong) NSCache *imageCache;
 @property (nonatomic, strong, readonly) dispatch_queue_t dispatchQueue;
@@ -41,12 +40,11 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         self.imageCache = [[NSCache alloc] init];
         [self.imageCache setName:kEkkoResourceManagerImageCache];
         
-        self.fileManager = [[NSFileManager alloc] init];
         NSString *cachesDirectory = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
         self.cacheDirectory = [cachesDirectory stringByAppendingPathComponent:kEkkoResourceManagerCacheDirectoryName];
         
-        if(![self.fileManager fileExistsAtPath:self.cacheDirectory]) {
-            [self.fileManager createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+        if(![[NSFileManager defaultManager] fileExistsAtPath:self.cacheDirectory]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         }
     }
     return self;
@@ -99,23 +97,61 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
             [operation start];
         }
+        else if ([resource isEkkoCloudVideo]) {
+            [[HubClient sharedClient] getECVResourceURL:resource.courseId videoId:resource.videoId urlType:EkkoCloudVideoURLTypeThumbnail complete:^(NSURL *videoURL) {
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+                AFHTTPRequestOperation *operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
+                        UIImage *image = (UIImage *)responseObject;
+                        completeBlock(resource, image);
+                        [self.imageCache setObject:image forKey:cacheKey];
+                        [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:[self pathForResource:resource]];
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                }];
+                [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+                [operation start];
+            }];
+        }
     });
 }
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
     dispatch_async(self.dispatchQueue, ^{
-        NSString *path = [self pathForResource:resource];
-        if ([self.fileManager fileExistsAtPath:path]) {
-            completeBlock(resource, [path copy]);
-            return;
-        }
-        
         if ([resource isFile]) {
-            NSOutputStream *outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-            [[HubClient sharedClient] getResource:resource.courseId sha1:resource.sha1 outputStream:outputStream progress:^(float progress) {
-                progressBlock(resource, progress);
-            } complete:^{
-                completeBlock(resource, path);
+            NSString *path = [self pathForResource:resource];
+            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                completeBlock(resource, [path copy]);
+            }
+            else {
+                [[HubClient sharedClient] getResource:resource.courseId sha1:resource.sha1 outputStream:[NSOutputStream outputStreamToFileAtPath:path append:NO] progress:^(float progress) {
+                    progressBlock(resource, progress);
+                } complete:^{
+                    completeBlock(resource, path);
+                }];
+            }
+        }
+        else if ([resource isEkkoCloudVideo]) {
+            [[HubClient sharedClient] getECVResourceURL:resource.courseId videoId:resource.videoId urlType:EkkoCloudVideoURLTypeDownload complete:^(NSURL *videoURL) {
+                NSString *path = [[self pathForResource:resource] stringByAppendingPathExtension:[videoURL pathExtension]];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                    completeBlock(resource, [path copy]);
+                }
+                else {
+                    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL];
+                    AFHTTPRequestOperation *operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                        completeBlock(resource, path);
+                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                        
+                    }];
+                    [operation setResponseSerializer:[AFHTTPResponseSerializer serializer]];
+                    [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:path append:NO]];
+                    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                        float progress = totalBytesRead / (float)totalBytesExpectedToRead;
+                        progressBlock(resource, progress);
+                    }];
+                    [operation start];
+                }
             }];
         }
     });
@@ -135,8 +171,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 
 -(NSString *)pathForCourseId:(NSString *)courseId {
     NSString *courseDirectory = [self.cacheDirectory stringByAppendingPathComponent:courseId];
-    if (![self.fileManager fileExistsAtPath:courseDirectory]) {
-        [self.fileManager createDirectoryAtPath:courseDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:courseDirectory]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:courseDirectory withIntermediateDirectories:YES attributes:nil error:nil];
     }
     return courseDirectory;
 }

@@ -2,8 +2,8 @@
 //  Resource.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/23/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 1/6/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -19,5 +19,6 @@
 @property (nonatomic, retain) NSString * sha1;
 @property (nonatomic) int64_t size;
 @property (nonatomic, retain) NSString * uri;
+@property (nonatomic, retain) NSString * videoId;
 
 @end

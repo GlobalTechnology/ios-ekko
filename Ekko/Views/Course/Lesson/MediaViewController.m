@@ -78,7 +78,7 @@
         if ([resource isUri]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
-        else if ([resource isFile]) {
+        else if ([resource isFile] || [resource isEkkoCloudVideo]) {
             [[ResourceManager sharedManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{

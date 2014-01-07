@@ -78,7 +78,6 @@
 		D3622D6B18184C5000CE2510 /* Question.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6A18184C5000CE2510 /* Question.m */; };
 		D3622D6E18184C5100CE2510 /* MultipleChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D6D18184C5100CE2510 /* MultipleChoice.m */; };
 		D3622D7118184C5100CE2510 /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7018184C5100CE2510 /* Media.m */; };
-		D3622D7418184C5100CE2510 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7318184C5100CE2510 /* Resource.m */; };
 		D3622D7718184C5100CE2510 /* Page.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7618184C5100CE2510 /* Page.m */; };
 		D3622D7A18184C5100CE2510 /* ManifestResource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7918184C5100CE2510 /* ManifestResource.m */; };
 		D3622D7D18184C5100CE2510 /* CourseResource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3622D7C18184C5100CE2510 /* CourseResource.m */; };
@@ -100,6 +99,7 @@
 		D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */; };
 		D3EBCA911811A66A00152107 /* HubPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCA901811A66A00152107 /* HubPermission.m */; };
 		D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCAA51811C82800152107 /* Permission+Hub.m */; };
+		D3F1354E187B0E3C005B0AC1 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1354D187B0E3C005B0AC1 /* Resource.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
 		D3F2F00517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
@@ -265,8 +265,6 @@
 		D3622D6D18184C5100CE2510 /* MultipleChoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipleChoice.m; sourceTree = "<group>"; };
 		D3622D6F18184C5100CE2510 /* Media.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Media.h; sourceTree = "<group>"; };
 		D3622D7018184C5100CE2510 /* Media.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Media.m; sourceTree = "<group>"; };
-		D3622D7218184C5100CE2510 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
-		D3622D7318184C5100CE2510 /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		D3622D7518184C5100CE2510 /* Page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page.h; sourceTree = "<group>"; };
 		D3622D7618184C5100CE2510 /* Page.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page.m; sourceTree = "<group>"; };
 		D3622D7818184C5100CE2510 /* ManifestResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManifestResource.h; sourceTree = "<group>"; };
@@ -307,6 +305,8 @@
 		D3EBCA901811A66A00152107 /* HubPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubPermission.m; sourceTree = "<group>"; };
 		D3EBCAA41811C82800152107 /* Permission+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Permission+Hub.h"; sourceTree = "<group>"; };
 		D3EBCAA51811C82800152107 /* Permission+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Permission+Hub.m"; sourceTree = "<group>"; };
+		D3F1354C187B0E3C005B0AC1 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
+		D3F1354D187B0E3C005B0AC1 /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -476,6 +476,8 @@
 				D3622D7B18184C5100CE2510 /* CourseResource.h */,
 				D3622D7C18184C5100CE2510 /* CourseResource.m */,
 				D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */,
+				D3F1354C187B0E3C005B0AC1 /* Resource.h */,
+				D3F1354D187B0E3C005B0AC1 /* Resource.m */,
 				D3A13D521819AFD700F71A62 /* Permission.h */,
 				D3A13D531819AFD700F71A62 /* Permission.m */,
 				D3622D8718184C5100CE2510 /* Lesson.h */,
@@ -498,8 +500,6 @@
 				D3622D6A18184C5000CE2510 /* Question.m */,
 				D3622D6018184C5000CE2510 /* Quiz.h */,
 				D3622D6118184C5000CE2510 /* Quiz.m */,
-				D3622D7218184C5100CE2510 /* Resource.h */,
-				D3622D7318184C5100CE2510 /* Resource.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -932,7 +932,6 @@
 				D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
 				D359FF9817EC96FE007A095B /* HubOption.m in Sources */,
-				D3622D7418184C5100CE2510 /* Resource.m in Sources */,
 				D359FF9C17EC96FE007A095B /* HubResource.m in Sources */,
 				D359FFBA17EC96FE007A095B /* Quiz+Ekko.m in Sources */,
 				D359FF9117EC96FE007A095B /* HubXMLParser.m in Sources */,
@@ -948,6 +947,7 @@
 				D3622D8318184C5100CE2510 /* Answer.m in Sources */,
 				D3622D8F18184C5100CE2510 /* MultipleChoiceOption.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
+				D3F1354E187B0E3C005B0AC1 /* Resource.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
 				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
 				D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */,

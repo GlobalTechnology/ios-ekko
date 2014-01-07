@@ -30,13 +30,16 @@ static NSString *const kEkkoHubEndpointResource = @"courses/course/%@/resources/
 static NSString *const kEkkoHubEndpointEnroll   = @"courses/course/%@/enroll";
 static NSString *const kEkkoHubEndpointUnenroll = @"courses/course/%@/unenroll";
 static NSString *const kEkkoHubEndpointCourse   = @"courses/course/%@";
+static NSString *const kEkkoHubEndpointVideoDownload  = @"courses/course/%@/resources/video/%@/download";
+static NSString *const kEkkoHubEndpointVideoStream    = @"courses/course/%@/resources/video/%@/stream";
+static NSString *const kEkkoHubEndpointVideoThumbnail = @"courses/course/%@/resources/video/%@/thumbnail";
 
 // Ekko Hub XML processing queue
 const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
 
 NSString *const EkkoHubClientDidEstablishSessionNotification = @"EkkoHubClientDidEstablishSessionNotification";
 
-// Ekko Hub Request Mothods
+// Ekko Hub Request Methods
 typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
     EkkoRequestMethodGET,
     EkkoRequestMethodPOST,
@@ -58,6 +61,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 @property (nonatomic, copy) void (^response)(NSURLResponse *response, id responseObject);
 @property (nonatomic, copy) void (^progress)(float progress);
 @property (nonatomic, copy) void (^constructingBodyWithBlock)(id <AFMultipartFormData> formData);
+@property (nonatomic, copy) NSURLRequest* (^redirectResponse)(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse);
 +(HubRequestParameters *)hubRequestParametersWithSession:(BOOL)useSession
                                                 endpoint:(NSString *)endpoint
                                               parameters:(NSDictionary *)parameters
@@ -258,6 +262,10 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
                 requestParameters.progress(progress);
             }];
         }
+        //Set the redirect response if provided
+        if (requestParameters.redirectResponse) {
+            [requestOperation setRedirectResponseBlock:requestParameters.redirectResponse];
+        }
         [self.operationQueue addOperation:requestOperation];
     }
 }
@@ -371,6 +379,34 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         }
     }];
     [hubRequestParameters setMethod:EkkoRequestMethodPOST];
+    [self hubRequestWithHubRequestParameters:hubRequestParameters];
+}
+
+#pragma mark - Ekko Cloud Video
+
+-(NSString *)ECVEndpoint:(EkkoCloudVideoURLType)urlType {
+    switch (urlType) {
+        case EkkoCloudVideoURLTypeDownload:
+            return kEkkoHubEndpointVideoDownload;
+        case EkkoCloudVideoURLTypeStream:
+            return kEkkoHubEndpointVideoStream;
+        case EkkoCloudVideoURLTypeThumbnail:
+            return kEkkoHubEndpointVideoThumbnail;
+    }
+}
+
+-(void)getECVResourceURL:(NSString *)courseId videoId:(NSString *)videoId urlType:(EkkoCloudVideoURLType)urlType complete:(void (^)(NSURL *))complete {
+    NSString *endpoint = [NSString stringWithFormat:[self ECVEndpoint:urlType], courseId, videoId];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {}];
+    [hubRequestParameters setRedirectResponse:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
+        if (redirectResponse == nil) {
+            //Not a redirect, something changed with the initial request URL
+            return request;
+        }
+        //Return the redirect URL and then abort the original request.
+        complete([request.URL copy]);
+        return nil;
+    }];
     [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
 
