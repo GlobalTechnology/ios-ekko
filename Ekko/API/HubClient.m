@@ -34,6 +34,12 @@ static NSString *const kEkkoHubEndpointVideoDownload  = @"courses/course/%@/reso
 static NSString *const kEkkoHubEndpointVideoStream    = @"courses/course/%@/resources/video/%@/stream";
 static NSString *const kEkkoHubEndpointVideoThumbnail = @"courses/course/%@/resources/video/%@/thumbnail";
 
+//Ekko Hub API Parameters
+static NSString *const kEkkoHubParameterTicket = @"ticket";
+static NSString *const kEkkoHubParameterGuest  = @"guest";
+static NSString *const kEkkoHubParameterStart  = @"start";
+static NSString *const kEkkoHubParameterLimit  = @"limit";
+
 // Ekko Hub XML processing queue
 const char * kEkkoHubClientDispatchQueue = "org.ekkoproject.ios.player.hubclient.queue";
 
@@ -45,7 +51,14 @@ typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
     EkkoRequestMethodPOST,
 };
 
+// HTTP Header fields
+static NSString *const kEkkoHubHTTPHeaderAccept = @"Accept";
 static NSString *const kEkkoHubHTTPHeaderAuthenticate = @"WWW-Authenticate";
+
+// HTTP Content-Type
+static NSString *const kEkkoHubHTTPContentTypeText = @"text/plain";
+static NSString *const kEkkoHubHTTPContentTypeXML  = @"application/xml";
+static NSString *const kEkkoHubHTTPContentTypeJSON = @"application/json";
 
 // Maximum request attempts
 static NSUInteger const kEkkoHubClientMaxAttepts = 3;
@@ -62,6 +75,8 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 @property (nonatomic, copy) void (^progress)(float progress);
 @property (nonatomic, copy) void (^constructingBodyWithBlock)(id <AFMultipartFormData> formData);
 @property (nonatomic, copy) NSURLRequest* (^redirectResponse)(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse);
+@property (nonatomic, strong) AFHTTPRequestSerializer <AFURLRequestSerialization> *requestSerializer;
+@property (nonatomic, strong) AFHTTPResponseSerializer <AFURLResponseSerialization> *responseSerializer;
 +(HubRequestParameters *)hubRequestParametersWithSession:(BOOL)useSession
                                                 endpoint:(NSString *)endpoint
                                               parameters:(NSDictionary *)parameters
@@ -98,13 +113,17 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
     self = [super initWithBaseURL:url];
     if (self) {
         _pendingSession = NO;
+        
+        self.requestSerializer = [AFHTTPRequestSerializer serializer];
+        [self.requestSerializer setValue:kEkkoHubHTTPContentTypeXML forHTTPHeaderField:kEkkoHubHTTPHeaderAccept];
+        
+        self.responseSerializer = [AFHTTPResponseSerializer serializer];
 
         //DEBUG - Force invalid sessionId
         //[self setSessionId:nil];
         
         //DEBUG - Force 401 sessionId
         //[self setSessionId:@"abcdef1234567890"];
-        self.responseSerializer = [AFHTTPResponseSerializer serializer];
     }
     return self;
 }
@@ -182,21 +201,35 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         }
     }];
     [request setMethod:EkkoRequestMethodPOST];
+    [request setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+    [request.requestSerializer setValue:kEkkoHubHTTPContentTypeText forHTTPHeaderField:kEkkoHubHTTPHeaderAccept];
     if ([[TheKeyOAuth2Client sharedOAuth2Client].guid isEqualToString:TheKeyOAuth2GuestGUID]) {
         [request setConstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFormData:[@"true" dataUsingEncoding:NSUTF8StringEncoding] name:@"guest"];
+            [formData appendPartWithFormData:[@"true" dataUsingEncoding:NSUTF8StringEncoding] name:kEkkoHubParameterGuest];
         }];
         [self hubRequestWithHubRequestParameters:request];
     }
     else {
-        [[TheKeyOAuth2Client sharedOAuth2Client] ticketForServiceURL:[[self baseURL] URLByAppendingPathComponent:kEkkoHubEndpointLogin] complete:^(NSString *ticket) {
-            if (ticket) {
-                [request setConstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    [formData appendPartWithFormData:[ticket dataUsingEncoding:NSUTF8StringEncoding] name:@"ticket"];
+        //Fetch the service URL to use with login
+        HubRequestParameters *serviceRequestParameters = [HubRequestParameters hubRequestParametersWithSession:NO endpoint:kEkkoHubEndpointService parameters:nil response:^(NSURLResponse *response, id responseObject) {
+            if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
+                NSString *serviceURL = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+                //Fetch a CAS ticket using the service URL
+                [[TheKeyOAuth2Client sharedOAuth2Client] ticketForServiceURL:[NSURL URLWithString:serviceURL] complete:^(NSString *ticket) {
+                    if (ticket) {
+                        //Use the CAS ticket for authentication with Ekko Hub
+                        [request setConstructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                            [formData appendPartWithFormData:[ticket dataUsingEncoding:NSUTF8StringEncoding] name:kEkkoHubParameterTicket];
+                        }];
+                        //Start the Login request
+                        [self hubRequestWithHubRequestParameters:request];
+                    }
                 }];
-                [self hubRequestWithHubRequestParameters:request];
             }
         }];
+        [serviceRequestParameters setRequestSerializer:[AFHTTPRequestSerializer serializer]];
+        [serviceRequestParameters.requestSerializer setValue:kEkkoHubHTTPContentTypeText forHTTPHeaderField:kEkkoHubHTTPHeaderAccept];
+        [self hubRequestWithHubRequestParameters:serviceRequestParameters];
     }
 }
 
@@ -266,6 +299,10 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         if (requestParameters.redirectResponse) {
             [requestOperation setRedirectResponseBlock:requestParameters.redirectResponse];
         }
+        //Set a custom responseSerializer if provided
+        if (requestParameters.responseSerializer) {
+            [requestOperation setResponseSerializer:requestParameters.responseSerializer];
+        }
         [self.operationQueue addOperation:requestOperation];
     }
 }
@@ -273,8 +310,8 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 #pragma mark - Course List
 
 -(void)getCoursesStartingAt:(NSInteger)start withLimit:(NSInteger)limit callback:(void (^)(NSArray *, BOOL, NSInteger, NSInteger))callback {
-    NSDictionary *parameters = @{@"start": [NSString stringWithFormat:@"%d", (int)start],
-                                 @"limit": [NSString stringWithFormat:@"%d", (int)limit]};
+    NSDictionary *parameters = @{kEkkoHubParameterStart: [NSString stringWithFormat:@"%d", (int)start],
+                                 kEkkoHubParameterLimit: [NSString stringWithFormat:@"%d", (int)limit]};
     [self hubRequestWithHubRequestParameters:[HubRequestParameters hubRequestParametersWithSession:YES endpoint:kEkkoHubEndpointCourses parameters:parameters response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
             NSXMLParser *parser = [[NSXMLParser alloc] initWithData:(NSData *)responseObject];
@@ -457,11 +494,14 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
             break;
     }
     
+    // Request serializer to use for the request
+    AFHTTPRequestSerializer<AFURLRequestSerialization> *requestSerializer = self.requestSerializer ?: client.requestSerializer;
+    
     // Build Multipart form if constructingBodyWithBlock is set
     if (self.constructingBodyWithBlock) {
-        return [client.requestSerializer multipartFormRequestWithMethod:method URLString:url parameters:self.parameters constructingBodyWithBlock:self.constructingBodyWithBlock];
+        return [requestSerializer multipartFormRequestWithMethod:method URLString:url parameters:self.parameters constructingBodyWithBlock:self.constructingBodyWithBlock];
     }
-    return [client.requestSerializer requestWithMethod:method URLString:url parameters:self.parameters];
+    return [requestSerializer requestWithMethod:method URLString:url parameters:self.parameters];
 }
 
 @end
