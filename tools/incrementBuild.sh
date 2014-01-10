@@ -16,7 +16,10 @@ if [ -n "$(find "$dir" \! -path "*xcuserdata*" \! -path "*.git" -newer "$plist")
         exit 2
     fi
     buildnum=$(expr $buildnum + 1)
+    version_num=$(/usr/libexec/Plistbuddy -c "Print EkkoVersion" "$plist")
+    ekko_version="$version_num"b"$buildnum"
     /usr/libexec/Plistbuddy -c "Set CFBundleVersion $buildnum" "$plist"
+    /usr/libexec/Plistbuddy -c "Set CFBundleShortVersionString $ekko_version" "$plist"
     echo "Incremented build number to $buildnum"
 else
     echo "Not incrementing build number as source files have not changed"

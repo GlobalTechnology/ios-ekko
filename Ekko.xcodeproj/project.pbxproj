@@ -778,8 +778,8 @@
 			buildConfigurationList = D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekko" */;
 			buildPhases = (
 				7C2417094C734B38BFB383E9 /* Check Pods Manifest.lock */,
-				D312368F1831670400EE3907 /* Increment Build Number */,
 				D3F2EFF917EC904800F32F52 /* Sources */,
+				D312368F1831670400EE3907 /* Increment Build Number */,
 				D3F2EFFA17EC904800F32F52 /* Frameworks */,
 				D3F2EFFB17EC904800F32F52 /* Resources */,
 				BF37EE882C88445B95ACF033 /* Copy Pods Resources */,
@@ -905,7 +905,7 @@
 		};
 		D312368F1831670400EE3907 /* Increment Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -916,7 +916,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "${PROJECT_DIR}/tools/incrementBuild.sh \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1225,7 +1224,7 @@
 				D3F2F03117EC904800F32F52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekko" */ = {
 			isa = XCConfigurationList;
@@ -1234,7 +1233,7 @@
 				D3F2F03417EC904800F32F52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		D3F2F03517EC904800F32F52 /* Build configuration list for PBXNativeTarget "EkkoTests" */ = {
 			isa = XCConfigurationList;
@@ -1243,7 +1242,7 @@
 				D3F2F03717EC904800F32F52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
