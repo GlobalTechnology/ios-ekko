@@ -42,11 +42,11 @@ static const int insetViewTag = 1;
     Resource *banner = (Resource *)[course banner];
     if (banner) {
         [[ResourceManager sharedManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
-            if (image && [resource.resourceId isEqualToString:banner.resourceId]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (image && [resource.resourceId isEqualToString:[(Resource *)[course banner] resourceId]]) {
                     [self.bannerImageView setImage:image];
-                });
-            }
+                }
+            });
         }];
     }
 }

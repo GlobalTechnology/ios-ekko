@@ -49,18 +49,12 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     return self;
 }
 
--(void)getImageResource:(NSString *)resourceId
-               courseId:(NSString *)courseId
-                   sha1:(NSString *)sha1
-          completeBlock:(void (^)(NSString *courseId, NSString *resourceId, UIImage *))completeBlock {
-}
-
-
 -(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *, UIImage *))completeBlock {
     NSManagedObjectContext *privateContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectID *resourceObjectId = resource.objectID;
     [privateContext performBlock:^{
         NSError *error;
-        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resource.objectID error:&error];
+        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resourceObjectId error:&error];
         if (error) {
             return;
         }
@@ -132,9 +126,10 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
     NSManagedObjectContext *privateContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectID *resourceObjectId = resource.objectID;
     [privateContext performBlock:^{
         NSError *error;
-        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resource.objectID error:&error];
+        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resourceObjectId error:&error];
         if (error) {
             return;
         }
