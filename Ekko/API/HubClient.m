@@ -31,7 +31,7 @@ static NSString *const kEkkoHubEndpointEnroll   = @"courses/course/%@/enroll";
 static NSString *const kEkkoHubEndpointUnenroll = @"courses/course/%@/unenroll";
 static NSString *const kEkkoHubEndpointCourse   = @"courses/course/%@";
 static NSString *const kEkkoHubEndpointVideoDownload  = @"courses/course/%@/resources/video/%@/download";
-static NSString *const kEkkoHubEndpointVideoStream    = @"courses/course/%@/resources/video/%@/stream";
+static NSString *const kEkkoHubEndpointVideoStream    = @"courses/course/%@/resources/video/%@/stream.m3u8?type=HLS";
 static NSString *const kEkkoHubEndpointVideoThumbnail = @"courses/course/%@/resources/video/%@/thumbnail";
 
 //Ekko Hub API Parameters
@@ -54,6 +54,7 @@ typedef NS_ENUM(NSUInteger, EkkoRequestMethodType) {
 // HTTP Header fields
 static NSString *const kEkkoHubHTTPHeaderAccept = @"Accept";
 static NSString *const kEkkoHubHTTPHeaderAuthenticate = @"WWW-Authenticate";
+static NSString *const kEkkoHubHTTPHeaderXEkkoStreamUri = @"X-Ekko-Stream-Uri";
 
 // HTTP Content-Type
 static NSString *const kEkkoHubHTTPContentTypeText = @"text/plain";
@@ -434,7 +435,13 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
 
 -(void)getECVResourceURL:(NSString *)courseId videoId:(NSString *)videoId urlType:(EkkoCloudVideoURLType)urlType complete:(void (^)(NSURL *))complete {
     NSString *endpoint = [NSString stringWithFormat:[self ECVEndpoint:urlType], courseId, videoId];
-    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {}];
+    HubRequestParameters *hubRequestParameters = [HubRequestParameters hubRequestParametersWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
+        if (responseObject && ![responseObject isKindOfClass:[NSError class]]) {
+            NSDictionary *headers = [(NSHTTPURLResponse *)response allHeaderFields];
+            NSString *stream = [headers objectForKey:kEkkoHubHTTPHeaderXEkkoStreamUri];
+            complete([NSURL URLWithString:stream]);
+        }
+    }];
     [hubRequestParameters setRedirectResponse:^NSURLRequest *(NSURLConnection *connection, NSURLRequest *request, NSURLResponse *redirectResponse) {
         if (redirectResponse == nil) {
             //Not a redirect, something changed with the initial request URL
@@ -444,6 +451,7 @@ static NSUInteger const kEkkoHubClientMaxAttepts = 3;
         complete([request.URL copy]);
         return nil;
     }];
+    [hubRequestParameters setRequestSerializer:[AFHTTPRequestSerializer serializer]];
     [self hubRequestWithHubRequestParameters:hubRequestParameters];
 }
 

@@ -78,7 +78,7 @@
         if ([resource isUri]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
-        else if ([resource isFile] || [resource isEkkoCloudVideo]) {
+        else if ([resource isFile]) {
             [[ResourceManager sharedManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -95,6 +95,16 @@
                         [self.progressView setHidden:YES];
                     }
                     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:path]];
+                    [self presentMoviePlayerViewControllerAnimated:movieController];
+                    [movieController.moviePlayer prepareToPlay];
+                    [movieController.moviePlayer play];
+                });
+            }];
+        }
+        else if ([resource isEkkoCloudVideo]) {
+            [[HubClient sharedClient] getECVResourceURL:[resource courseId] videoId:[resource videoId] urlType:EkkoCloudVideoURLTypeStream complete:^(NSURL *videoURL) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
                     [self presentMoviePlayerViewControllerAnimated:movieController];
                     [movieController.moviePlayer prepareToPlay];
                     [movieController.moviePlayer play];
