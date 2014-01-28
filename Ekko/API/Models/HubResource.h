@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *provider;
 @property (nonatomic, strong) NSString *uri;
 @property (nonatomic, strong) NSString *videoId;
+@property (nonatomic, strong) NSString *refId;
 
 @end

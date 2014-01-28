@@ -50,6 +50,10 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     return self.type == EkkoResourceTypeECV;
 }
 
+-(BOOL)isArclight {
+    return self.type == EkkoResourceTypeArclight;
+}
+
 -(NSString *)filenameOnDisk {
     NSString *filename = nil;
     if ([self isFile] && self.sha1) {
@@ -60,6 +64,9 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     }
     else if ([self isEkkoCloudVideo]) {
         filename = [NSString stringWithFormat:@"ecv-%@", [self.videoId lowercaseString]];
+    }
+    else if ([self isArclight]) {
+        filename = [NSString stringWithFormat:@"arclight-%@", self.refId];
     }
     
     if (filename && self.mimeType) {

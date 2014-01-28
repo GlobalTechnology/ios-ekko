@@ -10,11 +10,12 @@
 #import "CourseIdProtocol.h"
 
 typedef NS_ENUM(int16_t, EkkoResourceType) {
-    EkkoResourceTypeUnknown = 0,
-    EkkoResourceTypeFile    = 1,
-    EkkoResourceTypeURI     = 2,
-    EkkoResourceTypeDynamic = 3,
-    EkkoResourceTypeECV     = 4,
+    EkkoResourceTypeUnknown  = 0,
+    EkkoResourceTypeFile     = 1,
+    EkkoResourceTypeURI      = 2,
+    EkkoResourceTypeDynamic  = 3,
+    EkkoResourceTypeECV      = 4,
+    EkkoResourceTypeArclight = 5,
 };
 
 typedef NS_ENUM(int16_t, EkkoResourceProvider) {
@@ -32,6 +33,7 @@ typedef NS_ENUM(int16_t, EkkoResourceProvider) {
 -(BOOL)isFile;
 -(BOOL)isUri;
 -(BOOL)isEkkoCloudVideo;
+-(BOOL)isArclight;
 
 /**
  Returns the filename used to store or retrieve the resource from disk

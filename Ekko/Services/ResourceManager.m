@@ -10,6 +10,7 @@
 #import "DataManager.h"
 #import "CourseIdProtocol.h"
 #import "HubClient.h"
+#import "ArclightClient.h"
 #import <AFHTTPRequestOperation.h>
 
 #import "UIImage+Ekko.h"
@@ -120,7 +121,23 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
                 [operation start];
             }];
         }
-
+        else if ([_resource isArclight]) {
+            [[ArclightClient sharedClient] getThumbnailURL:_resource.refId complete:^(NSURL *thumbnailURL) {
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:thumbnailURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+                AFHTTPRequestOperation *operation = [[ArclightClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
+                        UIImage *image = (UIImage *)responseObject;
+                        completeBlock(resource, image);
+                        [self.imageCache setObject:image forKey:cacheKey];
+                        [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
+                    }
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                }];
+                [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+                [operation start];
+            }];
+        }
+        
     }];
 }
 

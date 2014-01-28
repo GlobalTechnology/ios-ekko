@@ -100,6 +100,7 @@
         <attribute name="internalProvider" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="internalType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="refId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="resourceId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="sha1" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>

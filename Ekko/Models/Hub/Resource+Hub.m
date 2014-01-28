@@ -22,6 +22,8 @@
         [self setType:EkkoResourceTypeDynamic];
     else if ([hubResource.resourceType isEqualToString:kEkkoHubXMLValueResourceTypeECV])
         [self setType:EkkoResourceTypeECV];
+    else if ([hubResource.resourceType isEqualToString:kEkkoHubXMLValueResourceTypeArclight])
+        [self setType:EkkoResourceTypeArclight];
     else
         [self setType:EkkoResourceTypeUnknown];
     
@@ -40,6 +42,7 @@
     
     [self setUri:[hubResource uri]];
     [self setVideoId:[hubResource videoId]];
+    [self setRefId:[hubResource refId]];
 }
 
 @end

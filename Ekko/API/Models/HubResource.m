@@ -18,6 +18,7 @@
 @synthesize provider      = _provider;
 @synthesize uri           = _uri;
 @synthesize videoId       = _videoId;
+@synthesize refId         = _refId;
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     [super parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
@@ -31,6 +32,7 @@
         [self setProvider:[attributeDict objectForKey:kEkkoHubXMLAttrResourceProvider]];
         [self setUri:[attributeDict objectForKey:kEkkoHubXMLAttrResourceURI]];
         [self setVideoId:[attributeDict objectForKey:kEkkoHubXMLAttrResourceVideoId]];
+        [self setRefId:[attributeDict objectForKey:kEkkoHubXMLAttrResourceRefId]];
     }
 }
 

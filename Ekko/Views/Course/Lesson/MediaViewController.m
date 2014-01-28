@@ -9,6 +9,7 @@
 #import "MediaViewController.h"
 #import "Resource+Ekko.h"
 #import "HubClient.h"
+#import "ArclightClient.h"
 #import "ResourceManager.h"
 #import "ProgressManager.h"
 #import "Lesson+Ekko.h"
@@ -105,6 +106,16 @@
             [[HubClient sharedClient] getECVResourceURL:[resource courseId] videoId:[resource videoId] urlType:EkkoCloudVideoURLTypeStream complete:^(NSURL *videoURL) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+                    [self presentMoviePlayerViewControllerAnimated:movieController];
+                    [movieController.moviePlayer prepareToPlay];
+                    [movieController.moviePlayer play];
+                });
+            }];
+        }
+        else if ([resource isArclight]) {
+            [[ArclightClient sharedClient] getVideoStreamUrl:resource.refId complete:^(NSURL *videoStreamUrl) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
                     [self presentMoviePlayerViewControllerAnimated:movieController];
                     [movieController.moviePlayer prepareToPlay];
                     [movieController.moviePlayer play];

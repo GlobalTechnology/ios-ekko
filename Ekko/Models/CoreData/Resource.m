@@ -2,7 +2,7 @@
 //  Resource.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 1/6/14.
+//  Created by Brian Zoetewey on 1/24/14.
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
@@ -19,5 +19,6 @@
 @dynamic size;
 @dynamic uri;
 @dynamic videoId;
+@dynamic refId;
 
 @end

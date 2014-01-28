@@ -17,6 +17,8 @@
 		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
 		D3375AE318106BAC00BAB134 /* AboutEkkoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */; };
 		D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */ = {isa = PBXBuildFile; fileRef = D3375AE418106C9500BAB134 /* AboutEkko.html */; };
+		D33F46431892FB1C0053AF63 /* ArclightClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D33F46421892FB1C0053AF63 /* ArclightClient.m */; };
+		D33F464618930D170053AF63 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D33F464518930D170053AF63 /* Resource.m */; };
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
 		D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE717EC968C007A095B /* QuartzCore.framework */; };
 		D359FF8F17EC96FE007A095B /* HubXMLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FEEF17EC96FD007A095B /* HubXMLConstants.m */; };
@@ -99,7 +101,6 @@
 		D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */; };
 		D3EBCA911811A66A00152107 /* HubPermission.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCA901811A66A00152107 /* HubPermission.m */; };
 		D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */ = {isa = PBXBuildFile; fileRef = D3EBCAA51811C82800152107 /* Permission+Hub.m */; };
-		D3F1354E187B0E3C005B0AC1 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F1354D187B0E3C005B0AC1 /* Resource.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
 		D3F2F00317EC904800F32F52 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00217EC904800F32F52 /* CoreGraphics.framework */; };
 		D3F2F00517EC904800F32F52 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00417EC904800F32F52 /* UIKit.framework */; };
@@ -147,6 +148,10 @@
 		D3375AE118106BAC00BAB134 /* AboutEkkoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutEkkoViewController.h; sourceTree = "<group>"; };
 		D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutEkkoViewController.m; sourceTree = "<group>"; };
 		D3375AE418106C9500BAB134 /* AboutEkko.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AboutEkko.html; sourceTree = "<group>"; };
+		D33F46411892FB1C0053AF63 /* ArclightClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArclightClient.h; sourceTree = "<group>"; };
+		D33F46421892FB1C0053AF63 /* ArclightClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArclightClient.m; sourceTree = "<group>"; };
+		D33F464418930D170053AF63 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
+		D33F464518930D170053AF63 /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		D359FEE517EC967D007A095B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D359FEE717EC968C007A095B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D359FEEE17EC96FD007A095B /* HubXMLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HubXMLConstants.h; sourceTree = "<group>"; };
@@ -305,8 +310,6 @@
 		D3EBCA901811A66A00152107 /* HubPermission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HubPermission.m; sourceTree = "<group>"; };
 		D3EBCAA41811C82800152107 /* Permission+Hub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Permission+Hub.h"; sourceTree = "<group>"; };
 		D3EBCAA51811C82800152107 /* Permission+Hub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Permission+Hub.m"; sourceTree = "<group>"; };
-		D3F1354C187B0E3C005B0AC1 /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resource.h; sourceTree = "<group>"; };
-		D3F1354D187B0E3C005B0AC1 /* Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Resource.m; sourceTree = "<group>"; };
 		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -378,6 +381,8 @@
 		D359FEE917EC96FD007A095B /* API */ = {
 			isa = PBXGroup;
 			children = (
+				D33F46411892FB1C0053AF63 /* ArclightClient.h */,
+				D33F46421892FB1C0053AF63 /* ArclightClient.m */,
 				D3D7B71717F4B6C00003C5EC /* HubClient.h */,
 				D3D7B71817F4B6C00003C5EC /* HubClient.m */,
 				D359FEEE17EC96FD007A095B /* HubXMLConstants.h */,
@@ -475,9 +480,9 @@
 				D3622D6418184C5000CE2510 /* Course.m */,
 				D3622D7B18184C5100CE2510 /* CourseResource.h */,
 				D3622D7C18184C5100CE2510 /* CourseResource.m */,
+				D33F464418930D170053AF63 /* Resource.h */,
+				D33F464518930D170053AF63 /* Resource.m */,
 				D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */,
-				D3F1354C187B0E3C005B0AC1 /* Resource.h */,
-				D3F1354D187B0E3C005B0AC1 /* Resource.m */,
 				D3A13D521819AFD700F71A62 /* Permission.h */,
 				D3A13D531819AFD700F71A62 /* Permission.m */,
 				D3622D8718184C5100CE2510 /* Lesson.h */,
@@ -946,7 +951,6 @@
 				D3622D8318184C5100CE2510 /* Answer.m in Sources */,
 				D3622D8F18184C5100CE2510 /* MultipleChoiceOption.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
-				D3F1354E187B0E3C005B0AC1 /* Resource.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
 				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
 				D3EBCAA61811C82800152107 /* Permission+Hub.m in Sources */,
@@ -964,11 +968,13 @@
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D3AF1DBC1816D78E00EA1CE8 /* CourseParser.m in Sources */,
 				D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */,
+				D33F46431892FB1C0053AF63 /* ArclightClient.m in Sources */,
 				D359FF9D17EC96FE007A095B /* CoursesParser.m in Sources */,
 				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
 				D33072351807349B00EDD036 /* QuizManager.m in Sources */,
 				D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */,
 				D3C51DE418088B1D00C7CB9F /* MultipleChoice+Ekko.m in Sources */,
+				D33F464618930D170053AF63 /* Resource.m in Sources */,
 				D3D7B71917F4B6C00003C5EC /* HubClient.m in Sources */,
 				D359FF9317EC96FE007A095B /* HubLesson.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,

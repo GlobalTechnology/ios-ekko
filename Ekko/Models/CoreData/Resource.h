@@ -2,7 +2,7 @@
 //  Resource.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 1/6/14.
+//  Created by Brian Zoetewey on 1/24/14.
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
@@ -20,5 +20,6 @@
 @property (nonatomic) int64_t size;
 @property (nonatomic, retain) NSString * uri;
 @property (nonatomic, retain) NSString * videoId;
+@property (nonatomic, retain) NSString * refId;
 
 @end
