@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Course+Ekko.h"
 #import "CourseManager.h"
-#import "ProgressManager.h"
 #import "CourseListViewController.h"
 
 @interface CourseListCell : UITableViewCell <UIActionSheetDelegate>

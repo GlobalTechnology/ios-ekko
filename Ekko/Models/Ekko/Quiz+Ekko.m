@@ -18,22 +18,6 @@ static NSString *const kEkkoQuizShowAnswersProperty = @"kEkkoQuizShowAnswersProp
 
 @implementation Quiz (Ekko)
 
--(void)setQuizId:(NSString *)quizId {
-    [self setItemId:quizId];
-}
-
--(NSString *)quizId {
-    return [self quizId];
-}
-
--(void)setQuizTitle:(NSString *)quizTitle {
-    [self setItemTitle:quizTitle];
-}
-
--(NSString *)quizTitle {
-    return [self itemTitle];
-}
-
 -(void)setShowAnswers:(BOOL)showAnswers {
     NSNumber *number = [NSNumber numberWithBool:showAnswers];
     objc_setAssociatedObject(self, &kEkkoQuizShowAnswersProperty, number, OBJC_ASSOCIATION_RETAIN_NONATOMIC);

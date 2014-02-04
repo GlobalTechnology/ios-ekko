@@ -64,14 +64,18 @@
 }
 
 -(NSString *)selectedMultipleChoiceAnswer:(MultipleChoice *)question {
-    NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
-    [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [question courseId], question.questionId]];
-    NSArray *results = [question.managedObjectContext executeFetchRequest:request error:nil];
-    if (results && results.count > 0) {
-        Answer *answer = (Answer *)[results firstObject];
-        return answer.answer;
-    }
-    return nil;
+    __block NSString *selected = nil;
+    NSManagedObjectContext *context = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    [context performBlockAndWait:^{
+        NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [question courseId], question.questionId]];
+        NSArray *results = [context executeFetchRequest:request error:nil];
+        if (results && results.count > 0) {
+            Answer *answer = (Answer *)[results firstObject];
+            selected = [answer.answer copy];
+        }
+    }];
+    return selected;
 }
 
 @end

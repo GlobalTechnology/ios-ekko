@@ -13,7 +13,7 @@
 
 -(void)setMedia:(Media *)media {
     _media = media;
-    if ([self.media.mediaType isEqualToString:@"image"]) {
+    if (self.media.mediaType == EkkoMediaTypeImage) {
         [[ResourceManager sharedManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
             if (image) {
                 dispatch_async(dispatch_get_main_queue(), ^{

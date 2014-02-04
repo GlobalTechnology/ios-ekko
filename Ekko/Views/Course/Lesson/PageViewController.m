@@ -8,7 +8,6 @@
 
 #import "PageViewController.h"
 #import "Lesson+Ekko.h"
-#import "ProgressManager.h"
 
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"
@@ -31,7 +30,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [ProgressManager setItemComplete:self.page.pageId forCourse:[self.page.lesson courseId]];
+//    [ProgressManager setItemComplete:self.page.pageId forCourse:[self.page.manifest courseId]];
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {

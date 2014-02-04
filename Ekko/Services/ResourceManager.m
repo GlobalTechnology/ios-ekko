@@ -9,9 +9,10 @@
 #import "ResourceManager.h"
 #import "DataManager.h"
 #import "CourseIdProtocol.h"
-#import "HubClient.h"
+#import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import <AFHTTPRequestOperation.h>
+#import <TheKeyOAuth2Client.h>
 
 #import "UIImage+Ekko.h"
 
@@ -51,49 +52,56 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 }
 
 -(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *, UIImage *))completeBlock {
-    NSManagedObjectContext *privateContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
-    NSManagedObjectID *resourceObjectId = resource.objectID;
-    [privateContext performBlock:^{
-        NSError *error;
-        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resourceObjectId error:&error];
-        if (error) {
-            return;
-        }
-        NSString *cacheKey = [self cacheKeyForResource:_resource];
-        NSString *path = [self pathForResource:_resource];
+    NSString *cacheKey = [self cacheKeyForResource:resource];
+    NSString *path = [self pathForResource:resource];
 
-        //Try to load image from cache
-        UIImage *image = (UIImage *)[self.imageCache objectForKey:cacheKey];
+    //Try to load image from cache
+    UIImage *image = (UIImage *)[self.imageCache objectForKey:cacheKey];
+    if (image) {
+        completeBlock(resource, image);
+        return;
+    }
+
+    //Load image from disk and cache if it exists
+    NSData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    if (data) {
+        image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
         if (image) {
             completeBlock(resource, image);
+            [self.imageCache setObject:image forKey:cacheKey];
             return;
         }
+    }
 
-        //Load image from disk and cache if it exists
-        NSData *data = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-        if (data) {
-            image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
+    //Download image if not in cache or disk
+    if ([resource isFile]) {
+        [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 completeBlock:^(NSData *data) {
+            UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
                 completeBlock(resource, image);
                 [self.imageCache setObject:image forKey:cacheKey];
-                return;
+                [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
-        }
-
-        //Download image if not in cache or disk
-        if ([_resource isFile]) {
-            [[HubClient sharedClient] getResource:_resource.courseId sha1:resource.sha1 callback:^(NSData *data) {
-                UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
-                if (image) {
-                    completeBlock(resource, image);
-                    [self.imageCache setObject:image forKey:cacheKey];
-                    [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
-                }
-            }];
-        }
-        else if ([_resource isUri]) {
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-            AFHTTPRequestOperation * operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        }];
+    }
+    else if ([resource isUri]) {
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+        AFHTTPRequestOperation * operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
+                UIImage *image = (UIImage *)responseObject;
+                completeBlock(resource, image);
+                [self.imageCache setObject:image forKey:cacheKey];
+                [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        }];
+        [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+        [operation start];
+    }
+    else if ([resource isEkkoCloudVideo]) {
+        [[EkkoCloudClient sharedClient] getVideoThumbnailURL:resource.courseId videoId:resource.videoId completeBlock:^(NSURL *videoThumbnailUrl) {
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoThumbnailUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+            AFHTTPRequestOperation *operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
                     completeBlock(resource, image);
@@ -104,91 +112,42 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             }];
             [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
             [operation start];
-        }
-        else if ([_resource isEkkoCloudVideo]) {
-            [[HubClient sharedClient] getECVResourceURL:_resource.courseId videoId:_resource.videoId urlType:EkkoCloudVideoURLTypeThumbnail complete:^(NSURL *videoURL) {
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-                AFHTTPRequestOperation *operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
-                        UIImage *image = (UIImage *)responseObject;
-                        completeBlock(resource, image);
-                        [self.imageCache setObject:image forKey:cacheKey];
-                        [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
-                    }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                }];
-                [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-                [operation start];
+        }];
+    }
+    else if ([resource isArclight]) {
+        [[ArclightClient sharedClient] getThumbnailURL:resource.refId complete:^(NSURL *thumbnailURL) {
+            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:thumbnailURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
+            AFHTTPRequestOperation *operation = [[ArclightClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
+                    UIImage *image = (UIImage *)responseObject;
+                    completeBlock(resource, image);
+                    [self.imageCache setObject:image forKey:cacheKey];
+                    [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
+                }
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             }];
-        }
-        else if ([_resource isArclight]) {
-            [[ArclightClient sharedClient] getThumbnailURL:_resource.refId complete:^(NSURL *thumbnailURL) {
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:thumbnailURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-                AFHTTPRequestOperation *operation = [[ArclightClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
-                        UIImage *image = (UIImage *)responseObject;
-                        completeBlock(resource, image);
-                        [self.imageCache setObject:image forKey:cacheKey];
-                        [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
-                    }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                }];
-                [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-                [operation start];
-            }];
-        }
-        
-    }];
+            [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
+            [operation start];
+        }];
+    }
 }
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
-    NSManagedObjectContext *privateContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
-    NSManagedObjectID *resourceObjectId = resource.objectID;
-    [privateContext performBlock:^{
-        NSError *error;
-        Resource *_resource = (Resource *)[privateContext existingObjectWithID:resourceObjectId error:&error];
-        if (error) {
-            return;
+    if ([resource isFile]) {
+        NSString *path = [self pathForResource:resource];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+            completeBlock(resource, [path copy]);
         }
-        if ([_resource isFile]) {
-            NSString *path = [self pathForResource:_resource];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                completeBlock(resource, [path copy]);
-            }
-            else {
-                [[HubClient sharedClient] getResource:_resource.courseId sha1:_resource.sha1 outputStream:[NSOutputStream outputStreamToFileAtPath:path append:NO] progress:^(float progress) {
-                    progressBlock(resource, progress);
-                } complete:^{
-                    completeBlock(resource, path);
-                }];
-            }
-        }
-        else if ([_resource isEkkoCloudVideo]) {
-            [[HubClient sharedClient] getECVResourceURL:_resource.courseId videoId:_resource.videoId urlType:EkkoCloudVideoURLTypeDownload complete:^(NSURL *videoURL) {
-                [privateContext performBlock:^{
-                    NSString *path = [[self pathForResource:_resource] stringByAppendingPathExtension:[videoURL pathExtension]];
-                    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                        completeBlock(resource, [path copy]);
-                    }
-                    else {
-                        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoURL];
-                        AFHTTPRequestOperation *operation = [[HubClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                            completeBlock(resource, path);
-                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-                        }];
-                        [operation setResponseSerializer:[AFHTTPResponseSerializer serializer]];
-                        [operation setOutputStream:[NSOutputStream outputStreamToFileAtPath:path append:NO]];
-                        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-                            float progress = totalBytesRead / (float)totalBytesExpectedToRead;
-                            progressBlock(resource, progress);
-                        }];
-                        [operation start];
-                    }
-                }];
+        else {
+            [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 outputStream:[NSOutputStream outputStreamToFileAtPath:path append:NO] progressBlock:^(float progress) {
+                progressBlock(resource, progress);
+            } completeBlock:^{
+                completeBlock(resource, path);
             }];
         }
-    }];
+    }
+    else if ([resource isEkkoCloudVideo]) {
+    }
 }
 
 -(void)getResource:(Resource *)resource delegate:(__weak id<ResourceManagerDelegate>)delegate {

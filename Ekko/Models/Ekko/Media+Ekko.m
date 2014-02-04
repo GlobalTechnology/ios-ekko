@@ -13,11 +13,11 @@
 @implementation Media (Ekko)
 
 -(Resource *)resource {
-    return [self.lesson.course resourceByResourceId:self.resourceId];
+    return [self.manifest resourceByResourceId:self.resourceId];
 }
 
 -(Resource *)thumbnail {
-    return [self.lesson.course resourceByResourceId:self.thumbnailId];
+    return [self.manifest resourceByResourceId:self.thumbnailId];
 }
 
 @end

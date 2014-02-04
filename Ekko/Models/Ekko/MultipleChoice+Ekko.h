@@ -7,6 +7,7 @@
 //
 
 #import "MultipleChoice.h"
+#import "MultipleChoiceOption.h"
 
 @interface MultipleChoice (Ekko)
 -(MultipleChoiceOption *)answer;

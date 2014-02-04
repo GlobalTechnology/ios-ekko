@@ -8,10 +8,9 @@
 
 #import "MediaViewController.h"
 #import "Resource+Ekko.h"
-#import "HubClient.h"
+#import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import "ResourceManager.h"
-#import "ProgressManager.h"
 #import "Lesson+Ekko.h"
 
 @implementation MediaViewController
@@ -37,7 +36,7 @@
     }
     else {
         [self.tapGestureRecognizer setEnabled:YES];
-        if ([self.media.mediaType isEqualToString:@"image"]) {
+        if (self.media.mediaType == EkkoMediaTypeImage) {
             [[ResourceManager sharedManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
                 if (image) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -59,7 +58,7 @@
             }
         }
     }
-    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
+//    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
 }
 
 -(void)resourceService:(Resource *)resource image:(UIImage *)image {
@@ -74,7 +73,7 @@
     if (self.isDownloading) {
         return;
     }
-    if ([self.media.mediaType isEqualToString:@"video"] || [self.media.mediaType isEqualToString:@"audio"]) {
+    if (self.media.mediaType == EkkoMediaTypeVideo || self.media.mediaType == EkkoMediaTypeAudio) {
         Resource *resource = [self.media resource];
         if ([resource isUri]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
@@ -103,9 +102,9 @@
             }];
         }
         else if ([resource isEkkoCloudVideo]) {
-            [[HubClient sharedClient] getECVResourceURL:[resource courseId] videoId:[resource videoId] urlType:EkkoCloudVideoURLTypeStream complete:^(NSURL *videoURL) {
+            [[EkkoCloudClient sharedClient] getVideoStreamURL:[resource courseId] videoId:[resource videoId] completeBlock:^(NSURL *videoStreamUrl) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
                     [self presentMoviePlayerViewControllerAnimated:movieController];
                     [movieController.moviePlayer prepareToPlay];
                     [movieController.moviePlayer play];

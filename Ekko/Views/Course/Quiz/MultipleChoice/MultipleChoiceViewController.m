@@ -51,7 +51,7 @@
     
     [self.questionWebView loadQuizQuestionString:self.question.questionText];
     
-    [self.navigationBar setTitle:self.question.quiz.quizTitle];
+    [self.navigationBar setTitle:self.question.quiz.title];
     NSUInteger questionIndex = [self.question.quiz.questions indexOfObject:self.question];
     if (questionIndex != NSNotFound) {
         [self.navigationBar setProgress:(float)questionIndex/(float)self.question.quiz.questions.count];

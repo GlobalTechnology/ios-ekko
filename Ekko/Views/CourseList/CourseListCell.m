@@ -11,10 +11,7 @@
 
 #import "ResourceManager.h"
 #import "Permission.h"
-#import "HubClient.h"
 #import "DataManager.h"
-
-#import "Course+Hub.h"
 
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"

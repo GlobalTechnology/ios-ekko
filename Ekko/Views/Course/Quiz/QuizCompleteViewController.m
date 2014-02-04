@@ -39,7 +39,7 @@
     
     //Quiz Complete always shows progress of 100%
     [self.navigationBar setProgress:1.f];
-    [self.navigationBar setTitle:self.quiz.quizTitle];
+    [self.navigationBar setTitle:self.quiz.title];
 }
 
 - (IBAction)handleShowAnswersButton:(UIButton *)sender {

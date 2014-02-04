@@ -15,12 +15,6 @@
 
 @property (nonatomic) BOOL showAnswers;
 
--(void)setQuizId:(NSString *)quizId;
--(NSString *)quizId;
-
--(void)setQuizTitle:(NSString *)quizTitle;
--(NSString *)quizTitle;
-
 -(UIViewController<QuizProtocol> *)questionViewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;
 -(NSUInteger)indexOfQuestionViewController:(UIViewController<QuizProtocol> *)questionViewController;
 

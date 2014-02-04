@@ -13,7 +13,7 @@
 @implementation Question (Ekko)
 
 -(NSString *)courseId {
-    return self.quiz.course.courseId;
+    return self.quiz.manifest.courseId;
 }
 
 @end

@@ -10,11 +10,10 @@
 #import "ContentItemProtocol.h"
 #import "CourseNavigationBar.h"
 #import "SwipeViewController.h"
-#import "ProgressManager.h"
 
 #import "Lesson+Ekko.h"
 
-@interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, ProgressManagerDelegate, SwipeViewControllerDelegate>
+@interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, SwipeViewControllerDelegate>
 
 @property (nonatomic, strong) ContentItem *contentItem;
 @property (nonatomic, weak) IBOutlet CourseNavigationBar *navigationBar;

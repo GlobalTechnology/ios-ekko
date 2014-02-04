@@ -9,26 +9,7 @@
 #import "Resource.h"
 #import "CourseIdProtocol.h"
 
-typedef NS_ENUM(int16_t, EkkoResourceType) {
-    EkkoResourceTypeUnknown  = 0,
-    EkkoResourceTypeFile     = 1,
-    EkkoResourceTypeURI      = 2,
-    EkkoResourceTypeDynamic  = 3,
-    EkkoResourceTypeECV      = 4,
-    EkkoResourceTypeArclight = 5,
-};
-
-typedef NS_ENUM(int16_t, EkkoResourceProvider) {
-    EkkoResourceProviderUnknown = 0,
-    EkkoResourceProviderNone    = 1,
-    EkkoResourceProviderYouTube = 2,
-    EkkoResourceProviderVimeo   = 3,
-};
-
 @interface Resource (Ekko) <CourseIdProtocol>
-
-@property (nonatomic) EkkoResourceType type;
-@property (nonatomic) EkkoResourceProvider provider;
 
 -(BOOL)isFile;
 -(BOOL)isUri;

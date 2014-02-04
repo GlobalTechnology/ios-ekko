@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MultipleChoiceOption.h"
+#import "MultipleChoice.h"
 #import "Quiz.h"
 
 @interface QuizManager : NSObject

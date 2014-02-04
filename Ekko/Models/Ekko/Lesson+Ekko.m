@@ -12,23 +12,6 @@
 #import "LessonViewController.h"
 
 @implementation Lesson (Ekko)
-
--(void)setLessonId:(NSString *)lessonId {
-    [self setItemId:lessonId];
-}
-
--(NSString *)lessonId {
-    return [self itemId];
-}
-
--(void)setLessonTitle:(NSString *)lessonTitle {
-    [self setItemTitle:lessonTitle];
-}
-
--(NSString *)lessonTitle {
-    return [self itemTitle];
-}
-
 #pragma mark - SwipeViewControllerDataSource
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[PageViewController class]]) {
@@ -137,7 +120,7 @@
 }
 
 -(NSString *)courseId {
-    return [self.course courseId];
+    return [self.manifest courseId];
 }
 
 @end

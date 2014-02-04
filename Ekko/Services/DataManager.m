@@ -7,7 +7,6 @@
 //
 
 #import "DataManager.h"
-#import "HubClient.h"
 
 NSString *const EkkoEntityTypes[] = {
     [EkkoEntityCourse]               = @"Course",

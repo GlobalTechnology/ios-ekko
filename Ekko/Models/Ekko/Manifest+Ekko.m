@@ -122,6 +122,7 @@
     return YES;
 }
 
+/*
 #pragma mark - ProgressManagerDataSource
 -(NSSet *)progressItemIds {
     NSSet *ids = [NSSet set];
@@ -132,5 +133,5 @@
     }
     return ids;
 }
-
+*/
 @end

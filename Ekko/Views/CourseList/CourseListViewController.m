@@ -10,7 +10,7 @@
 
 #import "ManifestManager.h"
 #import "DataManager.h"
-#import "HubClient.h"
+#import "EkkoCloudClient.h"
 
 #import "CourseViewController.h"
 #import "CourseListCell.h"
@@ -62,7 +62,7 @@
             break;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablished:) name:EkkoHubClientDidEstablishSessionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablished:) name:EkkoCloudClientDidEstablishSessionNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerWillSyncCourses:) name:EkkoCourseManagerWillSyncCoursesNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerDidSyncCourses:) name:EkkoCourseManagerDidSyncCoursesNotification object:nil];
     
@@ -120,7 +120,7 @@
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
             course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         }
-        Manifest *manifest = [[ManifestManager sharedManager] getManifestByCourseId:course.courseId withManagedObjectContext:[[DataManager sharedManager] mainQueueManagedObjectContext]];
+        Manifest *manifest = [[ManifestManager sharedManager] getManifestByCourseId:course.courseId];
         [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
     }
 }
