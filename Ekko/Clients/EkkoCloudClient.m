@@ -259,7 +259,7 @@ NSString *const EkkoCloudClientDidEstablishSessionNotification = @"EkkoCloudClie
                 [self setPendingSession:NO];
                 [self processPendingRequests];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:EkkoCloudClientDidEstablishSessionNotification object:self];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:EkkoCloudClientDidEstablishSessionNotification object:self userInfo:@{@"guid": self.guid}];
                 });
             }
         }

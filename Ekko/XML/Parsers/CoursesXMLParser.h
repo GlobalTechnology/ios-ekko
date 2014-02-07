@@ -10,13 +10,24 @@
 
 #import "Course+XMLModel.h"
 
+@protocol CoursesXMLParserDelegate;
+
 @interface CoursesXMLParser : EkkoXMLParser
 
 @property (nonatomic) NSInteger start;
 @property (nonatomic) NSInteger limit;
 @property (nonatomic) BOOL hasMore;
-@property (nonatomic, copy) Course* (^courseCallback)(NSString *courseId);
+@property (nonatomic, weak) id<CoursesXMLParserDelegate> courseDelegate;
 
--(id)initWithData:(NSData *)data courseCallback:(Course *(^)(NSString *courseId))callback;
+@property (nonatomic, strong, readonly) NSMutableSet *resources;
 
+-(id)initWithData:(NSData *)data andDelegate:(id<CoursesXMLParserDelegate>)delegate;
+
+@end
+
+@protocol CoursesXMLParserDelegate <NSObject>
+@required
+-(void)foundCourse:(NSString *)courseId;
+-(Course *)fetchCourse:(NSString *)courseId;
+-(Permission *)newPermission;
 @end

@@ -14,16 +14,6 @@
 
 typedef NS_ENUM(NSUInteger, EkkoEntityType) {
     EkkoEntityCourse,
-    EkkoEntityManifest,
-    EkkoEntityCourseResource,
-    EkkoEntityManifestResource,
-    EkkoEntityLesson,
-    EkkoEntityQuiz,
-    EkkoEntityPage,
-    EkkoEntityMedia,
-    EkkoEntityMultipleChoice,
-    EkkoEntityMultipleChoiceOption,
-    EkkoEntityProgressItem,
     EkkoEntityAnswer,
     EkkoEntityPermission,
 };
@@ -40,6 +30,6 @@ typedef NS_ENUM(NSUInteger, EkkoEntityType) {
 -(NSManagedObject *)insertNewObjectForEntity:(EkkoEntityType)entity inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 -(NSFetchRequest *)fetchRequestForEntity:(EkkoEntityType)entity;
 
--(void)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+-(BOOL)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end

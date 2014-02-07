@@ -76,13 +76,13 @@
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    NSLog(@"+ %@", elementName);
+//    NSLog(@"+ %@", elementName);
     [self.elements addObject:elementName];
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
     if ([[self.elements lastObject] isEqualToString:elementName]) {
-        NSLog(@"- %@", elementName);
+//        NSLog(@"- %@", elementName);
         [self.elements removeLastObject];
     }
 }

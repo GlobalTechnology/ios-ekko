@@ -24,6 +24,7 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementContentLesson)
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+    [(EkkoXMLParser *)parser parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
     if ([elementName isEqualToString:kEkkoCloudXMLElementLessonMedia]) {
         [self.media addObject:[[Media alloc] initWithEkkoXMLParser:(EkkoXMLParser *)parser
                                                            element:elementName

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Course.h"
+#import "CoursesXMLParser.h"
 
 typedef NS_ENUM(NSUInteger, EkkoCoursesFetchType) {
     EkkoAllCoursesFetchType,
@@ -18,18 +19,16 @@ typedef NS_ENUM(NSUInteger, EkkoCoursesFetchType) {
 FOUNDATION_EXPORT NSString *const EkkoCourseManagerWillSyncCoursesNotification;
 FOUNDATION_EXPORT NSString *const EkkoCourseManagerDidSyncCoursesNotification;
 
-@interface CourseManager : NSObject
+@interface CourseManager : NSObject <CoursesXMLParserDelegate>
 
 @property (nonatomic, strong, readonly) NSString *guid;
 
-+(CourseManager *)sharedManager;
++(CourseManager *)courseManagerForGUID:(NSString *)guid;
 
-#pragma mark - Ekko Cloud
+#pragma mark - Sync
 -(BOOL)isSyncInProgress;
-
-#pragma mark - Hub
++(void)syncCoursesForGUID:(NSString *)guid;
 -(void)syncCourses;
-//-(void)syncCourse:(NSString *)courseId complete:(void (^)())complete;
 
 #pragma mark - CoreData
 -(Course *)getCourseById:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
@@ -38,6 +37,14 @@ FOUNDATION_EXPORT NSString *const EkkoCourseManagerDidSyncCoursesNotification;
 #pragma mark - NSFetchedResultsController
 -(NSFetchedResultsController *)fetchedResultsControllerForType:(EkkoCoursesFetchType)type;
 
+
+
+
+#pragma mark - Hub
+//-(void)syncCourse:(NSString *)courseId complete:(void (^)())complete;
+
+
+
 #pragma mark - Course Enrollment
 -(void)enrollInCourse:(NSString *)courseId complete:(void (^)())complete;
 -(void)unenrollFromCourse:(NSString *)courseId complete:(void (^)())complete;
@@ -45,6 +52,5 @@ FOUNDATION_EXPORT NSString *const EkkoCourseManagerDidSyncCoursesNotification;
 #pragma mark - My Courses Visibility
 -(void)showCourseInMyCourses:(NSString *)courseId complete:(void (^)())complete;
 -(void)hideCourseFromMyCourses:(NSString *)courseId complete:(void (^)())complete;
-
 
 @end

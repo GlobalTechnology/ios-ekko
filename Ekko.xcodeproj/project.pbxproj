@@ -10,9 +10,6 @@
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
 		D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */; };
 		D31CCB7F1899662900E3B303 /* EkkoCloudXMLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CCB7E1899662900E3B303 /* EkkoCloudXMLConstants.m */; };
-		D31DB7E018A13B690031C12E /* Banner.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7DF18A13B690031C12E /* Banner.m */; };
-		D31DB7E318A13B6A0031C12E /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7E218A13B6A0031C12E /* Course.m */; };
-		D31DB7E618A13B6A0031C12E /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7E518A13B6A0031C12E /* Permission.m */; };
 		D31DB7EA18A13D230031C12E /* Lesson.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7E918A13D230031C12E /* Lesson.m */; };
 		D31DB7ED18A13FC50031C12E /* Quiz.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7EC18A13FC50031C12E /* Quiz.m */; };
 		D31DB7F018A141D00031C12E /* Media.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7EF18A141D00031C12E /* Media.m */; };
@@ -27,8 +24,11 @@
 		D31DB80E18A1508A0031C12E /* Page+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB80D18A1508A0031C12E /* Page+XMLModel.m */; };
 		D31DB81118A166620031C12E /* MultipleChoice+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB81018A166620031C12E /* MultipleChoice+XMLModel.m */; };
 		D31DB81418A167DA0031C12E /* MultipleChoiceOption+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB81318A167DA0031C12E /* MultipleChoiceOption+XMLModel.m */; };
-		D31DB81818A17A970031C12E /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB81718A17A970031C12E /* Answer.m */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
+		D32BBEA718A2D419006273A8 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEA618A2D419006273A8 /* Answer.m */; };
+		D32BBEB318A2DEDA006273A8 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB218A2DEDA006273A8 /* Permission.m */; };
+		D32BBEB618A2DF0D006273A8 /* Permission+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB518A2DF0D006273A8 /* Permission+XMLModel.m */; };
+		D32BBEB918A2DF89006273A8 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB818A2DF89006273A8 /* Course.m */; };
 		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
 		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
 		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
@@ -121,12 +121,6 @@
 		D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDrawerViewController.m; sourceTree = "<group>"; };
 		D31CCB7D1899662900E3B303 /* EkkoCloudXMLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EkkoCloudXMLConstants.h; sourceTree = "<group>"; };
 		D31CCB7E1899662900E3B303 /* EkkoCloudXMLConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EkkoCloudXMLConstants.m; sourceTree = "<group>"; };
-		D31DB7DE18A13B690031C12E /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
-		D31DB7DF18A13B690031C12E /* Banner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Banner.m; sourceTree = "<group>"; };
-		D31DB7E118A13B6A0031C12E /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		D31DB7E218A13B6A0031C12E /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
-		D31DB7E418A13B6A0031C12E /* Permission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Permission.h; sourceTree = "<group>"; };
-		D31DB7E518A13B6A0031C12E /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
 		D31DB7E818A13D230031C12E /* Lesson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lesson.h; sourceTree = "<group>"; };
 		D31DB7E918A13D230031C12E /* Lesson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lesson.m; sourceTree = "<group>"; };
 		D31DB7EB18A13FC50031C12E /* Quiz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quiz.h; sourceTree = "<group>"; };
@@ -155,10 +149,16 @@
 		D31DB81018A166620031C12E /* MultipleChoice+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoice+XMLModel.m"; sourceTree = "<group>"; };
 		D31DB81218A167DA0031C12E /* MultipleChoiceOption+XMLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MultipleChoiceOption+XMLModel.h"; sourceTree = "<group>"; };
 		D31DB81318A167DA0031C12E /* MultipleChoiceOption+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoiceOption+XMLModel.m"; sourceTree = "<group>"; };
-		D31DB81618A17A970031C12E /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
-		D31DB81718A17A970031C12E /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
+		D32BBEA518A2D419006273A8 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
+		D32BBEA618A2D419006273A8 /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
+		D32BBEB118A2DEDA006273A8 /* Permission.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Permission.h; sourceTree = "<group>"; };
+		D32BBEB218A2DEDA006273A8 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
+		D32BBEB418A2DF0D006273A8 /* Permission+XMLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Permission+XMLModel.h"; sourceTree = "<group>"; };
+		D32BBEB518A2DF0D006273A8 /* Permission+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Permission+XMLModel.m"; sourceTree = "<group>"; };
+		D32BBEB718A2DF89006273A8 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		D32BBEB818A2DF89006273A8 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
 		D33072311807227E00EDD036 /* QuizCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizCompleteViewController.m; sourceTree = "<group>"; };
 		D33072331807349B00EDD036 /* QuizManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizManager.h; sourceTree = "<group>"; };
@@ -441,15 +441,13 @@
 		D359FF1F17EC96FE007A095B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				D31DB7DE18A13B690031C12E /* Banner.h */,
-				D31DB7DF18A13B690031C12E /* Banner.m */,
-				D31DB7E118A13B6A0031C12E /* Course.h */,
-				D31DB7E218A13B6A0031C12E /* Course.m */,
+				D32BBEA518A2D419006273A8 /* Answer.h */,
+				D32BBEA618A2D419006273A8 /* Answer.m */,
 				D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */,
-				D31DB81618A17A970031C12E /* Answer.h */,
-				D31DB81718A17A970031C12E /* Answer.m */,
-				D31DB7E418A13B6A0031C12E /* Permission.h */,
-				D31DB7E518A13B6A0031C12E /* Permission.m */,
+				D32BBEB718A2DF89006273A8 /* Course.h */,
+				D32BBEB818A2DF89006273A8 /* Course.m */,
+				D32BBEB118A2DEDA006273A8 /* Permission.h */,
+				D32BBEB218A2DEDA006273A8 /* Permission.m */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -616,6 +614,8 @@
 				D31DB81318A167DA0031C12E /* MultipleChoiceOption+XMLModel.m */,
 				D31DB80C18A1508A0031C12E /* Page+XMLModel.h */,
 				D31DB80D18A1508A0031C12E /* Page+XMLModel.m */,
+				D32BBEB418A2DF0D006273A8 /* Permission+XMLModel.h */,
+				D32BBEB518A2DF0D006273A8 /* Permission+XMLModel.m */,
 				D31DB80618A14C710031C12E /* Quiz+XMLModel.h */,
 				D31DB80718A14C710031C12E /* Quiz+XMLModel.m */,
 				D3C0FB4E189FEBC000C86039 /* Resource+XMLModel.h */,
@@ -874,7 +874,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D31DB7E618A13B6A0031C12E /* Permission.m in Sources */,
 				D31DB7FF18A145BF0031C12E /* ContentItem.m in Sources */,
 				D31DB80818A14C710031C12E /* Quiz+XMLModel.m in Sources */,
 				D359FFB917EC96FE007A095B /* Media+Ekko.m in Sources */,
@@ -889,19 +888,19 @@
 				D31DB7FC18A1457E0031C12E /* MultipleChoice.m in Sources */,
 				D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */,
 				D359FFD517EC96FE007A095B /* DrawerViewController.m in Sources */,
-				D31DB7E018A13B690031C12E /* Banner.m in Sources */,
 				D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
 				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
-				D31DB7E318A13B6A0031C12E /* Course.m in Sources */,
 				D359FFD117EC96FE007A095B /* MultipleChoiceViewController.m in Sources */,
 				D359FFD717EC96FE007A095B /* SwipeViewController.m in Sources */,
 				D3C0FB4D189FE92E00C86039 /* Resource.m in Sources */,
 				D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */,
 				D359FFCC17EC96FE007A095B /* CourseViewController.m in Sources */,
 				D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */,
+				D32BBEB618A2DF0D006273A8 /* Permission+XMLModel.m in Sources */,
 				D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */,
+				D32BBEA718A2D419006273A8 /* Answer.m in Sources */,
 				D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */,
 				D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */,
 				D31DB7EA18A13D230031C12E /* Lesson.m in Sources */,
@@ -924,12 +923,12 @@
 				D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */,
 				D31DB81118A166620031C12E /* MultipleChoice+XMLModel.m in Sources */,
 				D334994A189C05F700DCBF0A /* Manifest+XMLModel.m in Sources */,
-				D31DB81818A17A970031C12E /* Answer.m in Sources */,
 				D31CCB7F1899662900E3B303 /* EkkoCloudXMLConstants.m in Sources */,
 				D359FFCE17EC96FE007A095B /* MediaViewController.m in Sources */,
 				D3349951189C07B100DCBF0A /* ManifestXMLParser.m in Sources */,
 				D359FFC817EC96FE007A095B /* URLUtils.m in Sources */,
 				D3C0FB6918A01EA500C86039 /* Course+XMLModel.m in Sources */,
+				D32BBEB318A2DEDA006273A8 /* Permission.m in Sources */,
 				D325766517F375E200447A2D /* ResourceManager.m in Sources */,
 				D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */,
 				D3C0FB5D18A01C6600C86039 /* CourseManager.m in Sources */,
@@ -939,6 +938,7 @@
 				D31DB80518A14C620031C12E /* Lesson+XMLModel.m in Sources */,
 				D31DB7F318A143260031C12E /* Page.m in Sources */,
 				D359FFD417EC96FE007A095B /* CourseListViewController.m in Sources */,
+				D32BBEB918A2DF89006273A8 /* Course.m in Sources */,
 				D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */,
 				D359FFB717EC96FE007A095B /* Lesson+Ekko.m in Sources */,
 				D3C0FB50189FEBC000C86039 /* Resource+XMLModel.m in Sources */,

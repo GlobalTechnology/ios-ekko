@@ -18,6 +18,7 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementQuizQuestion)
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
+    [(EkkoXMLParser *)parser parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
     if ([elementName isEqualToString:kEkkoCloudXMLElementQuizQuestionOption]) {
         MultipleChoiceOption *option = [[MultipleChoiceOption alloc] initWithEkkoXMLParser:(EkkoXMLParser *)parser
                                                                                    element:elementName

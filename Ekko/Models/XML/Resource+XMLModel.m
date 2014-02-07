@@ -8,8 +8,6 @@
 
 #import "Resource+XMLModel.h"
 
-#import "ManifestXMLParser.h"
-
 @implementation Resource (XMLModel)
 
 EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementResource)
@@ -61,9 +59,6 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementResource)
     else {
         self.type = EkkoResourceTypeUnknown;
     }
-
-    //Set Parent Manifest
-    self.manifest = [(ManifestXMLParser *)parser manifest];
 }
 
 @end

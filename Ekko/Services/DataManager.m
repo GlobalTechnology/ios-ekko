@@ -9,19 +9,9 @@
 #import "DataManager.h"
 
 NSString *const EkkoEntityTypes[] = {
-    [EkkoEntityCourse]               = @"Course",
-    [EkkoEntityManifest]             = @"Manifest",
-    [EkkoEntityCourseResource]       = @"CourseResource",
-    [EkkoEntityManifestResource]     = @"ManifestResource",
-    [EkkoEntityLesson]               = @"Lesson",
-    [EkkoEntityQuiz]                 = @"Quiz",
-    [EkkoEntityPage]                 = @"Page",
-    [EkkoEntityMedia]                = @"Media",
-    [EkkoEntityMultipleChoice]       = @"MultipleChoice",
-    [EkkoEntityMultipleChoiceOption] = @"MultipleChoiceOption",
-    [EkkoEntityProgressItem]         = @"ProgressItem",
-    [EkkoEntityAnswer]               = @"Answer",
-    [EkkoEntityPermission]           = @"Permission",
+    [EkkoEntityCourse]     = @"Course",
+    [EkkoEntityAnswer]     = @"Answer",
+    [EkkoEntityPermission] = @"Permission",
 };
 
 @interface DataManager ()
@@ -129,9 +119,14 @@ NSString *const EkkoEntityTypes[] = {
     return [NSFetchRequest fetchRequestWithEntityName:[self nameForEntity:entity]];
 }
 
--(void)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+-(BOOL)saveManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     NSError *error = nil;
-    [managedObjectContext save:&error];
+    BOOL result = [managedObjectContext save:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    // TODO - check error
+    return result;
 }
 
 @end

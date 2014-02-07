@@ -1,18 +1,14 @@
 //
-//  Answer.m
+//  Permission+XMLModel.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 2/5/14.
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
-#import "Answer.h"
+#import "Permission.h"
+#import "EkkoXMLModel.h"
 
-
-@implementation Answer
-
-@dynamic answer;
-@dynamic courseId;
-@dynamic questionId;
+@interface Permission (XMLModel) <EkkoXMLModel>
 
 @end

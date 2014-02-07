@@ -19,6 +19,7 @@
 #import "UIImage+Ekko.h"
 
 #import <UIViewController+MMDrawerController.h>
+#import <TheKeyOAuth2Client.h>
 
 @interface CourseListViewController ()
 
@@ -51,7 +52,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setFetchedResultsController:[[CourseManager sharedManager] fetchedResultsControllerForType:self.coursesFetchType]];
+    [self setFetchedResultsController:[[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] fetchedResultsControllerForType:self.coursesFetchType]];
     switch (self.coursesFetchType) {
         case EkkoMyCoursesFetchType:
             [self setTitle:@"My Courses"];
@@ -62,11 +63,11 @@
             break;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hubClientSessionEstablished:) name:EkkoCloudClientDidEstablishSessionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(theKeyDidChangeGUID:) name:TheKeyOAuth2ClientDidChangeGuidNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerWillSyncCourses:) name:EkkoCourseManagerWillSyncCoursesNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(courseManagerDidSyncCourses:) name:EkkoCourseManagerDidSyncCoursesNotification object:nil];
     
-    if ([[CourseManager sharedManager] isSyncInProgress]) {
+    if ([[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] isSyncInProgress]) {
         [self.refreshControl beginRefreshing];
     }
 }
@@ -125,8 +126,9 @@
     }
 }
 
--(void)hubClientSessionEstablished:(NSNotification *)notification {
-    [self setFetchedResultsController:[[CourseManager sharedManager] fetchedResultsControllerForType:self.coursesFetchType]];
+-(void)theKeyDidChangeGUID:(NSNotification *)notification {
+    NSString *guid = notification.userInfo[@"guid"];
+    [self setFetchedResultsController:[[CourseManager courseManagerForGUID:guid] fetchedResultsControllerForType:self.coursesFetchType]];
 }
 
 -(void)courseManagerWillSyncCourses:(NSNotification *)notification {
@@ -138,7 +140,7 @@
 }
 
 -(IBAction)refresh:(UIRefreshControl *)refreshControl {
-    [[CourseManager sharedManager] syncCourses];
+    [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] syncCourses];
 }
 
 - (IBAction)toggleNavigationDrawer:(id)sender {
@@ -154,7 +156,7 @@
     if ([buttonTitle isEqualToString:@"Enroll"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-        [[CourseManager sharedManager] enrollInCourse:course.courseId complete:^{
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self performSegueWithIdentifier:@"courseSegue" sender:course];
             });

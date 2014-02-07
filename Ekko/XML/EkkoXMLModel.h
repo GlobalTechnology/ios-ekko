@@ -32,8 +32,11 @@
     return self; \
 } \
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName { \
-[(EkkoXMLParser *)parser parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName]; \
+    [(EkkoXMLParser *)parser parser:parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName]; \
     if ([elementName isEqualToString:_element_]) { \
+        if ([self respondsToSelector:@selector(ekkoXMLParser:didEndElement:namespaceURI:qualifiedName:)]) { \
+            [self ekkoXMLParser:(EkkoXMLParser *)parser didEndElement:elementName namespaceURI:namespaceURI qualifiedName:qName]; \
+        } \
         [parser setDelegate:[self parentDelegate]]; \
         [self setParentDelegate:nil]; \
     } \
@@ -48,5 +51,8 @@ static NSString *const kEkkoXMLModelParentDelegate = @"kEkkoXMLModelParentDelega
 @property (nonatomic, weak) id<NSXMLParserDelegate> parentDelegate;
 -(id)initWithEkkoXMLParser:(EkkoXMLParser *)parser element:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
 -(void)ekkoXMLParser:(EkkoXMLParser *)parser didInitElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict;
+
+@optional
+-(void)ekkoXMLParser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName;
 
 @end

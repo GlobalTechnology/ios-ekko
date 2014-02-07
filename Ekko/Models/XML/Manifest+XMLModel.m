@@ -10,6 +10,7 @@
 #import "Resource+XMLModel.h"
 #import "Lesson+XMLModel.h"
 #import "Quiz+XMLModel.h"
+#import "ManifestXMLParser.h"
 
 @implementation Manifest (XMLModel)
 
@@ -23,11 +24,13 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementManifest)
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     [(EkkoXMLParser *)parser parser:parser didStartElement:elementName namespaceURI:namespaceURI qualifiedName:qName attributes:attributeDict];
     if ([elementName isEqualToString:kEkkoCloudXMLElementResource]) {
-        [self.resources addObject:[[Resource alloc] initWithEkkoXMLParser:(EkkoXMLParser *)parser
-                                                                  element:elementName
-                                                             namespaceURI:namespaceURI
-                                                            qualifiedName:qName
-                                                               attributes:attributeDict]];
+        Resource *resource = [[Resource alloc] initWithEkkoXMLParser:(EkkoXMLParser *)parser
+                                                             element:elementName
+                                                        namespaceURI:namespaceURI
+                                                       qualifiedName:qName
+                                                          attributes:attributeDict];
+        resource.courseId = [(ManifestXMLParser *)parser manifest].courseId;
+        [self.resources addObject:resource];
     }
     else if ([elementName isEqualToString:kEkkoCloudXMLElementContentLesson]) {
         [self.content addObject:[[Lesson alloc] initWithEkkoXMLParser:(EkkoXMLParser *)parser

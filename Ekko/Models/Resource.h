@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "Manifest.h"
+#import "CourseIdProtocol.h"
 
 typedef NS_ENUM(NSUInteger, EkkoResourceType) {
     EkkoResourceTypeUnknown  = 0,
@@ -26,17 +26,17 @@ typedef NS_ENUM(NSUInteger, EkkoResourceProvider) {
     EkkoResourceProviderVimeo   = 3,
 };
 
-@interface Resource : NSObject <ManifestProperty>
+@interface Resource : NSObject <CourseIdProtocol>
 
-@property (nonatomic, strong) NSString *resourceId;
+@property (nonatomic, copy) NSString *resourceId;
 @property (nonatomic) EkkoResourceType type;
 @property (nonatomic) unsigned long long size;
-@property (nonatomic, strong) NSString *sha1;
-@property (nonatomic, strong) NSString *mimeType;
+@property (nonatomic, copy) NSString *sha1;
+@property (nonatomic, copy) NSString *mimeType;
 @property (nonatomic) EkkoResourceProvider provider;
-@property (nonatomic, strong) NSString *uri;
-@property (nonatomic, strong) NSString *videoId;
-@property (nonatomic, strong) NSString *refId;
-@property (nonatomic, weak) Manifest *manifest;
+@property (nonatomic, copy) NSString *uri;
+@property (nonatomic, copy) NSString *videoId;
+@property (nonatomic, copy) NSString *refId;
+@property (nonatomic, copy) NSString *courseId;
 
 @end

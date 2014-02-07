@@ -76,11 +76,11 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     }
     return nil;
 }
-
+/*
 #pragma mark - CourseIdProtocol
 
 -(NSString *)courseId {
     return self.manifest.courseId;
 }
-
+*/
 @end

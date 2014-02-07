@@ -16,6 +16,8 @@
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
 
+#import <TheKeyOAuth2Client.h>
+
 static const int insetViewTag = 1;
 
 @implementation CourseListCell
@@ -119,20 +121,20 @@ static const int insetViewTag = 1;
     
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"Enroll in Course"]) {
-        [[CourseManager sharedManager] enrollInCourse:self.course.courseId complete:^{
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:self.course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.courseListViewController performSegueWithIdentifier:@"courseSegue" sender:self.course];
             });
         }];
     }
     else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
-        [[CourseManager sharedManager] unenrollFromCourse:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] unenrollFromCourse:self.course.courseId complete:nil];
     }
     else if ([buttonTitle isEqualToString:@"Hide from My Courses"]) {
-        [[CourseManager sharedManager] hideCourseFromMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] hideCourseFromMyCourses:self.course.courseId complete:nil];
     }
     else if ([buttonTitle isEqualToString:@"Show in My Courses"]) {
-        [[CourseManager sharedManager] showCourseInMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:nil];
     }
 }
 
