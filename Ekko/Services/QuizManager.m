@@ -7,12 +7,12 @@
 //
 
 #import "QuizManager.h"
-#import "DataManager.h"
-#import "Answer.h"
+#import "CoreDataManager.h"
 
 #import "Quiz.h"
 #import "Question.h"
 #import "MultipleChoice.h"
+#import "Answer.h"
 
 @implementation QuizManager
 
@@ -40,9 +40,9 @@
 }
 
 -(void)saveMultipleChoiceAnswer:(MultipleChoiceOption *)option {
-    NSManagedObjectContext *managedObjectContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectContext *managedObjectContext = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [managedObjectContext performBlock:^{
-        NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
+        NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
         [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [option.question courseId], option.question.questionId]];
         NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
         if (results && results.count > 0) {
@@ -52,22 +52,22 @@
             }
         }
         else {
-            Answer *answer = (Answer *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityAnswer inManagedObjectContext:managedObjectContext];
+            Answer *answer = (Answer *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityAnswer inManagedObjectContext:managedObjectContext];
             [answer setCourseId:[option.question courseId]];
             [answer setQuestionId:option.question.questionId];
             [answer setAnswer:option.optionId];
         }
         if ([managedObjectContext hasChanges]) {
-            [[DataManager sharedManager] saveManagedObjectContext:managedObjectContext];
+            [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
         }
     }];
 }
 
 -(NSString *)selectedMultipleChoiceAnswer:(MultipleChoice *)question {
     __block NSString *selected = nil;
-    NSManagedObjectContext *context = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectContext *context = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [context performBlockAndWait:^{
-        NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
+        NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
         [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [question courseId], question.questionId]];
         NSArray *results = [context executeFetchRequest:request error:nil];
         if (results && results.count > 0) {

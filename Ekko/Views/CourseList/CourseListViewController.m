@@ -9,7 +9,7 @@
 #import "CourseListViewController.h"
 
 #import "ManifestManager.h"
-#import "DataManager.h"
+#import "CoreDataManager.h"
 #import "EkkoCloudClient.h"
 
 #import "CourseViewController.h"

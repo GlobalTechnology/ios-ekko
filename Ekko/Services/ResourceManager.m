@@ -7,7 +7,7 @@
 //
 
 #import "ResourceManager.h"
-#import "DataManager.h"
+#import "CoreDataManager.h"
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import <AFHTTPRequestOperation.h>

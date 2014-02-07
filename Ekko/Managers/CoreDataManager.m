@@ -1,12 +1,12 @@
 //
-//  DataManager.m
+//  CoreDataManager.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/8/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 2/7/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
-#import "DataManager.h"
+#import "CoreDataManager.h"
 
 NSString *const EkkoEntityTypes[] = {
     [EkkoEntityCourse]     = @"Course",
@@ -15,23 +15,23 @@ NSString *const EkkoEntityTypes[] = {
     [EkkoEntityBanner]     = @"Banner",
 };
 
-@interface DataManager ()
+@interface CoreDataManager ()
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @end
 
-@implementation DataManager
+@implementation CoreDataManager
 
 @synthesize managedObjectContext       = _managedObjectContext;
 @synthesize managedObjectModel         = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
-+(DataManager *)sharedManager {
-    __strong static DataManager *_manager = nil;
++(CoreDataManager *)sharedManager {
+    __strong static CoreDataManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
-        _manager = [[DataManager alloc] init];
+        _manager = [[CoreDataManager alloc] init];
     });
     return _manager;
 }
@@ -126,7 +126,6 @@ NSString *const EkkoEntityTypes[] = {
     if (error) {
         NSLog(@"%@", error);
     }
-    // TODO - check error
     return result;
 }
 

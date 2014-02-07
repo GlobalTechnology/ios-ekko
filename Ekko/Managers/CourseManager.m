@@ -10,7 +10,7 @@
 #import <TheKeyOAuth2Client.h>
 
 #import "EkkoCloudClient.h"
-#import "DataManager.h"
+#import "CoreDataManager.h"
 #import "CoursesXMLParser.h"
 
 #import "Course+Ekko.h"
@@ -70,7 +70,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
         return;
     }
     self.syncInProgress = YES;
-    self.managedObjectContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    self.managedObjectContext = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     self.coursesFoundInSync = [NSMutableArray array];
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -84,7 +84,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 #pragma mark - CoreData
 
 -(Course *)getCourseById:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
+    NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
     [request setPredicate:[NSPredicate predicateWithFormat:@"courseId == %@", courseId]];
     NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
     if (results && results.count > 0) {
@@ -94,7 +94,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 }
 
 -(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
-    NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
+    NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
     NSArray *courses = [managedObjectContext executeFetchRequest:request error:nil];
     if (courses != nil) {
         return courses;
@@ -105,7 +105,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 #pragma mark - NSFetchedResultsController
 
 -(NSFetchedResultsController *)fetchedResultsControllerForType:(EkkoCoursesFetchType)type {
-    NSFetchRequest *request = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
+    NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
     [request setSortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"courseTitle" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
 
     switch (type) {
@@ -118,7 +118,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
             break;
     }
     return [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                               managedObjectContext:[[DataManager sharedManager] mainQueueManagedObjectContext]
+                                               managedObjectContext:[[CoreDataManager sharedManager] mainQueueManagedObjectContext]
                                                  sectionNameKeyPath:nil
                                                           cacheName:nil];
 }
@@ -135,17 +135,17 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 -(Course *)fetchCourse:(NSString *)courseId {
     Course *course = [self getCourseById:courseId withManagedObjectContext:self.managedObjectContext];
     if (course == nil) {
-        course = (Course *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityCourse inManagedObjectContext:self.managedObjectContext];
+        course = (Course *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityCourse inManagedObjectContext:self.managedObjectContext];
     }
     return course;
 }
 
 -(Permission *)newPermission {
-    return (Permission *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext];
+    return (Permission *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext];
 }
 
 -(Banner *)newBanner {
-    return (Banner *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityBanner inManagedObjectContext:self.managedObjectContext];
+    return (Banner *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityBanner inManagedObjectContext:self.managedObjectContext];
 }
 
 #pragma mark - Private Methods
@@ -179,7 +179,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 -(void)processSyncedCourses {
     if (self.managedObjectContext) {
         // Find all existing courses this guid had permission for but were not returned in the sync.
-        NSFetchRequest *fetchRequest = [[DataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
+        NSFetchRequest *fetchRequest = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
             [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@).@count != 0) AND NOT (courseId IN %@)", self.guid, self.coursesFoundInSync]];
         NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
         if (results && [results count] > 0) {
@@ -192,7 +192,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
             }
         }
 
-        [[DataManager sharedManager] saveManagedObjectContext:self.managedObjectContext];
+        [[CoreDataManager sharedManager] saveManagedObjectContext:self.managedObjectContext];
     }
     self.managedObjectContext = nil;
     self.coursesFoundInSync = nil;
@@ -238,12 +238,12 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 
 -(void)showCourseInMyCourses:(NSString *)courseId complete:(void (^)())complete {
 /*
-    NSManagedObjectContext *managedObjectContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectContext *managedObjectContext = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [managedObjectContext performBlock:^{
         Course *course = [self getCourseById:courseId withManagedObjectContext:managedObjectContext];
         [course.permission setHidden:NO];
         course.permission = course.permission;
-        [[DataManager sharedManager] saveManagedObjectContext:managedObjectContext];
+        [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
         if (complete != nil) {
             complete();
         }
@@ -253,12 +253,12 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 
 -(void)hideCourseFromMyCourses:(NSString *)courseId complete:(void (^)())complete {
 /*
-    NSManagedObjectContext *managedObjectContext = [[DataManager sharedManager] newPrivateQueueManagedObjectContext];
+    NSManagedObjectContext *managedObjectContext = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [managedObjectContext performBlock:^{
         Course *course = [self getCourseById:courseId withManagedObjectContext:managedObjectContext];
         [course.permission setHidden:YES];
         course.permission = course.permission;
-        [[DataManager sharedManager] saveManagedObjectContext:managedObjectContext];
+        [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
         if (complete != nil) {
             complete();
         }

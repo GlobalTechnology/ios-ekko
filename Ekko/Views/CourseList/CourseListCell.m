@@ -11,7 +11,7 @@
 
 #import "ResourceManager.h"
 #import "Permission.h"
-#import "DataManager.h"
+#import "CoreDataManager.h"
 
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"

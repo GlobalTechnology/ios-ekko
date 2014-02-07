@@ -1,16 +1,12 @@
 //
-//  DataManager.h
+//  CoreDataManager.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/8/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 2/7/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
-
-#import "Manifest.h"
-#import "Course.h"
 
 typedef NS_ENUM(NSUInteger, EkkoEntityType) {
     EkkoEntityCourse,
@@ -19,9 +15,9 @@ typedef NS_ENUM(NSUInteger, EkkoEntityType) {
     EkkoEntityBanner,
 };
 
-@interface DataManager : NSObject
+@interface CoreDataManager : NSObject
 
-+(DataManager *)sharedManager;
++(CoreDataManager *)sharedManager;
 
 -(NSManagedObjectContext *)mainQueueManagedObjectContext;
 -(NSManagedObjectContext *)newPrivateQueueManagedObjectContext;

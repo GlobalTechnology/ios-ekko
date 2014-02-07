@@ -30,6 +30,7 @@
 		D320D14518A5682E0055D83D /* Lesson+View.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D14018A5682E0055D83D /* Lesson+View.m */; };
 		D320D14618A5682E0055D83D /* Manifest+View.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D14218A5682E0055D83D /* Manifest+View.m */; };
 		D320D14718A5682E0055D83D /* Quiz+View.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D14418A5682E0055D83D /* Quiz+View.m */; };
+		D320D14A18A56BEC0055D83D /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D14918A56BEC0055D83D /* CoreDataManager.m */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
 		D32BBEA718A2D419006273A8 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEA618A2D419006273A8 /* Answer.m */; };
 		D32BBEB318A2DEDA006273A8 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB218A2DEDA006273A8 /* Permission.m */; };
@@ -97,7 +98,6 @@
 		D3F2F02D17EC904800F32F52 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D3F2F02B17EC904800F32F52 /* InfoPlist.strings */; };
 		D3F2F02F17EC904800F32F52 /* EkkoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D3F2F02E17EC904800F32F52 /* EkkoTests.m */; };
 		D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3F9DA2717ECB9620039B0AC /* Images.xcassets */; };
-		D3FB3C9A180476F30051642F /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C99180476F30051642F /* DataManager.m */; };
 		D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */; };
 		D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */; };
 /* End PBXBuildFile section */
@@ -159,6 +159,8 @@
 		D320D14218A5682E0055D83D /* Manifest+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Manifest+View.m"; sourceTree = "<group>"; };
 		D320D14318A5682E0055D83D /* Quiz+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Quiz+View.h"; sourceTree = "<group>"; };
 		D320D14418A5682E0055D83D /* Quiz+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Quiz+View.m"; sourceTree = "<group>"; };
+		D320D14818A56BEC0055D83D /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		D320D14918A56BEC0055D83D /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		D32BBEA518A2D419006273A8 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
@@ -279,8 +281,6 @@
 		D3F2F02C17EC904800F32F52 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3F2F02E17EC904800F32F52 /* EkkoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EkkoTests.m; sourceTree = "<group>"; };
 		D3F9DA2717ECB9620039B0AC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		D3FB3C98180476F30051642F /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		D3FB3C99180476F30051642F /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		D3FB3C9B180482A80051642F /* CourseCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseCompleteViewController.h; sourceTree = "<group>"; };
 		D3FB3C9C180482A80051642F /* CourseCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseCompleteViewController.m; sourceTree = "<group>"; };
 		D3FB3CA118049EAC0051642F /* bg_ekko_quiz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_ekko_quiz@2x.png"; sourceTree = "<group>"; };
@@ -340,10 +340,12 @@
 		D31CCB801899699600E3B303 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				D3553042189A92E8002C3AB2 /* ManifestManager.h */,
-				D3553043189A92E8002C3AB2 /* ManifestManager.m */,
+				D320D14818A56BEC0055D83D /* CoreDataManager.h */,
+				D320D14918A56BEC0055D83D /* CoreDataManager.m */,
 				D3C0FB5B18A01C6600C86039 /* CourseManager.h */,
 				D3C0FB5C18A01C6600C86039 /* CourseManager.m */,
+				D3553042189A92E8002C3AB2 /* ManifestManager.h */,
+				D3553043189A92E8002C3AB2 /* ManifestManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -475,8 +477,6 @@
 		D359FF5217EC96FE007A095B /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D3FB3C98180476F30051642F /* DataManager.h */,
-				D3FB3C99180476F30051642F /* DataManager.m */,
 				D33072331807349B00EDD036 /* QuizManager.h */,
 				D33072341807349B00EDD036 /* QuizManager.m */,
 				D325766317F375E200447A2D /* ResourceManager.h */,
@@ -886,6 +886,7 @@
 				D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */,
 				D320D14518A5682E0055D83D /* Lesson+View.m in Sources */,
 				D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */,
+				D320D14A18A56BEC0055D83D /* CoreDataManager.m in Sources */,
 				D3FB3C9D180482A80051642F /* CourseCompleteViewController.m in Sources */,
 				D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */,
 				D359FFD117EC96FE007A095B /* MultipleChoiceViewController.m in Sources */,
@@ -905,7 +906,6 @@
 				D320D13918A539C70055D83D /* Course.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */,
-				D3FB3C9A180476F30051642F /* DataManager.m in Sources */,
 				D31DB80218A1484B0031C12E /* MultipleChoiceOption.m in Sources */,
 				D33072351807349B00EDD036 /* QuizManager.m in Sources */,
 				D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */,
