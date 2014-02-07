@@ -27,4 +27,9 @@
     return _resources;
 }
 
+-(Resource *)resourceByResourceId:(NSString *)resourceId {
+    NSSet *filteredResources = [self.resources filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"resourceId LIKE[c] %@", resourceId]];
+    return (Resource *)[filteredResources anyObject];
+}
+
 @end

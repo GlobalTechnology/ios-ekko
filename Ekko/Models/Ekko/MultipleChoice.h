@@ -8,9 +8,13 @@
 
 #import "Question.h"
 
+#import "MultipleChoiceOption.h"
+
 @interface MultipleChoice : Question
 
 @property (nonatomic, strong) NSString *questionText;
 @property (nonatomic, strong, readonly) NSMutableOrderedSet *options;
+
+-(MultipleChoiceOption *)answer;
 
 @end

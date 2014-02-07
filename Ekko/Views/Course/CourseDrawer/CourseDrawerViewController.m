@@ -9,7 +9,7 @@
 #import "CourseDrawerViewController.h"
 #import <UIViewController+MMDrawerController.h>
 #import "CourseDrawerMediaCell.h"
-#import "Lesson+Ekko.h"
+#import "Lesson+View.h"
 
 @implementation CourseDrawerViewController
 

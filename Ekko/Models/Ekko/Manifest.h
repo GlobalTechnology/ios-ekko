@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Resource.h"
 
 @interface Manifest : NSObject //<NSDiscardableContent>
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong, readonly) NSMutableSet *resources;
 
 @property (nonatomic, strong) NSString *completeMessage;
+
+-(Resource *)resourceByResourceId:(NSString *)resourceId;
 
 @end
 

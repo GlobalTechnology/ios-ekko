@@ -11,7 +11,7 @@
 #import "CourseNavigationBar.h"
 #import "SwipeViewController.h"
 
-#import "Lesson+Ekko.h"
+#import "Lesson+View.h"
 
 @interface LessonViewController : UIViewController <ContentItemProtocol, CourseNavigationBarDelegate, SwipeViewControllerDelegate>
 

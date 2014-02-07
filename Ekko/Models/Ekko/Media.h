@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "Manifest.h"
+#import "Resource.h"
 
 typedef NS_ENUM(NSUInteger, EkkoMediaType) {
     EkkoMediaTypeUnknown = 0,
@@ -24,5 +25,8 @@ typedef NS_ENUM(NSUInteger, EkkoMediaType) {
 @property (nonatomic, strong) NSString *resourceId;
 @property (nonatomic, strong) NSString *thumbnailId;
 @property (nonatomic, weak) Manifest *manifest;
+
+-(Resource *)resource;
+-(Resource *)thumbnail;
 
 @end

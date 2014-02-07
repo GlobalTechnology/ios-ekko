@@ -8,7 +8,6 @@
 
 #import "ResourceManager.h"
 #import "DataManager.h"
-#import "CourseIdProtocol.h"
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import <AFHTTPRequestOperation.h>
@@ -74,7 +73,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     }
 
     //Download image if not in cache or disk
-    if ([resource isFile]) {
+    if (resource.type == EkkoResourceTypeFile) {
         [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 completeBlock:^(NSData *data) {
             UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
@@ -84,7 +83,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             }
         }];
     }
-    else if ([resource isUri]) {
+    else if (resource.type == EkkoResourceTypeURI) {
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
         AFHTTPRequestOperation * operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
@@ -98,7 +97,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
         [operation start];
     }
-    else if ([resource isEkkoCloudVideo]) {
+    else if (resource.type == EkkoResourceTypeECV) {
         [[EkkoCloudClient sharedClient] getVideoThumbnailURL:resource.courseId videoId:resource.videoId completeBlock:^(NSURL *videoThumbnailUrl) {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoThumbnailUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
             AFHTTPRequestOperation *operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -114,7 +113,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             [operation start];
         }];
     }
-    else if ([resource isArclight]) {
+    else if (resource.type == EkkoResourceTypeArclight) {
         [[ArclightClient sharedClient] getThumbnailURL:resource.refId complete:^(NSURL *thumbnailURL) {
             NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:thumbnailURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
             AFHTTPRequestOperation *operation = [[ArclightClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -133,7 +132,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 }
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
-    if ([resource isFile]) {
+    if (resource.type == EkkoResourceTypeFile) {
         NSString *path = [self pathForResource:resource];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             completeBlock(resource, [path copy]);
@@ -146,7 +145,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             }];
         }
     }
-    else if ([resource isEkkoCloudVideo]) {
+    else if (resource.type == EkkoResourceTypeECV) {
     }
 }
 

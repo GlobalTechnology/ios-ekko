@@ -7,7 +7,7 @@
 //
 
 #import "PageViewController.h"
-#import "Lesson+Ekko.h"
+#import "Lesson+View.h"
 
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"

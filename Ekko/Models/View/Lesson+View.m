@@ -1,17 +1,17 @@
 //
-//  Lesson+Ekko.m
+//  Lesson+View.m
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/23/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "Lesson+Ekko.h"
-#import "Manifest+Ekko.h"
+#import "Lesson+View.h"
+#import "Manifest+View.h"
 
 #import "LessonViewController.h"
 
-@implementation Lesson (Ekko)
+@implementation Lesson (View)
 #pragma mark - SwipeViewControllerDataSource
 -(UIViewController *)swipeViewController:(SwipeViewController *)swipeViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[PageViewController class]]) {

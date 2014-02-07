@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Resource+Ekko.h"
+#import "Resource.h"
 
 @protocol ResourceManagerDelegate;
 

@@ -1,12 +1,12 @@
 //
-//  Quiz+Ekko.m
+//  Quiz+View.m
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/23/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "Quiz+Ekko.h"
+#import "Quiz+View.h"
 #import "QuizViewController.h"
 
 #import "QuizCompleteViewController.h"
@@ -16,7 +16,7 @@
 
 static NSString *const kEkkoQuizShowAnswersProperty = @"kEkkoQuizShowAnswersProperty";
 
-@implementation Quiz (Ekko)
+@implementation Quiz (View)
 
 -(void)setShowAnswers:(BOOL)showAnswers {
     NSNumber *number = [NSNumber numberWithBool:showAnswers];

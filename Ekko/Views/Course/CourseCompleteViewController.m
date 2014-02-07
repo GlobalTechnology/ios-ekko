@@ -7,7 +7,7 @@
 //
 
 #import "CourseCompleteViewController.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 #import "UIViewController+SwipeViewController.h"
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"

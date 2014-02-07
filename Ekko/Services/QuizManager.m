@@ -10,9 +10,9 @@
 #import "DataManager.h"
 #import "Answer.h"
 
-#import "Quiz+Ekko.h"
-#import "Question+Ekko.h"
-#import "MultipleChoice+Ekko.h"
+#import "Quiz.h"
+#import "Question.h"
+#import "MultipleChoice.h"
 
 @implementation QuizManager
 

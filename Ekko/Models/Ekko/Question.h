@@ -16,6 +16,7 @@ typedef NS_ENUM(NSUInteger, EkkoQuestionType) {
 
 @interface Question : NSObject
 
+@property (nonatomic, readonly) NSString *courseId;
 @property (nonatomic, strong) NSString *questionId;
 @property (nonatomic, readonly) EkkoQuestionType questionType;
 @property (nonatomic, weak) Quiz *quiz;

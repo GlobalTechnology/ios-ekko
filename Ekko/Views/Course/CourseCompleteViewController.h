@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CourseNavigationBar.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 
 @interface CourseCompleteViewController : UIViewController <CourseNavigationBarDelegate>
 

@@ -1,19 +1,21 @@
 //
-//  Resource+Ekko.m
+//  NewResource.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 8/27/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 2/3/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
-#import "Resource+Ekko.h"
+#import "Resource.h"
+
+#import "Banner+Ekko.h"
 
 #import "NSString+MD5.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
 NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed\\/|watch\\?v=|\\&v=)([^#\\&\\?]*).*";
 
-@implementation Resource (Ekko)
+@implementation Resource
 
 -(id)initWithBanner:(Banner *)banner {
     self = [super init];
@@ -35,37 +37,21 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     return self;
 }
 
--(BOOL)isFile {
-    return self.type == EkkoResourceTypeFile;
-}
-
--(BOOL)isUri {
-    return self.type == EkkoResourceTypeURI;
-}
-
--(BOOL)isEkkoCloudVideo {
-    return self.type == EkkoResourceTypeECV;
-}
-
--(BOOL)isArclight {
-    return self.type == EkkoResourceTypeArclight;
-}
-
 -(NSString *)filenameOnDisk {
     NSString *filename = nil;
-    if ([self isFile] && self.sha1) {
+    if (self.type == EkkoResourceTypeFile && self.sha1) {
         filename = [self.sha1 copy];
     }
-    else if ([self isUri]) {
+    else if (self.type == EkkoResourceTypeURI) {
         filename = [NSString stringWithFormat:@"uri-%@", [[self.uri lowercaseString] MD5]];
     }
-    else if ([self isEkkoCloudVideo]) {
+    else if (self.type == EkkoResourceTypeECV) {
         filename = [NSString stringWithFormat:@"ecv-%@", [self.videoId lowercaseString]];
     }
-    else if ([self isArclight]) {
+    else if (self.type == EkkoResourceTypeArclight) {
         filename = [NSString stringWithFormat:@"arclight-%@", self.refId];
     }
-    
+
     if (filename && self.mimeType) {
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)self.mimeType, NULL);
         NSString *extension = CFBridgingRelease(UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension));
@@ -78,7 +64,7 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
 }
 
 -(NSString *)youtTubeVideoId {
-    if ([self isUri] && self.provider == EkkoResourceProviderYouTube) {
+    if (self.type == EkkoResourceTypeURI && self.provider == EkkoResourceProviderYouTube) {
         NSError *error = nil;
         NSRegularExpression *regexp = [NSRegularExpression regularExpressionWithPattern:kYouTubeVideoIdPattern options:0 error:&error];
         if (error) {

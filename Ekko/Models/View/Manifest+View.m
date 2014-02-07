@@ -1,12 +1,12 @@
 //
-//  Manifest+Ekko.m
+//  Manifest+View.m
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/26/13.
 //  Copyright (c) 2013 Ekko Project. All rights reserved.
 //
 
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 
 #import "UIColor+Ekko.h"
 
@@ -14,12 +14,7 @@
 #import "QuizViewController.h"
 #import "CourseCompleteViewController.h"
 
-@implementation Manifest (Ekko)
-
--(Resource *)resourceByResourceId:(NSString *)resourceId {
-    NSSet *filteredResources = [self.resources filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"resourceId LIKE[c] %@", resourceId]];
-    return (Resource *)[filteredResources anyObject];
-}
+@implementation Manifest (View)
 
 -(NSUInteger)indexOfViewController:(UIViewController<ContentItemProtocol> *)viewController {
     if (viewController.contentItem) {

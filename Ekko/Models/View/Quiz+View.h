@@ -1,5 +1,5 @@
 //
-//  Quiz+Ekko.h
+//  Quiz+View.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/23/13.
@@ -11,7 +11,7 @@
 #import "SwipeViewController.h"
 #import "QuizProtocol.h"
 
-@interface Quiz (Ekko) <SwipeViewControllerDataSource>
+@interface Quiz (View) <SwipeViewControllerDataSource>
 
 @property (nonatomic) BOOL showAnswers;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "CourseIdProtocol.h"
+#import "Banner.h"
 
 typedef NS_ENUM(NSUInteger, EkkoResourceType) {
     EkkoResourceTypeUnknown  = 0,
@@ -26,7 +26,7 @@ typedef NS_ENUM(NSUInteger, EkkoResourceProvider) {
     EkkoResourceProviderVimeo   = 3,
 };
 
-@interface Resource : NSObject <CourseIdProtocol>
+@interface Resource : NSObject
 
 @property (nonatomic, copy) NSString *resourceId;
 @property (nonatomic) EkkoResourceType type;
@@ -38,5 +38,11 @@ typedef NS_ENUM(NSUInteger, EkkoResourceProvider) {
 @property (nonatomic, copy) NSString *videoId;
 @property (nonatomic, copy) NSString *refId;
 @property (nonatomic, copy) NSString *courseId;
+
+-(id)initWithBanner:(Banner *)banner;
+
+-(NSString *)filenameOnDisk;
+
+-(NSString *)youtTubeVideoId;
 
 @end

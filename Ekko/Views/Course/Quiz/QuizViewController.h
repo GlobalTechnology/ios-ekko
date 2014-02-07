@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
 #import "ContentItemProtocol.h"
-#import "Quiz+Ekko.h"
+#import "Quiz+View.h"
 
 @interface QuizViewController : SwipeViewController <ContentItemProtocol>
 

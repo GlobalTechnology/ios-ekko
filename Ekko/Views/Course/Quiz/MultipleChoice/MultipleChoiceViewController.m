@@ -11,7 +11,7 @@
 #import "MultipleChoiceOption.h"
 #import "MultipleChoiceOptionCell.h"
 #import "UIViewController+SwipeViewController.h"
-#import "Quiz+Ekko.h"
+#import "Quiz+View.h"
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"
 #import "QuizManager.h"

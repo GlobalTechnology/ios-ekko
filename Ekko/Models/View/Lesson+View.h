@@ -1,5 +1,5 @@
 //
-//  Lesson+Ekko.h
+//  Lesson+View.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/23/13.
@@ -11,7 +11,7 @@
 #import "PageViewController.h"
 #import "MediaViewController.h"
 
-@interface Lesson (Ekko) <SwipeViewControllerDataSource>
+@interface Lesson (View) <SwipeViewControllerDataSource>
 -(UIViewController *)viewControllerBeforePageViewController:(PageViewController *)pageViewController;
 -(UIViewController *)viewControllerAfterPageViewController:(PageViewController *)pageViewController;
 -(PageViewController *)pageViewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;

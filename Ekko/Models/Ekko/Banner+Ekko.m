@@ -7,7 +7,7 @@
 //
 
 #import "Banner+Ekko.h"
-#import "Course+Ekko.m"
+#import "Course+Ekko.h"
 
 @implementation Banner (Ekko)
 

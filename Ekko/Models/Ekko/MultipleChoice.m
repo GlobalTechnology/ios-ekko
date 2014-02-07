@@ -23,4 +23,13 @@
     return _options;
 }
 
+-(MultipleChoiceOption *)answer {
+    for (MultipleChoiceOption *option in self.options) {
+        if (option.isAnswer) {
+            return option;
+        }
+    }
+    return nil;
+}
+
 @end

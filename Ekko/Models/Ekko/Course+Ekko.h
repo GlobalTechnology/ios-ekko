@@ -7,8 +7,7 @@
 //
 
 #import "Course.h"
-#import "CourseIdProtocol.h"
-#import "Resource+Ekko.h"
+#import "Resource.h"
 
 typedef NS_ENUM(NSUInteger, CourseEnrollmentType) {
     CourseEnrollmentUnknown  = 0,
@@ -17,7 +16,7 @@ typedef NS_ENUM(NSUInteger, CourseEnrollmentType) {
     CourseEnrollmentApproval = 3,
 };
 
-@interface Course (Ekko) <CourseIdProtocol>
+@interface Course (Ekko)
 
 @property (nonatomic) CourseEnrollmentType enrollmentType;
 @property (nonatomic, getter = isPublic) BOOL public;

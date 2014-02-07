@@ -1,5 +1,5 @@
 //
-//  Manifest+Ekko.h
+//  Manifest+View.h
 //  Ekko
 //
 //  Created by Brian Zoetewey on 8/26/13.
@@ -7,13 +7,11 @@
 //
 
 #import "Manifest.h"
-#import "Resource+Ekko.h"
+#import "Resource.h"
 #import "SwipeViewController.h"
 #import "ContentItemProtocol.h"
 
-@interface Manifest (Ekko) <SwipeViewControllerDataSource>
-
--(Resource *)resourceByResourceId:(NSString *)resourceId;
+@interface Manifest (View) <SwipeViewControllerDataSource>
 
 -(NSUInteger)indexOfViewController:(UIViewController<ContentItemProtocol> *)viewController;
 -(UIViewController<ContentItemProtocol> *)viewControllerAtIndex:(NSUInteger)index storyboard:(UIStoryboard *)storyboard;

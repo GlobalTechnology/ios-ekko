@@ -14,4 +14,8 @@
     return EkkoQuestionTypeUnknown;
 }
 
+-(NSString *)courseId {
+    return self.quiz.manifest.courseId;
+}
+
 @end

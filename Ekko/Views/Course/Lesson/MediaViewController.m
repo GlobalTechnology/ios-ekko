@@ -7,11 +7,11 @@
 //
 
 #import "MediaViewController.h"
-#import "Resource+Ekko.h"
+#import "Resource.h"
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import "ResourceManager.h"
-#import "Lesson+Ekko.h"
+#import "Lesson+View.h"
 
 @implementation MediaViewController
 
@@ -75,10 +75,10 @@
     }
     if (self.media.mediaType == EkkoMediaTypeVideo || self.media.mediaType == EkkoMediaTypeAudio) {
         Resource *resource = [self.media resource];
-        if ([resource isUri]) {
+        if (resource.type == EkkoResourceTypeURI) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
-        else if ([resource isFile]) {
+        else if (resource.type == EkkoResourceTypeFile) {
             [[ResourceManager sharedManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -101,7 +101,7 @@
                 });
             }];
         }
-        else if ([resource isEkkoCloudVideo]) {
+        else if (resource.type == EkkoResourceTypeECV) {
             [[EkkoCloudClient sharedClient] getVideoStreamURL:[resource courseId] videoId:[resource videoId] completeBlock:^(NSURL *videoStreamUrl) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
@@ -111,7 +111,7 @@
                 });
             }];
         }
-        else if ([resource isArclight]) {
+        else if (resource.type == EkkoResourceTypeArclight) {
             [[ArclightClient sharedClient] getVideoStreamUrl:resource.refId complete:^(NSURL *videoStreamUrl) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
