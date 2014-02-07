@@ -38,7 +38,7 @@ static const int insetViewTag = 1;
     [self.courseLabel setText:course.courseTitle];
     
     //Set banner image
-    Resource *banner = (Resource *)[course banner];
+    Resource *banner = [course bannerResource];
     if (banner) {
         [[ResourceManager sharedManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{

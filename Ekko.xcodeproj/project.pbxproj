@@ -24,11 +24,13 @@
 		D31DB80E18A1508A0031C12E /* Page+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB80D18A1508A0031C12E /* Page+XMLModel.m */; };
 		D31DB81118A166620031C12E /* MultipleChoice+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB81018A166620031C12E /* MultipleChoice+XMLModel.m */; };
 		D31DB81418A167DA0031C12E /* MultipleChoiceOption+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB81318A167DA0031C12E /* MultipleChoiceOption+XMLModel.m */; };
+		D320D13618A539C60055D83D /* Banner.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D13518A539C60055D83D /* Banner.m */; };
+		D320D13918A539C70055D83D /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D13818A539C70055D83D /* Course.m */; };
+		D320D13C18A539DF0055D83D /* Banner+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D320D13B18A539DF0055D83D /* Banner+Ekko.m */; };
 		D325766517F375E200447A2D /* ResourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D325766417F375E200447A2D /* ResourceManager.m */; };
 		D32BBEA718A2D419006273A8 /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEA618A2D419006273A8 /* Answer.m */; };
 		D32BBEB318A2DEDA006273A8 /* Permission.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB218A2DEDA006273A8 /* Permission.m */; };
 		D32BBEB618A2DF0D006273A8 /* Permission+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB518A2DF0D006273A8 /* Permission+XMLModel.m */; };
-		D32BBEB918A2DF89006273A8 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = D32BBEB818A2DF89006273A8 /* Course.m */; };
 		D33072321807227E00EDD036 /* QuizCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072311807227E00EDD036 /* QuizCompleteViewController.m */; };
 		D33072351807349B00EDD036 /* QuizManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D33072341807349B00EDD036 /* QuizManager.m */; };
 		D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D330723D18074A4500EDD036 /* Question+Ekko.m */; };
@@ -149,6 +151,12 @@
 		D31DB81018A166620031C12E /* MultipleChoice+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoice+XMLModel.m"; sourceTree = "<group>"; };
 		D31DB81218A167DA0031C12E /* MultipleChoiceOption+XMLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MultipleChoiceOption+XMLModel.h"; sourceTree = "<group>"; };
 		D31DB81318A167DA0031C12E /* MultipleChoiceOption+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MultipleChoiceOption+XMLModel.m"; sourceTree = "<group>"; };
+		D320D13418A539C60055D83D /* Banner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Banner.h; sourceTree = "<group>"; };
+		D320D13518A539C60055D83D /* Banner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Banner.m; sourceTree = "<group>"; };
+		D320D13718A539C70055D83D /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		D320D13818A539C70055D83D /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		D320D13A18A539DF0055D83D /* Banner+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Banner+Ekko.h"; sourceTree = "<group>"; };
+		D320D13B18A539DF0055D83D /* Banner+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Banner+Ekko.m"; sourceTree = "<group>"; };
 		D325766317F375E200447A2D /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceManager.h; sourceTree = "<group>"; };
 		D325766417F375E200447A2D /* ResourceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceManager.m; sourceTree = "<group>"; };
 		D32BBEA518A2D419006273A8 /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
@@ -157,8 +165,6 @@
 		D32BBEB218A2DEDA006273A8 /* Permission.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Permission.m; sourceTree = "<group>"; };
 		D32BBEB418A2DF0D006273A8 /* Permission+XMLModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Permission+XMLModel.h"; sourceTree = "<group>"; };
 		D32BBEB518A2DF0D006273A8 /* Permission+XMLModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Permission+XMLModel.m"; sourceTree = "<group>"; };
-		D32BBEB718A2DF89006273A8 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
-		D32BBEB818A2DF89006273A8 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		D33072301807227E00EDD036 /* QuizCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizCompleteViewController.h; sourceTree = "<group>"; };
 		D33072311807227E00EDD036 /* QuizCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuizCompleteViewController.m; sourceTree = "<group>"; };
 		D33072331807349B00EDD036 /* QuizManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuizManager.h; sourceTree = "<group>"; };
@@ -441,11 +447,13 @@
 		D359FF1F17EC96FE007A095B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				D320D13718A539C70055D83D /* Course.h */,
+				D320D13818A539C70055D83D /* Course.m */,
+				D320D13418A539C60055D83D /* Banner.h */,
+				D320D13518A539C60055D83D /* Banner.m */,
 				D32BBEA518A2D419006273A8 /* Answer.h */,
 				D32BBEA618A2D419006273A8 /* Answer.m */,
 				D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */,
-				D32BBEB718A2DF89006273A8 /* Course.h */,
-				D32BBEB818A2DF89006273A8 /* Course.m */,
 				D32BBEB118A2DEDA006273A8 /* Permission.h */,
 				D32BBEB218A2DEDA006273A8 /* Permission.m */,
 			);
@@ -455,23 +463,25 @@
 		D359FF3A17EC96FE007A095B /* Ekko */ = {
 			isa = PBXGroup;
 			children = (
-				D330724018074D1600EDD036 /* CourseIdProtocol.h */,
+				D320D13A18A539DF0055D83D /* Banner+Ekko.h */,
+				D320D13B18A539DF0055D83D /* Banner+Ekko.m */,
 				D359FF3B17EC96FE007A095B /* Course+Ekko.h */,
 				D359FF3C17EC96FE007A095B /* Course+Ekko.m */,
+				D330724018074D1600EDD036 /* CourseIdProtocol.h */,
 				D359FF3D17EC96FE007A095B /* Lesson+Ekko.h */,
 				D359FF3E17EC96FE007A095B /* Lesson+Ekko.m */,
 				D359FF3F17EC96FE007A095B /* Manifest+Ekko.h */,
 				D359FF4017EC96FE007A095B /* Manifest+Ekko.m */,
 				D359FF4117EC96FE007A095B /* Media+Ekko.h */,
 				D359FF4217EC96FE007A095B /* Media+Ekko.m */,
+				D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */,
+				D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */,
+				D330723C18074A4500EDD036 /* Question+Ekko.h */,
+				D330723D18074A4500EDD036 /* Question+Ekko.m */,
 				D359FF4317EC96FE007A095B /* Quiz+Ekko.h */,
 				D359FF4417EC96FE007A095B /* Quiz+Ekko.m */,
 				D359FF4517EC96FE007A095B /* Resource+Ekko.h */,
 				D359FF4617EC96FE007A095B /* Resource+Ekko.m */,
-				D330723C18074A4500EDD036 /* Question+Ekko.h */,
-				D330723D18074A4500EDD036 /* Question+Ekko.m */,
-				D3C51DE218088B1D00C7CB9F /* MultipleChoice+Ekko.h */,
-				D3C51DE318088B1D00C7CB9F /* MultipleChoice+Ekko.m */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -883,6 +893,7 @@
 				D3C0FB6018A01DC200C86039 /* CoursesXMLParser.m in Sources */,
 				D31DB7F018A141D00031C12E /* Media.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
+				D320D13618A539C60055D83D /* Banner.m in Sources */,
 				D359FFBA17EC96FE007A095B /* Quiz+Ekko.m in Sources */,
 				D359FFD017EC96FE007A095B /* MultipleChoiceOptionCell.m in Sources */,
 				D31DB7FC18A1457E0031C12E /* MultipleChoice.m in Sources */,
@@ -905,6 +916,7 @@
 				D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */,
 				D31DB7EA18A13D230031C12E /* Lesson.m in Sources */,
 				D3553050189AA681002C3AB2 /* EkkoCloudClient.m in Sources */,
+				D320D13918A539C70055D83D /* Course.m in Sources */,
 				D330723E18074A4500EDD036 /* Question+Ekko.m in Sources */,
 				D359FFCF17EC96FE007A095B /* PageViewController.m in Sources */,
 				D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */,
@@ -934,11 +946,11 @@
 				D3C0FB5D18A01C6600C86039 /* CourseManager.m in Sources */,
 				D31DB7ED18A13FC50031C12E /* Quiz.m in Sources */,
 				D3553051189AA681002C3AB2 /* HTTPClient.m in Sources */,
+				D320D13C18A539DF0055D83D /* Banner+Ekko.m in Sources */,
 				D359FFBB17EC96FE007A095B /* Resource+Ekko.m in Sources */,
 				D31DB80518A14C620031C12E /* Lesson+XMLModel.m in Sources */,
 				D31DB7F318A143260031C12E /* Page.m in Sources */,
 				D359FFD417EC96FE007A095B /* CourseListViewController.m in Sources */,
-				D32BBEB918A2DF89006273A8 /* Course.m in Sources */,
 				D359FFD317EC96FE007A095B /* CourseListCell.m in Sources */,
 				D359FFB717EC96FE007A095B /* Lesson+Ekko.m in Sources */,
 				D3C0FB50189FEBC000C86039 /* Resource+XMLModel.m in Sources */,

@@ -12,6 +12,7 @@ NSString *const EkkoEntityTypes[] = {
     [EkkoEntityCourse]     = @"Course",
     [EkkoEntityAnswer]     = @"Answer",
     [EkkoEntityPermission] = @"Permission",
+    [EkkoEntityBanner]     = @"Banner",
 };
 
 @interface DataManager ()

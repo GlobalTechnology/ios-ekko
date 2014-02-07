@@ -15,6 +15,7 @@
 
 #import "Course+Ekko.h"
 #import "Permission.h"
+#import "Banner+Ekko.h"
 
 NSString *const EkkoCourseManagerWillSyncCoursesNotification = @"EkkoCourseManagerWillSyncCoursesNotification";
 NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManagerDidSyncCoursesNotification";
@@ -141,6 +142,10 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 
 -(Permission *)newPermission {
     return (Permission *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityPermission inManagedObjectContext:self.managedObjectContext];
+}
+
+-(Banner *)newBanner {
+    return (Banner *)[[DataManager sharedManager] insertNewObjectForEntity:EkkoEntityBanner inManagedObjectContext:self.managedObjectContext];
 }
 
 #pragma mark - Private Methods

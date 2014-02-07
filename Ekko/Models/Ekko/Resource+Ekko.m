@@ -15,6 +15,26 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
 
 @implementation Resource (Ekko)
 
+-(id)initWithBanner:(Banner *)banner {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+
+    self.resourceId = banner.bannerId;
+    self.type       = banner.type;
+    self.provider   = banner.provider;
+    self.sha1       = banner.sha1;
+    self.size       = [banner.size unsignedLongLongValue];
+    self.uri        = banner.uri;
+    self.mimeType   = banner.mimeType;
+    self.videoId    = banner.videoId;
+    self.refId      = banner.refId;
+    self.courseId   = banner.courseId;
+
+    return self;
+}
+
 -(BOOL)isFile {
     return self.type == EkkoResourceTypeFile;
 }
@@ -76,11 +96,5 @@ NSString *const kYouTubeVideoIdPattern = @"^.*(youtu.be\\/|v\\/|u\\/\\w\\/|embed
     }
     return nil;
 }
-/*
-#pragma mark - CourseIdProtocol
 
--(NSString *)courseId {
-    return self.manifest.courseId;
-}
-*/
 @end

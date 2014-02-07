@@ -47,15 +47,11 @@
     return [self permissionForGUID:nil];
 }
 
--(Resource *)banner {
-    Resource *resource = [[Resource alloc] init];
-    resource.resourceId = self.bannerId;
-    resource.courseId   = self.courseId;
-    resource.type       = EkkoResourceTypeFile;
-    resource.sha1       = self.bannerSha1;
-    resource.size       = [self.bannerSize unsignedLongLongValue];
-    resource.mimeType   = self.bannerMimeType;
-    return resource;
+-(Resource *)bannerResource {
+    if (self.bannerId && self.banner) {
+        return [[Resource alloc] initWithBanner:self.banner];
+    }
+    return nil;
 }
 
 @end

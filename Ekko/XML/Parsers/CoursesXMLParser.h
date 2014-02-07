@@ -30,4 +30,5 @@
 -(void)foundCourse:(NSString *)courseId;
 -(Course *)fetchCourse:(NSString *)courseId;
 -(Permission *)newPermission;
+-(Banner *)newBanner;
 @end

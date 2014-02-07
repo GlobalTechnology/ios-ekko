@@ -7,9 +7,11 @@
 //
 
 #import "Resource.h"
-#import "CourseIdProtocol.h"
+#import "Banner+Ekko.h"
 
-@interface Resource (Ekko) <CourseIdProtocol>
+@interface Resource (Ekko)
+
+-(id)initWithBanner:(Banner *)banner;
 
 -(BOOL)isFile;
 -(BOOL)isUri;

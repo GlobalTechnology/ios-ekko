@@ -10,6 +10,7 @@
 #import "Course+Ekko.h"
 #import "CoursesXMLParser.h"
 #import "Permission+XMLModel.h"
+#import "Banner+Ekko.h"
 
 #import "Resource+XMLModel.h"
 
@@ -77,13 +78,27 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
 }
 
 -(void)ekkoXMLParser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if ([elementName isEqualToString:kEkkoCloudXMLElementCourse] && self.bannerId) {
-        NSSet *resource = [[(CoursesXMLParser *)parser resources] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"resourceId LIKE[c] %@", self.bannerId]];
-        if (resource && [resource count] > 0) {
-            Resource *banner = (Resource *)[resource anyObject];
-            self.bannerSha1 = banner.sha1;
-            self.bannerSize = [NSNumber numberWithUnsignedLongLong:banner.size];
-            self.bannerMimeType = banner.mimeType;
+    if ([elementName isEqualToString:kEkkoCloudXMLElementCourse]) {
+        if (self.bannerId) {
+            NSSet *resources = [[(CoursesXMLParser *)parser resources] filteredSetUsingPredicate:[NSPredicate predicateWithFormat:@"resourceId LIKE[c] %@", self.bannerId]];
+            if (resources && [resources count] > 0) {
+                Resource *resource = (Resource *)[resources anyObject];
+                Banner *banner = self.banner;
+                if (banner == nil) {
+                    banner = [[(CoursesXMLParser *)parser courseDelegate] newBanner];
+                    self.banner = banner;
+                }
+
+                banner.bannerId = resource.resourceId;
+                banner.type     = resource.type;
+                banner.provider = resource.provider;
+                banner.sha1     = resource.sha1;
+                banner.size     = [NSNumber numberWithUnsignedLongLong:resource.size];
+                banner.mimeType = resource.mimeType;
+                banner.uri      = resource.uri;
+                banner.videoId  = resource.videoId;
+                banner.refId    = resource.refId;
+            }
         }
     }
 }
