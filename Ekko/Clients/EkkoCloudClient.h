@@ -8,8 +8,6 @@
 
 #import "AFHTTPRequestOperationManager.h"
 
-FOUNDATION_EXPORT NSString *const EkkoCloudClientDidEstablishSessionNotification;
-
 @interface EkkoCloudClient : AFHTTPRequestOperationManager
 
 @property (nonatomic, strong, readonly) NSString *guid;

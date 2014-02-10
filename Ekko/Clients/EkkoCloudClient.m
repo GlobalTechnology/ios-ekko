@@ -52,9 +52,6 @@ static NSString *const kEkkoCloudClientParameterLimit  = @"limit";
 // Maximum request attempts
 static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
 
-//Notifications
-NSString *const EkkoCloudClientDidEstablishSessionNotification = @"EkkoCloudClientDidEstablishSessionNotification";
-
 @interface EkkoCloudRequest : NSObject
 @property (nonatomic) BOOL useSession;
 @property (nonatomic, copy) NSString *endpoint;
@@ -258,9 +255,6 @@ NSString *const EkkoCloudClientDidEstablishSessionNotification = @"EkkoCloudClie
                 [self setSessionId:sessionId];
                 [self setPendingSession:NO];
                 [self processPendingRequests];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:EkkoCloudClientDidEstablishSessionNotification object:self userInfo:@{@"guid": self.guid}];
-                });
             }
         }
     }];
