@@ -14,8 +14,7 @@
 
 @implementation EkkoXMLParser
 
-@synthesize schemaVersion = _schemaVersion;
-@synthesize elements      = _elements;
+@synthesize elements = _elements;
 
 -(id)initWithData:(NSData *)data {
     self = [super initWithData:data];

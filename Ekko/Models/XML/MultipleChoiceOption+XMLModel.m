@@ -13,8 +13,9 @@
 EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementQuizQuestionOption)
 
 -(void)ekkoXMLParser:(EkkoXMLParser *)parser didInitElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    self.optionId = [attributeDict objectForKey:kEkkoCloudXMLAttrOptionId];
-    self.isAnswer = ([attributeDict objectForKey:kEkkoCloudXMLAttrOptionAnswer] != nil) ? YES : NO;
+    self.optionId   = [attributeDict objectForKey:kEkkoCloudXMLAttrOptionId];
+    self.isAnswer   = ([attributeDict objectForKey:kEkkoCloudXMLAttrOptionAnswer] != nil) ? YES : NO;
+    self.optionText = nil;
 }
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {

@@ -37,6 +37,9 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
     else {
         self.enrollmentType = CourseEnrollmentUnknown;
     }
+
+    self.courseTitle = nil;
+    self.courseDescription = nil;
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {

@@ -19,6 +19,7 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementManifest)
 -(void)ekkoXMLParser:(EkkoXMLParser *)parser didInitElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     self.courseId      = attributeDict[kEkkoCloudXMLAttrCourseId];
     self.courseVersion = [attributeDict[kEkkoCloudXMLAttrCourseVersion] integerValue];
+    self.courseTitle   = nil;
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
