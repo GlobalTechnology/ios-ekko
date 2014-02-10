@@ -77,6 +77,7 @@
 		D35B6CC7180EECC200670090 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B6CC6180EECC200670090 /* CFNetwork.framework */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
 		D397E5711822CDE500D9FFF3 /* UIWebView+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */; };
+		D3B1911118A92B7C009C749F /* CoreDataXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3B1911018A92B7C009C749F /* CoreDataXMLParser.m */; };
 		D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */; };
 		D3BAC3DB1836C2E400EDE24A /* EkkoLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */; };
 		D3C0FB4D189FE92E00C86039 /* Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0FB4C189FE92E00C86039 /* Resource.m */; };
@@ -248,6 +249,8 @@
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D397E56F1822CDE500D9FFF3 /* UIWebView+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Ekko.h"; sourceTree = "<group>"; };
 		D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Ekko.m"; sourceTree = "<group>"; };
+		D3B1910F18A92B7C009C749F /* CoreDataXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataXMLParser.h; sourceTree = "<group>"; };
+		D3B1911018A92B7C009C749F /* CoreDataXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataXMLParser.m; sourceTree = "<group>"; };
 		D3BAC3D71836C2E400EDE24A /* EkkoLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EkkoLoginViewController.h; sourceTree = "<group>"; };
 		D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EkkoLoginViewController.m; sourceTree = "<group>"; };
 		D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EkkoLoginViewController.xib; sourceTree = "<group>"; };
@@ -327,12 +330,14 @@
 		D31CCB7C189965BC00E3B303 /* XML */ = {
 			isa = PBXGroup;
 			children = (
-				D31DB81518A16A110031C12E /* Parsers */,
+				D3B1910F18A92B7C009C749F /* CoreDataXMLParser.h */,
+				D3B1911018A92B7C009C749F /* CoreDataXMLParser.m */,
 				D31CCB7D1899662900E3B303 /* EkkoCloudXMLConstants.h */,
 				D31CCB7E1899662900E3B303 /* EkkoCloudXMLConstants.m */,
 				D334994B189C06AF00DCBF0A /* EkkoXMLModel.h */,
 				D334994C189C072000DCBF0A /* EkkoXMLParser.h */,
 				D334994D189C072000DCBF0A /* EkkoXMLParser.m */,
+				D31DB81518A16A110031C12E /* Parsers */,
 			);
 			path = XML;
 			sourceTree = "<group>";
@@ -911,6 +916,7 @@
 				D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
 				D334994E189C072000DCBF0A /* EkkoXMLParser.m in Sources */,
+				D3B1911118A92B7C009C749F /* CoreDataXMLParser.m in Sources */,
 				D3553044189A92E8002C3AB2 /* ManifestManager.m in Sources */,
 				D359FFCD17EC96FE007A095B /* LessonViewController.m in Sources */,
 				D3375AE318106BAC00BAB134 /* AboutEkkoViewController.m in Sources */,

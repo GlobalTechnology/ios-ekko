@@ -11,6 +11,7 @@
 #import "CoursesXMLParser.h"
 #import "Permission+XMLModel.h"
 #import "Banner+Ekko.h"
+#import "CoreDataManager.h"
 
 #import "Resource+XMLModel.h"
 
@@ -56,7 +57,8 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
         NSString *guid = [attributeDict objectForKey:kEkkoCloudXMLAttrPermissionGuid];
         Permission *permission = [self permissionForGUID:guid];
         if (permission == nil) {
-            permission = [[(CoursesXMLParser *)parser courseDelegate] newPermission];
+            permission = (Permission *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityPermission
+                                                                          inManagedObjectContext:[(CoursesXMLParser *)parser managedObjectContext]];
             [self addPermissionsObject:permission];
         }
 
@@ -85,7 +87,8 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
                 Resource *resource = (Resource *)[resources anyObject];
                 Banner *banner = self.banner;
                 if (banner == nil) {
-                    banner = [[(CoursesXMLParser *)parser courseDelegate] newBanner];
+                    banner = (Banner *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityBanner
+                                                                          inManagedObjectContext:[(CoursesXMLParser *)parser managedObjectContext]];
                     self.banner = banner;
                 }
 

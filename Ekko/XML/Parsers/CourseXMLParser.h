@@ -6,8 +6,13 @@
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
-#import "EkkoXMLParser.h"
+#import "CoreDataXMLParser.h"
 
-@interface CourseXMLParser : EkkoXMLParser
+#import "Course+XMLModel.h"
+
+@interface CourseXMLParser : CoreDataXMLParser
+
+@property (nonatomic, getter = isNewVersion) BOOL newVersion;
+@property (nonatomic, strong) Course *course;
 
 @end

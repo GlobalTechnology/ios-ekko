@@ -29,28 +29,23 @@ FOUNDATION_EXPORT NSString *const EkkoCourseManagerDidSyncCoursesNotification;
 -(BOOL)isSyncInProgress;
 +(void)syncCoursesForGUID:(NSString *)guid;
 -(void)syncCourses;
+-(void)syncCourse:(NSString *)courseId completeBlock:(void (^)())complete;
 
-#pragma mark - CoreData
+#pragma mark - Core Data
++(Course *)getCourseById:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 -(Course *)getCourseById:(NSString *)courseId withManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
++(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 -(NSArray *)getAllCoursesWithManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
-#pragma mark - NSFetchedResultsController
--(NSFetchedResultsController *)fetchedResultsControllerForType:(EkkoCoursesFetchType)type;
-
-
-
-
-#pragma mark - Hub
-//-(void)syncCourse:(NSString *)courseId complete:(void (^)())complete;
-
-
-
-#pragma mark - Course Enrollment
+#pragma mark - Enrollment
 -(void)enrollInCourse:(NSString *)courseId complete:(void (^)())complete;
 -(void)unenrollFromCourse:(NSString *)courseId complete:(void (^)())complete;
 
-#pragma mark - My Courses Visibility
+#pragma mark - Visibility
 -(void)showCourseInMyCourses:(NSString *)courseId complete:(void (^)())complete;
 -(void)hideCourseFromMyCourses:(NSString *)courseId complete:(void (^)())complete;
+
+#pragma mark - NSFetchedResultsController
+-(NSFetchedResultsController *)fetchedResultsControllerForType:(EkkoCoursesFetchType)type;
 
 @end

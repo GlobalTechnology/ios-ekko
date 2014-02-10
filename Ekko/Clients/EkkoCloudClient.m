@@ -386,6 +386,8 @@ NSString *const EkkoCloudClientDidEstablishSessionNotification = @"EkkoCloudClie
 #pragma mark - Course Permissions
 
 -(void)enrollInCourse:(NSString *)courseId completeBlock:(void (^)(NSData *, NSError *))complete {
+    // 200 on success, response is XML with new permission
+    // 401/404 on failure
     NSString *endpoint = [NSString stringWithFormat:kEkkoCloudClientEndpointEnroll, courseId];
     EkkoCloudRequest *request = [EkkoCloudRequest ekkoCloudRequestWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {
@@ -400,6 +402,7 @@ NSString *const EkkoCloudClientDidEstablishSessionNotification = @"EkkoCloudClie
 }
 
 -(void)unenrollFromCourse:(NSString *)courseId completeBlock:(void (^)(NSData *, NSError *))complete {
+    // 200 on success, response is XML if guid still has access to the course, empty if not
     NSString *endpoint = [NSString stringWithFormat:kEkkoCloudClientEndpointUnenroll, courseId];
     EkkoCloudRequest *request = [EkkoCloudRequest ekkoCloudRequestWithSession:YES endpoint:endpoint parameters:nil response:^(NSURLResponse *response, id responseObject) {
         if (responseObject && [responseObject isKindOfClass:[NSData class]]) {

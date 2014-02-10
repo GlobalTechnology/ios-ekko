@@ -6,29 +6,25 @@
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
-#import "EkkoXMLParser.h"
-
-#import "Course+XMLModel.h"
+#import "CoreDataXMLParser.h"
 
 @protocol CoursesXMLParserDelegate;
 
-@interface CoursesXMLParser : EkkoXMLParser
+@interface CoursesXMLParser : CoreDataXMLParser
 
 @property (nonatomic) NSInteger start;
 @property (nonatomic) NSInteger limit;
 @property (nonatomic) BOOL hasMore;
+@property (nonatomic, strong, readonly) NSMutableSet *resources;
 @property (nonatomic, weak) id<CoursesXMLParserDelegate> courseDelegate;
 
-@property (nonatomic, strong, readonly) NSMutableSet *resources;
-
--(id)initWithData:(NSData *)data andDelegate:(id<CoursesXMLParserDelegate>)delegate;
+-(id)initWithData:(NSData *)data managedObjectContext:(NSManagedObjectContext *)managedObjectContext delegate:(id<CoursesXMLParserDelegate>)delegate;
 
 @end
 
 @protocol CoursesXMLParserDelegate <NSObject>
+
 @required
--(void)foundCourse:(NSString *)courseId;
--(Course *)fetchCourse:(NSString *)courseId;
--(Permission *)newPermission;
--(Banner *)newBanner;
+-(void)foundCourse:(NSString *)courseId isNewVersion:(BOOL)isNewVersion;
+
 @end
