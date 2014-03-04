@@ -41,7 +41,7 @@
         case NavigationDrawerSectionCourses:
             return 2;
         case NavigationDrawerSectionSettings:
-            return 3;
+            return 2;
         default:
             return 0;
     }
@@ -95,10 +95,6 @@
                         highlighted = YES;
                     }
                     label = @"About Ekko";
-                    image = @"Cogwheel";
-                    break;
-                case 2:
-                    label = @"Debug";
                     image = @"Cogwheel";
                     break;
                 default:
@@ -159,9 +155,6 @@
                 case 1: {
                     UIViewController *aboutController = [self.storyboard instantiateViewControllerWithIdentifier:@"aboutEkkoViewController"];
                     [rootNavigationController setViewControllers:@[aboutController] animated:NO];
-                    break;
-                }
-                case 2: {
                     break;
                 }
                 default:
