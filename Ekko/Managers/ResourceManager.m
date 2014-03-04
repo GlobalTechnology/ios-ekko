@@ -7,9 +7,12 @@
 //
 
 #import "ResourceManager.h"
-#import "CoreDataManager.h"
+
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
+#import "HTTPClient.h"
+
+#import "CoreDataManager.h"
 #import <AFHTTPRequestOperation.h>
 #import <TheKeyOAuth2Client.h>
 
@@ -50,14 +53,14 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     return self;
 }
 
--(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *, UIImage *))completeBlock {
+-(void)getImage:(Resource *)resource imageDelegate:(id<ResourceManagerImageDelegate>)delegate {
     NSString *cacheKey = [self cacheKeyForResource:resource];
     NSString *path = [self pathForResource:resource];
 
     //Try to load image from cache
     UIImage *image = (UIImage *)[self.imageCache objectForKey:cacheKey];
     if (image) {
-        completeBlock(resource, image);
+        [delegate image:image forResource:resource];
         return;
     }
 
@@ -66,7 +69,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     if (data) {
         image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
         if (image) {
-            completeBlock(resource, image);
+            [delegate image:image forResource:resource];
             [self.imageCache setObject:image forKey:cacheKey];
             return;
         }
@@ -77,59 +80,78 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 completeBlock:^(NSData *data) {
             UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
-                completeBlock(resource, image);
+                [delegate image:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
         }];
     }
     else if (resource.type == EkkoResourceTypeURI) {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:resource.uri] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-        AFHTTPRequestOperation * operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:resource.uri parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                 UIImage *image = (UIImage *)responseObject;
-                completeBlock(resource, image);
+                [delegate image:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         }];
         [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-        [operation start];
     }
     else if (resource.type == EkkoResourceTypeECV) {
         [[EkkoCloudClient sharedClient] getVideoThumbnailURL:resource.courseId videoId:resource.videoId completeBlock:^(NSURL *videoThumbnailUrl) {
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:videoThumbnailUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-            AFHTTPRequestOperation *operation = [[EkkoCloudClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[videoThumbnailUrl absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    completeBlock(resource, image);
+                    [delegate image:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             }];
             [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-            [operation start];
         }];
     }
     else if (resource.type == EkkoResourceTypeArclight) {
         [[ArclightClient sharedClient] getThumbnailURL:resource.refId complete:^(NSURL *thumbnailURL) {
-            NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:thumbnailURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:20];
-            AFHTTPRequestOperation *operation = [[ArclightClient sharedClient] HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[thumbnailURL absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    completeBlock(resource, image);
+                    [delegate image:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             }];
             [operation setResponseSerializer:[AFImageResponseSerializer serializer]];
-            [operation start];
         }];
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
     if (resource.type == EkkoResourceTypeFile) {

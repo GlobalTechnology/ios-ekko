@@ -14,7 +14,7 @@
     __strong static HTTPClient *_httpClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _httpClient = [[HTTPClient alloc] init];
+        _httpClient = [HTTPClient manager];
     });
     return _httpClient;
 }

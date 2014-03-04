@@ -13,6 +13,7 @@
 #import "Permission.h"
 #import "CoreDataManager.h"
 
+#import "UIImageView+Resource.h"
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
 
@@ -40,6 +41,8 @@ static const int insetViewTag = 1;
     //Set banner image
     Resource *banner = [course bannerResource];
     if (banner) {
+        [self.bannerImageView setImageWithResource:banner];
+/*
         [[ResourceManager sharedManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (image && [resource.resourceId isEqualToString:[(Resource *)[course bannerResource] resourceId]]) {
@@ -47,6 +50,7 @@ static const int insetViewTag = 1;
                 }
             });
         }];
+ */
     }
 }
 

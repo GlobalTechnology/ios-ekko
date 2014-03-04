@@ -81,7 +81,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
     });
 
     //TODO - increase limit
-    [self getCoursesStaringAt:0 limit:5];
+    [self getCoursesStaringAt:0 limit:50];
 }
 
 -(void)syncCourse:(NSString *)courseId completeBlock:(void (^)())complete {
@@ -182,7 +182,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 -(void)foundCourse:(NSString *)courseId isNewVersion:(BOOL)newVersion {
     [self.coursesFoundInSync addObject:courseId];
     if (newVersion) {
-        [[ManifestManager sharedManager] getManifest:courseId withOptions:0 completeBlock:^(Manifest *manifest) {}];
+        [[ManifestManager sharedManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
     }
 }
 
@@ -246,7 +246,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
             CourseXMLParser *parser = [[CourseXMLParser alloc] initWithData:courseData managedObjectContext:managedObjectContext];
             if ([parser parse]) {
                 if ([parser isNewVersion]) {
-                    [[ManifestManager sharedManager] getManifest:courseId withOptions:0 completeBlock:^(Manifest *manifest) {}];
+                    [[ManifestManager sharedManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
                 }
                 [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
             }

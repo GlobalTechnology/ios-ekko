@@ -12,6 +12,7 @@
 #import "ArclightClient.h"
 #import "ResourceManager.h"
 #import "Lesson+View.h"
+#import "UIImageView+Resource.h"
 
 @implementation MediaViewController
 
@@ -36,26 +37,9 @@
     }
     else {
         [self.tapGestureRecognizer setEnabled:YES];
-        if (self.media.mediaType == EkkoMediaTypeImage) {
-            [[ResourceManager sharedManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.mediaImage setImage:image];
-                    });
-                }
-            }];
-        }
-        else {
-            Resource *thumbnail = [self.media thumbnail];
-            if (thumbnail) {
-                [[ResourceManager sharedManager] getImageResource:thumbnail completeBlock:^(Resource *resource, UIImage *image) {
-                    if (image) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.mediaImage setImage:image];
-                        });
-                    }
-                }];
-            }
+        Resource *resource = (self.media.mediaType == EkkoMediaTypeImage) ? [self.media resource] : [self.media thumbnail];
+        if (resource) {
+            [self.mediaImage setImageWithResource:resource];
         }
     }
 //    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];

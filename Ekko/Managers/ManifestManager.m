@@ -16,6 +16,10 @@
 static NSString *const kManifestManagerCacheName = @"ManifestManagerCache";
 static NSString *const kManifestManagerFilename  = @"manifest.xml";
 
+NSString *const EkkoManifestManagerDidSyncManifestNotification = @"EkkoManifestManagerDidSyncManifestNotification";
+
+typedef void (^manifestBlock) (Manifest *manifest);
+
 @interface ManifestManager () {
     NSCache *_manifestCache;
 }
@@ -41,13 +45,7 @@ static NSString *const kManifestManagerFilename  = @"manifest.xml";
     return self;
 }
 
--(void)getManifest:(NSString *)courseId completeBlock:(void(^)(Manifest *manifest))complete {
-    [self getManifest:courseId withOptions:0 completeBlock:^(Manifest *manifest) {
-        complete(manifest);
-    }];
-}
-
--(void)getManifest:(NSString *)courseId withOptions:(ManifestManagerOptions)options completeBlock:(void(^)(Manifest *manifest))complete {
+-(void)getManifest:(NSString *)courseId withOptions:(ManifestManagerOptions)options completeBlock:(manifestBlock)complete {
     Manifest *manifest = nil;
 
     if((options & ManifestSkipCache) != ManifestSkipCache) {
@@ -99,23 +97,19 @@ static NSString *const kManifestManagerFilename  = @"manifest.xml";
     complete(nil);
 }
 
+-(void)syncManifest:(NSString *)courseId completeBlock:(manifestBlock)complete {
+    [self getManifest:courseId withOptions:ManifestSkipCache|ManifestSkipFile completeBlock:^(Manifest *manifest) {
+        complete(manifest);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:EkkoManifestManagerDidSyncManifestNotification object:self userInfo:@{@"manifest": manifest}];
+        });
+    }];
+}
+
+#pragma mark - Private
+
 -(NSString *)pathForManifest:(NSString *)courseId {
     return [[[ResourceManager sharedManager] pathForCourseId:courseId] stringByAppendingPathComponent:kManifestManagerFilename];
-}
-
-
-
-
--(Manifest *)getManifestByCourseId:(NSString *)courseId {
-    return nil;
-}
-
--(BOOL)hasManifestWithCourseId:(NSString *)courseId {
-    return NO;
-}
-
--(void)syncManifest:(NSString *)courseId complete:(void (^)())complete {
-
 }
 
 @end

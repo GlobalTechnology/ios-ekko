@@ -37,14 +37,16 @@
     [toggleCourseDrawer setImage:[UIImage imageNamed:@"ShowLines" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleCourseDrawer addTarget:self action:@selector(toggleCourseDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleCourseDrawer]];
+}
 
-    if (self.manifest) {
-        UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
-        if (viewController) {
-            [self setViewController:viewController direction:SwipeViewControllerSwipeDirectionNext];
-            [self setDataSource:self.manifest];
-        }
+-(void)setManifest:(Manifest *)manifest {
+    _manifest = manifest;
+    UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
+    if (viewController) {
+        [self setViewController:viewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self setDataSource:manifest];
     }
+    [self.navigationItem setTitle:[self.manifest courseTitle]];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -56,8 +58,6 @@
         [courseDrawer setItem:[(UIViewController<ContentItemProtocol> *)self.currentViewController contentItem]];
     }
     [[self mm_drawerController] setRightDrawerViewController:courseDrawer];
-    
-    [self.navigationItem setTitle:[self.manifest courseTitle]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

@@ -16,10 +16,10 @@
 #define EKKO_XML_MODEL_INIT(_element_) \
 @dynamic parentDelegate; \
 -(id<NSXMLParserDelegate>)parentDelegate { \
-    return (id<NSXMLParserDelegate>)objc_getAssociatedObject(self, &kEkkoXMLModelParentDelegate); \
+    return (id<NSXMLParserDelegate>)objc_getAssociatedObject(self, @selector(parentDelegate)); \
 } \
 -(void)setParentDelegate:(id<NSXMLParserDelegate>)parentDelegate { \
-    objc_setAssociatedObject(self, &kEkkoXMLModelParentDelegate, parentDelegate, OBJC_ASSOCIATION_ASSIGN); \
+    objc_setAssociatedObject(self, @selector(parentDelegate), parentDelegate, OBJC_ASSOCIATION_ASSIGN); \
 } \
 -(id)initWithEkkoXMLParser:(EkkoXMLParser *)parser element:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict { \
     self = [super init]; \
@@ -43,7 +43,7 @@
 }
 #endif
 
-static NSString *const kEkkoXMLModelParentDelegate = @"kEkkoXMLModelParentDelegate";
+//static NSString *const kEkkoXMLModelParentDelegate = @"kEkkoXMLModelParentDelegate";
 
 @protocol EkkoXMLModel <NSObject, NSXMLParserDelegate>
 

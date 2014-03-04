@@ -69,9 +69,11 @@
     _centerViewController = centerViewController;
     if (_centerViewController) {
         [self addChildViewController:_centerViewController];
+        [_centerViewController beginAppearanceTransition:YES animated:NO];
         _centerViewController.view.frame = self.view.bounds;
         [self.view addSubview:_centerViewController.view];
         [_centerViewController didMoveToParentViewController:self];
+        [_centerViewController endAppearanceTransition];
         if (self.dataSource) {
             _previousViewController = [self.dataSource swipeViewController:self viewControllerBeforeViewController:_centerViewController];
             _nextViewController = [self.dataSource swipeViewController:self viewControllerAfterViewController:_centerViewController];

@@ -38,14 +38,16 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    // Add hamburger button to NavigationBar
     UIButton *toggleDrawer = [UIButton buttonWithType:UIButtonTypeCustom];
     [toggleDrawer setFrame:CGRectMake(0, 0, 34, 34)];
     [toggleDrawer setShowsTouchWhenHighlighted:YES];
     [toggleDrawer setImage:[UIImage imageNamed:@"ShowLines" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [toggleDrawer addTarget:self action:@selector(toggleNavigationDrawer:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:toggleDrawer]];
-    
+
+    // Add refresh control to TableViewController
     [[self refreshControl] addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -78,6 +80,25 @@
     [super viewWillDisappear:animated];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"courseSegue"]) {
+        Course *course = nil;
+        if ([sender isKindOfClass:[Course class]]) {
+            course = (Course *)sender;
+        }
+        else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+        }
+        [[ManifestManager sharedManager] getManifest:course.courseId withOptions:0 completeBlock:^(Manifest *manifest) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
+            });
+        }];
+    }
+}
+
+#pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"courseListCell"];
     Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -99,6 +120,7 @@
         //Must enroll in Course
         [[[UIAlertView alloc] initWithTitle:course.courseTitle message:course.courseDescription delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enroll", nil] show];
     }
+/*
     else if (![[ManifestManager sharedManager] hasManifestWithCourseId:course.courseId]) {
         [[ManifestManager sharedManager] syncManifest:course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,23 +128,9 @@
             });
         }];
     }
+ */
     else {
         [self performSegueWithIdentifier:@"courseSegue" sender:course];
-    }
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"courseSegue"]) {
-        Course *course = nil;
-        if ([sender isKindOfClass:[Course class]]) {
-            course = (Course *)sender;
-        }
-        else {
-            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-            course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
-        }
-        Manifest *manifest = [[ManifestManager sharedManager] getManifestByCourseId:course.courseId];
-        [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
     }
 }
 

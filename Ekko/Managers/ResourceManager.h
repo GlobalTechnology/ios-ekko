@@ -10,17 +10,37 @@
 #import "Resource.h"
 
 @protocol ResourceManagerDelegate;
+@protocol ResourceManagerImageDelegate;
 
 @interface ResourceManager : NSObject
 
 +(ResourceManager *)sharedManager;
 
+-(void)getImage:(Resource *)resource imageDelegate:(id<ResourceManagerImageDelegate>)delegate;
+
+
+
+
+
+
+
+
+
+
+
+
+
 -(NSString *)pathForCourseId:(NSString *)courseId;
 
--(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *resource, UIImage *image))completeBlock;
+//-(void)getImageResource:(Resource *)resource completeBlock:(void (^)(Resource *resource, UIImage *image))completeBlock;
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *resource, float progress))progressBlock completeBlock:(void (^)(Resource *resource, NSString *path))completeBlock;
 -(void)getResource:(Resource *)resource delegate:(__weak id<ResourceManagerDelegate>)delegate;
 
+@end
+
+@protocol ResourceManagerImageDelegate <NSObject>
+@required
+-(void)image:(UIImage *)image forResource:(Resource *)resource;
 @end
 
 @protocol ResourceManagerDelegate <NSObject>

@@ -16,16 +16,13 @@ typedef NS_OPTIONS(NSUInteger, ManifestManagerOptions) {
     ManifestSkipDownload = (1<<2),
 };
 
+FOUNDATION_EXPORT NSString *const EkkoManifestManagerDidSyncManifestNotification;
+
 @interface ManifestManager : NSObject
 
 +(ManifestManager *)sharedManager;
 
--(void)getManifest:(NSString *)courseId completeBlock:(void(^)(Manifest *manifest))complete;
 -(void)getManifest:(NSString *)courseId withOptions:(ManifestManagerOptions)options completeBlock:(void(^)(Manifest *manifest))complete;
-
-
--(BOOL)hasManifestWithCourseId:(NSString *)courseId;
--(void)syncManifest:(NSString *)courseId complete:(void(^)())complete;
--(Manifest *)getManifestByCourseId:(NSString *)courseId;
+-(void)syncManifest:(NSString *)courseId completeBlock:(void(^)(Manifest *manifest))complete;
 
 @end

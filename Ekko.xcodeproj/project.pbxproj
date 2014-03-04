@@ -42,6 +42,7 @@
 		D3349951189C07B100DCBF0A /* ManifestXMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3349950189C07B100DCBF0A /* ManifestXMLParser.m */; };
 		D3375AE318106BAC00BAB134 /* AboutEkkoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */; };
 		D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */ = {isa = PBXBuildFile; fileRef = D3375AE418106C9500BAB134 /* AboutEkko.html */; };
+		D34B33FE18AAA31800A2C46B /* UIImageView+Resource.m in Sources */ = {isa = PBXBuildFile; fileRef = D34B33FD18AAA31800A2C46B /* UIImageView+Resource.m */; };
 		D3553044189A92E8002C3AB2 /* ManifestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3553043189A92E8002C3AB2 /* ManifestManager.m */; };
 		D355304F189AA681002C3AB2 /* ArclightClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D355304A189AA681002C3AB2 /* ArclightClient.m */; };
 		D3553050189AA681002C3AB2 /* EkkoCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D355304C189AA681002C3AB2 /* EkkoCloudClient.m */; };
@@ -53,7 +54,6 @@
 		D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF1D17EC96FE007A095B /* M13Checkbox.m */; };
 		D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3C17EC96FE007A095B /* Course+Ekko.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
-		D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5D17EC96FE007A095B /* ResourceImageCache.m */; };
 		D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */; };
 		D359FFC717EC96FE007A095B /* UIImage+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF6117EC96FE007A095B /* UIImage+Ekko.m */; };
 		D359FFC817EC96FE007A095B /* URLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF6317EC96FE007A095B /* URLUtils.m */; };
@@ -184,6 +184,8 @@
 		D3375AE118106BAC00BAB134 /* AboutEkkoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutEkkoViewController.h; sourceTree = "<group>"; };
 		D3375AE218106BAC00BAB134 /* AboutEkkoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutEkkoViewController.m; sourceTree = "<group>"; };
 		D3375AE418106C9500BAB134 /* AboutEkko.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = AboutEkko.html; sourceTree = "<group>"; };
+		D34B33FC18AAA31800A2C46B /* UIImageView+Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Resource.h"; sourceTree = "<group>"; };
+		D34B33FD18AAA31800A2C46B /* UIImageView+Resource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Resource.m"; sourceTree = "<group>"; };
 		D3553042189A92E8002C3AB2 /* ManifestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManifestManager.h; sourceTree = "<group>"; };
 		D3553043189A92E8002C3AB2 /* ManifestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManifestManager.m; sourceTree = "<group>"; };
 		D3553049189AA681002C3AB2 /* ArclightClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArclightClient.h; sourceTree = "<group>"; };
@@ -204,8 +206,6 @@
 		D359FF3C17EC96FE007A095B /* Course+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+Ekko.m"; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		D359FF5B17EC96FE007A095B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		D359FF5C17EC96FE007A095B /* ResourceImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResourceImageCache.h; sourceTree = "<group>"; };
-		D359FF5D17EC96FE007A095B /* ResourceImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResourceImageCache.m; sourceTree = "<group>"; };
 		D359FF5E17EC96FE007A095B /* UIColor+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Ekko.h"; sourceTree = "<group>"; };
 		D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Ekko.m"; sourceTree = "<group>"; };
 		D359FF6017EC96FE007A095B /* UIImage+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Ekko.h"; sourceTree = "<group>"; };
@@ -345,6 +345,8 @@
 		D31CCB801899699600E3B303 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D325766317F375E200447A2D /* ResourceManager.h */,
+				D325766417F375E200447A2D /* ResourceManager.m */,
 				D320D14818A56BEC0055D83D /* CoreDataManager.h */,
 				D320D14918A56BEC0055D83D /* CoreDataManager.m */,
 				D3C0FB5B18A01C6600C86039 /* CourseManager.h */,
@@ -484,8 +486,6 @@
 			children = (
 				D33072331807349B00EDD036 /* QuizManager.h */,
 				D33072341807349B00EDD036 /* QuizManager.m */,
-				D325766317F375E200447A2D /* ResourceManager.h */,
-				D325766417F375E200447A2D /* ResourceManager.m */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -495,8 +495,6 @@
 			children = (
 				D359FF5A17EC96FE007A095B /* NSString+MD5.h */,
 				D359FF5B17EC96FE007A095B /* NSString+MD5.m */,
-				D359FF5C17EC96FE007A095B /* ResourceImageCache.h */,
-				D359FF5D17EC96FE007A095B /* ResourceImageCache.m */,
 				D359FF5E17EC96FE007A095B /* UIColor+Ekko.h */,
 				D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */,
 				D359FF6017EC96FE007A095B /* UIImage+Ekko.h */,
@@ -505,6 +503,8 @@
 				D397E5701822CDE500D9FFF3 /* UIWebView+Ekko.m */,
 				D359FF6217EC96FE007A095B /* URLUtils.h */,
 				D359FF6317EC96FE007A095B /* URLUtils.m */,
+				D34B33FC18AAA31800A2C46B /* UIImageView+Resource.h */,
+				D34B33FD18AAA31800A2C46B /* UIImageView+Resource.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -675,19 +675,19 @@
 		D3F2F00617EC904800F32F52 /* Ekko */ = {
 			isa = PBXGroup;
 			children = (
-				D3553048189AA5CC002C3AB2 /* Clients */,
-				D31CCB801899699600E3B303 /* Managers */,
-				D31CCB7C189965BC00E3B303 /* XML */,
 				D359FF1017EC96FE007A095B /* AppDelegate.h */,
 				D359FF1117EC96FE007A095B /* AppDelegate.m */,
 				D359FF1217EC96FE007A095B /* Assets */,
+				D3553048189AA5CC002C3AB2 /* Clients */,
 				D3F9DA2717ECB9620039B0AC /* Images.xcassets */,
 				D359FF1B17EC96FE007A095B /* Library */,
+				D31CCB801899699600E3B303 /* Managers */,
 				D359FF1E17EC96FE007A095B /* Models */,
 				D359FF5217EC96FE007A095B /* Services */,
 				D3F2F00717EC904800F32F52 /* Supporting Files */,
 				D359FF5917EC96FE007A095B /* Utils */,
 				D359FF6417EC96FE007A095B /* Views */,
+				D31CCB7C189965BC00E3B303 /* XML */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -878,7 +878,6 @@
 				D31DB7FF18A145BF0031C12E /* ContentItem.m in Sources */,
 				D31DB80818A14C710031C12E /* Quiz+XMLModel.m in Sources */,
 				D31DB80E18A1508A0031C12E /* Page+XMLModel.m in Sources */,
-				D359FFC517EC96FE007A095B /* ResourceImageCache.m in Sources */,
 				D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */,
 				D3C0FB6018A01DC200C86039 /* CoursesXMLParser.m in Sources */,
 				D31DB7F018A141D00031C12E /* Media.m in Sources */,
@@ -916,6 +915,7 @@
 				D3BAC3DA1836C2E400EDE24A /* EkkoLoginViewController.m in Sources */,
 				D359FFCA17EC96FE007A095B /* CoreDataTableViewController.m in Sources */,
 				D334994E189C072000DCBF0A /* EkkoXMLParser.m in Sources */,
+				D34B33FE18AAA31800A2C46B /* UIImageView+Resource.m in Sources */,
 				D3B1911118A92B7C009C749F /* CoreDataXMLParser.m in Sources */,
 				D3553044189A92E8002C3AB2 /* ManifestManager.m in Sources */,
 				D359FFCD17EC96FE007A095B /* LessonViewController.m in Sources */,

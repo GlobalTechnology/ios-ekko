@@ -98,12 +98,11 @@
         }
     });
 }
-
+*/
 -(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[MediaViewController class]]) {
         NSUInteger index = [self.lesson indexOfMediaViewController:(MediaViewController *)viewController];
         [self.pageControl setCurrentPage:index];
     }
 }
-*/
 @end
