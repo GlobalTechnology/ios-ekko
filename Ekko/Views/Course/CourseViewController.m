@@ -43,7 +43,7 @@
     _manifest = manifest;
     UIViewController *viewController = [self.manifest viewControllerAtIndex:0 storyboard:self.storyboard];
     if (viewController) {
-        [self setViewController:viewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self setViewController:viewController direction:SwipeViewControllerDirectionNone];
         [self setDataSource:manifest];
     }
     [self.navigationItem setTitle:[self.manifest courseTitle]];

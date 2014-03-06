@@ -46,7 +46,7 @@
     if ([self.parentViewController isKindOfClass:[QuizViewController class]]) {
         QuizViewController *quizViewController = (QuizViewController *)self.parentViewController;
         [self.quiz setShowAnswers:YES];
-        [quizViewController setViewController:[self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard] direction:SwipeViewControllerSwipeDirectionNext];
+        [quizViewController setViewController:[self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard] direction:SwipeViewControllerDirectionNone];
     }
 }
 

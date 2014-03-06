@@ -25,7 +25,7 @@
     [self.mediaSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *mediaViewController = [self.lesson mediaViewControllerAtIndex:0 storyboard:self.storyboard];
     if (mediaViewController) {
-        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.mediaSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.mediaSwipeViewController];
@@ -39,7 +39,7 @@
     [self.pagesSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *pageViewController = [self.lesson pageViewControllerAtIndex:0 storyboard:self.storyboard];
     if (pageViewController) {
-        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.pagesSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.pagesSwipeViewController];

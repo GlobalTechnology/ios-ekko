@@ -63,7 +63,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.courseViewController setViewController:[self.item.manifest viewControllerAtIndex:indexPath.row storyboard:self.storyboard] direction:SwipeViewControllerSwipeDirectionNext];
+    [self.courseViewController setViewController:[self.item.manifest viewControllerAtIndex:indexPath.row storyboard:self.storyboard] direction:SwipeViewControllerDirectionNone];
     [[self mm_drawerController] toggleDrawerSide:MMDrawerSideRight animated:YES completion:^(BOOL finished) {}];
 }
 
