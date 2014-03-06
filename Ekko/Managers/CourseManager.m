@@ -205,26 +205,31 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
                         [self getCoursesStaringAt:start limit:parser.limit];
                     }
                     else {
-                        [self processSyncedCourses];
+                        [self processSyncedCourses:YES];
                     }
                 }
+            }
+            else if (error) {
+                [self processSyncedCourses:NO];
             }
         }];
     }];
 }
 
--(void)processSyncedCourses {
+-(void)processSyncedCourses:(BOOL)removeExistingPermissions {
     if (self.managedObjectContext) {
-        // Find all existing courses this guid had permission for but were not returned in the sync.
-        NSFetchRequest *fetchRequest = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
+        if (removeExistingPermissions) {
+            // Find all existing courses this guid had permission for but were not returned in the sync.
+            NSFetchRequest *fetchRequest = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityCourse];
             [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"(SUBQUERY(permissions, $p, $p.guid LIKE[c] %@).@count != 0) AND NOT (courseId IN %@)", self.guid, self.coursesFoundInSync]];
-        NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-        if (results && [results count] > 0) {
-            //Remove permission for existing courses
-            for (Course *course in results) {
-                Permission *permission = [course permissionForGUID:self.guid];
-                if (permission) {
-                    [self.managedObjectContext deleteObject:permission];
+            NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+            if (results && [results count] > 0) {
+                //Remove permission for existing courses
+                for (Course *course in results) {
+                    Permission *permission = [course permissionForGUID:self.guid];
+                    if (permission) {
+                        [self.managedObjectContext deleteObject:permission];
+                    }
                 }
             }
         }
