@@ -24,6 +24,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 @interface ResourceManager ()
 @property (nonatomic, strong) NSString *cacheDirectory;
 @property (nonatomic, strong) NSCache *imageCache;
+@property (nonatomic, strong) NSMutableDictionary *imageDelegates;
 @end
 
 @implementation ResourceManager
@@ -49,6 +50,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         if(![[NSFileManager defaultManager] fileExistsAtPath:self.cacheDirectory]) {
             [[NSFileManager defaultManager] createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:YES attributes:nil error:nil];
         }
+
+        self.imageDelegates = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -57,10 +60,24 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     NSString *cacheKey = [self cacheKeyForResource:resource];
     NSString *path = [self pathForResource:resource];
 
+    //Check to see if image is already loading
+    @synchronized(self.imageDelegates) {
+        NSPointerArray *delegates = (NSPointerArray *)[self.imageDelegates objectForKey:cacheKey];
+        if (delegates == nil) {
+            delegates = [NSPointerArray weakObjectsPointerArray];
+            [delegates addPointer:(__bridge void *)(delegate)];
+            [self.imageDelegates setObject:delegates forKey:cacheKey];
+        }
+        else {
+            [delegates addPointer:(__bridge void *)(delegate)];
+            return;
+        }
+    }
+
     //Try to load image from cache
     UIImage *image = (UIImage *)[self.imageCache objectForKey:cacheKey];
     if (image) {
-        [delegate image:image forResource:resource];
+        [self processImageDelegates:image forResource:resource];
         return;
     }
 
@@ -69,7 +86,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     if (data) {
         image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
         if (image) {
-            [delegate image:image forResource:resource];
+            [self processImageDelegates:image forResource:resource];
             [self.imageCache setObject:image forKey:cacheKey];
             return;
         }
@@ -80,7 +97,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 completeBlock:^(NSData *data) {
             UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
-                [delegate image:image forResource:resource];
+                [self processImageDelegates:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
@@ -90,7 +107,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:resource.uri parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                 UIImage *image = (UIImage *)responseObject;
-                [delegate image:image forResource:resource];
+                [self processImageDelegates:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
@@ -103,7 +120,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[videoThumbnailUrl absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    [delegate image:image forResource:resource];
+                    [self processImageDelegates:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
@@ -117,7 +134,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[thumbnailURL absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    [delegate image:image forResource:resource];
+                    [self processImageDelegates:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
@@ -127,6 +144,29 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         }];
     }
 }
+
+-(void)processImageDelegates:(UIImage *)image forResource:(Resource *)resource {
+    NSString *key = [self cacheKeyForResource:resource];
+
+    NSPointerArray *delegates = nil;
+    @synchronized(self.imageDelegates) {
+        delegates = [self.imageDelegates objectForKey:key];
+        [self.imageDelegates removeObjectForKey:key];
+    }
+
+    if (delegates) {
+        for (id<ResourceManagerImageDelegate> delegate in delegates) {
+            if (delegate) {
+                [delegate image:image forResource:resource];
+            }
+        }
+    }
+    delegates = nil;
+}
+
+
+
+
 
 
 
