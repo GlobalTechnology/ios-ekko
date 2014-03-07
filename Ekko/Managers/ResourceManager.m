@@ -56,7 +56,40 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     return self;
 }
 
--(void)getImage:(Resource *)resource imageDelegate:(id<ResourceManagerImageDelegate>)delegate {
+#pragma mark - Resource paths
+
++(NSString *)pathForCourse:(NSString *)courseId {
+    return [[ResourceManager sharedManager] pathForCourse:courseId];
+}
+
+-(NSString *)pathForCourse:(NSString *)courseId {
+    NSString *courseDirectory = [self.cacheDirectory stringByAppendingPathComponent:courseId];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:courseDirectory]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:courseDirectory withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    return courseDirectory;
+}
+
++(NSString *)pathForResource:(Resource *)resource {
+    return [[ResourceManager sharedManager] pathForResource:resource];
+}
+
+-(NSString *)pathForResource:(Resource *)resource {
+    NSString *courseDirectory = [self pathForCourse:resource.courseId];
+    NSString *filename = [resource filenameOnDisk];
+    if (filename) {
+        return [courseDirectory stringByAppendingPathComponent:filename];
+    }
+    return nil;
+}
+
+-(NSString *)cacheKeyForResource:(Resource *)resource {
+    return [resource.courseId stringByAppendingFormat:@"-%@", [resource filenameOnDisk]];
+}
+
+#pragma mark - Images
+
+-(void)getImage:(Resource *)resource imageDelegate:(__weak id<ResourceManagerImageDelegate>)delegate {
     NSString *cacheKey = [self cacheKeyForResource:resource];
     NSString *path = [self pathForResource:resource];
 
@@ -86,8 +119,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     if (data) {
         image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
         if (image) {
-            [self processImageDelegates:image forResource:resource];
             [self.imageCache setObject:image forKey:cacheKey];
+            [self processImageDelegates:image forResource:resource];
             return;
         }
     }
@@ -97,8 +130,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         [[EkkoCloudClient sharedClient] getResource:resource.courseId sha1:resource.sha1 completeBlock:^(NSData *data) {
             UIImage *image = [UIImage inflatedImage:data scale:[UIScreen mainScreen].scale];
             if (image) {
-                [self processImageDelegates:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
+                [self processImageDelegates:image forResource:resource];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
         }];
@@ -107,8 +140,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
         AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:resource.uri parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
             if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                 UIImage *image = (UIImage *)responseObject;
-                [self processImageDelegates:image forResource:resource];
                 [self.imageCache setObject:image forKey:cacheKey];
+                [self processImageDelegates:image forResource:resource];
                 [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -120,8 +153,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[videoThumbnailUrl absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    [self processImageDelegates:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
+                    [self processImageDelegates:image forResource:resource];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -134,8 +167,8 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             AFHTTPRequestOperation *operation = [[HTTPClient sharedClient] GET:[thumbnailURL absoluteString] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if (responseObject && [responseObject isKindOfClass:[UIImage class]]) {
                     UIImage *image = (UIImage *)responseObject;
-                    [self processImageDelegates:image forResource:resource];
                     [self.imageCache setObject:image forKey:cacheKey];
+                    [self processImageDelegates:image forResource:resource];
                     [NSKeyedArchiver archiveRootObject:UIImagePNGRepresentation(image) toFile:path];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -163,35 +196,6 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
     }
     delegates = nil;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 -(void)getResource:(Resource *)resource progressBlock:(void (^)(Resource *, float))progressBlock completeBlock:(void (^)(Resource *, NSString *))completeBlock {
     if (resource.type == EkkoResourceTypeFile) {
@@ -221,27 +225,6 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
             [delegate resource:resource complete:path];
         }
     }];
-}
-
--(NSString *)pathForCourseId:(NSString *)courseId {
-    NSString *courseDirectory = [self.cacheDirectory stringByAppendingPathComponent:courseId];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:courseDirectory]) {
-        [[NSFileManager defaultManager] createDirectoryAtPath:courseDirectory withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    return courseDirectory;
-}
-
--(NSString *)pathForResource:(Resource *)resource {
-    NSString *courseDirectory = [self pathForCourseId:resource.courseId];
-    NSString *filename = [resource filenameOnDisk];
-    if (filename) {
-        return [courseDirectory stringByAppendingPathComponent:filename];
-    }
-    return nil;
-}
-
--(NSString *)cacheKeyForResource:(Resource *)resource {
-    return [resource.courseId stringByAppendingFormat:@"-%@", [resource filenameOnDisk]];
 }
 
 @end
