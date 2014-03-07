@@ -139,6 +139,8 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
         Permission *permission = [course permissionForGUID:self.guid];
         if (permission) {
             [permission setHidden:NO];
+            // This does nothing but cause Fetch requests for courses to realize this course was changed.
+            [course addPermissionsObject:permission];
         }
         [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
         complete();
@@ -152,6 +154,8 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
         Permission *permission = [course permissionForGUID:self.guid];
         if (permission) {
             [permission setHidden:YES];
+            // This does nothing but cause Fetch requests for courses to realize this course was changed.
+            [course addPermissionsObject:permission];
         }
         [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
         complete();

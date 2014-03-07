@@ -14,5 +14,6 @@
 
 @property (nonatomic, getter = isNewVersion) BOOL newVersion;
 @property (nonatomic, strong) Course *course;
+@property (nonatomic, strong, readonly) NSMutableSet *resources;
 
 @end

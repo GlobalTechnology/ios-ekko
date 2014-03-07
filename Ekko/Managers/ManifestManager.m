@@ -109,7 +109,7 @@ typedef void (^manifestBlock) (Manifest *manifest);
 #pragma mark - Private
 
 -(NSString *)pathForManifest:(NSString *)courseId {
-    return [[[ResourceManager sharedManager] pathForCourseId:courseId] stringByAppendingPathComponent:kManifestManagerFilename];
+    return [[[ResourceManager sharedManager] pathForCourse:courseId] stringByAppendingPathComponent:kManifestManagerFilename];
 }
 
 @end

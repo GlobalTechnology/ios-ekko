@@ -132,13 +132,13 @@ static const int insetViewTag = 1;
         }];
     }
     else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
-        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] unenrollFromCourse:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] unenrollFromCourse:self.course.courseId complete:^{}];
     }
     else if ([buttonTitle isEqualToString:@"Hide from My Courses"]) {
-        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] hideCourseFromMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] hideCourseFromMyCourses:self.course.courseId complete:^{}];
     }
     else if ([buttonTitle isEqualToString:@"Show in My Courses"]) {
-        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:^{}];
     }
 }
 
