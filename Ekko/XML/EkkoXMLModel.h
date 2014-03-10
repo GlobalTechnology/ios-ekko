@@ -43,8 +43,6 @@
 }
 #endif
 
-//static NSString *const kEkkoXMLModelParentDelegate = @"kEkkoXMLModelParentDelegate";
-
 @protocol EkkoXMLModel <NSObject, NSXMLParserDelegate>
 
 @required
