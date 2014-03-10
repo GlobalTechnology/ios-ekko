@@ -51,7 +51,6 @@
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
 		D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE717EC968C007A095B /* QuartzCore.framework */; };
 		D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF1117EC96FE007A095B /* AppDelegate.m */; };
-		D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF1D17EC96FE007A095B /* M13Checkbox.m */; };
 		D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF3C17EC96FE007A095B /* Course+Ekko.m */; };
 		D359FFC417EC96FE007A095B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5B17EC96FE007A095B /* NSString+MD5.m */; };
 		D359FFC617EC96FE007A095B /* UIColor+Ekko.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF5F17EC96FE007A095B /* UIColor+Ekko.m */; };
@@ -200,8 +199,6 @@
 		D359FEE717EC968C007A095B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D359FF1017EC96FE007A095B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D359FF1117EC96FE007A095B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D359FF1C17EC96FE007A095B /* M13Checkbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M13Checkbox.h; sourceTree = "<group>"; };
-		D359FF1D17EC96FE007A095B /* M13Checkbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M13Checkbox.m; sourceTree = "<group>"; };
 		D359FF3B17EC96FE007A095B /* Course+Ekko.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+Ekko.h"; sourceTree = "<group>"; };
 		D359FF3C17EC96FE007A095B /* Course+Ekko.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+Ekko.m"; sourceTree = "<group>"; };
 		D359FF5A17EC96FE007A095B /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
@@ -345,6 +342,8 @@
 		D31CCB801899699600E3B303 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				D33072331807349B00EDD036 /* QuizManager.h */,
+				D33072341807349B00EDD036 /* QuizManager.m */,
 				D325766317F375E200447A2D /* ResourceManager.h */,
 				D325766417F375E200447A2D /* ResourceManager.m */,
 				D320D14818A56BEC0055D83D /* CoreDataManager.h */,
@@ -414,15 +413,6 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		D359FF1B17EC96FE007A095B /* Library */ = {
-			isa = PBXGroup;
-			children = (
-				D359FF1C17EC96FE007A095B /* M13Checkbox.h */,
-				D359FF1D17EC96FE007A095B /* M13Checkbox.m */,
-			);
-			path = Library;
-			sourceTree = "<group>";
-		};
 		D359FF1E17EC96FE007A095B /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,15 +469,6 @@
 				D3C0FB4C189FE92E00C86039 /* Resource.m */,
 			);
 			path = Ekko;
-			sourceTree = "<group>";
-		};
-		D359FF5217EC96FE007A095B /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				D33072331807349B00EDD036 /* QuizManager.h */,
-				D33072341807349B00EDD036 /* QuizManager.m */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		D359FF5917EC96FE007A095B /* Utils */ = {
@@ -680,10 +661,8 @@
 				D359FF1217EC96FE007A095B /* Assets */,
 				D3553048189AA5CC002C3AB2 /* Clients */,
 				D3F9DA2717ECB9620039B0AC /* Images.xcassets */,
-				D359FF1B17EC96FE007A095B /* Library */,
 				D31CCB801899699600E3B303 /* Managers */,
 				D359FF1E17EC96FE007A095B /* Models */,
-				D359FF5217EC96FE007A095B /* Services */,
 				D3F2F00717EC904800F32F52 /* Supporting Files */,
 				D359FF5917EC96FE007A095B /* Utils */,
 				D359FF6417EC96FE007A095B /* Views */,
@@ -904,7 +883,6 @@
 				D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */,
 				D32BBEA718A2D419006273A8 /* Answer.m in Sources */,
 				D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */,
-				D359FFA817EC96FE007A095B /* M13Checkbox.m in Sources */,
 				D31DB7EA18A13D230031C12E /* Lesson.m in Sources */,
 				D3553050189AA681002C3AB2 /* EkkoCloudClient.m in Sources */,
 				D320D13918A539C70055D83D /* Course.m in Sources */,

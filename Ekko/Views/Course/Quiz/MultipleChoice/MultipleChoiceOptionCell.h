@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "M13Checkbox.h"
+#import <M13Checkbox.h>
 
+@protocol MultipleChoiceOptionCellDelegate;
 @interface MultipleChoiceOptionCell : UITableViewCell
 
+@property (nonatomic, weak) id<MultipleChoiceOptionCellDelegate> delegate;
 @property (weak, nonatomic) IBOutlet M13Checkbox *checkbox;
 
+@end
+
+@protocol MultipleChoiceOptionCellDelegate <NSObject>
+@required;
+-(void)multipleChoiceOptionCell:(MultipleChoiceOptionCell *)cell didChangeSelected:(BOOL)selected;
 @end

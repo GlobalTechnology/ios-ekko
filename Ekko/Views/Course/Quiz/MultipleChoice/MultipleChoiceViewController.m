@@ -64,8 +64,10 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MultipleChoiceOptionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"multipleChoiceOptionCell"];
-    
+    [cell setDelegate:self];
+
     MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
+
     [cell.checkbox setTitle:option.optionText];
     if (self.question.quiz.showAnswers && option.isAnswer) {
         cell.backgroundColor = [UIColor ekkoAnswerGreen];
@@ -78,19 +80,39 @@
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         [cell.checkbox setCheckState:M13CheckboxStateChecked];
     }
+
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MultipleChoiceOptionCell *cell = (MultipleChoiceOptionCell *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell.checkbox setCheckState:M13CheckboxStateUnchecked];
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MultipleChoiceOptionCell *cell = (MultipleChoiceOptionCell *)[tableView cellForRowAtIndexPath:indexPath];
+-(void)multipleChoiceOptionCell:(MultipleChoiceOptionCell *)cell didChangeSelected:(BOOL)selected {
+    NSIndexPath *indexPath = [self.optionsTableView indexPathForCell:cell];
+    if (!indexPath) {
+        return;
+    }
+    NSIndexPath *selectedPath = [self.optionsTableView indexPathForSelectedRow];
     MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
-    [[QuizManager sharedManager] saveMultipleChoiceAnswer:option];
-    [cell.checkbox setCheckState:M13CheckboxStateChecked];
+
+    if (selected) {
+        if (selectedPath && selectedPath.row == indexPath.row) {
+            return;
+        }
+
+        // Set new selected option
+        [self.optionsTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        [[QuizManager sharedManager] saveMultipleChoiceAnswer:option];
+
+        // Deselect old selected option
+        if (selectedPath) {
+            MultipleChoiceOptionCell *oldCell = (MultipleChoiceOptionCell *)[self.optionsTableView cellForRowAtIndexPath:selectedPath];
+            [oldCell.checkbox setCheckState:M13CheckboxStateUnchecked];
+        }
+    }
+    else  {
+        if (selectedPath && selectedPath.row == indexPath.row) {
+            // Do not allow deselecting the currently selected option
+            [cell.checkbox setCheckState:M13CheckboxStateChecked];
+        }
+    }
 }
 
 -(void)navigateToNext {

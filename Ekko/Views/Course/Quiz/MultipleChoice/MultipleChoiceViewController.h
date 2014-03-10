@@ -10,8 +10,9 @@
 #import "QuizProtocol.h"
 #import "CourseNavigationBar.h"
 #import "MultipleChoice.h"
+#import "MultipleChoiceOptionCell.h"
 
-@interface MultipleChoiceViewController : UIViewController <QuizProtocol, UITableViewDataSource, UITableViewDelegate, CourseNavigationBarDelegate>
+@interface MultipleChoiceViewController : UIViewController <QuizProtocol, UITableViewDataSource, UITableViewDelegate, CourseNavigationBarDelegate, MultipleChoiceOptionCellDelegate>
 
 @property (nonatomic, strong) MultipleChoice *question;
 @property (nonatomic, strong) NSString *selectedAnswer;
