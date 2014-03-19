@@ -2,28 +2,33 @@
 //  Course.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/23/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 2/7/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class CourseResource, Permission;
+@class Banner, Permission;
 
 @interface Course : NSManagedObject
 
-@property (nonatomic, retain) NSString * authorEmail;
-@property (nonatomic, retain) NSString * authorName;
-@property (nonatomic, retain) NSString * authorUrl;
-@property (nonatomic, retain) NSString * courseCopyright;
+@property (nonatomic, retain) NSString * bannerId;
 @property (nonatomic, retain) NSString * courseDescription;
-@property (nonatomic, retain) NSString * courseTitle;
-@property (nonatomic) int64_t courseVersion;
-@property (nonatomic) int16_t internalEnrollmentType;
-@property (nonatomic) BOOL publicCourse;
 @property (nonatomic, retain) NSString * courseId;
-@property (nonatomic, retain) Permission *permission;
-@property (nonatomic, retain) CourseResource *banner;
+@property (nonatomic, retain) NSString * courseTitle;
+@property (nonatomic, retain) NSNumber * courseVersion;
+@property (nonatomic, retain) NSNumber * internalEnrollmentType;
+@property (nonatomic, retain) NSNumber * publicCourse;
+@property (nonatomic, retain) NSSet *permissions;
+@property (nonatomic, retain) Banner *banner;
+@end
+
+@interface Course (CoreDataGeneratedAccessors)
+
+- (void)addPermissionsObject:(Permission *)value;
+- (void)removePermissionsObject:(Permission *)value;
+- (void)addPermissions:(NSSet *)values;
+- (void)removePermissions:(NSSet *)values;
 
 @end

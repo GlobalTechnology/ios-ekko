@@ -11,9 +11,10 @@
 @protocol SwipeViewControllerDataSource;
 @protocol SwipeViewControllerDelegate;
 
-typedef NS_ENUM(NSUInteger, SwipeViewControllerSwipeDirection) {
-    SwipeViewControllerSwipeDirectionNext,
-    SwipeViewControllerSwipeDirectionPrevious,
+typedef NS_ENUM(NSUInteger, SwipeViewControllerDirection) {
+    SwipeViewControllerDirectionNext,
+    SwipeViewControllerDirectionPrevious,
+    SwipeViewControllerDirectionNone,
 };
 
 @interface SwipeViewController : UIViewController<UIGestureRecognizerDelegate>
@@ -23,7 +24,7 @@ typedef NS_ENUM(NSUInteger, SwipeViewControllerSwipeDirection) {
 @property (nonatomic) BOOL propogateSwipeOnNil;
 
 -(UIViewController *)currentViewController;
--(void)setViewController:(UIViewController *)viewController direction:(SwipeViewControllerSwipeDirection)direction;
+-(void)setViewController:(UIViewController *)viewController direction:(SwipeViewControllerDirection)direction;
 
 -(BOOL)hasNextViewController;
 -(BOOL)hasPreviousViewController;

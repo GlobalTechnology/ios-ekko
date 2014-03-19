@@ -11,13 +11,13 @@
 
 #import "ResourceManager.h"
 #import "Permission.h"
-#import "HubClient.h"
-#import "DataManager.h"
+#import "CoreDataManager.h"
 
-#import "Course+Hub.h"
-
+#import "UIImageView+Resource.h"
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
+
+#import <TheKeyOAuth2Client.h>
 
 static const int insetViewTag = 1;
 
@@ -39,15 +39,18 @@ static const int insetViewTag = 1;
     [self.courseLabel setText:course.courseTitle];
     
     //Set banner image
-    Resource *banner = (Resource *)[course banner];
+    Resource *banner = [course bannerResource];
     if (banner) {
+        [self.bannerImageView setImageWithResource:banner];
+/*
         [[ResourceManager sharedManager] getImageResource:banner completeBlock:^(Resource *resource, UIImage *image) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if (image && [resource.resourceId isEqualToString:[(Resource *)[course banner] resourceId]]) {
+                if (image && [resource.resourceId isEqualToString:[(Resource *)[course bannerResource] resourceId]]) {
                     [self.bannerImageView setImage:image];
                 }
             });
         }];
+ */
     }
 }
 
@@ -122,20 +125,20 @@ static const int insetViewTag = 1;
     
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"Enroll in Course"]) {
-        [[CourseManager sharedManager] enrollInCourse:self.course.courseId complete:^{
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:self.course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.courseListViewController performSegueWithIdentifier:@"courseSegue" sender:self.course];
             });
         }];
     }
     else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
-        [[CourseManager sharedManager] unenrollFromCourse:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] unenrollFromCourse:self.course.courseId complete:^{}];
     }
     else if ([buttonTitle isEqualToString:@"Hide from My Courses"]) {
-        [[CourseManager sharedManager] hideCourseFromMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] hideCourseFromMyCourses:self.course.courseId complete:^{}];
     }
     else if ([buttonTitle isEqualToString:@"Show in My Courses"]) {
-        [[CourseManager sharedManager] showCourseInMyCourses:self.course.courseId complete:nil];
+        [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:^{}];
     }
 }
 

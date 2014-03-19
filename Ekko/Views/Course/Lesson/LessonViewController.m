@@ -25,7 +25,7 @@
     [self.mediaSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *mediaViewController = [self.lesson mediaViewControllerAtIndex:0 storyboard:self.storyboard];
     if (mediaViewController) {
-        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.mediaSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.mediaSwipeViewController];
@@ -39,7 +39,7 @@
     [self.pagesSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *pageViewController = [self.lesson pageViewControllerAtIndex:0 storyboard:self.storyboard];
     if (pageViewController) {
-        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.pagesSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.pagesSwipeViewController];
@@ -58,13 +58,13 @@
     [super viewWillAppear:animated];
     [self.view bringSubviewToFront:self.pageControl];
     [self.view bringSubviewToFront:self.navigationBar];
-    [self.navigationBar setTitle:self.lesson.lessonTitle];
+    [self.navigationBar setTitle:self.lesson.title];
     [self.pageControl setNumberOfPages:self.lesson.media.count];
-    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.lesson];
+//    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.lesson];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [[ProgressManager sharedManager] removeProgressDelegate:self];
+//    [[ProgressManager sharedManager] removeProgressDelegate:self];
     [super viewDidDisappear:animated];
 }
 
@@ -89,6 +89,7 @@
     }
 }
 
+/*
 #pragma mark - ProgressManagerDelegate
 -(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -97,12 +98,11 @@
         }
     });
 }
-
+*/
 -(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[MediaViewController class]]) {
         NSUInteger index = [self.lesson indexOfMediaViewController:(MediaViewController *)viewController];
         [self.pageControl setCurrentPage:index];
     }
 }
-
 @end

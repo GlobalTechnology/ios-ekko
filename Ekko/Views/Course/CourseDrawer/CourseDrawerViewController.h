@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CourseViewController.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 
 @interface CourseDrawerViewController : UIViewController <UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDataSource, UITableViewDelegate>
 

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SwipeViewController.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 
 @interface CourseViewController : SwipeViewController <SwipeViewControllerDelegate>
 

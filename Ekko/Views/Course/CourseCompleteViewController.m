@@ -7,7 +7,7 @@
 //
 
 #import "CourseCompleteViewController.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 #import "UIViewController+SwipeViewController.h"
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"
@@ -36,12 +36,12 @@
     NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:@"Congratulations! You finished %@.", self.course.courseTitle];
     [self.completeWebView loadCourseCompleteString:completeMessage];
     
-    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.course];
+//    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.course];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[ProgressManager sharedManager] removeProgressDelegate:self];
+//    [[ProgressManager sharedManager] removeProgressDelegate:self];
 }
 
 - (IBAction)handleCourseListButton:(id)sender {
@@ -63,11 +63,12 @@
     }
 }
 
+/*
 #pragma mark - ProgressManagerDelegate
 -(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.navigationBar setProgress:progress];
     });
 }
-
+*/
 @end

@@ -2,8 +2,8 @@
 //  Permission.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 10/24/13.
-//  Copyright (c) 2013 Ekko Project. All rights reserved.
+//  Created by Brian Zoetewey on 2/5/14.
+//  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
 #import "Permission.h"
@@ -16,8 +16,8 @@
 @dynamic contentVisible;
 @dynamic enrolled;
 @dynamic guid;
-@dynamic pending;
 @dynamic hidden;
+@dynamic pending;
 @dynamic course;
 
 @end

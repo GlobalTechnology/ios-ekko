@@ -39,14 +39,14 @@
     
     //Quiz Complete always shows progress of 100%
     [self.navigationBar setProgress:1.f];
-    [self.navigationBar setTitle:self.quiz.quizTitle];
+    [self.navigationBar setTitle:self.quiz.title];
 }
 
 - (IBAction)handleShowAnswersButton:(UIButton *)sender {
     if ([self.parentViewController isKindOfClass:[QuizViewController class]]) {
         QuizViewController *quizViewController = (QuizViewController *)self.parentViewController;
         [self.quiz setShowAnswers:YES];
-        [quizViewController setViewController:[self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard] direction:SwipeViewControllerSwipeDirectionNext];
+        [quizViewController setViewController:[self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard] direction:SwipeViewControllerDirectionNone];
     }
 }
 

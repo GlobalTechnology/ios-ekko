@@ -28,7 +28,7 @@
         self.quiz.showAnswers = NO;
         UIViewController *questionViewController = [self.quiz questionViewControllerAtIndex:0 storyboard:self.storyboard];
         if (questionViewController) {
-            [self setViewController:questionViewController direction:SwipeViewControllerSwipeDirectionNext];
+            [self setViewController:questionViewController direction:SwipeViewControllerDirectionNone];
             self.dataSource = self.quiz;
         }
     }

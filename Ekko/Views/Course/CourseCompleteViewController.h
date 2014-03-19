@@ -8,10 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CourseNavigationBar.h"
-#import "ProgressManager.h"
-#import "Manifest+Ekko.h"
+#import "Manifest+View.h"
 
-@interface CourseCompleteViewController : UIViewController <CourseNavigationBarDelegate, ProgressManagerDelegate>
+@interface CourseCompleteViewController : UIViewController <CourseNavigationBarDelegate>
 
 @property (nonatomic, weak) Manifest *course;
 
