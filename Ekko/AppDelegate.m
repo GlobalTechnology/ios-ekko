@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <TheKeyOAuth2Client.h>
 #import <AFNetworkActivityIndicatorManager.h>
-#import <NewRelicAgent/NewRelicAgent.h>
+#import <NewRelicAgent/NewRelic.h>
 #import "CourseManager.h"
 
 @interface AppDelegate ()
