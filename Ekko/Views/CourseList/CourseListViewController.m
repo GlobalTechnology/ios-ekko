@@ -90,7 +90,7 @@
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
             course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         }
-        [[ManifestManager sharedManager] getManifest:course.courseId withOptions:0 completeBlock:^(Manifest *manifest) {
+        [[ManifestManager manifestManager] getManifest:course.courseId withOptions:0 completeBlock:^(Manifest *manifest) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [(CourseViewController *)[segue destinationViewController] setManifest:manifest];
             });

@@ -186,7 +186,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
 -(void)foundCourse:(NSString *)courseId isNewVersion:(BOOL)newVersion {
     [self.coursesFoundInSync addObject:courseId];
     if (newVersion) {
-        [[ManifestManager sharedManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
+        [[ManifestManager manifestManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
     }
 }
 
@@ -255,7 +255,7 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
             CourseXMLParser *parser = [[CourseXMLParser alloc] initWithData:courseData managedObjectContext:managedObjectContext];
             if ([parser parse]) {
                 if ([parser isNewVersion]) {
-                    [[ManifestManager sharedManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
+                    [[ManifestManager manifestManager] syncManifest:courseId completeBlock:^(Manifest *manifest) {}];
                 }
                 [[CoreDataManager sharedManager] saveManagedObjectContext:managedObjectContext];
             }

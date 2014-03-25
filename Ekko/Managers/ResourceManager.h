@@ -14,7 +14,7 @@
 
 @interface ResourceManager : NSObject
 
-+(ResourceManager *)sharedManager;
++(ResourceManager *)resourceManager;
 
 +(NSString *)pathForCourse:(NSString *)courseId;
 -(NSString *)pathForCourse:(NSString *)courseId;

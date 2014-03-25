@@ -63,7 +63,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
         else if (resource.type == EkkoResourceTypeFile) {
-            [[ResourceManager sharedManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
+            [[ResourceManager resourceManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (self.progressView.isHidden) {

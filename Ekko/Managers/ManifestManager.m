@@ -27,7 +27,7 @@ typedef void (^manifestBlock) (Manifest *manifest);
 
 @implementation ManifestManager
 
-+(ManifestManager *)sharedManager {
++(ManifestManager *)manifestManager {
     __strong static ManifestManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
@@ -99,6 +99,9 @@ typedef void (^manifestBlock) (Manifest *manifest);
 
 -(void)syncManifest:(NSString *)courseId completeBlock:(manifestBlock)complete {
     [self getManifest:courseId withOptions:ManifestSkipCache|ManifestSkipFile completeBlock:^(Manifest *manifest) {
+        if (manifest == nil) {
+            return;
+        }
         complete(manifest);
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:EkkoManifestManagerDidSyncManifestNotification object:self userInfo:@{@"manifest": manifest}];
@@ -109,7 +112,7 @@ typedef void (^manifestBlock) (Manifest *manifest);
 #pragma mark - Private
 
 -(NSString *)pathForManifest:(NSString *)courseId {
-    return [[[ResourceManager sharedManager] pathForCourse:courseId] stringByAppendingPathComponent:kManifestManagerFilename];
+    return [[[ResourceManager resourceManager] pathForCourse:courseId] stringByAppendingPathComponent:kManifestManagerFilename];
 }
 
 @end

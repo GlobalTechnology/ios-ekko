@@ -29,7 +29,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 
 @implementation ResourceManager
 
-+(ResourceManager *)sharedManager {
++(ResourceManager *)resourceManager {
     __strong static ResourceManager *_manager = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
@@ -59,7 +59,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 #pragma mark - Resource paths
 
 +(NSString *)pathForCourse:(NSString *)courseId {
-    return [[ResourceManager sharedManager] pathForCourse:courseId];
+    return [[ResourceManager resourceManager] pathForCourse:courseId];
 }
 
 -(NSString *)pathForCourse:(NSString *)courseId {
@@ -71,7 +71,7 @@ NSString *const kEkkoResourceManagerCacheDirectoryName = @"org.ekkoproject.ios.p
 }
 
 +(NSString *)pathForResource:(Resource *)resource {
-    return [[ResourceManager sharedManager] pathForResource:resource];
+    return [[ResourceManager resourceManager] pathForResource:resource];
 }
 
 -(NSString *)pathForResource:(Resource *)resource {

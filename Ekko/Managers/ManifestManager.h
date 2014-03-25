@@ -20,7 +20,7 @@ FOUNDATION_EXPORT NSString *const EkkoManifestManagerDidSyncManifestNotification
 
 @interface ManifestManager : NSObject
 
-+(ManifestManager *)sharedManager;
++(ManifestManager *)manifestManager;
 
 -(void)getManifest:(NSString *)courseId withOptions:(ManifestManagerOptions)options completeBlock:(void(^)(Manifest *manifest))complete;
 -(void)syncManifest:(NSString *)courseId completeBlock:(void(^)(Manifest *manifest))complete;

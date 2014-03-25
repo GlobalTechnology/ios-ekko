@@ -29,7 +29,7 @@
 
 -(void)setImageWithResource:(Resource *)resource {
     self.currentResource = resource;
-    [[ResourceManager sharedManager] getImage:resource imageDelegate:self];
+    [[ResourceManager resourceManager] getImage:resource imageDelegate:self];
 }
 
 -(void)image:(UIImage *)image forResource:(Resource *)resource {
