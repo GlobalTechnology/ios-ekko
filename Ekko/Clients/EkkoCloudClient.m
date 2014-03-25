@@ -163,12 +163,15 @@ static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
 
     // Build Multipart form if constructingBodyWithBlock is set
     if (ekkoCloudRequest.constructingBodyWithBlock) {
+        NSError *error = nil;
         return [requestSerializer multipartFormRequestWithMethod:ekkoCloudRequest.method
                                                        URLString:url
                                                       parameters:ekkoCloudRequest.parameters
-                                       constructingBodyWithBlock:ekkoCloudRequest.constructingBodyWithBlock];
+                                       constructingBodyWithBlock:ekkoCloudRequest.constructingBodyWithBlock
+                                                           error:&error];
     }
-    return [requestSerializer requestWithMethod:ekkoCloudRequest.method URLString:url parameters:ekkoCloudRequest.parameters];
+    NSError *error = nil;
+    return [requestSerializer requestWithMethod:ekkoCloudRequest.method URLString:url parameters:ekkoCloudRequest.parameters error:&error];
 }
 
 -(void)HTTPRequestOperationWithEkkoCloudRequest:(EkkoCloudRequest *)ekkoCloudRequest {
@@ -217,7 +220,7 @@ static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
 
     //Set download progress block if used
     if (ekkoCloudRequest.progress) {
-        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
             float progress = totalBytesRead / (float)totalBytesExpectedToRead;
             ekkoCloudRequest.progress(progress);
         }];
