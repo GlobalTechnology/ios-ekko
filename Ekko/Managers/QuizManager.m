@@ -7,6 +7,7 @@
 //
 
 #import "QuizManager.h"
+#import <TheKeyOAuth2Client.h>
 #import "CoreDataManager.h"
 
 #import "Quiz.h"
@@ -14,15 +15,42 @@
 #import "MultipleChoice.h"
 #import "Answer.h"
 
+@interface QuizManager ()
+@property (nonatomic, strong, readwrite) NSString *guid;
+@end
+
 @implementation QuizManager
 
-+(QuizManager *)sharedManager {
-    __strong static QuizManager *_manager = nil;
++(QuizManager *)quizManagerForGUID:(NSString *)guid {
+    __strong static NSMutableDictionary *_managers = nil;
     static dispatch_once_t once_t;
     dispatch_once(&once_t, ^{
-        _manager = [[QuizManager alloc] init];
+        _managers = [NSMutableDictionary dictionary];
     });
-    return _manager;
+
+    QuizManager *manager = nil;
+    @synchronized(_managers) {
+        guid = guid ?: [[TheKeyOAuth2Client sharedOAuth2Client] guid];
+        manager = (QuizManager *)[_managers objectForKey:guid];
+        if(manager == nil) {
+            manager = [[QuizManager alloc] initWithGUID:guid];
+            [_managers setObject:manager forKey:guid];
+        }
+    }
+    return manager;
+}
+
++(QuizManager *)quizManager {
+    return [QuizManager quizManagerForGUID:nil];
+}
+
+-(id)initWithGUID:(NSString *)guid {
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    self.guid = [guid copy];
+    return self;
 }
 
 -(NSUInteger)quizResults:(Quiz *)quiz {
@@ -43,7 +71,7 @@
     NSManagedObjectContext *managedObjectContext = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [managedObjectContext performBlock:^{
         NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [option.question courseId], option.question.questionId]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"guid = %@ AND courseId = %@ AND questionId = %@", self.guid, [option.question courseId], option.question.questionId]];
         NSArray *results = [managedObjectContext executeFetchRequest:request error:nil];
         if (results && results.count > 0) {
             Answer *answer = [results firstObject];
@@ -53,6 +81,7 @@
         }
         else {
             Answer *answer = (Answer *)[[CoreDataManager sharedManager] insertNewObjectForEntity:EkkoEntityAnswer inManagedObjectContext:managedObjectContext];
+            [answer setGuid:self.guid];
             [answer setCourseId:[option.question courseId]];
             [answer setQuestionId:option.question.questionId];
             [answer setAnswer:option.optionId];
@@ -68,7 +97,7 @@
     NSManagedObjectContext *context = [[CoreDataManager sharedManager] newPrivateQueueManagedObjectContext];
     [context performBlockAndWait:^{
         NSFetchRequest *request = [[CoreDataManager sharedManager] fetchRequestForEntity:EkkoEntityAnswer];
-        [request setPredicate:[NSPredicate predicateWithFormat:@"courseId = %@ AND questionId = %@", [question courseId], question.questionId]];
+        [request setPredicate:[NSPredicate predicateWithFormat:@"guid = %@ AND courseId = %@ AND questionId = %@", self.guid, [question courseId], question.questionId]];
         NSArray *results = [context executeFetchRequest:request error:nil];
         if (results && results.count > 0) {
             Answer *answer = (Answer *)[results firstObject];

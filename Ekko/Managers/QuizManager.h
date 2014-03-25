@@ -13,7 +13,10 @@
 
 @interface QuizManager : NSObject
 
-+(QuizManager *)sharedManager;
+@property (nonatomic, strong, readonly) NSString *guid;
+
++(QuizManager *)quizManagerForGUID:(NSString *)guid;
++(QuizManager *)quizManager;
 
 -(NSUInteger)quizResults:(Quiz *)quiz;
 -(void)saveMultipleChoiceAnswer:(MultipleChoiceOption *)option;

@@ -43,7 +43,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.selectedAnswer = [[QuizManager sharedManager] selectedMultipleChoiceAnswer:self.question];
+    self.selectedAnswer = [[QuizManager quizManager] selectedMultipleChoiceAnswer:self.question];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -99,7 +99,7 @@
 
         // Set new selected option
         [self.optionsTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-        [[QuizManager sharedManager] saveMultipleChoiceAnswer:option];
+        [[QuizManager quizManager] saveMultipleChoiceAnswer:option];
 
         // Deselect old selected option
         if (selectedPath) {

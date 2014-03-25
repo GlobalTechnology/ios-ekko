@@ -35,7 +35,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.completeWebView loadQuizResultsString:@"Results" total:self.quiz.questions.count correct:[[QuizManager sharedManager] quizResults:self.quiz]];
+    [self.completeWebView loadQuizResultsString:@"Results" total:self.quiz.questions.count correct:[[QuizManager quizManager] quizResults:self.quiz]];
     
     //Quiz Complete always shows progress of 100%
     [self.navigationBar setProgress:1.f];
