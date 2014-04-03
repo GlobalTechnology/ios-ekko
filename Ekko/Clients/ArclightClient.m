@@ -127,11 +127,12 @@ static NSString *const kArclightEndpointGetAssetDetails = @"getAssetDetails";
 @end
 
 @implementation ArclightRequestSerializer
--(NSMutableURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(NSDictionary *)parameters {
+-(NSMutableURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(id)parameters error:(NSError *__autoreleasing *)error {
     NSMutableDictionary *params = [parameters mutableCopy];
     [params setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:kArclightAPIKey] forKey:kArclightParameterAPIKey];
     [params setObject:kArclightResponseTypeJSON forKey:kArclightParameterResponseType];
     [params setObject:kArclightRequestPlayerIOS forKey:kArclightParameterRequestPlayer];
-    return [super requestWithMethod:method URLString:URLString parameters:params];
+    return [super requestWithMethod:method URLString:URLString parameters:params error:error];
 }
+
 @end
