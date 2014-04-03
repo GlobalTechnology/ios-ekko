@@ -10,6 +10,7 @@
 
 #import "ManifestManager.h"
 #import "CoreDataManager.h"
+#import "ProgressManager.h"
 #import "EkkoCloudClient.h"
 
 #import "CourseViewController.h"
@@ -102,13 +103,19 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CourseListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"courseListCell"];
     Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [cell setCourseListViewController:self];
+    [cell setOwner:self];
     [cell setCourse:course];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [(CourseListCell *)cell buildActionSheet];
+    CourseListCell *courseCell = (CourseListCell *)cell;
+    [courseCell buildActionSheet];
+    [[NSNotificationCenter defaultCenter] addObserver:cell selector:@selector(progressManagerDidUpdateProgress:) name:EkkoProgressManagerDidUpdateProgressNotification object:nil];
+}
+
+-(void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [[NSNotificationCenter defaultCenter] removeObserver:cell name:EkkoProgressManagerDidUpdateProgressNotification object:nil];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,15 +127,6 @@
         //Must enroll in Course
         [[[UIAlertView alloc] initWithTitle:course.courseTitle message:course.courseDescription delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enroll", nil] show];
     }
-/*
-    else if (![[ManifestManager sharedManager] hasManifestWithCourseId:course.courseId]) {
-        [[ManifestManager sharedManager] syncManifest:course.courseId complete:^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSegueWithIdentifier:@"courseSegue" sender:course];
-            });
-        }];
-    }
- */
     else {
         [self performSegueWithIdentifier:@"courseSegue" sender:course];
     }

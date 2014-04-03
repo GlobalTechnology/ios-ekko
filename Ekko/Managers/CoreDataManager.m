@@ -9,10 +9,11 @@
 #import "CoreDataManager.h"
 
 NSString *const EkkoEntityTypes[] = {
-    [EkkoEntityCourse]     = @"Course",
-    [EkkoEntityAnswer]     = @"Answer",
-    [EkkoEntityPermission] = @"Permission",
-    [EkkoEntityBanner]     = @"Banner",
+    [EkkoEntityCourse]       = @"Course",
+    [EkkoEntityAnswer]       = @"Answer",
+    [EkkoEntityPermission]   = @"Permission",
+    [EkkoEntityBanner]       = @"Banner",
+    [EkkoEntityProgressItem] = @"ProgressItem",
 };
 
 @interface CoreDataManager ()

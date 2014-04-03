@@ -38,10 +38,16 @@
         <attribute name="pending" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="permissions" inverseEntity="Course" syncable="YES"/>
     </entity>
+    <entity name="ProgressItem" representedClassName="ProgressItem" syncable="YES">
+        <attribute name="contentId" attributeType="String" syncable="YES"/>
+        <attribute name="courseId" attributeType="String" syncable="YES"/>
+        <attribute name="guid" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Permission" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Banner" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Answer" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="Banner" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Course" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Permission" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="ProgressItem" positionX="9" positionY="81" width="128" height="88"/>
     </elements>
 </model>

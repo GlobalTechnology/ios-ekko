@@ -11,6 +11,7 @@
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
 #import "ResourceManager.h"
+#import "ProgressManager.h"
 #import "Lesson+View.h"
 #import "UIImageView+Resource.h"
 
@@ -34,6 +35,9 @@
             @"</object></div></body></html>";
         NSString *finalHtml = [NSString stringWithFormat:htmlString, (int)320, (int)180, [resource youtTubeVideoId]];
         [webView loadHTMLString:finalHtml baseURL:nil];
+
+        //Record Progress for YouTube Videos
+        [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
     }
     else {
         [self.tapGestureRecognizer setEnabled:YES];
@@ -41,8 +45,10 @@
         if (resource) {
             [self.mediaImage setImageWithResource:resource];
         }
+        if (self.media.mediaType == EkkoMediaTypeImage) {
+            [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
+        }
     }
-//    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
 }
 
 -(void)resourceService:(Resource *)resource image:(UIImage *)image {
@@ -105,6 +111,8 @@
                 });
             }];
         }
+
+        [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
     }
 }
 

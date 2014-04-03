@@ -13,7 +13,7 @@
 
 @interface CourseListCell : UITableViewCell <UIActionSheetDelegate>
 
-@property (weak, nonatomic) CourseListViewController *courseListViewController;
+@property (weak, nonatomic) CourseListViewController *owner;
 @property (weak, nonatomic) Course *course;
 @property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 @property (weak, nonatomic) IBOutlet UILabel *courseLabel;
@@ -23,5 +23,7 @@
 @property (nonatomic, strong) UIActionSheet *actionSheet;
 
 -(void)buildActionSheet;
+
+-(void)progressManagerDidUpdateProgress:(NSNotification *)notification;
 
 @end

@@ -13,6 +13,7 @@ typedef NS_ENUM(NSUInteger, EkkoEntityType) {
     EkkoEntityAnswer,
     EkkoEntityPermission,
     EkkoEntityBanner,
+    EkkoEntityProgressItem,
 };
 
 @interface CoreDataManager : NSObject
