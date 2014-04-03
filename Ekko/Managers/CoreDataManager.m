@@ -89,7 +89,8 @@ NSString *const EkkoEntityTypes[] = {
     if ([notification.object isKindOfClass:[NSManagedObjectContext class]]) {
         NSManagedObjectContext *managedObjectContext = (NSManagedObjectContext *)notification.object;
         if (self.managedObjectContext != managedObjectContext) {
-            [self.managedObjectContext mergeChangesFromContextDidSaveNotification:notification];
+            // Perform merge on main thread
+            [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:NO];
         }
     }
 }
