@@ -93,20 +93,20 @@ static const int insetViewTag = 1;
     }
     
     if (enroll) {
-        [actionSheet addButtonWithTitle:@"Enroll in Course"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Enroll in Course", nil)];
     }
     else if (unenroll) {
-        [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:@"Unenroll from Course"]];
+        [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:NSLocalizedString(@"Unenroll from Course", nil)]];
     }
     
     if (self.owner.coursesFetchType == EkkoAllCoursesFetchType && permission.hidden) {
-        [actionSheet addButtonWithTitle:@"Show in My Courses"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Show in My Courses", nil)];
     }
     else if (self.owner.coursesFetchType == EkkoMyCoursesFetchType && !permission.hidden) {
-        [actionSheet addButtonWithTitle:@"Hide from My Courses"];
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Hide from My Courses", nil)];
     }
     
-    [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:@"Cancel"]];
+    [actionSheet setCancelButtonIndex:[actionSheet addButtonWithTitle:NSLocalizedString(@"Cancel", nil)]];
     self.actionSheet = actionSheet;
     [self.courseActionButton setHidden:([self.actionSheet numberOfButtons] <= 1)];
 }
@@ -123,20 +123,20 @@ static const int insetViewTag = 1;
     }
     
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Enroll in Course"]) {
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Enroll in Course", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:self.course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.owner performSegueWithIdentifier:@"courseSegue" sender:self.course];
             });
         }];
     }
-    else if ([buttonTitle isEqualToString:@"Unenroll from Course"]) {
+    else if ([buttonTitle isEqualToString:NSLocalizedString(@"Unenroll from Course", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] unenrollFromCourse:self.course.courseId complete:^{}];
     }
-    else if ([buttonTitle isEqualToString:@"Hide from My Courses"]) {
+    else if ([buttonTitle isEqualToString:NSLocalizedString(@"Hide from My Courses", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] hideCourseFromMyCourses:self.course.courseId complete:^{}];
     }
-    else if ([buttonTitle isEqualToString:@"Show in My Courses"]) {
+    else if ([buttonTitle isEqualToString:NSLocalizedString(@"Show in My Courses", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:^{}];
     }
 }

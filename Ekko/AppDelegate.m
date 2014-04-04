@@ -41,7 +41,8 @@
 }
 
 -(void)theKeyOAuth2ClientDidChangeGuidNotification:(NSNotification *)notification {
-    [[CourseManager courseManagerForGUID:[(TheKeyOAuth2Client *)notification.object guid]] syncCourses];
+    NSString *guid = [notification.userInfo objectForKey:TheKeyOAuth2ClientGuidKey];
+    [[CourseManager courseManagerForGUID:guid] syncCourses];
 }
 
 

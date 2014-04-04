@@ -28,9 +28,9 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case NavigationDrawerSectionCourses:
-            return @"Courses";
+            return NSLocalizedString(@"Courses", nil);
         case NavigationDrawerSectionSettings:
-            return @"Settings";
+            return NSLocalizedString(@"Settings", nil);
         default:
             return nil;
     }
@@ -63,14 +63,14 @@
                     if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoAllCoursesFetchType) {
                         highlighted = YES;
                     }
-                    label = @"All Courses";
+                    label = NSLocalizedString(@"All Courses", nil);
                     image = @"ShowThumbnailsWithLines";
                     break;
                 case 1:
                     if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoMyCoursesFetchType) {
                         highlighted = YES;
                     }
-                    label = @"My Courses";
+                    label = NSLocalizedString(@"My Courses", nil);
                     image = @"Heart";
                     break;
                 default:
@@ -82,11 +82,11 @@
             switch (indexPath.row) {
                 case 0:
                     if ([[TheKeyOAuth2Client sharedOAuth2Client] isAuthenticated]) {
-                        label = @"Logout";
+                        label = NSLocalizedString(@"Logout", nil);
                         image = @"LogOut";
                     }
                     else {
-                        label = @"Login";
+                        label = NSLocalizedString(@"Login", nil);
                         image = @"LogIn";
                     }
                     break;
@@ -94,7 +94,7 @@
                     if ([rootViewController isKindOfClass:[AboutEkkoViewController class]]) {
                         highlighted = YES;
                     }
-                    label = @"About Ekko";
+                    label = NSLocalizedString(@"About Ekko", nil);
                     image = @"Cogwheel";
                     break;
                 default:

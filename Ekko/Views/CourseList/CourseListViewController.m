@@ -58,11 +58,11 @@
     [self setFetchedResultsController:[[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] fetchedResultsControllerForType:self.coursesFetchType]];
     switch (self.coursesFetchType) {
         case EkkoMyCoursesFetchType:
-            [self setTitle:@"My Courses"];
+            [self setTitle:NSLocalizedString(@"My Courses", nil)];
             break;
         case EkkoAllCoursesFetchType:
         default:
-            [self setTitle:@"All Courses"];
+            [self setTitle:NSLocalizedString(@"All Courses", nil)];
             break;
     }
     
@@ -122,10 +122,18 @@
     Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
     if ([course.permission pending]) {
         //Course is awaiting Instructor Approval
-        [[[UIAlertView alloc] initWithTitle:course.courseTitle message:@"Pending Instructor Approval." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        [[[UIAlertView alloc] initWithTitle:course.courseTitle
+                                    message:NSLocalizedString(@"Pending Instructor Approval.", nil)
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"OK", nil)
+                          otherButtonTitles:nil] show];
     } else if (![course.permission contentVisible]) {
         //Must enroll in Course
-        [[[UIAlertView alloc] initWithTitle:course.courseTitle message:course.courseDescription delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Enroll", nil] show];
+        [[[UIAlertView alloc] initWithTitle:course.courseTitle
+                                    message:course.courseDescription
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
+                          otherButtonTitles:NSLocalizedString(@"Enroll", nil), nil] show];
     }
     else {
         [self performSegueWithIdentifier:@"courseSegue" sender:course];
@@ -133,7 +141,7 @@
 }
 
 -(void)theKeyDidChangeGUID:(NSNotification *)notification {
-    NSString *guid = notification.userInfo[@"guid"];
+    NSString *guid = notification.userInfo[TheKeyOAuth2ClientGuidKey];
     [self setFetchedResultsController:[[CourseManager courseManagerForGUID:guid] fetchedResultsControllerForType:self.coursesFetchType]];
 }
 
@@ -159,7 +167,7 @@
     }
     
     NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Enroll"]) {
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Enroll", nil)]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:course.courseId complete:^{

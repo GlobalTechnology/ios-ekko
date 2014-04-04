@@ -21,7 +21,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     self.webView.backgroundColor = [UIColor ekkoDarkBlue];
-//    self.webView.scrollView.bounces = NO;
     [super viewWillAppear:animated];
 }
 

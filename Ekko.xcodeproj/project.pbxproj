@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
 		D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */; };
+		D30B0C1F18EF0AF400744580 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30B0C2118EF0AF400744580 /* Main_iPhone.storyboard */; };
 		D312A03818DA0CCA0045C5DE /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D312A03718DA0CCA0045C5DE /* ProgressManager.m */; };
 		D31CCB7F1899662900E3B303 /* EkkoCloudXMLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CCB7E1899662900E3B303 /* EkkoCloudXMLConstants.m */; };
 		D31DB7EA18A13D230031C12E /* Lesson.m in Sources */ = {isa = PBXBuildFile; fileRef = D31DB7E918A13D230031C12E /* Lesson.m */; };
@@ -50,6 +51,7 @@
 		D3553050189AA681002C3AB2 /* EkkoCloudClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D355304C189AA681002C3AB2 /* EkkoCloudClient.m */; };
 		D3553051189AA681002C3AB2 /* HTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D355304E189AA681002C3AB2 /* HTTPClient.m */; };
 		D3553054189AA891002C3AB2 /* Manifest.m in Sources */ = {isa = PBXBuildFile; fileRef = D3553053189AA891002C3AB2 /* Manifest.m */; };
+		D35885C418EDF79000067A3C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D35885C618EDF79000067A3C /* Localizable.strings */; };
 		D359FEE617EC967D007A095B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE517EC967D007A095B /* CoreData.framework */; };
 		D359FEE817EC968C007A095B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D359FEE717EC968C007A095B /* QuartzCore.framework */; };
 		D359FF9F17EC96FE007A095B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF1117EC96FE007A095B /* AppDelegate.m */; };
@@ -74,7 +76,6 @@
 		D359FFD817EC96FE007A095B /* UIViewController+SwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D359FF8C17EC96FE007A095B /* UIViewController+SwipeViewController.m */; };
 		D359FFDF17EC9978007A095B /* Ekko.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D359FFDD17EC9978007A095B /* Ekko.xcdatamodeld */; };
 		D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */; };
-		D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */; };
 		D35B6CC7180EECC200670090 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D35B6CC6180EECC200670090 /* CFNetwork.framework */; };
 		D36B176917F09A4500EFFD86 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D36B176817F09A4500EFFD86 /* MediaPlayer.framework */; };
 		D3908D7A18DCBD9D00F8C3A5 /* Manifest+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = D3908D7918DCBD9D00F8C3A5 /* Manifest+Progress.m */; };
@@ -122,6 +123,7 @@
 		8C61116E098E4028AABAEEC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D303D87E180DB1130065B920 /* NavigationDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationDrawerViewController.h; sourceTree = "<group>"; };
 		D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDrawerViewController.m; sourceTree = "<group>"; };
+		D30B0C2018EF0AF400744580 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D312A03618DA0CCA0045C5DE /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D312A03718DA0CCA0045C5DE /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
 		D31CCB7D1899662900E3B303 /* EkkoCloudXMLConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EkkoCloudXMLConstants.h; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 		D355304E189AA681002C3AB2 /* HTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPClient.m; sourceTree = "<group>"; };
 		D3553052189AA891002C3AB2 /* Manifest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Manifest.h; sourceTree = "<group>"; };
 		D3553053189AA891002C3AB2 /* Manifest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manifest.m; sourceTree = "<group>"; };
+		D35885C518EDF79000067A3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D359FEE517EC967D007A095B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D359FEE717EC968C007A095B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D359FF1017EC96FE007A095B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -250,7 +253,6 @@
 		D359FF8C17EC96FE007A095B /* UIViewController+SwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SwipeViewController.m"; sourceTree = "<group>"; };
 		D359FFDE17EC9978007A095B /* Ekko.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ekko.xcdatamodel; sourceTree = "<group>"; };
 		D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
-		D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D35B6CC6180EECC200670090 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D36B176817F09A4500EFFD86 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		D3908D7818DCBD9D00F8C3A5 /* Manifest+Progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Manifest+Progress.h"; sourceTree = "<group>"; };
@@ -523,7 +525,7 @@
 				D3BAC3D81836C2E400EDE24A /* EkkoLoginViewController.m */,
 				D3BAC3D91836C2E400EDE24A /* EkkoLoginViewController.xib */,
 				D359FFEB17EC9D98007A095B /* Main_iPad.storyboard */,
-				D359FFEC17EC9D98007A095B /* Main_iPhone.storyboard */,
+				D30B0C2118EF0AF400744580 /* Main_iPhone.storyboard */,
 				D303D87D180DB0FE0065B920 /* NavigationDrawer */,
 				D3375AE018106B9400BAB134 /* Settings */,
 				D359FF8917EC96FE007A095B /* SwipeViewController.h */,
@@ -711,6 +713,7 @@
 				D3F2F00917EC904800F32F52 /* InfoPlist.strings */,
 				D3F2F00C17EC904800F32F52 /* main.m */,
 				D3F2F00E17EC904800F32F52 /* Ekko-Prefix.pch */,
+				D35885C618EDF79000067A3C /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -818,8 +821,9 @@
 				D3FB3CA218049EAC0051642F /* bg_ekko_quiz@2x.png in Resources */,
 				D3BAC3DB1836C2E400EDE24A /* EkkoLoginViewController.xib in Resources */,
 				D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */,
-				D359FFEE17EC9D98007A095B /* Main_iPhone.storyboard in Resources */,
+				D30B0C1F18EF0AF400744580 /* Main_iPhone.storyboard in Resources */,
 				D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */,
+				D35885C418EDF79000067A3C /* Localizable.strings in Resources */,
 				D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */,
 				D3F2F00B17EC904800F32F52 /* InfoPlist.strings in Resources */,
 			);
@@ -987,6 +991,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		D30B0C2118EF0AF400744580 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D30B0C2018EF0AF400744580 /* en */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		D35885C618EDF79000067A3C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D35885C518EDF79000067A3C /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		D3F2F00917EC904800F32F52 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
