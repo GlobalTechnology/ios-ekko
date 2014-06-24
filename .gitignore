@@ -21,3 +21,5 @@ Pods/
 
 xcuserdata
 *.moved-aside
+
+Ekko/Config.plist

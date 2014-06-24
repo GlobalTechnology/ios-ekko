@@ -9,9 +9,7 @@
 #import "EkkoCloudClient.h"
 
 #import <TheKeyOAuth2Client.h>
-
-// Ekko Cloud Client API URL Key name for Info.plist
-static NSString *const kEkkoCloudClientAPIURL = @"EkkoHubURL";
+#import "ConfigManager.h"
 
 // Session Id prefix
 static NSString *const kEkkoCloudClientSessionId = @"EkkoCloudClient_SessionId_%@";
@@ -109,7 +107,7 @@ static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
 }
 
 -(EkkoCloudClient *)initWithGUID:(NSString *)guid {
-    self = [super initWithBaseURL:[NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:kEkkoCloudClientAPIURL]]];
+    self = [super initWithBaseURL:[ConfigManager sharedConfiguration].ekkoCloudAPIURL];
     if(self != nil) {
         _pendingSession = NO;
         _pendingRequests = [NSMutableArray array];
@@ -220,7 +218,7 @@ static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
 
     //Set download progress block if used
     if (ekkoCloudRequest.progress) {
-        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+        [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
             float progress = totalBytesRead / (float)totalBytesExpectedToRead;
             ekkoCloudRequest.progress(progress);
         }];

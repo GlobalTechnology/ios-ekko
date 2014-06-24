@@ -68,7 +68,7 @@
 
     MultipleChoiceOption *option = [self.question.options objectAtIndex:indexPath.row];
 
-    [cell.checkbox setTitle:option.optionText];
+    [cell.checkbox.titleLabel setText:option.optionText];
     if (self.question.quiz.showAnswers && option.isAnswer) {
         cell.backgroundColor = [UIColor ekkoAnswerGreen];
     }

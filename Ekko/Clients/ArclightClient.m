@@ -8,9 +8,7 @@
 
 #import "ArclightClient.h"
 
-// Ekko Hub API URL key in Info.plist
-static NSString *const kArclightAPIURL = @"ArclightAPIURL";
-static NSString *const kArclightAPIKey = @"ArclightAPIKey";
+#import "ConfigManager.h"
 
 static NSString *const kArclightParameterAPIKey        = @"apiKey";
 static NSString *const kArclightParameterRefId         = @"refId";
@@ -36,7 +34,7 @@ static NSString *const kArclightEndpointGetAssetDetails = @"getAssetDetails";
     __strong static ArclightClient *_arclightClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _arclightClient = [[ArclightClient alloc] initWithBaseURL:[NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:kArclightAPIURL]]];
+        _arclightClient = [[ArclightClient alloc] initWithBaseURL:[ConfigManager sharedConfiguration].arclightAPIURL];
     });
     return _arclightClient;
 }
@@ -129,7 +127,7 @@ static NSString *const kArclightEndpointGetAssetDetails = @"getAssetDetails";
 @implementation ArclightRequestSerializer
 -(NSMutableURLRequest *)requestWithMethod:(NSString *)method URLString:(NSString *)URLString parameters:(id)parameters error:(NSError *__autoreleasing *)error {
     NSMutableDictionary *params = [parameters mutableCopy];
-    [params setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:kArclightAPIKey] forKey:kArclightParameterAPIKey];
+    [params setObject:[[ConfigManager sharedConfiguration] arclightAPIKey] forKey:kArclightParameterAPIKey];
     [params setObject:kArclightResponseTypeJSON forKey:kArclightParameterResponseType];
     [params setObject:kArclightRequestPlayerIOS forKey:kArclightParameterRequestPlayer];
     return [super requestWithMethod:method URLString:URLString parameters:params error:error];

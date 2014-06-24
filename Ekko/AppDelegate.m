@@ -7,20 +7,21 @@
 //
 
 #import "AppDelegate.h"
+#import "ConfigManager.h"
 #import <TheKeyOAuth2Client.h>
 #import <AFNetworkActivityIndicatorManager.h>
 #import <NewRelicAgent/NewRelic.h>
 #import "CourseManager.h"
 
-@interface AppDelegate ()
-
-@end
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Activate New Relic Application reporting
-    [NewRelicAgent startWithApplicationToken:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"NewRelicApplicationToken"]];
+    // Initialize and configure TheKeyOAuth2 Client
+    [[TheKeyOAuth2Client sharedOAuth2Client] setServerURL:[ConfigManager sharedConfiguration].theKeyOAuth2ServerURL
+                                                 clientId:[ConfigManager sharedConfiguration].theKeyOAuth2ClientID];
+
+    // Activate New Relic Application Monitoring
+    [NewRelicAgent startWithApplicationToken:[ConfigManager sharedConfiguration].NewRelicApplicationToken];
 
     // Activate Network Activity handling in AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
@@ -44,7 +45,5 @@
     NSString *guid = [notification.userInfo objectForKey:TheKeyOAuth2ClientGuidKey];
     [[CourseManager courseManagerForGUID:guid] syncCourses];
 }
-
-
 
 @end
