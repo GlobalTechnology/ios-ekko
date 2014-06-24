@@ -11,6 +11,7 @@
 #import <TheKeyOAuth2Client.h>
 #import <AFNetworkActivityIndicatorManager.h>
 #import <NewRelicAgent/NewRelic.h>
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import "CourseManager.h"
 
 @implementation AppDelegate
@@ -22,6 +23,12 @@
 
     // Activate New Relic Application Monitoring
     [NewRelicAgent startWithApplicationToken:[ConfigManager sharedConfiguration].NewRelicApplicationToken];
+
+    // Activate Google Analytics Tracking
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 20;
+    [[GAI sharedInstance] trackerWithTrackingId:[ConfigManager sharedConfiguration].googleAnalyticsTrackingID];
+
 
     // Activate Network Activity handling in AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];

@@ -94,7 +94,7 @@
                     if ([rootViewController isKindOfClass:[AboutEkkoViewController class]]) {
                         highlighted = YES;
                     }
-                    label = NSLocalizedString(@"About Ekko", nil);
+                    label = NSLocalizedString(@"About Ekkolabs", nil);
                     image = @"Cogwheel";
                     break;
                 default:

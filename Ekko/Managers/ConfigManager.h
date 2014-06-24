@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong, readonly) NSString *NewRelicApplicationToken;
 
+@property (nonatomic, strong, readonly) NSString *googleAnalyticsTrackingID;
+
 +(ConfigManager *)sharedConfiguration;
 
 @end

@@ -16,7 +16,9 @@ NSString *const EkkoEntityTypes[] = {
     [EkkoEntityProgressItem] = @"ProgressItem",
 };
 
-@interface CoreDataManager ()
+@interface CoreDataManager () {
+    NSHashTable *_contexts;
+}
 @property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -40,7 +42,12 @@ NSString *const EkkoEntityTypes[] = {
 -(id)init {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(managedObjectContextDidSave:) name:NSManagedObjectContextDidSaveNotification object:nil];
+        _contexts = [NSHashTable weakObjectsHashTable];
+        [_contexts addObject:[self managedObjectContext]];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(managedObjectContextDidSave:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:nil];
     }
     return self;
 }
@@ -89,9 +96,12 @@ NSString *const EkkoEntityTypes[] = {
 -(void)managedObjectContextDidSave:(NSNotification *)notification {
     if ([notification.object isKindOfClass:[NSManagedObjectContext class]]) {
         NSManagedObjectContext *managedObjectContext = (NSManagedObjectContext *)notification.object;
-        if (self.managedObjectContext != managedObjectContext) {
-            // Perform merge on main thread
-            [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:NO];
+        // Only care about MOCs we created
+        if ([_contexts containsObject:managedObjectContext]) {
+            if (self.managedObjectContext != managedObjectContext) {
+                // Perform merge on main thread
+                [self.managedObjectContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:) withObject:notification waitUntilDone:NO];
+            }
         }
     }
 }
@@ -103,6 +113,7 @@ NSString *const EkkoEntityTypes[] = {
 -(NSManagedObjectContext *)newPrivateQueueManagedObjectContext {
     NSManagedObjectContext *privateManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     [privateManagedObjectContext setPersistentStoreCoordinator:self.persistentStoreCoordinator];
+    [_contexts addObject:privateManagedObjectContext];
     return privateManagedObjectContext;
 }
 

@@ -348,10 +348,10 @@
             </objects>
             <point key="canvasLocation" x="1440" y="1039"/>
         </scene>
-        <!--About Ekko View Controller - About Ekko-->
+        <!--About Ekko View Controller - About Ekkolabs-->
         <scene sceneID="03M-QZ-Ktg">
             <objects>
-                <viewController storyboardIdentifier="aboutEkkoViewController" title="About Ekko" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M3V-6z-WWi" customClass="AboutEkkoViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="aboutEkkoViewController" title="About Ekkolabs" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M3V-6z-WWi" customClass="AboutEkkoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t2J-cd-j2T"/>
                         <viewControllerLayoutGuide type="bottom" id="fab-D9-2gm"/>

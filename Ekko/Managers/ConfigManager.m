@@ -23,6 +23,9 @@ static NSString *const kArclightAPIKey = @"ArclightAPIKey";
 // NewRelic
 static NSString *const kNewRelicApplicationToken = @"NewRelicApplicationToken";
 
+// Google Analytics
+static NSString *const kGoogleAnalyticsTrackingID = @"GoogleAnalyticsTrackingID";
+
 @implementation ConfigManager
 
 +(ConfigManager *)sharedConfiguration {
@@ -50,6 +53,8 @@ static NSString *const kNewRelicApplicationToken = @"NewRelicApplicationToken";
         _arclightAPIURL = [NSURL URLWithString:[configuration objectForKey:kArclightAPIURL]];
 
         _NewRelicApplicationToken = [configuration objectForKey:kNewRelicApplicationToken];
+
+        _googleAnalyticsTrackingID = [configuration objectForKey:kGoogleAnalyticsTrackingID];
     }
     return self;
 }
