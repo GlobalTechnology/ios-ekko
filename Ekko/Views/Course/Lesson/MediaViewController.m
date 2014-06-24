@@ -7,11 +7,13 @@
 //
 
 #import "MediaViewController.h"
-#import "Resource+Ekko.h"
-#import "HubClient.h"
+#import "Resource.h"
+#import "EkkoCloudClient.h"
+#import "ArclightClient.h"
 #import "ResourceManager.h"
 #import "ProgressManager.h"
-#import "Lesson+Ekko.h"
+#import "Lesson+View.h"
+#import "UIImageView+Resource.h"
 
 @implementation MediaViewController
 
@@ -33,32 +35,20 @@
             @"</object></div></body></html>";
         NSString *finalHtml = [NSString stringWithFormat:htmlString, (int)320, (int)180, [resource youtTubeVideoId]];
         [webView loadHTMLString:finalHtml baseURL:nil];
+
+        //Record Progress for YouTube Videos
+        [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
     }
     else {
         [self.tapGestureRecognizer setEnabled:YES];
-        if ([self.media.mediaType isEqualToString:@"image"]) {
-            [[ResourceManager sharedManager] getImageResource:[self.media resource] completeBlock:^(Resource *resource, UIImage *image) {
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.mediaImage setImage:image];
-                    });
-                }
-            }];
+        Resource *resource = (self.media.mediaType == EkkoMediaTypeImage) ? [self.media resource] : [self.media thumbnail];
+        if (resource) {
+            [self.mediaImage setImageWithResource:resource];
         }
-        else {
-            Resource *thumbnail = [self.media thumbnail];
-            if (thumbnail) {
-                [[ResourceManager sharedManager] getImageResource:thumbnail completeBlock:^(Resource *resource, UIImage *image) {
-                    if (image) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.mediaImage setImage:image];
-                        });
-                    }
-                }];
-            }
+        if (self.media.mediaType == EkkoMediaTypeImage) {
+            [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
         }
     }
-    [ProgressManager setItemComplete:self.media.mediaId forCourse:[self.media.lesson courseId]];
 }
 
 -(void)resourceService:(Resource *)resource image:(UIImage *)image {
@@ -73,13 +63,13 @@
     if (self.isDownloading) {
         return;
     }
-    if ([self.media.mediaType isEqualToString:@"video"] || [self.media.mediaType isEqualToString:@"audio"]) {
+    if (self.media.mediaType == EkkoMediaTypeVideo || self.media.mediaType == EkkoMediaTypeAudio) {
         Resource *resource = [self.media resource];
-        if ([resource isUri]) {
+        if (resource.type == EkkoResourceTypeURI) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:resource.uri]];
         }
-        else if ([resource isFile]) {
-            [[ResourceManager sharedManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
+        else if (resource.type == EkkoResourceTypeFile) {
+            [[ResourceManager resourceManager] getResource:resource progressBlock:^(Resource *resource, float progress) {
                 self.downloading = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (self.progressView.isHidden) {
@@ -101,6 +91,28 @@
                 });
             }];
         }
+        else if (resource.type == EkkoResourceTypeECV) {
+            [[EkkoCloudClient sharedClient] getVideoStreamURL:[resource courseId] videoId:[resource videoId] completeBlock:^(NSURL *videoStreamUrl) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
+                    [self presentMoviePlayerViewControllerAnimated:movieController];
+                    [movieController.moviePlayer prepareToPlay];
+                    [movieController.moviePlayer play];
+                });
+            }];
+        }
+        else if (resource.type == EkkoResourceTypeArclight) {
+            [[ArclightClient sharedClient] getVideoStreamUrl:resource.refId complete:^(NSURL *videoStreamUrl) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
+                    [self presentMoviePlayerViewControllerAnimated:movieController];
+                    [movieController.moviePlayer prepareToPlay];
+                    [movieController.moviePlayer play];
+                });
+            }];
+        }
+
+        [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
     }
 }
 

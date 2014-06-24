@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Media+Ekko.h"
+#import "Media.h"
 
 @interface MediaViewController : UIViewController
 

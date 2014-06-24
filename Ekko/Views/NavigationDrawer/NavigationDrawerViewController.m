@@ -7,13 +7,12 @@
 //
 
 #import "NavigationDrawerViewController.h"
+#import "DrawerViewController.h"
 #import "CourseListViewController.h"
 #import "AboutEkkoViewController.h"
 #import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
-#import <TheKey/TheKey.h>
-#import "AppDelegate.h"
 
 @implementation NavigationDrawerViewController
 
@@ -29,9 +28,9 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case NavigationDrawerSectionCourses:
-            return @"Courses";
+            return NSLocalizedString(@"Courses", nil);
         case NavigationDrawerSectionSettings:
-            return @"Settings";
+            return NSLocalizedString(@"Settings", nil);
         default:
             return nil;
     }
@@ -64,14 +63,14 @@
                     if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoAllCoursesFetchType) {
                         highlighted = YES;
                     }
-                    label = @"All Courses";
+                    label = NSLocalizedString(@"All Courses", nil);
                     image = @"ShowThumbnailsWithLines";
                     break;
                 case 1:
                     if ([rootViewController isKindOfClass:[CourseListViewController class]] && [(CourseListViewController *)rootViewController coursesFetchType] == EkkoMyCoursesFetchType) {
                         highlighted = YES;
                     }
-                    label = @"My Courses";
+                    label = NSLocalizedString(@"My Courses", nil);
                     image = @"Heart";
                     break;
                 default:
@@ -82,12 +81,12 @@
         case NavigationDrawerSectionSettings:
             switch (indexPath.row) {
                 case 0:
-                    if ([[TheKey theKey] canAuthenticate]) {
-                        label = @"Logout";
+                    if ([[TheKeyOAuth2Client sharedOAuth2Client] isAuthenticated]) {
+                        label = NSLocalizedString(@"Logout", nil);
                         image = @"LogOut";
                     }
                     else {
-                        label = @"Login";
+                        label = NSLocalizedString(@"Login", nil);
                         image = @"LogIn";
                     }
                     break;
@@ -95,7 +94,7 @@
                     if ([rootViewController isKindOfClass:[AboutEkkoViewController class]]) {
                         highlighted = YES;
                     }
-                    label = @"About Ekko";
+                    label = NSLocalizedString(@"About Ekkolabs", nil);
                     image = @"Cogwheel";
                     break;
                 default:
@@ -145,8 +144,12 @@
         case NavigationDrawerSectionSettings: {
             switch (indexPath.row) {
                 case 0: {
-                    [[TheKey theKey] signOut];
-                    [(AppDelegate *)[[UIApplication sharedApplication] delegate] showLoginDialog];
+                    if ([[TheKeyOAuth2Client sharedOAuth2Client] isAuthenticated]) {
+                        [[TheKeyOAuth2Client sharedOAuth2Client] logout];
+                    }
+                    else {
+                        [(DrawerViewController *)[self mm_drawerController] presentLoginDialog];
+                    }
                     break;
                 }
                 case 1: {

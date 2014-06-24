@@ -7,7 +7,8 @@
 //
 
 #import "CourseCompleteViewController.h"
-#import "Manifest+Ekko.h"
+#import "ProgressManager.h"
+#import "Manifest+View.h"
 #import "UIViewController+SwipeViewController.h"
 #import "UIColor+Ekko.h"
 #import "UIWebView+Ekko.h"
@@ -33,15 +34,18 @@
     self.completeWebView.scrollView.bounces = NO;
     self.completeWebView.backgroundColor = [UIColor ekkoQuizBackground];
     
-    NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:@"Congratulations! You finished %@.", self.course.courseTitle];
+    NSString *completeMessage = self.course.completeMessage ?: [NSString stringWithFormat:NSLocalizedString(@"Congratulations! You finished %@.", nil), self.course.courseTitle];
     [self.completeWebView loadCourseCompleteString:completeMessage];
-    
-    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.course];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(progressManagerDidUpdateProgress:) name:EkkoProgressManagerDidUpdateProgressNotification object:nil];
+    [[ProgressManager progressManager] progressForCourse:self.course progress:^(Progress *progress) {
+        [self.navigationBar setProgress:[progress progress]];
+    }];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[ProgressManager sharedManager] removeProgressDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:EkkoProgressManagerDidUpdateProgressNotification object:nil];
 }
 
 - (IBAction)handleCourseListButton:(id)sender {
@@ -63,11 +67,11 @@
     }
 }
 
-#pragma mark - ProgressManagerDelegate
--(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.navigationBar setProgress:progress];
-    });
+-(void)progressManagerDidUpdateProgress:(NSNotification *)notification {
+    if (self.course && [self.course.courseId isEqualToString:[notification.userInfo objectForKey:@"courseId"]]) {
+        [[ProgressManager progressManager] progressForCourse:self.course progress:^(Progress *progress) {
+            [self.navigationBar setProgress:[progress progress]];
+        }];
+    }
 }
-
 @end

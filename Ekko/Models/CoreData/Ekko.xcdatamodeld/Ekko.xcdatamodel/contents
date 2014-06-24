@@ -1,73 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3400" systemVersion="13A603" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="answer" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="questionId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="courseId" attributeType="String" syncable="YES"/>
+        <attribute name="guid" attributeType="String" syncable="YES"/>
+        <attribute name="questionId" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="ContentItem" representedClassName="ContentItem" isAbstract="YES" syncable="YES">
-        <attribute name="itemId" attributeType="String" syncable="YES"/>
-        <attribute name="itemTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="course" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Manifest" inverseName="content" inverseEntity="Manifest" syncable="YES"/>
+    <entity name="Banner" representedClassName="Banner" syncable="YES">
+        <attribute name="bannerId" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="internalProvider" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="internalType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="refId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sha1" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="videoId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="banner" inverseEntity="Course" syncable="YES"/>
     </entity>
     <entity name="Course" representedClassName="Course" syncable="YES">
-        <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseCopyright" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bannerId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="courseVersion" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="internalEnrollmentType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="publicCourse" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="banner" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="CourseResource" inverseName="course" inverseEntity="CourseResource" syncable="YES"/>
-        <relationship name="permission" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Permission" inverseName="course" inverseEntity="Permission" syncable="YES"/>
-    </entity>
-    <entity name="CourseResource" representedClassName="CourseResource" parentEntity="Resource" syncable="YES">
-        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="banner" inverseEntity="Course" syncable="YES"/>
-    </entity>
-    <entity name="Lesson" representedClassName="Lesson" parentEntity="ContentItem" syncable="YES">
-        <relationship name="media" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Media" inverseName="lesson" inverseEntity="Media" syncable="YES"/>
-        <relationship name="pages" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Page" inverseName="lesson" inverseEntity="Page" syncable="YES"/>
-    </entity>
-    <entity name="Manifest" representedClassName="Manifest" syncable="YES">
-        <attribute name="authorEmail" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="authorName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="authorUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="completeMessage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseCopyright" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseId" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="courseTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="courseVersion" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="content" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="ContentItem" inverseName="course" inverseEntity="ContentItem" syncable="YES"/>
-        <relationship name="resources" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ManifestResource" inverseName="course" inverseEntity="ManifestResource" syncable="YES"/>
-    </entity>
-    <entity name="ManifestResource" representedClassName="ManifestResource" parentEntity="Resource" syncable="YES">
-        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Manifest" inverseName="resources" inverseEntity="Manifest" syncable="YES"/>
-    </entity>
-    <entity name="Media" representedClassName="Media" syncable="YES">
-        <attribute name="mediaId" attributeType="String" syncable="YES"/>
-        <attribute name="mediaType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="resourceId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="thumbnailId" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="lesson" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="media" inverseEntity="Lesson" syncable="YES"/>
-    </entity>
-    <entity name="MultipleChoice" representedClassName="MultipleChoice" parentEntity="Question" syncable="YES">
-        <attribute name="questionText" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="options" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MultipleChoiceOption" inverseName="question" inverseEntity="MultipleChoiceOption" syncable="YES"/>
-    </entity>
-    <entity name="MultipleChoiceOption" representedClassName="MultipleChoiceOption" syncable="YES">
-        <attribute name="isAnswer" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="optionId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="optionText" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="question" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MultipleChoice" inverseName="options" inverseEntity="MultipleChoice" syncable="YES"/>
-    </entity>
-    <entity name="Page" representedClassName="Page" syncable="YES">
-        <attribute name="pageId" attributeType="String" syncable="YES"/>
-        <attribute name="pageText" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="lesson" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="pages" inverseEntity="Lesson" syncable="YES"/>
+        <relationship name="banner" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Banner" inverseName="course" inverseEntity="Banner" syncable="YES"/>
+        <relationship name="permissions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Permission" inverseName="course" inverseEntity="Permission" syncable="YES"/>
     </entity>
     <entity name="Permission" representedClassName="Permission" syncable="YES">
         <attribute name="admin" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
@@ -76,51 +36,18 @@
         <attribute name="guid" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="hidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="pending" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="permission" inverseEntity="Course" syncable="YES"/>
+        <relationship name="course" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="permissions" inverseEntity="Course" syncable="YES"/>
     </entity>
     <entity name="ProgressItem" representedClassName="ProgressItem" syncable="YES">
+        <attribute name="contentId" attributeType="String" syncable="YES"/>
         <attribute name="courseId" attributeType="String" syncable="YES"/>
-        <attribute name="itemId" attributeType="String" syncable="YES"/>
-        <compoundIndexes>
-            <compoundIndex>
-                <index value="courseId"/>
-                <index value="itemId"/>
-            </compoundIndex>
-        </compoundIndexes>
-    </entity>
-    <entity name="Question" representedClassName="Question" isAbstract="YES" syncable="YES">
-        <attribute name="questionId" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="questionType" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="quiz" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Quiz" inverseName="questions" inverseEntity="Quiz" syncable="YES"/>
-    </entity>
-    <entity name="Quiz" representedClassName="Quiz" parentEntity="ContentItem" syncable="YES">
-        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Question" inverseName="quiz" inverseEntity="Question" syncable="YES"/>
-    </entity>
-    <entity name="Resource" representedClassName="Resource" isAbstract="YES" syncable="YES">
-        <attribute name="internalProvider" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="internalType" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
-        <attribute name="mimeType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="resourceId" attributeType="String" indexed="YES" syncable="YES"/>
-        <attribute name="sha1" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="guid" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Answer" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ContentItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Course" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="CourseResource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Lesson" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Manifest" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ManifestResource" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Media" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MultipleChoice" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="MultipleChoiceOption" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Page" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Permission" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="ProgressItem" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Question" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Quiz" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Resource" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Answer" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="Banner" positionX="0" positionY="0" width="128" height="195"/>
+        <element name="Course" positionX="0" positionY="0" width="128" height="180"/>
+        <element name="Permission" positionX="0" positionY="0" width="128" height="150"/>
+        <element name="ProgressItem" positionX="9" positionY="81" width="128" height="88"/>
     </elements>
 </model>

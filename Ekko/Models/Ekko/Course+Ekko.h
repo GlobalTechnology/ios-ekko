@@ -7,17 +7,22 @@
 //
 
 #import "Course.h"
-#import "CourseIdProtocol.h"
+#import "Resource.h"
 
-typedef NS_ENUM(int16_t, CourseEnrollmentType) {
+typedef NS_ENUM(NSUInteger, CourseEnrollmentType) {
     CourseEnrollmentUnknown  = 0,
     CourseEnrollmentDisabled = 1,
     CourseEnrollmentOpen     = 2,
     CourseEnrollmentApproval = 3,
 };
 
-@interface Course (Ekko) <CourseIdProtocol>
+@interface Course (Ekko)
 
-@property CourseEnrollmentType enrollmentType;
+@property (nonatomic) CourseEnrollmentType enrollmentType;
+@property (nonatomic, getter = isPublic) BOOL public;
+@property (nonatomic, readonly) Permission *permission;
+
+-(Permission *)permissionForGUID:(NSString *)guid;
+-(Resource *)bannerResource;
 
 @end

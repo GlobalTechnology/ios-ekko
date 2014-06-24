@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CourseNavigationBar.h"
-#import "Quiz+Ekko.h"
+#import "Quiz+View.h"
 
 @interface QuizCompleteViewController : UIViewController <CourseNavigationBarDelegate>
 

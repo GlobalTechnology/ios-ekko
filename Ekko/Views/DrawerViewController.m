@@ -8,6 +8,9 @@
 
 #import "DrawerViewController.h"
 #import <MMDrawerVisualState.h>
+#import <TheKeyOAuth2Client.h>
+
+#import "EkkoLoginViewController.h"
 
 @interface DrawerViewController ()
 
@@ -37,11 +40,25 @@
     
     [self setShouldStretchDrawer:NO];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(theKeyOAuth2ClientDidChangeGuid:) name:TheKeyOAuth2ClientDidChangeGuidNotification object:[TheKeyOAuth2Client sharedOAuth2Client]];
+    
     return self;
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(BOOL)shouldAutorotate {
     return NO;
+}
+
+-(void)presentLoginDialog {
+    [[TheKeyOAuth2Client sharedOAuth2Client] presentLoginViewController:[EkkoLoginViewController class] fromViewController:self loginDelegate:self];
+}
+
+-(void)theKeyOAuth2ClientDidChangeGuid:(NSNotification *)notification {
+    [(UINavigationController *)self.centerViewController popToRootViewControllerAnimated:YES];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "LessonViewController.h"
 #import "UIViewController+SwipeViewController.h"
+#import "ProgressManager.h"
 
 @implementation LessonViewController
 
@@ -25,7 +26,7 @@
     [self.mediaSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *mediaViewController = [self.lesson mediaViewControllerAtIndex:0 storyboard:self.storyboard];
     if (mediaViewController) {
-        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.mediaSwipeViewController setViewController:mediaViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.mediaSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.mediaSwipeViewController];
@@ -39,7 +40,7 @@
     [self.pagesSwipeViewController setPropogateSwipeOnNil:YES];
     UIViewController *pageViewController = [self.lesson pageViewControllerAtIndex:0 storyboard:self.storyboard];
     if (pageViewController) {
-        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerSwipeDirectionNext];
+        [self.pagesSwipeViewController setViewController:pageViewController direction:SwipeViewControllerDirectionNone];
     }
     [self.pagesSwipeViewController.view setTranslatesAutoresizingMaskIntoConstraints:NO];
     [self addChildViewController:self.pagesSwipeViewController];
@@ -58,13 +59,20 @@
     [super viewWillAppear:animated];
     [self.view bringSubviewToFront:self.pageControl];
     [self.view bringSubviewToFront:self.navigationBar];
-    [self.navigationBar setTitle:self.lesson.lessonTitle];
+    [self.navigationBar setTitle:self.lesson.title];
     [self.pageControl setNumberOfPages:self.lesson.media.count];
-    [[ProgressManager sharedManager] addProgressDelegate:self forDataSource:self.lesson];
+
+    [[ProgressManager progressManager] progressForLesson:self.lesson progress:^(Progress *progress) {
+        [self.navigationBar setProgress:[progress progress]];
+    }];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(progressManagerDidUpdateProgress:)
+                                                 name:EkkoProgressManagerDidUpdateProgressNotification
+                                               object:[ProgressManager progressManager]];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [[ProgressManager sharedManager] removeProgressDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:EkkoProgressManagerDidUpdateProgressNotification object:nil];
     [super viewDidDisappear:animated];
 }
 
@@ -89,13 +97,12 @@
     }
 }
 
-#pragma mark - ProgressManagerDelegate
--(void)progressUpdateFor:(id<ProgressManagerDataSource>)dataSource currentProgress:(float)progress {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([dataSource isKindOfClass:[Lesson class]] && self.lesson == dataSource) {
-            [self.navigationBar setProgress:progress];
-        }
-    });
+-(void)progressManagerDidUpdateProgress:(NSNotification *)notification {
+    if (self.lesson && [[self.lesson.manifest courseId] isEqualToString:[[notification userInfo] objectForKey:@"courseId"]]) {
+        [[ProgressManager progressManager] progressForLesson:self.lesson progress:^(Progress *progress) {
+            [self.navigationBar setProgress:[progress progress]];
+        }];
+    }
 }
 
 -(void)swipeViewController:(SwipeViewController *)swipeViewController didSwipeToViewController:(UIViewController *)viewController {
@@ -104,5 +111,4 @@
         [self.pageControl setCurrentPage:index];
     }
 }
-
 @end
