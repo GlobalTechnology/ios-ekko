@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C85D52A007C4009B2A96FD0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C61116E098E4028AABAEEC0 /* libPods.a */; };
 		D303D880180DB1130065B920 /* NavigationDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */; };
+		D307E91A1959C904008403E9 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = D307E9191959C904008403E9 /* Config.plist */; };
 		D30B0C1F18EF0AF400744580 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D30B0C2118EF0AF400744580 /* Main_iPhone.storyboard */; };
 		D312A03818DA0CCA0045C5DE /* ProgressManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D312A03718DA0CCA0045C5DE /* ProgressManager.m */; };
 		D31CCB7F1899662900E3B303 /* EkkoCloudXMLConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CCB7E1899662900E3B303 /* EkkoCloudXMLConstants.m */; };
@@ -91,6 +92,7 @@
 		D3C0FB6918A01EA500C86039 /* Course+XMLModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D3C0FB6818A01EA500C86039 /* Course+XMLModel.m */; };
 		D3DBC62818E1D92A001C578D /* ProgressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DBC62718E1D92A001C578D /* ProgressItem.m */; };
 		D3DBC62B18E1FE88001C578D /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DBC62A18E1FE88001C578D /* Answer.m */; };
+		D3DCDB6F1958C09400BD7152 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DCDB6E1958C09400BD7152 /* ConfigManager.m */; };
 		D3E61B2E180C5EDA00145E50 /* CourseDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */; };
 		D3E61B34180C60C900145E50 /* CourseDrawerMediaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */; };
 		D3F2F00117EC904800F32F52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3F2F00017EC904800F32F52 /* Foundation.framework */; };
@@ -123,6 +125,7 @@
 		8C61116E098E4028AABAEEC0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D303D87E180DB1130065B920 /* NavigationDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationDrawerViewController.h; sourceTree = "<group>"; };
 		D303D87F180DB1130065B920 /* NavigationDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationDrawerViewController.m; sourceTree = "<group>"; };
+		D307E9191959C904008403E9 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		D30B0C2018EF0AF400744580 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		D312A03618DA0CCA0045C5DE /* ProgressManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressManager.h; sourceTree = "<group>"; };
 		D312A03718DA0CCA0045C5DE /* ProgressManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressManager.m; sourceTree = "<group>"; };
@@ -280,6 +283,8 @@
 		D3DBC62718E1D92A001C578D /* ProgressItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressItem.m; sourceTree = "<group>"; };
 		D3DBC62918E1FE88001C578D /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
 		D3DBC62A18E1FE88001C578D /* Answer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Answer.m; sourceTree = "<group>"; };
+		D3DCDB6D1958C09400BD7152 /* ConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigManager.h; sourceTree = "<group>"; };
+		D3DCDB6E1958C09400BD7152 /* ConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigManager.m; sourceTree = "<group>"; };
 		D3E61B2C180C5EDA00145E50 /* CourseDrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDrawerViewController.h; sourceTree = "<group>"; };
 		D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerViewController.m; sourceTree = "<group>"; };
 		D3E61B32180C60C900145E50 /* CourseDrawerMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDrawerMediaCell.h; sourceTree = "<group>"; };
@@ -371,6 +376,8 @@
 				D33072341807349B00EDD036 /* QuizManager.m */,
 				D325766317F375E200447A2D /* ResourceManager.h */,
 				D325766417F375E200447A2D /* ResourceManager.m */,
+				D3DCDB6D1958C09400BD7152 /* ConfigManager.h */,
+				D3DCDB6E1958C09400BD7152 /* ConfigManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -702,6 +709,7 @@
 				D359FF5917EC96FE007A095B /* Utils */,
 				D359FF6417EC96FE007A095B /* Views */,
 				D31CCB7C189965BC00E3B303 /* XML */,
+				D307E9191959C904008403E9 /* Config.plist */,
 			);
 			path = Ekko;
 			sourceTree = "<group>";
@@ -739,9 +747,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D3F2EFFC17EC904800F32F52 /* Ekko */ = {
+		D3F2EFFC17EC904800F32F52 /* Ekkolabs */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekko" */;
+			buildConfigurationList = D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekkolabs" */;
 			buildPhases = (
 				7C2417094C734B38BFB383E9 /* Check Pods Manifest.lock */,
 				D3F2EFF917EC904800F32F52 /* Sources */,
@@ -754,7 +762,7 @@
 			);
 			dependencies = (
 			);
-			name = Ekko;
+			name = Ekkolabs;
 			productName = Ekko;
 			productReference = D3F2EFFD17EC904800F32F52 /* Ekko.app */;
 			productType = "com.apple.product-type.application";
@@ -807,7 +815,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D3F2EFFC17EC904800F32F52 /* Ekko */,
+				D3F2EFFC17EC904800F32F52 /* Ekkolabs */,
 				D3F2F02017EC904800F32F52 /* EkkoTests */,
 			);
 		};
@@ -823,6 +831,7 @@
 				D3375AE518106C9500BAB134 /* AboutEkko.html in Resources */,
 				D30B0C1F18EF0AF400744580 /* Main_iPhone.storyboard in Resources */,
 				D3F9DA2817ECB9620039B0AC /* Images.xcassets in Resources */,
+				D307E91A1959C904008403E9 /* Config.plist in Resources */,
 				D35885C418EDF79000067A3C /* Localizable.strings in Resources */,
 				D359FFED17EC9D98007A095B /* Main_iPad.storyboard in Resources */,
 				D3F2F00B17EC904800F32F52 /* InfoPlist.strings in Resources */,
@@ -902,6 +911,7 @@
 				D3908D7A18DCBD9D00F8C3A5 /* Manifest+Progress.m in Sources */,
 				D320D13618A539C60055D83D /* Banner.m in Sources */,
 				D359FFD017EC96FE007A095B /* MultipleChoiceOptionCell.m in Sources */,
+				D3DCDB6F1958C09400BD7152 /* ConfigManager.m in Sources */,
 				D31DB7FC18A1457E0031C12E /* MultipleChoice.m in Sources */,
 				D359FFB617EC96FE007A095B /* Course+Ekko.m in Sources */,
 				D359FFD517EC96FE007A095B /* DrawerViewController.m in Sources */,
@@ -985,7 +995,7 @@
 /* Begin PBXTargetDependency section */
 		D3F2F02717EC904800F32F52 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D3F2EFFC17EC904800F32F52 /* Ekko */;
+			target = D3F2EFFC17EC904800F32F52 /* Ekkolabs */;
 			targetProxy = D3F2F02617EC904800F32F52 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1114,7 +1124,7 @@
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1137,7 +1147,7 @@
 				GCC_PREFIX_HEADER = "Ekko/Ekko-Prefix.pch";
 				INFOPLIST_FILE = "Ekko/Ekko-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
@@ -1196,7 +1206,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekko" */ = {
+		D3F2F03217EC904800F32F52 /* Build configuration list for PBXNativeTarget "Ekkolabs" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3F2F03317EC904800F32F52 /* Debug */,
