@@ -11,7 +11,19 @@
 #import "CourseDrawerMediaCell.h"
 #import "Lesson+View.h"
 
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+
 @implementation CourseDrawerViewController
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Course Navigation"];
+    [tracker set:[GAIFields customDimensionForIndex:1] value:self.item.manifest.courseId];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+}
 
 -(void)setItem:(ContentItem *)item {
     if (item != _item) {

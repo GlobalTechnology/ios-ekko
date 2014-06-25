@@ -219,7 +219,7 @@ static NSUInteger const kEkkoCloudClientMaxAttempts = 3;
     //Set download progress block if used
     if (ekkoCloudRequest.progress) {
         [requestOperation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            float progress = totalBytesRead / (float)totalBytesExpectedToRead;
+            float progress = (totalBytesExpectedToRead == -1) ? 0.0f : totalBytesRead / (float)totalBytesExpectedToRead;
             ekkoCloudRequest.progress(progress);
         }];
     }

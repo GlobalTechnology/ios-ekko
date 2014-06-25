@@ -22,6 +22,10 @@
 #import <UIViewController+MMDrawerController.h>
 #import <TheKeyOAuth2Client.h>
 
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+
 @interface CourseListViewController ()
 
 @end
@@ -73,6 +77,22 @@
     if ([[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] isSyncInProgress]) {
         [self.refreshControl beginRefreshing];
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    NSString *screenName;
+    switch (self.coursesFetchType) {
+        case EkkoMyCoursesFetchType:
+            screenName = @"My Courses";
+            break;
+        case EkkoAllCoursesFetchType:
+        default:
+            screenName = @"All Courses";
+            break;
+    }
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:screenName];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {

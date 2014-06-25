@@ -11,6 +11,10 @@
 #import "CourseDrawerViewController.h"
 #import "UIImage+Ekko.h"
 
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+
 @implementation CourseViewController
 
 @synthesize manifest    = _manifest;
@@ -58,6 +62,14 @@
         [courseDrawer setItem:[(UIViewController<ContentItemProtocol> *)self.currentViewController contentItem]];
     }
     [[self mm_drawerController] setRightDrawerViewController:courseDrawer];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"Course"];
+    [tracker set:[GAIFields customDimensionForIndex:1] value:self.manifest.courseId];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
