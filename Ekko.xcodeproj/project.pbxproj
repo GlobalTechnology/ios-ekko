@@ -289,7 +289,7 @@
 		D3E61B2D180C5EDA00145E50 /* CourseDrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerViewController.m; sourceTree = "<group>"; };
 		D3E61B32180C60C900145E50 /* CourseDrawerMediaCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDrawerMediaCell.h; sourceTree = "<group>"; };
 		D3E61B33180C60C900145E50 /* CourseDrawerMediaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDrawerMediaCell.m; sourceTree = "<group>"; };
-		D3F2EFFD17EC904800F32F52 /* Ekko.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekko.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F2EFFD17EC904800F32F52 /* Ekkolabs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ekkolabs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3F2F00017EC904800F32F52 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D3F2F00217EC904800F32F52 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D3F2F00417EC904800F32F52 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -673,7 +673,7 @@
 		D3F2EFFE17EC904800F32F52 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3F2EFFD17EC904800F32F52 /* Ekko.app */,
+				D3F2EFFD17EC904800F32F52 /* Ekkolabs.app */,
 				D3F2F02117EC904800F32F52 /* EkkoTests.xctest */,
 			);
 			name = Products;
@@ -764,7 +764,7 @@
 			);
 			name = Ekkolabs;
 			productName = Ekko;
-			productReference = D3F2EFFD17EC904800F32F52 /* Ekko.app */;
+			productReference = D3F2EFFD17EC904800F32F52 /* Ekkolabs.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D3F2F02017EC904800F32F52 /* EkkoTests */ = {

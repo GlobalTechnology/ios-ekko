@@ -10,6 +10,10 @@
 #import <UIViewController+MMDrawerController.h>
 #import "UIImage+Ekko.h"
 
+#import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <GoogleAnalytics-iOS-SDK/GAIFields.h>
+#import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
+
 @implementation AboutEkkoViewController
 
 -(void)viewDidLoad {
@@ -28,6 +32,13 @@
     
     NSURL *aboutUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"AboutEkko" ofType:@"html"]];
     [self.aboutWebView loadRequest:[NSURLRequest requestWithURL:aboutUrl]];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker set:kGAIScreenName value:@"About"];
+    [tracker send:[[GAIDictionaryBuilder createAppView] build]];
 }
 
 - (IBAction)toggleNavigationDrawer:(id)sender {
