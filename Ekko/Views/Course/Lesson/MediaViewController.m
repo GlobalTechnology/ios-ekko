@@ -10,6 +10,7 @@
 #import "Resource.h"
 #import "EkkoCloudClient.h"
 #import "ArclightClient.h"
+#import "ArclightMoviePlayerViewController.h"
 #import "ResourceManager.h"
 #import "ProgressManager.h"
 #import "Lesson+View.h"
@@ -104,7 +105,8 @@
         else if (resource.type == EkkoResourceTypeArclight) {
             [[ArclightClient sharedClient] getVideoStreamUrl:resource.refId complete:^(NSURL *videoStreamUrl) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    MPMoviePlayerViewController *movieController = [[MPMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
+                    ArclightMoviePlayerViewController *movieController = [[ArclightMoviePlayerViewController alloc] initWithContentURL:videoStreamUrl];
+                    [movieController setRefId:resource.refId];
                     [self presentMoviePlayerViewControllerAnimated:movieController];
                     [movieController.moviePlayer prepareToPlay];
                     [movieController.moviePlayer play];
@@ -114,6 +116,10 @@
 
         [[ProgressManager progressManager] recordProgress:self.media.mediaId inCourse:[self.media.manifest courseId]];
     }
+}
+
+-(void)moviePlayerPlaybackDidFinishNotification:(NSNotification *)notification {
+    NSLog(@"%@",notification);
 }
 
 @end
