@@ -11,6 +11,6 @@
 @interface ArclightMoviePlayerViewController : MPMoviePlayerViewController
 
 @property (nonatomic, readonly, strong) NSString *sessionId;
-@property (nonatomic, strong) NSString *refId;
+@property (nonatomic, copy) NSString *refId;
 
 @end

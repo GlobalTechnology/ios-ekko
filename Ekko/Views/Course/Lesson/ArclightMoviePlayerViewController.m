@@ -11,7 +11,9 @@
 
 #import "URLParser.h"
 
-@interface ArclightMoviePlayerViewController ()
+@interface ArclightMoviePlayerViewController () {
+    NSDate *startTime;
+}
 @property (nonatomic, strong, readwrite) NSString *sessionId;
 @end
 
@@ -27,11 +29,12 @@
                                                  selector:@selector(moviePlayerPlaybackDidFinishNotification:)
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
                                                    object:self.moviePlayer];
-
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayerDidExitFullscreenNotification:)
                                                      name:MPMoviePlayerDidExitFullscreenNotification
                                                    object:self.moviePlayer];
+
+        startTime = [NSDate date];
     }
     return self;
 }
@@ -41,11 +44,25 @@
 }
 
 -(void)moviePlayerPlaybackDidFinishNotification:(NSNotification *)notification {
-//    [EventTracker trackPlayEventWithRefID:self.refId apiSessionID:self.sessionId streaming:YES mediaViewTimeInSeconds:0.0f mediaEngagementOver75Percent:NO];
+    [self reportPlayEvent];
 }
 
 -(void)moviePlayerDidExitFullscreenNotification:(NSNotification *)notification {
+    [self reportPlayEvent];
+}
 
+-(void)reportPlayEvent {
+
+    NSDate *endTime = [NSDate date];
+    NSTimeInterval elapsed = [endTime timeIntervalSinceDate:startTime];
+    NSTimeInterval duration = self.moviePlayer.duration;
+    float percent = (duration > 0) ? (elapsed / duration) * 100.0f : 0.0f;
+
+    [EventTracker trackPlayEventWithRefID:self.refId
+                             apiSessionID:self.sessionId
+                                streaming:YES
+                   mediaViewTimeInSeconds:elapsed
+                mediaEngagementOver75Percent:(percent >= 75.0f)];
 }
 
 @end
