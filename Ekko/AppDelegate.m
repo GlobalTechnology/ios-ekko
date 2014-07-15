@@ -18,6 +18,10 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+#if defined (EKKOLABS_DEBUG)
+    [[UIApplication sharedApplication] performSelector:@selector(setApplicationBadgeString:) withObject:@"dev"];
+#endif
+
     // Initialize and configure TheKeyOAuth2 Client
     [[TheKeyOAuth2Client sharedOAuth2Client] setServerURL:[ConfigManager sharedConfiguration].theKeyOAuth2ServerURL
                                                  clientId:[ConfigManager sharedConfiguration].theKeyOAuth2ClientID];
