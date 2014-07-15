@@ -15,6 +15,9 @@
 #import "EventTracker.h"
 #import "CourseManager.h"
 
+#import "DrawerViewController.h"
+#import "CourseDetailsViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -61,6 +64,15 @@
 
 -(void)applicationDidBecomeActive:(UIApplication *)application {
     [EventTracker applicationDidBecomeActive];
+}
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    DrawerViewController *drawerViewController = (DrawerViewController *)self.window.rootViewController;
+    UINavigationController *rootNavigationController = (UINavigationController *) drawerViewController.centerViewController;
+
+    CourseDetailsViewController *courseDetails = [rootNavigationController.storyboard instantiateViewControllerWithIdentifier:@"courseDetailsViewController"];
+    [rootNavigationController setViewControllers:@[courseDetails]];
+    return YES;
 }
 
 -(void)theKeyOAuth2ClientDidChangeGuidNotification:(NSNotification *)notification {

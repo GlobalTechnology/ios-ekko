@@ -95,6 +95,7 @@
 		D3CDF9E4195DC35A00F79EFF /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3CDF9E3195DC35A00F79EFF /* libsqlite3.0.dylib */; };
 		D3CDF9E7195DCB7700F79EFF /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CDF9E6195DCB7700F79EFF /* URLParser.m */; };
 		D3CDF9EA195DEF8C00F79EFF /* ArclightMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CDF9E9195DEF8C00F79EFF /* ArclightMoviePlayerViewController.m */; };
+		D3CE501A196498B700B4646C /* CourseDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D3CE5019196498B700B4646C /* CourseDetailsViewController.m */; };
 		D3DBC62818E1D92A001C578D /* ProgressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DBC62718E1D92A001C578D /* ProgressItem.m */; };
 		D3DBC62B18E1FE88001C578D /* Answer.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DBC62A18E1FE88001C578D /* Answer.m */; };
 		D3DCDB6F1958C09400BD7152 /* ConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3DCDB6E1958C09400BD7152 /* ConfigManager.m */; };
@@ -293,6 +294,8 @@
 		D3CDF9E6195DCB7700F79EFF /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		D3CDF9E8195DEF8C00F79EFF /* ArclightMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArclightMoviePlayerViewController.h; sourceTree = "<group>"; };
 		D3CDF9E9195DEF8C00F79EFF /* ArclightMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArclightMoviePlayerViewController.m; sourceTree = "<group>"; };
+		D3CE5018196498B700B4646C /* CourseDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseDetailsViewController.h; sourceTree = "<group>"; };
+		D3CE5019196498B700B4646C /* CourseDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseDetailsViewController.m; sourceTree = "<group>"; };
 		D3DBC62618E1D92A001C578D /* ProgressItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressItem.h; sourceTree = "<group>"; };
 		D3DBC62718E1D92A001C578D /* ProgressItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressItem.m; sourceTree = "<group>"; };
 		D3DBC62918E1FE88001C578D /* Answer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Answer.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 				D359FF8A17EC96FE007A095B /* SwipeViewController.m */,
 				D359FF8B17EC96FE007A095B /* UIViewController+SwipeViewController.h */,
 				D359FF8C17EC96FE007A095B /* UIViewController+SwipeViewController.m */,
+				D3CE5018196498B700B4646C /* CourseDetailsViewController.h */,
+				D3CE5019196498B700B4646C /* CourseDetailsViewController.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -955,6 +960,7 @@
 				D3C0FB6018A01DC200C86039 /* CoursesXMLParser.m in Sources */,
 				D31DB7F018A141D00031C12E /* Media.m in Sources */,
 				D359FFCB17EC96FE007A095B /* CourseNavigationBar.m in Sources */,
+				D3CE501A196498B700B4646C /* CourseDetailsViewController.m in Sources */,
 				D3908D7A18DCBD9D00F8C3A5 /* Manifest+Progress.m in Sources */,
 				D320D13618A539C60055D83D /* Banner.m in Sources */,
 				D359FFD017EC96FE007A095B /* MultipleChoiceOptionCell.m in Sources */,
@@ -1266,6 +1272,7 @@
 				);
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "6E4D2F7D-B42C-4317-BC53-DA09481E688D";
+				PROVISIONING_PROFILE = "35CC7121-E7C7-4475-84B0-702D8A94A21A";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

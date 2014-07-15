@@ -384,6 +384,34 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I4I-vI-qag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="959" y="1752"/>
+        </scene>
+        <!--Course Details View Controller-->
+        <scene sceneID="3ma-u8-VMK">
+            <objects>
+                <viewController storyboardIdentifier="courseDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HXF-fn-gCy" customClass="CourseDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Lh4-9F-6xm"/>
+                        <viewControllerLayoutGuide type="bottom" id="dc0-tO-cwt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uWc-K7-yu1">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fn6-Pv-YK9">
+                                <rect key="frame" x="139" y="20" width="53" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x4i-5K-awF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
             <point key="canvasLocation" x="1440" y="1752"/>
         </scene>
         <!--Course View Controller-->
