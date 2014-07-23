@@ -70,9 +70,26 @@
     DrawerViewController *drawerViewController = (DrawerViewController *)self.window.rootViewController;
     UINavigationController *rootNavigationController = (UINavigationController *) drawerViewController.centerViewController;
 
-    CourseDetailsViewController *courseDetails = [rootNavigationController.storyboard instantiateViewControllerWithIdentifier:@"courseDetailsViewController"];
-    [rootNavigationController setViewControllers:@[courseDetails]];
-    return YES;
+    NSArray *components = [[url absoluteURL] pathComponents];
+    if ([components count] > 1 && [[components firstObject] isEqualToString:@"/"]) {
+        NSString *type = [components objectAtIndex:1];
+        NSString *item_id = ([components count] > 2) ? [components objectAtIndex:2] : nil;
+
+        UIViewController *viewController = nil;
+        if ([type isEqualToString:@"course"]) {
+            viewController = [rootNavigationController.storyboard instantiateViewControllerWithIdentifier:@"courseDetailsViewController"];
+        }
+        else if ([type isEqualToString:@"playlist"]) {
+            viewController = nil;
+        }
+
+        if (viewController) {
+            //    [rootNavigationController setViewControllers:@[courseDetails]];
+            [rootNavigationController pushViewController:viewController animated:YES];
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(void)theKeyOAuth2ClientDidChangeGuidNotification:(NSNotification *)notification {

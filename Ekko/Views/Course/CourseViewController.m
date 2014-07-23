@@ -32,7 +32,7 @@
     [backButton setShowsTouchWhenHighlighted:YES];
     [backButton setImage:[UIImage imageNamed:@"LeftArrow" withTint:[UIColor whiteColor]] forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(navigateBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];    
+    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:backButton]];
     
     //Create course drawer toggle button (right side drawer)
     UIButton *toggleCourseDrawer = [UIButton buttonWithType:UIButtonTypeCustom];
