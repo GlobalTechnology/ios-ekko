@@ -9,6 +9,7 @@
 #import "DrawerViewController.h"
 #import <MMDrawerVisualState.h>
 #import <TheKeyOAuth2Client.h>
+#import <Routable/Routable.h>
 
 #import "EkkoLoginViewController.h"
 
@@ -28,6 +29,9 @@
     }
     self = [super initWithCenterViewController:[storyboard instantiateViewControllerWithIdentifier:@"ekkoRootViewController"]
                       leftDrawerViewController:[storyboard instantiateViewControllerWithIdentifier:@"navigationDrawerViewController"]];
+
+    // Assign centerViewController as the Routable Navigation Controller
+    [[Routable sharedRouter] setNavigationController:(UINavigationController *)self.centerViewController];
     
     [self setCenterHiddenInteractionMode:MMDrawerOpenCenterInteractionModeNone];
     [self setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeBezelPanningCenterView];

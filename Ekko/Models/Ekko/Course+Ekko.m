@@ -54,4 +54,39 @@
     return nil;
 }
 
+-(CourseActions)courseActions {
+    CourseActions actions = CourseActionNone;
+    Permission *permission = [self permission];
+
+    BOOL enroll  = NO;
+    BOOL unenroll = NO;
+
+    if (permission.enrolled) {
+        unenroll = YES;
+    }
+    else {
+        enroll = YES;
+    }
+
+    switch (self.enrollmentType) {
+        case CourseEnrollmentOpen:
+            break;
+        case CourseEnrollmentApproval:
+        case CourseEnrollmentDisabled:
+        default:
+            enroll = NO;
+            unenroll = NO;
+            break;
+    }
+
+    if (enroll) {
+        actions += CourseActionEnroll;
+    }
+    else if (unenroll) {
+        actions += CourseActionUnenroll;
+    }
+
+    return actions;
+}
+
 @end

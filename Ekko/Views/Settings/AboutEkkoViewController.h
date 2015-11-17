@@ -12,4 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIWebView *aboutWebView;
 
++ (id)allocWithRouterParams:(NSDictionary *)params;
+
 @end

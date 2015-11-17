@@ -12,17 +12,28 @@
 #import <AFNetworkActivityIndicatorManager.h>
 #import <NewRelicAgent/NewRelic.h>
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
+#import <Routable/Routable.h>
 #import "EventTracker.h"
+
 #import "CourseManager.h"
 
 #import "DrawerViewController.h"
-#import "CourseDetailsViewController.h"
+#import "AboutCourseViewController.h"
+#import "AboutEkkoViewController.h"
+#import "CourseListViewController.h"
+#import "CourseViewController.h"
+
+#import <AFNetworkActivityLogger/AFNetworkActivityLogger.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-#if defined (EKKOLABS_DEBUG)
-    [[UIApplication sharedApplication] performSelector:@selector(setApplicationBadgeString:) withObject:@"dev"];
+
+#ifdef EKKOLABS_DEBUG
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    [[UIApplication sharedApplication] performSelector:@selector(setApplicationBadgeString:) withObject:@"DEV"];
+#pragma clang diagnostic pop
 #endif
 
     // Initialize and configure TheKeyOAuth2 Client
@@ -40,6 +51,7 @@
 
     // Activate Network Activity handling in AFNetworking
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
+    [[AFNetworkActivityLogger sharedLogger] startLogging];
 
     // Initialize Arclight EventTracker
     [EventTracker initializeWithApiKey:[ConfigManager sharedConfiguration].arclightAPIKey
@@ -56,6 +68,24 @@
                                                  name:TheKeyOAuth2ClientDidChangeGuidNotification
                                                object:[TheKeyOAuth2Client sharedOAuth2Client]];
 
+    // Configure Routable UIViewControllers
+    Routable *router = [Routable sharedRouter];
+    [router map:@"course/:courseId" toController:[AboutCourseViewController class]];
+
+    [router map:@"manifest/:courseId" toController:[CourseViewController class]];
+
+    [router map:@"courses/my" toController:[CourseListViewController class] withOptions:[[UPRouterOptions root] forDefaultParams:@{@"fetchType": @(EkkoMyCoursesFetchType)}]];
+    [router map:@"courses/all" toController:[CourseListViewController class] withOptions:[[UPRouterOptions root] forDefaultParams:@{@"fetchType": @(EkkoAllCoursesFetchType)}]];
+    [router map:@"courses/playlist/:playlistId" toController:[CourseListViewController class] withOptions:[[UPRouterOptions root] forDefaultParams:@{@"fetchType": @(EkkoAllCoursesFetchType)}]];
+
+    [router map:@"about" toController:[AboutEkkoViewController class] withOptions:[UPRouterOptions root]];
+    [router map:@"login" toCallback:^(NSDictionary *params) {
+        [(DrawerViewController *)self.window.rootViewController presentLoginDialog];
+    }];
+    [router map:@"logout" toCallback:^(NSDictionary *params) {
+        [[TheKeyOAuth2Client sharedOAuth2Client] logout];
+    }];
+
     //Sync Courses
     [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] syncCourses];
 
@@ -67,26 +97,18 @@
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    DrawerViewController *drawerViewController = (DrawerViewController *)self.window.rootViewController;
-    UINavigationController *rootNavigationController = (UINavigationController *) drawerViewController.centerViewController;
+    // ekkolabs:///course/1179114091462545382
 
     NSArray *components = [[url absoluteURL] pathComponents];
     if ([components count] > 1 && [[components firstObject] isEqualToString:@"/"]) {
-        NSString *type = [components objectAtIndex:1];
-        NSString *item_id = ([components count] > 2) ? [components objectAtIndex:2] : nil;
-
-        UIViewController *viewController = nil;
-        if ([type isEqualToString:@"course"]) {
-            viewController = [rootNavigationController.storyboard instantiateViewControllerWithIdentifier:@"courseDetailsViewController"];
-        }
-        else if ([type isEqualToString:@"playlist"]) {
-            viewController = nil;
-        }
-
-        if (viewController) {
-            //    [rootNavigationController setViewControllers:@[courseDetails]];
-            [rootNavigationController pushViewController:viewController animated:YES];
+        // Strip leading /
+        components = [components subarrayWithRange:NSMakeRange(1, [components count] - 1)];
+        @try {
+            [[Routable sharedRouter] open:[components componentsJoinedByString:@"/"] animated:NO];
             return YES;
+        }
+        @catch (NSException *exception) {
+            return NO;
         }
     }
     return NO;

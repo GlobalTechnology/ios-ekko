@@ -21,16 +21,21 @@
 
 #import <UIViewController+MMDrawerController.h>
 #import <TheKeyOAuth2Client.h>
+#import <Routable/Routable.h>
 
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
 
-@interface CourseListViewController ()
-
-@end
-
 @implementation CourseListViewController
+
++(id)allocWithRouterParams:(NSDictionary *)params {
+    UIStoryboard *storyboard = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] storyboard];
+    CourseListViewController *courseListViewController = [storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
+    NSNumber *fetchType = (NSNumber *)[params objectForKey:@"fetchType"];
+    [courseListViewController setCoursesFetchType:(EkkoCoursesFetchType)[fetchType unsignedIntegerValue]];
+    return courseListViewController;
+}
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -101,6 +106,7 @@
     [super viewWillDisappear:animated];
 }
 
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"courseSegue"]) {
         Course *course = nil;
@@ -118,6 +124,7 @@
         }];
     }
 }
+*/
 
 #pragma mark - UITableViewDelegate
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -148,15 +155,12 @@
                           cancelButtonTitle:NSLocalizedString(@"OK", nil)
                           otherButtonTitles:nil] show];
     } else if (![course.permission contentVisible]) {
+        [[Routable sharedRouter] open:[NSString stringWithFormat:@"course/%@", course.courseId]];
         //Must enroll in Course
-        [[[UIAlertView alloc] initWithTitle:course.courseTitle
-                                    message:course.courseDescription
-                                   delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"Cancel", nil)
-                          otherButtonTitles:NSLocalizedString(@"Enroll", nil), nil] show];
     }
     else {
-        [self performSegueWithIdentifier:@"courseSegue" sender:course];
+        [[Routable sharedRouter] open:[NSString stringWithFormat:@"manifest/%@", course.courseId]];
+//        [self performSegueWithIdentifier:@"courseSegue" sender:course];
     }
 }
 
@@ -192,7 +196,8 @@
         Course *course = (Course *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSegueWithIdentifier:@"courseSegue" sender:course];
+                [[Routable sharedRouter] open:[NSString stringWithFormat:@"manifest/%@", course.courseId]];
+//                [self performSegueWithIdentifier:@"courseSegue" sender:course];
             });
         }];
     }

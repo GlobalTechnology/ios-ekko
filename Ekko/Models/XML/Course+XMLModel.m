@@ -40,6 +40,10 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
 
     self.courseTitle = nil;
     self.courseDescription = nil;
+    self.courseCopyright = nil;
+    self.authorName = nil;
+    self.authorEmail = nil;
+    self.authorUrl = nil;
 }
 
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
@@ -79,6 +83,18 @@ EKKO_XML_MODEL_INIT(kEkkoCloudXMLElementCourse)
     }
     else if ([[(EkkoXMLParser *)parser currentElement] isEqualToString:kEkkoCloudXMLElementMetaDescription]) {
         self.courseDescription = [(EkkoXMLParser *)parser appendString:string toString:self.courseDescription];
+    }
+    else if ([[(EkkoXMLParser *)parser currentElement] isEqualToString:kEkkoCloudXMLElementMetaCopyright]) {
+        self.courseCopyright = [(EkkoXMLParser *)parser appendString:string toString:self.courseCopyright];
+    }
+    else if ([[(EkkoXMLParser *)parser currentElement] isEqualToString:kEkkoCloudXMLElementMetaAuthorName]) {
+        self.authorName = [(EkkoXMLParser *)parser appendString:string toString:self.authorName];
+    }
+    else if ([[(EkkoXMLParser *)parser currentElement] isEqualToString:kEkkoCloudXMLElementMetaAuthorEmail]) {
+        self.authorEmail = [(EkkoXMLParser *)parser appendString:string toString:self.authorEmail];
+    }
+    else if ([[(EkkoXMLParser *)parser currentElement] isEqualToString:kEkkoCloudXMLElementMetaAuthorURL]) {
+        self.authorUrl = [(EkkoXMLParser *)parser appendString:string toString:self.authorUrl];
     }
 }
 

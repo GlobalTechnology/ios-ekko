@@ -80,7 +80,6 @@ NSString *const EkkoCourseManagerDidSyncCoursesNotification = @"EkkoCourseManage
         [[NSNotificationCenter defaultCenter] postNotificationName:EkkoCourseManagerWillSyncCoursesNotification object:self userInfo:@{@"guid": self.guid}];
     });
 
-    //TODO - increase limit
     [self getCoursesStaringAt:0 limit:50];
 }
 

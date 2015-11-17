@@ -14,6 +14,8 @@
 #import "UIImage+Ekko.h"
 #import "UIColor+Ekko.h"
 
+#import <Routable/Routable.h>
+
 @implementation NavigationDrawerViewController
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -120,20 +122,15 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    UINavigationController *rootNavigationController = (UINavigationController *)[[self mm_drawerController] centerViewController];
     switch (indexPath.section) {
         case NavigationDrawerSectionCourses: {
             switch (indexPath.row) {
                 case 0: {
-                    CourseListViewController *courseListViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
-                    [courseListViewController setCoursesFetchType:EkkoAllCoursesFetchType];
-                    [rootNavigationController setViewControllers:@[courseListViewController] animated:NO];
+                    [[Routable sharedRouter] open:@"courses/all" animated:NO];
                     break;
                 }
                 case 1: {
-                    CourseListViewController *courseListViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"courseListViewController"];
-                    [courseListViewController setCoursesFetchType:EkkoMyCoursesFetchType];
-                    [rootNavigationController setViewControllers:@[courseListViewController] animated:NO];
+                    [[Routable sharedRouter] open:@"courses/my" animated:NO];
                     break;
                 }
                 default:
@@ -145,16 +142,15 @@
             switch (indexPath.row) {
                 case 0: {
                     if ([[TheKeyOAuth2Client sharedOAuth2Client] isAuthenticated]) {
-                        [[TheKeyOAuth2Client sharedOAuth2Client] logout];
+                        [[Routable sharedRouter] open:@"logout" animated:NO];
                     }
                     else {
-                        [(DrawerViewController *)[self mm_drawerController] presentLoginDialog];
+                        [[Routable sharedRouter] open:@"login" animated:NO];
                     }
                     break;
                 }
                 case 1: {
-                    UIViewController *aboutController = [self.storyboard instantiateViewControllerWithIdentifier:@"aboutEkkoViewController"];
-                    [rootNavigationController setViewControllers:@[aboutController] animated:NO];
+                    [[Routable sharedRouter] open:@"about" animated:NO];
                     break;
                 }
                 default:

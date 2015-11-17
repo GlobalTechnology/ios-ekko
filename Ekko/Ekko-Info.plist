@@ -31,12 +31,12 @@
 			<string>org.ekkoproject.coursedetails</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>ekkolabs</string>
+				<string>ekkolabs${BUNDLE_ID_SUFFIX}</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>307</string>
+	<string>435</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>

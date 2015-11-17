@@ -13,8 +13,8 @@ static NSString *const kTheKeyOAuth2ClientID = @"TheKeyOAuth2ClientID";
 static NSString *const kTheKeyOAuth2ServerURL = @"TheKeyOAuth2ServerURL";
 
 // Ekko
-static NSString *const kEkkoCloudAPIURL = @"EkkoCloudAPIURL";
-static NSString *const kEkkolabsVersion = @"EkkolabsVersion";
+static NSString *const kEkkoCloudAPIURL  = @"EkkoCloudAPIURL";
+static NSString *const kEkkolabsShareURL = @"EkkolabsShareURL";
 
 // Arclight API
 static NSString *const kArclightAPIURL = @"ArclightAPIURL";
@@ -41,13 +41,21 @@ static NSString *const kGoogleAnalyticsTrackingID = @"GoogleAnalyticsTrackingID"
     self = [super init];
     if (self) {
         NSString *configFilePath = [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"];
-        NSDictionary *configuration = [NSDictionary dictionaryWithContentsOfFile:configFilePath];
+        NSMutableDictionary *configuration = [NSMutableDictionary dictionaryWithContentsOfFile:configFilePath];
+
+#ifdef EKKOLABS_DEBUG
+        // Overrride default values with development settings
+        NSString *devConfigFilePath = [[NSBundle mainBundle] pathForResource:@"Config.dev" ofType:@"plist"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:devConfigFilePath]) {
+            [configuration addEntriesFromDictionary:[NSDictionary dictionaryWithContentsOfFile:devConfigFilePath]];
+        }
+#endif
 
         _theKeyOAuth2ClientID = [configuration objectForKey:kTheKeyOAuth2ClientID];
         _theKeyOAuth2ServerURL = [NSURL URLWithString:[configuration objectForKey:kTheKeyOAuth2ServerURL]];
 
-        _ekkolabsVersion = [configuration objectForKey:kEkkolabsVersion];
         _ekkoCloudAPIURL = [NSURL URLWithString:[configuration objectForKey:kEkkoCloudAPIURL]];
+        _ekkolabsShareURL = [NSURL URLWithString:[configuration objectForKey:kEkkolabsShareURL]];
 
         _arclightAPIKey = [configuration objectForKey:kArclightAPIKey];
         _arclightAPIURL = [NSURL URLWithString:[configuration objectForKey:kArclightAPIURL]];

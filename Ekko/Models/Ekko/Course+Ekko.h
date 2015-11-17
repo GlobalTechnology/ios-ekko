@@ -16,6 +16,15 @@ typedef NS_ENUM(NSUInteger, CourseEnrollmentType) {
     CourseEnrollmentApproval = 3,
 };
 
+typedef NS_OPTIONS (NSUInteger, CourseActions) {
+    CourseActionNone     = 0,
+    CourseActionEnroll   = 1 << 0,
+    CourseActionUnenroll = 1 << 1,
+    CourseActionRequest  = 1 << 2,
+    CourseActionShow     = 1 << 3,
+    CourseActionHide     = 1 << 4,
+};
+
 @interface Course (Ekko)
 
 @property (nonatomic) CourseEnrollmentType enrollmentType;
@@ -24,5 +33,7 @@ typedef NS_ENUM(NSUInteger, CourseEnrollmentType) {
 
 -(Permission *)permissionForGUID:(NSString *)guid;
 -(Resource *)bannerResource;
+
+-(CourseActions)courseActions;
 
 @end

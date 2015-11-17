@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) Manifest *manifest;
 
++(UIViewController *)allocWithRouterParams:(NSDictionary *)params;
+
 @end

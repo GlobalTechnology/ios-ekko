@@ -2,7 +2,7 @@
 //  Course.m
 //  Ekko
 //
-//  Created by Brian Zoetewey on 2/7/14.
+//  Created by Brian Zoetewey on 7/31/14.
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
@@ -20,7 +20,11 @@
 @dynamic courseVersion;
 @dynamic internalEnrollmentType;
 @dynamic publicCourse;
-@dynamic permissions;
+@dynamic authorName;
+@dynamic authorEmail;
+@dynamic authorUrl;
+@dynamic courseCopyright;
 @dynamic banner;
+@dynamic permissions;
 
 @end

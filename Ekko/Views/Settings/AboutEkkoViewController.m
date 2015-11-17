@@ -16,6 +16,12 @@
 
 @implementation AboutEkkoViewController
 
++(id)allocWithRouterParams:(NSDictionary *)params {
+    UIStoryboard *storyboard = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] storyboard];
+    AboutEkkoViewController *aboutController = [storyboard instantiateViewControllerWithIdentifier:@"aboutEkkoViewController"];
+    return aboutController;
+}
+
 -(void)viewDidLoad {
     [super viewDidLoad];
     

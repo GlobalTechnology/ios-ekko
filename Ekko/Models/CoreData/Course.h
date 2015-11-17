@@ -2,7 +2,7 @@
 //  Course.h
 //  Ekko
 //
-//  Created by Brian Zoetewey on 2/7/14.
+//  Created by Brian Zoetewey on 7/31/14.
 //  Copyright (c) 2014 Ekko Project. All rights reserved.
 //
 
@@ -20,8 +20,12 @@
 @property (nonatomic, retain) NSNumber * courseVersion;
 @property (nonatomic, retain) NSNumber * internalEnrollmentType;
 @property (nonatomic, retain) NSNumber * publicCourse;
-@property (nonatomic, retain) NSSet *permissions;
+@property (nonatomic, retain) NSString * authorName;
+@property (nonatomic, retain) NSString * authorEmail;
+@property (nonatomic, retain) NSString * authorUrl;
+@property (nonatomic, retain) NSString * courseCopyright;
 @property (nonatomic, retain) Banner *banner;
+@property (nonatomic, retain) NSSet *permissions;
 @end
 
 @interface Course (CoreDataGeneratedAccessors)

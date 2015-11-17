@@ -11,6 +11,8 @@
 #import "CourseDrawerViewController.h"
 #import "UIImage+Ekko.h"
 
+#import "ManifestManager.h"
+
 #import <GoogleAnalytics-iOS-SDK/GAI.h>
 #import <GoogleAnalytics-iOS-SDK/GAIFields.h>
 #import <GoogleAnalytics-iOS-SDK/GAIDictionaryBuilder.h>
@@ -18,6 +20,17 @@
 @implementation CourseViewController
 
 @synthesize manifest    = _manifest;
+
++(UIViewController *)allocWithRouterParams:(NSDictionary *)params {
+    UIStoryboard *storyboard = [[[[[UIApplication sharedApplication] delegate] window] rootViewController] storyboard];
+    CourseViewController *courseViewController = [storyboard instantiateViewControllerWithIdentifier:@"courseViewController"];
+    [[ManifestManager manifestManager] getManifest:[params objectForKey:@"courseId"] withOptions:0 completeBlock:^(Manifest *manifest) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [courseViewController setManifest:manifest];
+        });
+    }];
+    return courseViewController;
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];

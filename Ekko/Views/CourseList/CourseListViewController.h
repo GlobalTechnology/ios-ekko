@@ -14,4 +14,6 @@
 
 @property (nonatomic) EkkoCoursesFetchType coursesFetchType;
 
++(id)allocWithRouterParams:(NSDictionary *)params;
+
 @end

@@ -19,6 +19,7 @@
 #import "UIColor+Ekko.h"
 
 #import <TheKeyOAuth2Client.h>
+#import <Routable/Routable.h>
 
 static const int insetViewTag = 1;
 
@@ -70,32 +71,15 @@ static const int insetViewTag = 1;
     //Build ActionSheet
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.course.courseTitle delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
     Permission *permission = self.course.permission;
+
+    CourseActions actions = [self.course courseActions];
     
-    BOOL enroll = NO;
-    BOOL unenroll = NO;
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"About Course", nil)];
     
-    if (permission.enrolled) {
-        unenroll = YES;
-    }
-    else {
-        enroll = YES;
-    }
-    
-    switch (self.course.enrollmentType) {
-        case CourseEnrollmentOpen:
-            break;
-        case CourseEnrollmentApproval:
-        case CourseEnrollmentDisabled:
-        default:
-            enroll = NO;
-            unenroll = NO;
-            break;
-    }
-    
-    if (enroll) {
+    if (actions & CourseActionEnroll) {
         [actionSheet addButtonWithTitle:NSLocalizedString(@"Enroll in Course", nil)];
     }
-    else if (unenroll) {
+    else if (actions & CourseActionUnenroll) {
         [actionSheet setDestructiveButtonIndex:[actionSheet addButtonWithTitle:NSLocalizedString(@"Unenroll from Course", nil)]];
     }
     
@@ -126,7 +110,8 @@ static const int insetViewTag = 1;
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Enroll in Course", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] enrollInCourse:self.course.courseId complete:^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.owner performSegueWithIdentifier:@"courseSegue" sender:self.course];
+                [[Routable sharedRouter] open:[NSString stringWithFormat:@"manifest/%@", self.course.courseId] animated:YES];
+//                [self.owner performSegueWithIdentifier:@"courseSegue" sender:self.course];
             });
         }];
     }
@@ -138,6 +123,9 @@ static const int insetViewTag = 1;
     }
     else if ([buttonTitle isEqualToString:NSLocalizedString(@"Show in My Courses", nil)]) {
         [[CourseManager courseManagerForGUID:[TheKeyOAuth2Client sharedOAuth2Client].guid] showCourseInMyCourses:self.course.courseId complete:^{}];
+    }
+    else if ([buttonTitle isEqualToString:NSLocalizedString(@"About Course", nil)]) {
+        [[Routable sharedRouter] open:[NSString stringWithFormat:@"course/%@", self.course.courseId]];
     }
 }
 
